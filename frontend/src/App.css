@@ -1,38 +1,9 @@
-.App {
-  text-align: center;
+:where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table-thead >tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table-thead >tr>td {
+  background: #f0f0f0;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-content >table >thead>tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-header >table >thead>tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-body >table >thead>tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-summary >table >thead>tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-content >table >thead>tr>td, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-header >table >thead>tr>td, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-body >table >thead>tr>td, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-summary >table >thead>tr>td, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-content >table >tbody>tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-header >table >tbody>tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-body >table >tbody>tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-summary >table >tbody>tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-content >table >tbody>tr>td, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-header >table >tbody>tr>td, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-body >table >tbody>tr>td, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-summary >table >tbody>tr>td, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-content >table >tfoot>tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-header >table >tfoot>tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-body >table >tfoot>tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-summary >table >tfoot>tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-content >table >tfoot>tr>td, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-header >table >tfoot>tr>td, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-body >table >tfoot>tr>td, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-summary >table >tfoot>tr>td {
+  border-inline-end: 1px solid #dddddd;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+:where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table-tbody >tr >th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table-tbody >tr >td{
+  border-bottom: 1px solid #dddddd;
 }
