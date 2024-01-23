@@ -4,7 +4,7 @@ import '../../basic.css'
 const { Search } = Input;
 
 const BtnBlack = ({ value, link }) => {
-// <BtnBlack value={'검정'} link={'/black'} />
+  // <BtnBlack value={'검정'} link={'/black'} />
 
   return (
     <ConfigProvider
@@ -25,7 +25,7 @@ const BtnBlack = ({ value, link }) => {
 };
 
 const BtnBlue = ({ value, link }) => {
-// <BtnBlue value={'파랑'} link={'/blue'} />
+  // <BtnBlue value={'파랑'} link={'/blue'} />
 
   return (
     <ConfigProvider
@@ -42,7 +42,7 @@ const BtnBlue = ({ value, link }) => {
 };
 
 const BtnWhite = ({ value, link }) => {
-// <BtnWhite value={'흰색'} link={'/white'} />
+  // <BtnWhite value={'흰색'} link={'/white'} />
   return (
     <Flex gap='small' wrap='wrap'>
       <Button href={`${link}`}>{value}</Button>
@@ -51,47 +51,50 @@ const BtnWhite = ({ value, link }) => {
 };
 
 const BtnFilter = ({ valueArr, linkArr }) => {
-// <BtnFilter valueArr={['완료', '전체']} linkArr={['/complete', '/all']} />
+  // <BtnFilter valueArr={['완료', '전체']} linkArr={['/complete', '/all']} />
   const [activeBtns, setActiveBtns] = useState(Array(valueArr.length).fill(false));
-  
+
   const filterClickHandler = (index) => {
     // 클릭시 기능 구현 핸들러
     const newActiveBtns = [...activeBtns];
     newActiveBtns[index] = !newActiveBtns[index];
     setActiveBtns(newActiveBtns);
   }
-  
+
   return (
-  <ConfigProvider
-    theme={{
-      token: {
-        colorPrimaryHover: '#d9d9d9',
-        colorPrimaryActive: '#d9d9d9',
-      },
-    }}>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimaryHover: '#d9d9d9',
+          colorPrimaryActive: '#d9d9d9',
+        },
+      }}>
       <Flex gap='small' wrap='wrap'>
-      {valueArr.map((value, index) => {
-        return (<Button shape='round' href={linkArr[index]}  onClick={() => filterClickHandler(index)}
-        className={activeBtns[index] ? 'filter-active' : ''} key={index}>
-          {value}
-      </Button>
-      )})
-      }
-    </Flex>
-  </ConfigProvider>
-  )};
+        {valueArr.map((value, index) => {
+          return (<Button shape='round' href={linkArr[index]} onClick={() => filterClickHandler(index)}
+            className={activeBtns[index] ? 'filter-active' : ''} key={index}>
+            {value}
+          </Button>
+          )
+        })
+        }
+      </Flex>
+    </ConfigProvider>
+  )
+};
 
 const InputBar = ({ placeholderMsg, inputId, value }) => {
   return (
-    <Input placeholder={`${placeholderMsg}`} id={inputId} value={value} style={{width:'200px'}} />
+    <Input placeholder={`${placeholderMsg}`} id={inputId} value={value} style={{ width: '200px' }} />
   )
 };
 
 const onSearch = (value, _e, info) => {
+  // search 값 기능 구현 함수
   console.log(info?.source, value);
 }
 
-const SearchInput = () => {
+const SearchInput = ({ onSearch }) => {
   return (
     <ConfigProvider
       theme={{
@@ -104,15 +107,15 @@ const SearchInput = () => {
           },
         },
       }}>
-    <Space direction='vertical'>
-      <Search
-        placeholder='검색어를 입력하세요.'
-        allowClear
-        enterButton='검색'
-        onSearch={onSearch}
-        style={{width:'250px'}}
-      />
-    </Space>
+      <Space direction='vertical'>
+        <Search
+          placeholder='검색어를 입력하세요.'
+          allowClear
+          enterButton='검색'
+          onSearch={onSearch}
+          style={{ width: '250px' }}
+        />
+      </Space>
     </ConfigProvider>
   )
 };
@@ -124,7 +127,7 @@ const SelectChangeHandler = (value) => {
 };
 
 const SearchSelectBox = ({ selectValue, SelectChangeHandler }) => {
-// value 값 배열로 넘기기 <SearchSelectBox selectValue={['가', '나', '다']} SelectChangeHandler={SelectChangeHandler} /> 
+  // value 값 배열로 넘기기 <SearchSelectBox selectValue={['가', '나', '다']} SelectChangeHandler={SelectChangeHandler} /> 
 
   return (
     <Space wrap>
@@ -144,9 +147,9 @@ const SearchSelectBox = ({ selectValue, SelectChangeHandler }) => {
   )
 };
 
-const StepBar = ({stateNum}) => {
-// stateNum 값은 정수 1,2,3,4
-// <StepBar stateNum={1} />
+const StepBar = ({ stateNum }) => {
+  // stateNum 값은 정수 1,2,3,4
+  // <StepBar stateNum={1} />
 
   return (
     <ConfigProvider
@@ -175,7 +178,7 @@ const StepBar = ({stateNum}) => {
             title: '완료',
           },
         ]}
-        style={{width: 880}}
+        style={{ width: 880 }}
       />
     </ConfigProvider>
   )
