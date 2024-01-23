@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Flex, Input, Space, Steps, Select, ConfigProvider } from 'antd';
 import '../../basic.css'
 const { Search } = Input;
 
 const BtnBlack = ({ value, link }) => {
-  
+// <BtnBlack value={'검정'} link={'/black'} />
+
   return (
     <ConfigProvider
       theme={{
@@ -24,6 +25,7 @@ const BtnBlack = ({ value, link }) => {
 };
 
 const BtnBlue = ({ value, link }) => {
+// <BtnBlue value={'파랑'} link={'/blue'} />
 
   return (
     <ConfigProvider
@@ -40,7 +42,7 @@ const BtnBlue = ({ value, link }) => {
 };
 
 const BtnWhite = ({ value, link }) => {
-
+// <BtnWhite value={'흰색'} link={'/white'} />
   return (
     <Flex gap='small' wrap='wrap'>
       <Button href={`${link}`}>{value}</Button>
@@ -48,12 +50,17 @@ const BtnWhite = ({ value, link }) => {
   )
 };
 
-const filterClickHandler = (e) => {
-
-}
-
-const BtnFilter = ({ value, link }) => {
-
+const BtnFilter = ({ valueArr, linkArr }) => {
+// <BtnFilter valueArr={['완료', '전체']} linkArr={['/complete', '/all']} />
+  const [activeBtns, setActiveBtns] = useState(Array(valueArr.length).fill(false));
+  
+  const filterClickHandler = (index) => {
+    // 클릭시 기능 구현 핸들러
+    const newActiveBtns = [...activeBtns];
+    newActiveBtns[index] = !newActiveBtns[index];
+    setActiveBtns(newActiveBtns);
+  }
+  
   return (
   <ConfigProvider
     theme={{
@@ -61,15 +68,18 @@ const BtnFilter = ({ value, link }) => {
         colorPrimaryHover: '#d9d9d9',
         colorPrimaryActive: '#d9d9d9',
       },
-    }}
-  >
-
-    <Flex gap='small' wrap='wrap'>
-      <Button shape='round' href={`${link}`} onClick={filterClickHandler} id='btnFilter'>{value}</Button>
+    }}>
+      <Flex gap='small' wrap='wrap'>
+      {valueArr.map((value, index) => {
+        return (<Button shape='round' href={linkArr[index]}  onClick={() => filterClickHandler(index)}
+        className={activeBtns[index] ? 'filter-active' : ''} key={index}>
+          {value}
+      </Button>
+      )})
+      }
     </Flex>
   </ConfigProvider>
-  )
-};
+  )};
 
 const InputBar = ({ placeholderMsg, inputId, value }) => {
   return (
@@ -107,41 +117,37 @@ const SearchInput = () => {
   )
 };
 
-// const handleChange = (value) => {
-//   console.log(`selected ${value}`);
-// };
+const SelectChangeHandler = (value) => {
+  console.log(`selected ${value}`);
+  // select 값 선택시 기능 구현 핸들러
+  // 각 페이지에서 구현해주세요
+};
 
-// const SearchSelectBox = ({value}) => {
+const SearchSelectBox = ({ selectValue, SelectChangeHandler }) => {
+// value 값 배열로 넘기기 <SearchSelectBox selectValue={['가', '나', '다']} SelectChangeHandler={SelectChangeHandler} /> 
 
-//   return (
-//     <Space wrap>
-//       <Select
-//         defaultValue={value[0]}
-//         style={{
-//           width: 120,
-//         }}
-//         onChange={handleChange}
-//         options={[
-//           {
-//             value: { value[0] },
-//             label: { value[0] },
-//           },
-//           {
-//             value: { value[1] },
-//             label: { value[1] },
-//           },
-//           {
-//             value: { value[2] },
-//             label: { value[2] },
-//           },
-//         ]}
-//       />
-//     </ Space>
-//   )
-// };
+  return (
+    <Space wrap>
+      <Select
+        defaultValue={selectValue[0]}
+        style={{
+          width: 120,
+        }}
+        onChange={SelectChangeHandler}
+        options={selectValue.map((e, index) => ({
+          value: `${e}`,
+          label: `${e}`,
+          key: index,
+        }))}
+      />
+    </ Space>
+  )
+};
 
 const StepBar = ({stateNum}) => {
 // stateNum 값은 정수 1,2,3,4
+// <StepBar stateNum={1} />
+
   return (
     <ConfigProvider
       theme={{
@@ -175,5 +181,4 @@ const StepBar = ({stateNum}) => {
   )
 };
 
-// export { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, SearchSelectBox, StepBar };
-export { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, StepBar };
+export { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, SearchSelectBox, StepBar };

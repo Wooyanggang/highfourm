@@ -1,4 +1,4 @@
-#btnFilter:active {
+.filter-active {
     background-color: #d9d9d9;
     color: #000;
 }
