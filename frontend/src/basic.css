@@ -11,3 +11,7 @@
     background-color: #fff;
     border-color: #d9d9d9;
 }
+
+:where(.css-dev-only-do-not-override-1qhpsh8).ant-menu-light.ant-menu-root.ant-menu-inline{
+    border-inline-end: 0;
+}
