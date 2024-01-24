@@ -52,7 +52,7 @@ const ProductManagement = () => {
       dataIndex: 'operation',
     },
   ];
-  
+
   const defaultColumnsTwo = [
     {
       title: '월',
@@ -91,7 +91,6 @@ const ProductManagement = () => {
 
   return (
     <div>
-      {/* <Container title={'생산 계획 수립'}> */}
       <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
         <SearchSelectBox selectValue={['생산계획 코드', '품명', '주문일']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />
@@ -99,20 +98,18 @@ const ProductManagement = () => {
       <div style={{ marginBottom: '24px' }}>
         <BtnBlack value={'생산계획 등록'} onClick={handleAdd} />
       </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px 19px' }}>
+      <div style={{ display: 'flex', gap: '24px 19px' }}>
         <div style={{ paddingRight: '20px' }}>
-        <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
+          <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
         </div>
-        <div style={{ border: '1px solid #d9d9d9', width: '650px', height: '782px', padding: '40px 45px' }}>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <h2 style={{ fontSize: '16px' }}>월별 생산 계획</h2>
-            <hr style={{ color: '#000', width: '520px', marginLeft: '20px' }} />
+        <div className='bordered-box'>
+          <div className='bordered-box-title' style={{ marginBottom: '30px' }}>
+            <h2 className='bordered-box-title'>월별 생산 계획</h2>
+            <hr className='box-title-line' />
           </div>
           <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsTwo} setDataSource={setDataSource} />
         </div>
       </div>
-
-      {/* </ Container> */}
     </div>
   )
 }
