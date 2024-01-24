@@ -231,13 +231,13 @@ const OrderList = () => {
       <SearchInput></SearchInput>
       <onSearch></onSearch>
       <BtnBlack value={'주문 등록'} onClick={() => window.location.href='/orders/new'}/>
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+{/*       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <BtnFilter value={'전체'} link={'/'}>done</BtnFilter>
         <BtnFilter value={'미확인'} link={'/'}>done</BtnFilter>
         <BtnFilter value={'확인'} link={'/'}>done</BtnFilter>
         <BtnFilter value={'진행중'} link={'/'}>done</BtnFilter>
         <BtnFilter value={'완료'} link={'/'}>done</BtnFilter>
-      </div>
+      </div> */}
       <BasicTable 
       dataSource={dataSource} defaultColumns={defaultColumns} 
       onDelete={handleDelete} setDataSource={setDataSource}

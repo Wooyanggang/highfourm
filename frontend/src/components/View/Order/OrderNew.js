@@ -40,24 +40,20 @@ const OrderList = () => {
     {
       title: '수량',
       dataIndex: 'amount',
-      width: '150px',
       editable: true,
     },
     {
       title: '단가(원)',
       dataIndex: 'unitPrice',
-      width: '150px',
       editable: true,
     },
     {
       title: '합(원)',
       dataIndex: 'price',
-      width: '150px',
     },
     {
       title: '삭제',
       dataIndex: 'operation',
-      width: '100px',
       render: (_, record) =>
         dataSource.length >= 1 ? (
           <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
@@ -68,7 +64,7 @@ const OrderList = () => {
   ];
   return (
     <>
-      <div style={{ width: '700px', height: '100px', }}>
+      <div style={{ width: '750px', height: '100px', }}>
         <form>
           <div class="order">
             <div class="grid-item">
