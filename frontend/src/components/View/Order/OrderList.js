@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { AudioOutlined } from '@ant-design/icons';
 import { Input, Space } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Dropdown, message, Tooltip, Popconfirm, Table, FLex} from 'antd';
+import { Button, Dropdown, message, Tooltip, Popconfirm, Table, FLex } from 'antd';
 import { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, StepBar } from '../../Common/Module';
-import BasicTable  from '../../Common/Table/BasicTable';
+import BasicTable from '../../Common/Table/BasicTable';
 const { Search } = Input;
 const suffix = (
   <AudioOutlined
@@ -60,7 +60,7 @@ const OrderList = () => {
       vender: '32',
       manager: '김삼식',
       product: '테스트',
-      orderDate: '2023-05-06' ,
+      orderDate: '2023-05-06',
       dueDate: '2024-01-01',
       orderPrice: '7000000',
       registerState: '진행 중',
@@ -71,7 +71,7 @@ const OrderList = () => {
       vender: '32',
       manager: 'London, Park Lane no. 0',
       product: '테스트',
-      orderDate: '2023-05-06' ,
+      orderDate: '2023-05-06',
       dueDate: '2024-01-01',
       orderPrice: '7000000',
       registerState: '진행 중',
@@ -82,7 +82,7 @@ const OrderList = () => {
       vender: '32',
       manager: 'London, Park Lane no. 0',
       product: '테스트',
-      orderDate: '2023-05-06' ,
+      orderDate: '2023-05-06',
       dueDate: '2024-01-01',
       orderPrice: '7000000',
       registerState: '진행 중',
@@ -93,7 +93,7 @@ const OrderList = () => {
       vender: '32',
       manager: 'London, Park Lane no. 0',
       product: '테스트',
-      orderDate: '2023-05-06' ,
+      orderDate: '2023-05-06',
       dueDate: '2024-01-01',
       orderPrice: '7000000',
       registerState: '진행 중',
@@ -104,7 +104,7 @@ const OrderList = () => {
       vender: '32',
       manager: 'London, Park Lane no. 0',
       product: '테스트',
-      orderDate: '2023-05-06' ,
+      orderDate: '2023-05-06',
       dueDate: '2024-01-01',
       orderPrice: '7000000',
       registerState: '진행 중',
@@ -115,7 +115,7 @@ const OrderList = () => {
       vender: '32',
       manager: 'London, Park Lane no. 0',
       product: '테스트',
-      orderDate: '2023-05-06' ,
+      orderDate: '2023-05-06',
       dueDate: '2024-01-01',
       orderPrice: '7000000',
       registerState: '진행 중',
@@ -126,7 +126,7 @@ const OrderList = () => {
       vender: '32',
       manager: 'London, Park Lane no. 0',
       product: '테스트',
-      orderDate: '2023-05-06' ,
+      orderDate: '2023-05-06',
       dueDate: '2024-01-01',
       orderPrice: '7000000',
       registerState: '진행 중',
@@ -137,7 +137,7 @@ const OrderList = () => {
       vender: '32',
       manager: 'London, Park Lane no. 0',
       product: '테스트',
-      orderDate: '2023-05-06' ,
+      orderDate: '2023-05-06',
       dueDate: '2024-01-01',
       orderPrice: '7000000',
       registerState: '진행 중',
@@ -148,7 +148,7 @@ const OrderList = () => {
       vender: '32',
       manager: 'London, Park Lane no. 0',
       product: '테스트',
-      orderDate: '2023-05-06' ,
+      orderDate: '2023-05-06',
       dueDate: '2024-01-01',
       orderPrice: '7000000',
       registerState: '진행 중',
@@ -159,7 +159,7 @@ const OrderList = () => {
       vender: '32',
       manager: 'London, Park Lane no. 0',
       product: '테스트',
-      orderDate: '2023-05-06' ,
+      orderDate: '2023-05-06',
       dueDate: '2024-01-01',
       orderPrice: '7000000',
       registerState: '진행 중',
@@ -170,13 +170,13 @@ const OrderList = () => {
       vender: '32',
       manager: 'London, Park Lane no. 0',
       product: '테스트',
-      orderDate: '2023-05-06' ,
+      orderDate: '2023-05-06',
       dueDate: '2024-01-01',
       orderPrice: '7000000',
       registerState: '진행 중',
     },
   ]);
-  
+
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
@@ -218,6 +218,7 @@ const OrderList = () => {
       dataIndex: 'registerState',
     },
   ];
+
   return (
     <>
       <Dropdown menu={menuProps}>
@@ -230,17 +231,17 @@ const OrderList = () => {
       </Dropdown>
       <SearchInput></SearchInput>
       <onSearch></onSearch>
-      <BtnBlack value={'주문 등록'} onClick={() => window.location.href='/orders/new'}/>
-{/*       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <BtnFilter value={'전체'} link={'/'}>done</BtnFilter>
-        <BtnFilter value={'미확인'} link={'/'}>done</BtnFilter>
-        <BtnFilter value={'확인'} link={'/'}>done</BtnFilter>
-        <BtnFilter value={'진행중'} link={'/'}>done</BtnFilter>
-        <BtnFilter value={'완료'} link={'/'}>done</BtnFilter>
-      </div> */}
-      <BasicTable 
-      dataSource={dataSource} defaultColumns={defaultColumns} 
-      onDelete={handleDelete} setDataSource={setDataSource}
+      <div style={{ display: 'flex' }}>
+        <div>
+          <BtnBlack value={'주문 등록'} onClick={() => window.location.href = '/orders/new'} />
+        </div>
+        <div>
+          <BtnFilter valueArr={['전체', '미확인', '확인', '진행중', '완료']} linkArr={['']} />
+        </div>
+      </div>
+      <BasicTable
+        dataSource={dataSource} defaultColumns={defaultColumns}
+        onDelete={handleDelete} setDataSource={setDataSource}
       ></BasicTable>
     </>
   )

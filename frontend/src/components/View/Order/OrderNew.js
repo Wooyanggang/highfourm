@@ -20,9 +20,10 @@ const OrderList = () => {
   const [dataSource, setDataSource] = useState([]);
 
   const addOrderProduct = () => {
-    setDataSource([...dataSource, { productName: '', amount: '', unitPrice: '' }]);
+    setDataSource([...dataSource, { productName: 'ㅇㅇ', amount: '', unitPrice: '' }]);
     console.log('클릭됨');
     console.log('dataSource: ' + dataSource);
+    console.log('dataSource: ' + dataSource[dataSource.length -1]);
   }
 
   const handleDelete = (key) => {
@@ -56,7 +57,7 @@ const OrderList = () => {
       dataIndex: 'operation',
       render: (_, record) =>
         dataSource.length >= 1 ? (
-          <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
+          <Popconfirm title="삭제하시겠습니까?" onConfirm={() => handleDelete(record.key)}>
             <a>Delete</a>
           </Popconfirm>
         ) : null,
