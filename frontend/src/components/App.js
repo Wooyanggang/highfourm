@@ -1,6 +1,7 @@
 import React from 'react';
 import SideBar from './Common/SideBar';
 import Login from './View/Login/Login';
+import Notice from './View/Login/Notice';
 import Container from './Common/Container';
 import { Layout, Menu, theme, Breadcrumb } from 'antd';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
@@ -13,7 +14,8 @@ function App() {
   } = theme.useToken();
 
   if (window.location.pathname === '/') {
-    return (<div><Login /></div>)
+    //return (<div><Login /></div>)
+    return (<div><Notice /></div>)
   } else {
     return (
       <div className="App" style={{ position: 'relative' }}>
@@ -30,7 +32,7 @@ function App() {
           <div>
             <Router>
               <Routes>
-                <Route path='orders' element={<OrderList />} />
+                <Route path='/orders' element={<OrderList />} />
               </Routes>
             </Router>
           </div>
