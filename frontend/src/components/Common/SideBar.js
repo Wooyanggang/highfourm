@@ -5,7 +5,6 @@ import {
   faFilePen, faListCheck, faTable, faIndustry, faCalculator, c, faChartSimple,
   faChartLine, faUserGroup, faRightFromBracket
 } from '@fortawesome/free-solid-svg-icons'
-import '../../basic.css';
 
 const SideBar = () => {
   function getItem(label, key, icon, children) {

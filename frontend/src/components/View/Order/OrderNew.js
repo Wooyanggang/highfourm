@@ -19,8 +19,8 @@ const suffix = (
 const OrderList = () => {
   const [dataSource, setDataSource] = useState([]);
 
-  const addOrderProduct = () =>{
-    setDataSource([...dataSource,{productName: '',amount: '', unitPrice: ''}]);
+  const addOrderProduct = () => {
+    setDataSource([...dataSource, { productName: '', amount: '', unitPrice: '' }]);
     console.log('클릭됨');
     console.log('dataSource: ' + dataSource);
   }
@@ -64,38 +64,33 @@ const OrderList = () => {
   ];
   return (
     <>
-      <div style={{ width: '750px', height: '100px', }}>
-        <form>
-          <div class="order">
-            <div class="grid-item">
-              <span>
+      <div style={{ width: '750px' }}>
+        <div className='work-perfomance-page'>
+          <form action='' className='search-form'>
+            <div className='search-input-wrap'>
+              <div className='search-input'>
                 <label for="vender">거래처명</label>
-                <InputBar placeholderMsg={'거래처명'} inputId={'vender'} />
-              </span>
-              <span>
+                <InputBar placeholderMsg={'거래처명'} id={'vender'} />
+              </div>
+              <div className='search-input'>
                 <label for="manager">담당자</label>
-                <InputBar placeholderMsg={'manager'} inputId={'manager'} />
-              </span>
+                <InputBar placeholderMsg={'manager'} id={'manager'} />
+              </div>
             </div>
-            <div class="grid-item">
-              <span>
+            <div className='search-input-wrap'>
+              <div className='search-input'>
                 <label for="orderDate">주문일</label>
                 <InputBar placeholderMsg={'orderDate'} inputId={'orderDate'} />
-              </span>
-              <span>
+              </div>
+              <div className='search-input'>
                 <label for="dueDate">납기일</label>
                 <InputBar placeholderMsg={'dueDate'} inputId={'dueDate'} />
-              </span>
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
-      <div style={{width: '750px'}}>
-        <BasicTable
-          dataSource={dataSource} defaultColumns={defaultColumns}
-          onDelete={handleDelete} setDataSource={setDataSource}
-        ></BasicTable>
-        <BtnBlack value={'제품 추가'} onClick={() => addOrderProduct()} />
+          </form>
+          <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} />
+          <BtnBlack value={'제품 추가'} onClick={() => addOrderProduct()} />
+        </div>
       </div>
     </>
   )

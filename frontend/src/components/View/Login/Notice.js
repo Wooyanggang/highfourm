@@ -1,7 +1,7 @@
 import { Button, Col, Layout, Row, Typography } from 'antd';
 import { ExclamationCircleOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import React from 'react';
-import '../../../login.css';
+import '../../../App.css';
 
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;

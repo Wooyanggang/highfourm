@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Container from '../../Common/Container';
-import '../../../basic.css'
 import { BtnBlue, BtnWhite, InputBar } from '../../Common/Module';
 
 const UserNew = () => {

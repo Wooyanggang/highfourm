@@ -98,7 +98,7 @@ const Mrp = () => {
         <SearchInput onSearch={onSearch} />
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px 19px'}}>
-        <div className='box'>
+        <div className='bordered-box'>
           <div className='box-title'>
             <h2 className='box-title'>생산계획 상세</h2>
             <hr style={{ color: '#000', width: '525px', marginLeft: '20px' }} />

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Flex, Input, Space, Steps, Select, ConfigProvider } from 'antd';
-import '../../basic.css'
 const { Search } = Input;
 
 const BtnBlack = ({ value, onClick, type }) => {
