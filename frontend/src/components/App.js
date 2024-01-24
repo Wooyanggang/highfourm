@@ -1,21 +1,27 @@
 import React from 'react';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Layout, Menu, theme, Breadcrumb } from 'antd';
 import SideBar from './Common/SideBar';
 import Login from './View/Login/Login';
 import Notice from './View/Login/Notice';
 import Container from './Common/Container';
-import { Layout, Menu, theme, Breadcrumb } from 'antd';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import OrderList from './View/Order/OrderList'
 const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
+  const clientId = '362376129818-apm2mmh54l58gskanrm2hufa2emfdov2.apps.googleusercontent.com';
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
   if (window.location.pathname === '/') {
-    //return (<div><Login /></div>)
-    return (<div><Notice /></div>)
+    return (
+      <GoogleOAuthProvider clientId={clientId}>
+        <Login />
+        </GoogleOAuthProvider>
+    )
+    //return (<div><Notice /></div>)
   } else {
     return (
       <div className="App" style={{ position: 'relative' }}>
