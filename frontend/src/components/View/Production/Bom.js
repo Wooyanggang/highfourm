@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import BasicTable from "./common/table/BasicTable";
-import { Button } from "antd";
+import { Button, Popconfirm } from "antd";
 
-function bom() {
+function Bom() {
   const [dataSource, setDataSource] = useState([
     {
       key: '0',
@@ -52,11 +52,10 @@ function bom() {
 
   return (
     <div>
-        <SearchCategoryForm></SearchCategoryForm>
         <Button>등록</Button>
         <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} />
     </div>
   );
 }
 
-export default bom
+export default Bom

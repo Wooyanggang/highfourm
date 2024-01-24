@@ -3,8 +3,8 @@ import { Button, Flex, Input, Space, Steps, Select, ConfigProvider } from 'antd'
 import '../../basic.css'
 const { Search } = Input;
 
-const BtnBlack = ({ value, link }) => {
-  // <BtnBlack value={'검정'} link={'/black'} />
+const BtnBlack = ({ value, onClick, type }) => {
+  // <BtnBlack value={'검정'} onClick={onClick} />
 
   return (
     <ConfigProvider
@@ -18,14 +18,14 @@ const BtnBlack = ({ value, link }) => {
         },
       }}>
       <Flex gap='small' wrap='wrap'>
-        <Button href={`${link}`}>{value}</Button>
+        <Button size='large' htmlType={type} onClick={onClick}>{value}</Button>
       </Flex>
     </ConfigProvider>
   )
 };
 
-const BtnBlue = ({ value, link }) => {
-  // <BtnBlue value={'파랑'} link={'/blue'} />
+const BtnBlue = ({ value, onClick, type }) => {
+  // <BtnBlue value={'파랑'} onClick={onClick} />
 
   return (
     <ConfigProvider
@@ -35,29 +35,29 @@ const BtnBlue = ({ value, link }) => {
         }
       }}>
       <Flex gap='small' wrap='wrap'>
-        <Button href={`${link}`}>{value}</Button>
+        <Button size='large' htmlType={type} onClick={onClick}>{value}</Button>
       </Flex>
     </ConfigProvider>
   )
 };
 
-const BtnWhite = ({ value, link }) => {
-  // <BtnWhite value={'흰색'} link={'/white'} />
+const BtnWhite = ({ value, onClick, type }) => {
+  // <BtnWhite value={'흰색'} onClick={onClick} />
   return (
     <Flex gap='small' wrap='wrap'>
-      <Button href={`${link}`}>{value}</Button>
+      <Button size='large' htmlType={type} onClick={onClick}>{value}</Button>
     </Flex>
   )
 };
 
-const BtnFilter = ({ valueArr, linkArr }) => {
+const BtnFilter = ({ valueArr, linkArr, type }) => {
   // <BtnFilter valueArr={['완료', '전체']} linkArr={['/complete', '/all']} />
   const [activeBtns, setActiveBtns] = useState(Array(valueArr.length).fill(false));
 
   const filterClickHandler = (index) => {
     // 클릭시 기능 구현 핸들러
     const newActiveBtns = [...activeBtns];
-    newActiveBtns[index] = !newActiveBtns[index];
+    newActiveBtns[index] = !activeBtns[index];
     setActiveBtns(newActiveBtns);
   }
 
@@ -71,8 +71,8 @@ const BtnFilter = ({ valueArr, linkArr }) => {
       }}>
       <Flex gap='small' wrap='wrap'>
         {valueArr.map((value, index) => {
-          return (<Button shape='round' href={linkArr[index]} onClick={() => filterClickHandler(index)}
-            className={activeBtns[index] ? 'filter-active' : ''} key={index}>
+          return (<Button shape='round' href={linkArr[index]} htmlType={type} onClick={() => filterClickHandler(index)}
+            className={activeBtns[index] ? 'filter-active' : ''} key={index} size='large'>
             {value}
           </Button>
           )
@@ -83,9 +83,14 @@ const BtnFilter = ({ valueArr, linkArr }) => {
   )
 };
 
-const InputBar = ({ placeholderMsg, inputId, value }) => {
+const InputBar = ({ placeholderMsg, id, value, disabled }) => {
+  // disabled={ true | false }
+  if(placeholderMsg == null) {
+    placeholderMsg = '';
+  }
+
   return (
-    <Input placeholder={`${placeholderMsg}`} id={inputId} value={value} style={{ width: '200px' }} />
+    <Input placeholder={`${placeholderMsg}`} id={id} value={value} style={{ width: '200px' }} size='large' disabled={disabled}/>
   )
 };
 
@@ -100,6 +105,7 @@ const SearchInput = ({ onSearch }) => {
       theme={{
         token: {
           colorPrimary: '#d9d9d9',
+          colorTextLightSolid: '#000',
         },
         components: {
           Button: {
@@ -114,6 +120,7 @@ const SearchInput = ({ onSearch }) => {
           enterButton='검색'
           onSearch={onSearch}
           style={{ width: '250px' }}
+          size='large'
         />
       </Space>
     </ConfigProvider>
@@ -134,7 +141,7 @@ const SearchSelectBox = ({ selectValue, SelectChangeHandler }) => {
       <Select
         defaultValue={selectValue[0]}
         style={{
-          width: 120,
+          width: 150,
         }}
         onChange={SelectChangeHandler}
         options={selectValue.map((e, index) => ({
@@ -142,6 +149,7 @@ const SearchSelectBox = ({ selectValue, SelectChangeHandler }) => {
           label: `${e}`,
           key: index,
         }))}
+        size='large'
       />
     </ Space>
   )

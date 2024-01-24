@@ -8,6 +8,7 @@ import ProductManagement from './View/Production/ProductManagement';
 import Mrp from './View/Production/Mrp';
 import UserNew from './View/User/UserNew';
 import UserList from './View/User/UserList';
+import UserEdit from './View/User/UserEdit';
 const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
       <Container />
       <Content
         style={{
-          padding: '152px 0 0 332px',
+          padding: '152px 32px 32px 332px',
           background: colorBgContainer,
           borderRadius: borderRadiusLG,
           boxSizing: 'border-box',
@@ -29,7 +30,7 @@ function App() {
         <div>
           <Router>
             <Routes>
-              <Route path='orders' element={<OrderList />} />
+              <Route path='/orders' element={<OrderList />} />
               <Route path='/users' element={<UserList />} />
               <Route path='/users/new' element={<UserNew />} />
               <Route path='/users/edit' element={<UserEdit />} />

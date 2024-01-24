@@ -11,3 +11,43 @@
     background-color: #fff;
     border-color: #d9d9d9;
 }
+
+div.box {
+    border: 1px solid #d9d9d9;
+    width: 650px; 
+    height: 782px;
+    padding: 40px 45px;
+}
+
+.box-title {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+div.flex-line {
+    display: flex;
+    gap: 165px;
+    margin-bottom: 30px;
+}
+
+div.flex-div {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+div.flex-btn {
+    display: flex;
+    gap: 20px;
+}
+
+label.label-title {
+    font-weight: bold;
+    font-size: 16px;
+    width: 130px;
+}
+
+span.email {
+    font-weight: 500;
+}

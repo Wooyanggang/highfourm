@@ -1,43 +1,58 @@
-import React from 'react'
-import Container from '../../Common/Container'
-import { BtnBlue, BtnWhite, InputBar } from '../../Common/Module'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Container from '../../Common/Container';
+import '../../../basic.css'
+import { BtnBlue, BtnWhite, InputBar } from '../../Common/Module';
 
 const UserNew = () => {
+  const navigate = useNavigate();
+
+  const goBackNavigate = () => {
+    navigate(-1)
+  }
+
   return (
     <div>
-      <Container title={'사용자 등록'}>
-        <form method='post' action='/users'>
-          <div>
-            <label for='empNo'>사번</label>
-            <InputBar inputId={'empNo'} name='empNo' placeholderMsg={'사번'} />
+      {/* <Container title={'사용자 등록'}> */}
+      <form method='post' action='/users'>
+        <div className='flex-line'>
+          <div className='flex-div'>
+            <label for='empNo' className='label-title'>사번</label>
+            <InputBar inputId={'empNo'} id={'empNo'} placeholderMsg={'사번'} />
           </div>
-          <div>
-            <label for='name'>이름</label>
-            <InputBar inputId={'name'} name='name' placeholderMsg={'이름'} />
+          <div className='flex-div'>
+            <label for='name' className='label-title'>이름</label>
+            <InputBar inputId={'name'} id={'name'} placeholderMsg={'이름'} />
           </div>
-          <div>
-            <label for='position'>직급</label>
-            <InputBar inputId={'position'} name='position' placeholderMsg={'직급'} />
+        </div>
+        <div className='flex-line'>
+          <div className='flex-div'>
+            <label for='position' className='label-title'>직급</label>
+            <InputBar inputId={'position'} id={'position'} placeholderMsg={'직급'} />
           </div>
-          <div>
-            <label for='birth'>생년월일</label>
-            <InputBar inputId={'birth'} name='birth' placeholderMsg={'생년월일'} />
+          <div className='flex-div'>
+            <label for='birth' className='label-title'>생년월일</label>
+            <InputBar inputId={'birth'} id={'birth'} placeholderMsg={'생년월일'} />
           </div>
-          <div>
-            <label for='email'>이메일 주소</label>
-            <InputBar inputId={'email'} name='email' placeholderMsg={'이메일 주소'} />
-            <span>@gmail.com</span>
-          </div>
-          <div>
-            <label for='emailCheck'>이메일 주소 확인</label>
-            <InputBar inputId={'emailCheck'} name='emailCheck' placeholderMsg={'이메일 주소 확인'} />
-            <span>@gmail.com</span>
-          </div>
+        </div>
+        <div className='flex-div' style={{ marginBottom: '30px' }}>
+          <label for='email' className='label-title'>이메일 주소</label>
+          <InputBar inputId={'email'} id={'email'} placeholderMsg={'이메일 주소'} />
+          <span className='email'>@gmail.com</span>
+        </div>
+        <div className='flex-div' style={{ marginBottom: '30px' }}>
+          <label for='emailCheck' className='label-title'>이메일 주소 확인</label>
+          <InputBar inputId={'emailCheck'} id={'emailCheck'} placeholderMsg={'이메일 주소 확인'} />
+          <span className='email'>@gmail.com</span>
+        </div>
+        <div className='flex-btn'>
           <BtnBlue type='submit' value={'등록하기'} />
-          <BtnWhite value={'취소'} link={history.back()} />
-        </form>
+          <BtnWhite value={'취소'} onClick={goBackNavigate} />
+        </div>
 
-      </ Container>
+      </form>
+
+      {/* </ Container> */}
     </div>
   )
 }

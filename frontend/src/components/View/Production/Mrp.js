@@ -1,9 +1,82 @@
-import React from 'react'
-import Container from '../../Common/Container'
-import { SearchInput, SearchSelectBox } from '../../Common/Module'
-import BasicTable from '../../Common/Table'
+import React, { useState } from 'react';
+import Container from '../../Common/Container';
+import { SearchInput, SearchSelectBox, BtnFilter } from '../../Common/Module';
+import { Popconfirm } from "antd";
+import BasicTable from '../../Common/Table/BasicTable';
 
 const Mrp = () => {
+
+  const [dataSource, setDataSource] = useState([
+    {
+      key: '0',
+      name: 'Edward King 0',
+      age: '32',
+      address: 'London, Park Lane no. 0',
+    },
+    {
+      key: '1',
+      name: 'Edward King 1',
+      age: '32',
+      address: 'London, Park Lane no. 1',
+    },
+  ]);
+
+
+  const defaultColumnsOne = [
+    {
+      title: '납기일',
+      dataIndex: 'name',
+      width: '20%',
+    },
+    {
+      title: '생산계획 코드',
+      dataIndex: 'age',
+    },
+    {
+      title: '품번',
+      dataIndex: 'address',
+    },
+    {
+      title: '품명',
+      dataIndex: 'operation',
+    },
+    {
+      title: '계획 수량',
+      dataIndex: 'operation',
+    },
+  ];
+
+  const defaultColumnsTwo = [
+    {
+      title: '자재명',
+      dataIndex: 'name',
+      width: '20%',
+    },
+    {
+      title: '자재 코드',
+      dataIndex: 'age',
+    },
+    {
+      title: '단위',
+      dataIndex: 'address',
+    },
+    {
+      title: '총 소요 수량',
+      dataIndex: 'operation',
+    },
+    {
+      title: '현 재고',
+      dataIndex: 'operation',
+    },
+    {
+      title: '안전 재고',
+      dataIndex: 'operation',
+    },
+    {
+      title: '입고 예정량',
+      dataIndex: 'operation',
+    },
+  ];
 
   const SelectChangeHandler = (value) => {
     console.log(`selected ${value}`);
@@ -18,23 +91,31 @@ const Mrp = () => {
 
   return (
     <div>
-      <Container title={'자재 소요량 산출'}>
-        <div>
-          <h2>생산계획 조회 조건</h2>
-          <SearchSelectBox selectValue={['생산계획 코드', '품번', '품명', '자재명', '자재코드']} SelectChangeHandler={SelectChangeHandler} />
-          <SearchInput onSearch={onSearch} />
+      {/* <Container title={'자재 소요량 산출'}> */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 24px', marginBottom: '24px', alignItems: 'center' }}>
+        <h2 style={{ fontSize: '16px', margin: 0 }}>생산계획 조회 조건</h2>
+        <SearchSelectBox selectValue={['생산계획 코드', '품번', '품명', '자재명', '자재코드']} SelectChangeHandler={SelectChangeHandler} />
+        <SearchInput onSearch={onSearch} />
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px 19px'}}>
+        <div className='box'>
+          <div className='box-title'>
+            <h2 className='box-title'>생산계획 상세</h2>
+            <hr style={{ color: '#000', width: '525px', marginLeft: '20px' }} />
+          </div>
+            <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
         </div>
-        <div style={{ border: '1px solid #d9d9d9' }}>
-          <h2>생산계획 상세</h2>
-          <hr style={{ color: '#000' }} />
-          <BasicTable></BasicTable>
-        </div>
-        <div style={{ border: '1px solid #d9d9d9' }}>
-          <h2>생산계획 상세</h2>
-          <hr style={{ color: '#000' }} />
-          <BasicTable></BasicTable>
-        </div>
-      </Container>
+          <div className='box'>
+            <div className='box-title'>
+              <h2 className='box-title'>자재소요 계획</h2>
+              <hr style={{ color: '#000', width: '525px', marginLeft: '20px' }} />
+            </div>
+            <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsTwo} setDataSource={setDataSource} />
+          </div>
+        {/* <BtnFilter valueArr={['완료', '전체']} linkArr={['/all', '/c']}></BtnFilter> */}
+      </div>
+      {/* </Container> */}
+
     </div>
   )
 }
