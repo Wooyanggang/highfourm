@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Button, Table } from 'antd';
 import EditableRow from './EditableRow';
 import EditableCell from './EditableCell';
-import '../App.css';
+import '../../../App.css';
 
 const BasicTable = ({ dataSource, defaultColumns, onDelete, setDataSource }) => {
   const [count, setCount] = useState(dataSource.length);

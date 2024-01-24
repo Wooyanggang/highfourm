@@ -3,7 +3,7 @@ import { Button, Flex, Input, Space, Steps, Select, ConfigProvider } from 'antd'
 import '../../basic.css'
 const { Search } = Input;
 
-const BtnBlack = ({ value, link }) => {
+const BtnBlack = ({ value, link, onClick }) => {
   
   return (
     <ConfigProvider
@@ -17,13 +17,13 @@ const BtnBlack = ({ value, link }) => {
         },
       }}>
       <Flex gap='small' wrap='wrap'>
-        <Button href={`${link}`}>{value}</Button>
+        <Button onClick={onClick}>{value}</Button>
       </Flex>
     </ConfigProvider>
   )
 };
 
-const BtnBlue = ({ value, link }) => {
+const BtnBlue = ({ value, link, onClick}) => {
 
   return (
     <ConfigProvider
@@ -33,17 +33,17 @@ const BtnBlue = ({ value, link }) => {
         }
       }}>
       <Flex gap='small' wrap='wrap'>
-        <Button href={`${link}`}>{value}</Button>
+        <Button onClick={onClick}>{value}</Button>
       </Flex>
     </ConfigProvider>
   )
 };
 
-const BtnWhite = ({ value, link }) => {
+const BtnWhite = ({ value, link, onClick}) => {
 
   return (
     <Flex gap='small' wrap='wrap'>
-      <Button href={`${link}`}>{value}</Button>
+      <Button onClick={onClick}>{value}</Button>
     </Flex>
   )
 };

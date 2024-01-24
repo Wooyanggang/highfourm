@@ -4,6 +4,7 @@ import Container from './Common/Container';
 import { Layout, Menu, theme, Breadcrumb } from 'antd';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import OrderList from './View/Order/OrderList'
+import OrderNew from './View/Order/OrderNew';
 const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
       <div>
         <Router>
           <Routes>
-            <Route path='orders' element={<OrderList />} />
+            <Route path='/orders' element={<OrderList />} />
+            <Route path='/orders/new' element={<OrderNew />} />
           </Routes>
         </Router>
       </div>
