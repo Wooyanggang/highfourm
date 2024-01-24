@@ -7,6 +7,11 @@ import Login from './View/Login/Login';
 import Notice from './View/Login/Notice';
 import Container from './Common/Container';
 import OrderList from './View/Order/OrderList'
+import ProductManagement from './View/Production/ProductManagement';
+import Mrp from './View/Production/Mrp';
+import UserNew from './View/User/UserNew';
+import UserList from './View/User/UserList';
+import UserEdit from './View/User/UserEdit';
 import Bom from './View/Production/Bom';
 import WorkPerfomance from './View/Production/WorkPerfomance';
 import '../App.css'
@@ -18,6 +23,35 @@ function App() {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  return (
+    <div className="App" style={{ position: 'relative' }}>
+      <SideBar />
+      <Container />
+      <Content
+        style={{
+          padding: '152px 32px 32px 332px',
+          background: colorBgContainer,
+          borderRadius: borderRadiusLG,
+          boxSizing: 'border-box',
+        }}
+      >
+        <div>
+          <Router>
+            <Routes>
+              <Route path='/orders' element={<OrderList />} />
+              <Route path='/users' element={<UserList />} />
+              <Route path='/users/new' element={<UserNew />} />
+              <Route path='/users/edit' element={<UserEdit />} />
+              <Route path='/mrp' element={<Mrp />} />
+              <Route path='/product-management' element={<ProductManagement />} />
+            </Routes>
+          </Router>
+        </div>
+      </Content>
+    </div>
+  );
+}
+
 
   if (window.location.pathname === '/') {
     return (

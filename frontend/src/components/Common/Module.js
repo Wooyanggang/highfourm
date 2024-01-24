@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Flex, Input, Space, Steps, Select, ConfigProvider } from 'antd';
 import '../../basic.css'
 const { Search } = Input;
 
-const BtnBlack = ({ value, link, onClick }) => {
-  
+const BtnBlack = ({ value, onClick, type }) => {
+  // <BtnBlack value={'검정'} onClick={onClick} />
+
   return (
     <ConfigProvider
       theme={{
@@ -17,13 +18,14 @@ const BtnBlack = ({ value, link, onClick }) => {
         },
       }}>
       <Flex gap='small' wrap='wrap'>
-        <Button onClick={onClick}>{value}</Button>
+        <Button size='large' htmlType={type} onClick={onClick}>{value}</Button>
       </Flex>
     </ConfigProvider>
   )
 };
 
-const BtnBlue = ({ value, link, onClick}) => {
+const BtnBlue = ({ value, onClick, type }) => {
+  // <BtnBlue value={'파랑'} onClick={onClick} />
 
   return (
     <ConfigProvider
@@ -33,60 +35,77 @@ const BtnBlue = ({ value, link, onClick}) => {
         }
       }}>
       <Flex gap='small' wrap='wrap'>
-        <Button onClick={onClick}>{value}</Button>
+        <Button size='large' htmlType={type} onClick={onClick}>{value}</Button>
       </Flex>
     </ConfigProvider>
   )
 };
 
-const BtnWhite = ({ value, link, onClick}) => {
-
+const BtnWhite = ({ value, onClick, type }) => {
+  // <BtnWhite value={'흰색'} onClick={onClick} />
   return (
     <Flex gap='small' wrap='wrap'>
-      <Button onClick={onClick}>{value}</Button>
+      <Button size='large' htmlType={type} onClick={onClick}>{value}</Button>
     </Flex>
   )
 };
 
-const filterClickHandler = (e) => {
+const BtnFilter = ({ valueArr, linkArr, type }) => {
+  // <BtnFilter valueArr={['완료', '전체']} linkArr={['/complete', '/all']} />
+  const [activeBtns, setActiveBtns] = useState(Array(valueArr.length).fill(false));
 
-}
-
-const BtnFilter = ({ value, link }) => {
+  const filterClickHandler = (index) => {
+    // 클릭시 기능 구현 핸들러
+    const newActiveBtns = [...activeBtns];
+    newActiveBtns[index] = !activeBtns[index];
+    setActiveBtns(newActiveBtns);
+  }
 
   return (
-  <ConfigProvider
-    theme={{
-      token: {
-        colorPrimaryHover: '#d9d9d9',
-        colorPrimaryActive: '#d9d9d9',
-      },
-    }}
-  >
-
-    <Flex gap='small' wrap='wrap'>
-      <Button shape='round' href={`${link}`} onClick={filterClickHandler} id='btnFilter'>{value}</Button>
-    </Flex>
-  </ConfigProvider>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimaryHover: '#d9d9d9',
+          colorPrimaryActive: '#d9d9d9',
+        },
+      }}>
+      <Flex gap='small' wrap='wrap'>
+        {valueArr.map((value, index) => {
+          return (<Button shape='round' href={linkArr[index]} htmlType={type} onClick={() => filterClickHandler(index)}
+            className={activeBtns[index] ? 'filter-active' : ''} key={index} size='large'>
+            {value}
+          </Button>
+          )
+        })
+        }
+      </Flex>
+    </ConfigProvider>
   )
 };
 
-const InputBar = ({ placeholderMsg, id, value }) => {
+const InputBar = ({ placeholderMsg, id, value, disabled }) => {
+  // disabled={ true | false }
+  if(placeholderMsg == null) {
+    placeholderMsg = '';
+  }
+
   return (
-    <Input placeholder={`${placeholderMsg}`} id={id} value={value} style={{width:'200px'}} />
+    <Input placeholder={`${placeholderMsg}`} id={id} value={value} style={{ width: '200px' }} size='large' disabled={disabled}/>
   )
 };
 
 const onSearch = (value, _e, info) => {
+  // search 값 기능 구현 함수
   console.log(info?.source, value);
 }
 
-const SearchInput = () => {
+const SearchInput = ({ onSearch }) => {
   return (
     <ConfigProvider
       theme={{
         token: {
           colorPrimary: '#d9d9d9',
+          colorTextLightSolid: '#000',
         },
         components: {
           Button: {
@@ -94,54 +113,52 @@ const SearchInput = () => {
           },
         },
       }}>
-    <Space direction='vertical'>
-      <Search
-        placeholder='검색어를 입력하세요.'
-        allowClear
-        enterButton='검색'
-        onSearch={onSearch}
-        style={{width:'250px'}}
-      />
-    </Space>
+      <Space direction='vertical'>
+        <Search
+          placeholder='검색어를 입력하세요.'
+          allowClear
+          enterButton='검색'
+          onSearch={onSearch}
+          style={{ width: '250px' }}
+          size='large'
+        />
+      </Space>
     </ConfigProvider>
   )
 };
 
-// const handleChange = (value) => {
-//   console.log(`selected ${value}`);
-// };
+const SelectChangeHandler = (value) => {
+  console.log(`selected ${value}`);
+  // select 값 선택시 기능 구현 핸들러
+  // 각 페이지에서 구현해주세요
+};
 
-// const SearchSelectBox = ({value}) => {
+const SearchSelectBox = ({ selectValue, SelectChangeHandler }) => {
+  // value 값 배열로 넘기기 <SearchSelectBox selectValue={['가', '나', '다']} SelectChangeHandler={SelectChangeHandler} /> 
 
-//   return (
-//     <Space wrap>
-//       <Select
-//         defaultValue={value[0]}
-//         style={{
-//           width: 120,
-//         }}
-//         onChange={handleChange}
-//         options={[
-//           {
-//             value: { value[0] },
-//             label: { value[0] },
-//           },
-//           {
-//             value: { value[1] },
-//             label: { value[1] },
-//           },
-//           {
-//             value: { value[2] },
-//             label: { value[2] },
-//           },
-//         ]}
-//       />
-//     </ Space>
-//   )
-// };
+  return (
+    <Space wrap>
+      <Select
+        defaultValue={selectValue[0]}
+        style={{
+          width: 150,
+        }}
+        onChange={SelectChangeHandler}
+        options={selectValue.map((e, index) => ({
+          value: `${e}`,
+          label: `${e}`,
+          key: index,
+        }))}
+        size='large'
+      />
+    </ Space>
+  )
+};
 
-const StepBar = ({stateNum}) => {
-// stateNum 값은 정수 1,2,3,4
+const StepBar = ({ stateNum }) => {
+  // stateNum 값은 정수 1,2,3,4
+  // <StepBar stateNum={1} />
+
   return (
     <ConfigProvider
       theme={{
@@ -169,11 +186,10 @@ const StepBar = ({stateNum}) => {
             title: '완료',
           },
         ]}
-        style={{width: 880}}
+        style={{ width: 880 }}
       />
     </ConfigProvider>
   )
 };
 
-// export { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, SearchSelectBox, StepBar };
-export { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, StepBar };
+export { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, SearchSelectBox, StepBar };

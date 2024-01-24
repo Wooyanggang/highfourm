@@ -1,4 +1,4 @@
-#btnFilter:active {
+.filter-active {
     background-color: #d9d9d9;
     color: #000;
 }
@@ -10,6 +10,46 @@
 :where(.css-dev-only-do-not-override-vjiwc5).ant-steps .ant-steps-item-wait .ant-steps-item-icon {
     background-color: #fff;
     border-color: #d9d9d9;
+}
+
+div.box {
+    border: 1px solid #d9d9d9;
+    width: 650px; 
+    height: 782px;
+    padding: 40px 45px;
+}
+
+.box-title {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+div.flex-line {
+    display: flex;
+    gap: 165px;
+    margin-bottom: 30px;
+}
+
+div.flex-div {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+div.flex-btn {
+    display: flex;
+    gap: 20px;
+}
+
+label.label-title {
+    font-weight: bold;
+    font-size: 16px;
+    width: 130px;
+}
+
+span.email {
+    font-weight: 500;
 }
 
 :where(.css-dev-only-do-not-override-1qhpsh8).ant-menu-light.ant-menu-root.ant-menu-inline{
