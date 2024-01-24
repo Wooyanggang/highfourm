@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Form } from 'antd';
-const EditableContext = React.createContext(null);
+import EditableContext from './EditableContext';
 
 const EditableRow = ({ index, ...props }) => {
   const [form] = Form.useForm();

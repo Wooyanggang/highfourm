@@ -9,7 +9,9 @@ const Container = () => {
   return (
       <Header
         style={{
-          padding: 0,
+          display: 'flex',
+          alignItems: 'center',
+          padding: '0 0 0 32px',
           margin: 0,
           width: 'calc(100% - 300px)',
           height: '120px',
@@ -20,10 +22,11 @@ const Container = () => {
           position: 'absolute',
           top: 0,
           right: 0,
+          boxSizing: 'border-box',
           zIndex: '99',
         }}
       >
-        <h2 style={{ margin: '0 0 0 32px', fontSize: '24px', lineHeight: '120px' }}>제목{/* [[${title}]] */}</h2>
+        <h2>제목{/* [[${title}]] */}</h2>
       </Header>
   );
 }

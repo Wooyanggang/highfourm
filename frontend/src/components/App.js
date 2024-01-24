@@ -4,6 +4,9 @@ import Container from './Common/Container';
 import { Layout, Menu, theme, Breadcrumb } from 'antd';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import OrderList from './View/Order/OrderList'
+import Bom from './View/Production/Bom';
+import WorkPerfomance from './View/Production/WorkPerfomance';
+import '../App.css'
 const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
@@ -26,6 +29,8 @@ function App() {
         <Router>
           <Routes>
             <Route path='orders' element={<OrderList />} />
+            <Route path='/bom' element={<Bom />} />
+            <Route path='/work-perfomance' element={<WorkPerfomance />} />
           </Routes>
         </Router>
       </div>
