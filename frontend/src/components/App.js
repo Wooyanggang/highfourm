@@ -7,6 +7,9 @@ import Login from './View/Login/Login';
 import Notice from './View/Login/Notice';
 import Container from './Common/Container';
 import OrderList from './View/Order/OrderList'
+import Bom from './View/Production/Bom';
+import WorkPerfomance from './View/Production/WorkPerfomance';
+import '../App.css'
 import OrderNew from './View/Order/OrderNew';
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -41,6 +44,8 @@ function App() {
             <Routes>
               <Route path='/orders' element={<OrderList />} />
               <Route path='/orders/new' element={<OrderNew />} />
+              <Route path='/bom' element={<Bom />} />
+              <Route path='/work-perfomance' element={<WorkPerfomance />} />
             </Routes>
           </Router>
         </div>

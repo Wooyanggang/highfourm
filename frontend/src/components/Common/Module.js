@@ -71,9 +71,9 @@ const BtnFilter = ({ value, link }) => {
   )
 };
 
-const InputBar = ({ placeholderMsg, inputId, value }) => {
+const InputBar = ({ placeholderMsg, id, value }) => {
   return (
-    <Input placeholder={`${placeholderMsg}`} id={inputId} value={value} style={{width:'200px'}} />
+    <Input placeholder={`${placeholderMsg}`} id={id} value={value} style={{width:'200px'}} />
   )
 };
 

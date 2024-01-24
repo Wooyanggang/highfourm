@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Form, Input } from 'antd';
-const EditableContext = React.createContext(null);
+import EditableContext from './EditableContext';
 
 const EditableCell = ({
   title,

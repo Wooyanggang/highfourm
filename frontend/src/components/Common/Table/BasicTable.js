@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Button, Table } from 'antd';
 import EditableRow from './EditableRow';
 import EditableCell from './EditableCell';
-import '../../../App.css';
 
 const BasicTable = ({ dataSource, defaultColumns, onDelete, setDataSource }) => {
   const [count, setCount] = useState(dataSource.length);
@@ -54,7 +53,7 @@ const BasicTable = ({ dataSource, defaultColumns, onDelete, setDataSource }) => 
   });
   return (
     <div>
-      <Button
+      {/* <Button
         onClick={handleAdd}
         type="primary"
         style={{
@@ -62,13 +61,15 @@ const BasicTable = ({ dataSource, defaultColumns, onDelete, setDataSource }) => 
         }}
       >
         Add a row
-      </Button>
+      </Button> */}
       <Table
         components={components}
         rowClassName={() => 'editable-row'}
         bordered
         dataSource={dataSource}
         columns={columns}
+        size="middle"
+        pagination={false}
       />
     </div>
   );
