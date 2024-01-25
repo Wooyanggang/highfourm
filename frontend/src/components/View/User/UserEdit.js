@@ -14,26 +14,26 @@ const UserNew = () => {
       <form method='post' action='/users'>
         <div className='flex-line'>
           <div className='flex-div'>
-            <label for='user_number' className='label-title'>사번</label>
+            <label htmlFor='user_number' className='label-title'>사번</label>
             <InputBar inputId={'user_number'} id={'user_number'} value={'10001'} disabled={true} />
           </div>
           <div className='flex-div'>
-            <label for='user_name' className='label-title'>이름</label>
+            <label htmlFor='user_name' className='label-title'>이름</label>
             <InputBar inputId={'user_name'} id={'user_name'} value={'홍길동'} />
           </div>
         </div>
         <div className='flex-line'>
           <div className='flex-div'>
-            <label for='position' className='label-title'>직급</label>
+            <label htmlFor='position' className='label-title'>직급</label>
             <InputBar inputId={'position'} id={'position'} value={'사원'} />
           </div>
           <div className='flex-div'>
-            <label for='birth_date' className='label-title'>생년월일</label>
+            <label htmlFor='birth_date' className='label-title'>생년월일</label>
             <InputBar inputId={'birth_date'} id={'birth_date'} value={'1990-01-01'} />
           </div>
         </div>
         <div className='flex-div' >
-          <label for='email' className='label-title'>이메일 주소</label>
+          <label htmlFor='email' className='label-title'>이메일 주소</label>
           <InputBar inputId={'email'} id={'email'} value={'hong123'} disabled={true} />
           <span className='email'>@gmail.com</span>
         </div>

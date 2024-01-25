@@ -2,8 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
+import axios from 'axios';
 
 const UserList = () => {
+  const [test, setTest] = useState();
+
+  useEffect(() => {
+    axios.get('/users')
+      .then(res => setTest(res.data))
+      .catch(error => console.log(error))
+  }, [])
+
   const [dataSource, setDataSource] = useState([
     {
       key: '0',
@@ -80,6 +89,7 @@ const UserList = () => {
         <SearchSelectBox selectValue={['사원명', '계정 주소']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />
       </div>
+      <div>{test}</div>
       <div style={{ marginBottom: '24px' }}>
         <BtnBlack value={'사용자 등록'} onClick={onClick} />
       </div>
