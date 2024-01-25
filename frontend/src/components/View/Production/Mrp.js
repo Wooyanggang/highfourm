@@ -111,7 +111,6 @@ const Mrp = () => {
           </div>
           <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsTwo} setDataSource={setDataSource} />
         </div>
-        {/* <BtnFilter valueArr={['완료', '전체']} linkArr={['/all', '/c']}></BtnFilter> */}
       </div>
     </div>
   )

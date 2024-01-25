@@ -51,13 +51,11 @@ const BtnWhite = ({ value, onClick, type }) => {
 
 const BtnFilter = ({ valueArr, linkArr, type }) => {
   // <BtnFilter valueArr={['완료', '전체']} linkArr={['/complete', '/all']} />
-  const [activeBtns, setActiveBtns] = useState(Array(valueArr.length).fill(false));
+  const [activeBtnIndex, setActiveBtnIndex] = useState(0);
 
-  const filterClickHandler = (index) => {
+  const filterClickHandler = (e, index) => {
     // 클릭시 기능 구현 핸들러
-    const newActiveBtns = [...activeBtns];
-    newActiveBtns[index] = !activeBtns[index];
-    setActiveBtns(newActiveBtns);
+    setActiveBtnIndex(index);
   }
 
   return (
@@ -70,8 +68,8 @@ const BtnFilter = ({ valueArr, linkArr, type }) => {
       }}>
       <Flex gap='small' wrap='wrap'>
         {valueArr.map((value, index) => {
-          return (<Button shape='round' href={linkArr[index]} htmlType={type} onClick={() => filterClickHandler(index)}
-            className={activeBtns[index] ? 'filter-active' : ''} key={index} size='large'>
+          return (<Button shape='round' href={linkArr[index]} htmlType={type} onClick={(e) => filterClickHandler(e, index)}
+            className={activeBtnIndex === index ? 'filter-active' : ''} key={index} size='large'>
             {value}
           </Button>
           )
