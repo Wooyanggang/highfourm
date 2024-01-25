@@ -1,50 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Container from '../../Common/Container';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
-import axios from 'axios';
-import { response } from 'express';
 
 const UserList = () => {
-
-  const baseUrl = "http://localhost.3000"
-  const [user_name, setUser_name] = useState();
-  const [user_number, setUser_number] = useState();
-  const [email, setEmail] = useState();
-  const [accept, setAccept] = useState();
-
-  useEffect(() => {
-    getUser()
-  }, []);
-
-  async function getUser() {
-    await axios
-      .get(baseUrl + "/users")
-      .then((res) => {
-        console.log(response.data);
-        setUser_name(response.data.user_name);
-        setUser_number(response.data.user_number);
-        setEmail(response.data.email);
-        if (response.data.register_state === 'Y') {
-          setAccept('등록');
-        } else {
-          setAccept('대기');
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  }
-
   const [dataSource, setDataSource] = useState([
-    // {
-    //   key: {user_number},
-    //   user_name: {user_name},
-    //   user_number: {user_number},
-    //   email: {email},
-    //   accept: {accept},
-    // },
     {
       key: '0',
       user_name: '박보검',

@@ -24,7 +24,7 @@ function App() {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  if (window.location.pathname === '/') {
+  if (window.location.pathname === '/login') {
     return (
       <GoogleOAuthProvider clientId={clientId}>
         <Login />

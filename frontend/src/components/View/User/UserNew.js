@@ -1,9 +1,20 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Container from '../../Common/Container';
 import { BtnBlue, BtnWhite, InputBar } from '../../Common/Module';
+import axios from 'axios';
 
 const UserNew = () => {
+
+  // axios({
+  //   method: 'POST',
+  //   url: '/users/new',
+  //   data: JSON.stringify,
+  //   headers: {'Content-Type': 'application/json'}
+  // })
+  // .then((res) => console.log(res))
+  // .then((res) => console.log(res.data))
+  // .catch((error) => console.log(error))
+
   const navigate = useNavigate();
 
   const goBackNavigate = () => {
@@ -12,7 +23,7 @@ const UserNew = () => {
 
   return (
     <div>
-      <form method='post' action='/users'>
+      <form method='post' action='/users/new'>
         <div className='flex-line'>
           <div className='flex-div'>
             <label for='user_number' className='label-title'>사번</label>
