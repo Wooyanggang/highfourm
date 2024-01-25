@@ -12,16 +12,15 @@ const UserNew = () => {
 
   return (
     <div>
-      {/* <Container title={'사용자 등록'}> */}
       <form method='post' action='/users'>
         <div className='flex-line'>
           <div className='flex-div'>
-            <label for='empNo' className='label-title'>사번</label>
-            <InputBar inputId={'empNo'} id={'empNo'} placeholderMsg={'사번'} />
+            <label for='user_number' className='label-title'>사번</label>
+            <InputBar inputId={'user_number'} id={'user_number'} placeholderMsg={'사번'} />
           </div>
           <div className='flex-div'>
-            <label for='name' className='label-title'>이름</label>
-            <InputBar inputId={'name'} id={'name'} placeholderMsg={'이름'} />
+            <label for='user_name' className='label-title'>이름</label>
+            <InputBar inputId={'user_name'} id={'user_name'} placeholderMsg={'이름'} />
           </div>
         </div>
         <div className='flex-line'>
@@ -30,8 +29,8 @@ const UserNew = () => {
             <InputBar inputId={'position'} id={'position'} placeholderMsg={'직급'} />
           </div>
           <div className='flex-div'>
-            <label for='birth' className='label-title'>생년월일</label>
-            <InputBar inputId={'birth'} id={'birth'} placeholderMsg={'생년월일'} />
+            <label for='birth_date' className='label-title'>생년월일</label>
+            <InputBar inputId={'birth_date'} id={'birth_date'} placeholderMsg={'생년월일'} />
           </div>
         </div>
         <div className='flex-div' style={{ marginBottom: '30px' }}>
@@ -48,10 +47,7 @@ const UserNew = () => {
           <BtnBlue type='submit' value={'등록하기'} />
           <BtnWhite value={'취소'} onClick={goBackNavigate} />
         </div>
-
       </form>
-
-      {/* </ Container> */}
     </div>
   )
 }

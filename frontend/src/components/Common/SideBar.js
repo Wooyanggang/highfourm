@@ -40,7 +40,8 @@ const SideBar = () => {
   ];
 
   return (
-    <div style={{ padding: '40px 20px 40px 20px', width: '260px', height: '100vh', borderRight: '1px solid #ccc', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', zIndex: '999', position: 'fixed' }}>
+    <div style={{ padding: '40px 20px 40px 20px', width: '260px', height: '100vh', borderRight: '1px solid #ccc', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', zIndex: '100', position: 'fixed'
+    , backgroundColor: '#fff' }}>
       <div>
         <div style={{ paddingBottom: '60px' }}>
           <a href='/'>

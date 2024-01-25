@@ -12,16 +12,15 @@ const UserNew = () => {
 
   return (
     <div>
-      {/* <Container title={'사용자 수정'}> */}
       <form method='post' action='/users'>
         <div className='flex-line'>
           <div className='flex-div'>
-            <label for='empNo' className='label-title'>사번</label>
-            <InputBar inputId={'empNo'} id={'empNo'} value={'10001'} disabled={true} />
+            <label for='user_number' className='label-title'>사번</label>
+            <InputBar inputId={'user_number'} id={'user_number'} value={'10001'} disabled={true} />
           </div>
           <div className='flex-div'>
-            <label for='name' className='label-title'>이름</label>
-            <InputBar inputId={'name'} id={'name'} value={'홍길동'} />
+            <label for='user_name' className='label-title'>이름</label>
+            <InputBar inputId={'user_name'} id={'user_name'} value={'홍길동'} />
           </div>
         </div>
         <div className='flex-line'>
@@ -30,8 +29,8 @@ const UserNew = () => {
             <InputBar inputId={'position'} id={'position'} value={'사원'} />
           </div>
           <div className='flex-div'>
-            <label for='birth' className='label-title'>생년월일</label>
-            <InputBar inputId={'birth'} id={'birth'} value={'1990-01-01'} />
+            <label for='birth_date' className='label-title'>생년월일</label>
+            <InputBar inputId={'birth_date'} id={'birth_date'} value={'1990-01-01'} />
           </div>
         </div>
         <div className='flex-div' >
@@ -45,8 +44,6 @@ const UserNew = () => {
           <BtnWhite value={'취소'} onClick={goBackNavigate} />
         </div>
       </form>
-
-      {/* </ Container> */}
     </div>
   )
 }
