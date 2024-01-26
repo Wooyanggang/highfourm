@@ -2,30 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
-import axios from 'axios';
 
 const UserList = () => {
-  const [test, setTest] = useState();
-
-  useEffect(() => {
-    axios.get('/users')
-      .then(res => setTest(res.data))
-      .catch(error => console.log(error))
-  }, [])
-
   const [dataSource, setDataSource] = useState([
     {
       key: '0',
       user_name: '박보검',
       user_number: '1000',
-      email: 'park33@gmail.com',
-      accept: '완료',
+      email: 'park33',
+      accept: '등록',
     },
     {
       key: '2',
       user_name: '홍길동',
       user_number: '1001',
-      email: 'hong123@gmail.com',
+      email: 'hong123',
       accept: '대기',
     },
   ]);
@@ -54,7 +45,7 @@ const UserList = () => {
       dataIndex: 'email',
     },
     {
-      title: '가입 여부',
+      title: '등록 여부',
       dataIndex: 'accept',
     },
     {

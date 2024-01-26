@@ -5,17 +5,17 @@ import axios from 'axios';
 
 const UserNew = () => {
 
-  useEffect(() => {
-  axios({
-    method: 'POST',
-    url: '/users/new',
-    // data: JSON.stringify({name: 'info',
-    // num: '0',}),
-    data: JSON.stringify,
-    headers: { 'Content-Type': 'application/json' },
-  })
+  useEffect (() => {
+    axios({
+      method: 'POST',
+      url: '/users/new',
+      data: JSON.stringify,
+      headers: {'Content-Type': 'application/json'}
+    })
     .then((res) => console.log(res))
+    .then((res) => console.log(res.data))
     .catch((error) => console.log(error))
+
   }, [])
 
   const navigate = useNavigate();
@@ -30,31 +30,31 @@ const UserNew = () => {
         <div className='flex-line'>
           <div className='flex-div'>
             <label htmlFor='user_number' className='label-title'>사번</label>
-            <InputBar id={'user_number'} placeholderMsg={'사번'} />
+            <InputBar inputId={'user_number'} id={'user_number'} placeholderMsg={'사번'} />
           </div>
           <div className='flex-div'>
             <label htmlFor='user_name' className='label-title'>이름</label>
-            <InputBar id={'user_name'} placeholderMsg={'이름'} />
+            <InputBar inputId={'user_name'} id={'user_name'} placeholderMsg={'이름'} />
           </div>
         </div>
         <div className='flex-line'>
           <div className='flex-div'>
             <label htmlFor='position' className='label-title'>직급</label>
-            <InputBar id={'position'} placeholderMsg={'직급'} />
+            <InputBar inputId={'position'} id={'position'} placeholderMsg={'직급'} />
           </div>
           <div className='flex-div'>
             <label htmlFor='birth_date' className='label-title'>생년월일</label>
-            <InputBar id={'birth_date'} placeholderMsg={'생년월일'} />
+            <InputBar inputId={'birth_date'} id={'birth_date'} placeholderMsg={'생년월일'} />
           </div>
         </div>
         <div className='flex-div' style={{ marginBottom: '30px' }}>
           <label htmlFor='email' className='label-title'>이메일 주소</label>
-          <InputBar id={'email'} placeholderMsg={'이메일 주소'} />
+          <InputBar inputId={'email'} id={'email'} placeholderMsg={'이메일 주소'} />
           <span className='email'>@gmail.com</span>
         </div>
         <div className='flex-div' style={{ marginBottom: '30px' }}>
           <label htmlFor='emailCheck' className='label-title'>이메일 주소 확인</label>
-          <InputBar id={'emailCheck'} placeholderMsg={'이메일 주소 확인'} />
+          <InputBar inputId={'emailCheck'} id={'emailCheck'} placeholderMsg={'이메일 주소 확인'} />
           <span className='email'>@gmail.com</span>
         </div>
         <div className='flex-btn'>

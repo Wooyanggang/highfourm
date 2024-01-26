@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { Layout, Menu, theme, Breadcrumb } from 'antd';
@@ -16,6 +16,7 @@ import Bom from './View/Production/Bom';
 import WorkPerfomance from './View/Production/WorkPerfomance';
 import OrderNew from './View/Order/OrderNew';
 import '../App.css'
+import axios from 'axios';
 const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
