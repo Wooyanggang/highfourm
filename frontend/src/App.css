@@ -161,9 +161,9 @@ input[type="date"]::placeholder {
   border-color: #d9d9d9;
 }
 
-div.bordered-box {
+.bordered-box {
   border: 1px solid #d9d9d9;
-  width: 650px; 
+  width: 650px;
   height: 782px;
   padding: 40px 45px;
 }
@@ -172,6 +172,12 @@ div.bordered-box {
   display: flex;
   align-items: center;
   font-size: 16px;
+}
+
+.box-title-line {
+  color: #000;
+  width: 80%;
+  margin-left: 20px;
 }
 
 div.flex-line {
@@ -234,6 +240,6 @@ span.email {
   font-weight: 500;
 }
 
-:where(.css-dev-only-do-not-override-1qhpsh8).ant-menu-light.ant-menu-root.ant-menu-inline{
+:where(.css-dev-only-do-not-override-1qhpsh8).ant-menu-light.ant-menu-root.ant-menu-inline {
   border-inline-end: 0;
 }

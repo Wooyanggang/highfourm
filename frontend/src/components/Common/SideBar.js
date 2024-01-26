@@ -25,7 +25,7 @@ const SideBar = () => {
       getItem(<a href="/">수급내역관리</a>, '3'),
     ]),
     getItem(<a href="/test">제품별 공정/소요자재 관리</a>, '4', <FontAwesomeIcon icon={faTable} />),
-    getItem(<a href="/production-management">생산 계획 수립</a>, '5', <FontAwesomeIcon icon={faIndustry} />),
+    getItem(<a href="/product-management">생산 계획 수립</a>, '5', <FontAwesomeIcon icon={faIndustry} />),
     getItem(<a href="/mrp">자재 소요량 산출</a>, '6', <FontAwesomeIcon icon={faCalculator} />),
     getItem('작업 실적 관리', 'sub2', <FontAwesomeIcon icon={faChartLine} />, [
       getItem(<a href="/">작업 실적 등록</a>, '7'),
@@ -35,7 +35,7 @@ const SideBar = () => {
     getItem(<a href="/">생산 실적 조회</a>, '10', <FontAwesomeIcon icon={faChartLine} />),
   ];
   const bottomMenu = [
-    getItem(<a href="/">사용자 관리</a>, '9', <FontAwesomeIcon icon={faUserGroup} />),
+    getItem(<a href="/users">사용자 관리</a>, '9', <FontAwesomeIcon icon={faUserGroup} />),
     getItem(<a href="/">로그아웃</a>, '10', <FontAwesomeIcon icon={faRightFromBracket} />),
   ];
 

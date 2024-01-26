@@ -1,6 +1,6 @@
+import React, { useEffect } from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Layout, theme } from 'antd';
-import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import '../App.css';
 import Container from './Common/Container';
@@ -19,7 +19,9 @@ import UserList from './View/User/UserList';
 import UserNew from './View/User/UserNew';
 import MaterialOrderHistory from './View/Material/MaterialOrderHistory';
 import Join from './View/User/Join';
-const { Content } = Layout;
+import '../App.css'
+import axios from 'axios';
+const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
   const clientId = '362376129818-apm2mmh54l58gskanrm2hufa2emfdov2.apps.googleusercontent.com';
