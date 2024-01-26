@@ -1,22 +1,24 @@
-import React from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { Layout, theme } from 'antd';
+import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import { Layout, Menu, theme, Breadcrumb } from 'antd';
+import '../App.css';
+import Container from './Common/Container';
 import SideBar from './Common/SideBar';
 import Login from './View/Login/Login';
 import Notice from './View/Login/Notice';
-import Container from './Common/Container';
-import OrderList from './View/Order/OrderList'
-import ProductManagement from './View/Production/ProductManagement';
-import Mrp from './View/Production/Mrp';
-import UserNew from './View/User/UserNew';
-import UserList from './View/User/UserList';
-import UserEdit from './View/User/UserEdit';
-import Bom from './View/Production/Bom';
-import WorkPerfomance from './View/Production/WorkPerfomance';
+import StockList from './View/Material/StockList';
+import OrderList from './View/Order/OrderList';
 import OrderNew from './View/Order/OrderNew';
-import '../App.css'
-const { Header, Content, Footer, Sider } = Layout;
+import Bom from './View/Production/Bom';
+import Mrp from './View/Production/Mrp';
+import ProductManagement from './View/Production/ProductManagement';
+import WorkPerfomance from './View/Production/WorkPerfomance';
+import UserEdit from './View/User/UserEdit';
+import UserList from './View/User/UserList';
+import UserNew from './View/User/UserNew';
+import MaterialOrderHistory from './View/Material/MaterialOrderHistory';
+const { Content } = Layout;
 
 function App() {
   const clientId = '362376129818-apm2mmh54l58gskanrm2hufa2emfdov2.apps.googleusercontent.com';
@@ -30,7 +32,7 @@ function App() {
         <Login />
       </GoogleOAuthProvider>
     )
-    return (<div><Notice /></div>)
+    //return (<div><Notice /></div>)
   } else {
     return (
       <div className="App" style={{ position: 'relative' }}>
@@ -49,6 +51,8 @@ function App() {
               <Routes>
                 <Route path='/orders' element={<OrderList />} />
                 <Route path='/orders/new' element={<OrderNew />} />
+                <Route path='/materials/stock' element={<StockList/>} />
+                <Route path='/materials/order-history' element={<MaterialOrderHistory/>} />
                 <Route path='/users' element={<UserList />} />
                 <Route path='/users/new' element={<UserNew />} />
                 <Route path='/users/edit' element={<UserEdit />} />

@@ -1,5 +1,5 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 import { Col, Layout, Row, Typography } from 'antd';
 import React from 'react';
 import '../../../App.css';
@@ -7,9 +7,6 @@ import '../../../App.css';
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;
 
-const handleGoogleLogin = () => {
-  // Google 로그인 처리
-};
 const Login = () => {
   return (
     <Layout>
@@ -44,7 +41,13 @@ const Login = () => {
               </svg></div>
               <div className='bottom-text'>하이포엠은 Google 계정 연동 로그인을 지원합니다.</div>
             </div>
-            <div style={{ textAlign: 'center', justifyContent: 'center' }}>
+            <div style={{ 
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100%'  
+              }}>
               <GoogleLogin
                 width="250" size="large" 
                 onSuccess={

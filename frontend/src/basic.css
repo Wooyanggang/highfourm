@@ -37,6 +37,12 @@ div.flex-div {
     align-items: center;
 }
 
+div.modal-div {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
 div.flex-btn {
     display: flex;
     gap: 20px;
