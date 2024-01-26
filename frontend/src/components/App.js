@@ -18,6 +18,7 @@ import UserEdit from './View/User/UserEdit';
 import UserList from './View/User/UserList';
 import UserNew from './View/User/UserNew';
 import MaterialOrderHistory from './View/Material/MaterialOrderHistory';
+import Join from './View/User/Join';
 const { Content } = Layout;
 
 function App() {
@@ -26,10 +27,16 @@ function App() {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  if (window.location.pathname === '/') {
+  if (window.location.pathname === '/' || window.location.pathname === '/login' || window.location.pathname === '/users/join') {
     return (
       <GoogleOAuthProvider clientId={clientId}>
-        <Login />
+        <Router>
+          <Routes>
+            <Route path='/users/join' element={<Join />} />
+            <Route path='/' element={<Login />} />
+            <Route path='/notice' element={<Notice />} />
+          </Routes>
+        </Router>
       </GoogleOAuthProvider>
     )
     //return (<div><Notice /></div>)
@@ -51,8 +58,9 @@ function App() {
               <Routes>
                 <Route path='/orders' element={<OrderList />} />
                 <Route path='/orders/new' element={<OrderNew />} />
-                <Route path='/materials/stock' element={<StockList/>} />
-                <Route path='/materials/order-history' element={<MaterialOrderHistory/>} />
+                <Route path='/materials/stock' element={<StockList />} />
+                <Route path='/materials/order-history' element={<MaterialOrderHistory />} />
+                <Route path='/users/join' element={<Join />} />
                 <Route path='/users' element={<UserList />} />
                 <Route path='/users/new' element={<UserNew />} />
                 <Route path='/users/edit' element={<UserEdit />} />

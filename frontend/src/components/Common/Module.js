@@ -22,6 +22,24 @@ const BtnBlack = ({ value, onClick, type }) => {
     </ConfigProvider>
   )
 };
+const BtnLogin = ({ value, onClick, type }) => {
+  return (
+    <ConfigProvider
+    theme={{
+      components: {
+        Button: { defaultBg: '#000', defaultColor: '#fff' },
+      },
+      token: {
+        colorPrimaryHover: '#d9d9d9',
+        colorPrimaryActive: '#d9d9d9',
+      },
+    }}>
+    <Flex vertical gap="small" style={{ width: '100%' }}>
+      <Button size='large' htmlType={type} onClick={onClick} block>{value}</Button>
+    </Flex>
+    </ConfigProvider>
+  )
+}
 
 const BtnBlue = ({ value, onClick, type }) => {
   // <BtnBlue value={'파랑'} onClick={onClick} />
@@ -82,14 +100,25 @@ const BtnFilter = ({ valueArr, linkArr, type }) => {
   )
 };
 
-const InputBar = ({ placeholderMsg, id, value, disabled }) => {
+const InputBar = ({ type, id, value, placeholderMsg, disabled }) => {
   // disabled={ true | false }
   if(placeholderMsg == null) {
     placeholderMsg = '';
   }
 
   return (
-    <Input placeholder={`${placeholderMsg}`} id={id} value={value} style={{ width: '200px' }} size='large' disabled={disabled}/>
+    <Input type={type} id={id} value={value} placeholder={`${placeholderMsg}`} style={{ width: '200px' }} size='large' disabled={disabled}/>
+  )
+};
+
+const SignInputBar = ({ type, id, value, placeholderMsg, disabled }) => {
+  // disabled={ true | false }
+  if(placeholderMsg == null) {
+    placeholderMsg = '';
+  }
+
+  return (
+    <Input type={type} id={id} value={value} placeholder={`${placeholderMsg}`} style={{ width: '300px' }} size='large' disabled={disabled}/>
   )
 };
 
@@ -191,4 +220,4 @@ const StepBar = ({ stateNum }) => {
   )
 };
 
-export { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, SearchSelectBox, StepBar };
+export { SignInputBar, BtnLogin, BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, SearchSelectBox, StepBar };
