@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Form, Input } from 'antd';
+import { Button, Form, Input, Popconfirm, Table } from 'antd';
 import EditableContext from './EditableContext';
 
 const EditableCell = ({
@@ -47,7 +47,7 @@ const EditableCell = ({
         name={dataIndex}
         rules={[
           {
-            required: true,
+            required: false,
             message: `${title} is required.`,
           },
         ]}

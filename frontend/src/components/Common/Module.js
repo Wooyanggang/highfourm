@@ -2,6 +2,27 @@ import React, { useState } from 'react';
 import { Button, Flex, Input, Space, Steps, Select, ConfigProvider } from 'antd';
 const { Search } = Input;
 
+const BtnGray= ({ value, onClick, type }) => {
+  // <BtnGray value={'회색'} onClick={onClick} />
+
+  return (
+    <ConfigProvider
+      theme={{
+        components: {
+          Button: { defaultBg: '#d9d9d9', defaultColor: '#222' },
+        },
+        token: {
+          colorPrimaryHover: '#222',
+          colorPrimaryActive: '#222',
+        },
+      }}>
+      <Flex gap='small' wrap='wrap'>
+        <Button size='large' htmlType={type} onClick={onClick}>{value}</Button>
+      </Flex>
+    </ConfigProvider>
+  )
+};
+
 const BtnBlack = ({ value, onClick, type }) => {
   // <BtnBlack value={'검정'} onClick={onClick} />
 
@@ -9,7 +30,7 @@ const BtnBlack = ({ value, onClick, type }) => {
     <ConfigProvider
       theme={{
         components: {
-          Button: { defaultBg: '#000', defaultColor: '#fff' },
+          Button: { defaultBg: '#222', defaultColor: '#fff' },
         },
         token: {
           colorPrimaryHover: '#d9d9d9',
@@ -104,11 +125,11 @@ const SearchInput = ({ onSearch }) => {
       theme={{
         token: {
           colorPrimary: '#d9d9d9',
-          colorTextLightSolid: '#000',
+          colorTextLightSolid: '#222',
         },
         components: {
           Button: {
-            primaryColor: '#000',
+            primaryColor: '#222',
           },
         },
       }}>
@@ -185,10 +206,10 @@ const StepBar = ({ stateNum }) => {
             title: '완료',
           },
         ]}
-        style={{ width: 880 }}
+        style={{ width: '100%' }}
       />
     </ConfigProvider>
   )
 };
 
-export { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, SearchSelectBox, StepBar };
+export { BtnGray, BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, SearchSelectBox, StepBar };

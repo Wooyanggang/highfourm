@@ -13,7 +13,9 @@ import UserNew from './View/User/UserNew';
 import UserList from './View/User/UserList';
 import UserEdit from './View/User/UserEdit';
 import Bom from './View/Production/Bom';
+import Status from './View/Production/Status';
 import WorkPerfomance from './View/Production/WorkPerfomance';
+import WorkPerfomanceNew from './View/Production/WorkPerfomanceNew';
 import OrderNew from './View/Order/OrderNew';
 import '../App.css'
 const { Header, Content, Footer, Sider } = Layout;
@@ -55,7 +57,9 @@ function App() {
                 <Route path='/mrp' element={<Mrp />} />
                 <Route path='/product-management' element={<ProductManagement />} />
                 <Route path='/bom' element={<Bom />} />
+                <Route path='/production-status' element={<Status />} />
                 <Route path='/work-perfomance' element={<WorkPerfomance />} />
+                <Route path='/work-perfomance/new' element={<WorkPerfomanceNew />} />
               </Routes>
             </Router>
           </div>

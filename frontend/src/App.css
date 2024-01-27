@@ -39,6 +39,20 @@
 :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table-thead>tr>th {
   text-align: center;
 }
+.editable-cell {
+  position: relative;
+}
+
+.editable-cell-value-wrap {
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+.editable-row:hover .editable-cell-value-wrap {
+  padding: 4px 11px;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+}
 
 /* reset */
 h1,
@@ -62,7 +76,7 @@ input[type="date"]::placeholder {
   color: rgba(0, 0, 0, 0.25);
 }
 
-/* work-perfomance */
+/* WorkPerfomance */
 .work-perfomance-page input[type="date"] {
   width: 200px;
 }
@@ -85,6 +99,14 @@ input[type="date"]::placeholder {
 }
 
 .work-perfomance-page .ant-table-container {
+  margin-top: 20px;
+}
+
+/* Bom */
+.bom-page .add-btn {
+  margin-top: 16px;
+}
+.bom-page .ant-table-container {
   margin-top: 20px;
 }
 
