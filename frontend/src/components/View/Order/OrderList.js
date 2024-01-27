@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
-import { AudioOutlined } from '@ant-design/icons';
+import { AudioOutlined } from '@ant-design/icons'; //PDF 파일용. 삭제x
 import { Input, Space } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown, message, Tooltip, Popconfirm, Table, FLex } from 'antd';
 import { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, StepBar } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
-const { Search } = Input;
-const suffix = (
-  <AudioOutlined
-    style={{
-      fontSize: 16,
-      color: '#1677ff',
-    }}
-  />
-);
+import { Document, Page } from 'react-pdf'; //PDF파일용. 삭제 x
 const onSearch = (value, _e, info) => console.log(info?.source, value);
 
 const handleButtonClick = (e) => {
@@ -66,7 +58,7 @@ const OrderList = () => {
       registerState: '진행 중',
     },
     {
-      key: '0',
+      key: '1',
       orderId: '24/01/11-1',
       vender: '32',
       manager: 'London, Park Lane no. 0',
@@ -77,7 +69,7 @@ const OrderList = () => {
       registerState: '진행 중',
     },
     {
-      key: '0',
+      key: '2',
       orderId: '24/01/11-1',
       vender: '32',
       manager: 'London, Park Lane no. 0',
@@ -88,7 +80,7 @@ const OrderList = () => {
       registerState: '진행 중',
     },
     {
-      key: '0',
+      key: '3',
       orderId: '24/01/11-1',
       vender: '32',
       manager: 'London, Park Lane no. 0',
@@ -99,7 +91,7 @@ const OrderList = () => {
       registerState: '진행 중',
     },
     {
-      key: '0',
+      key: '4',
       orderId: '24/01/11-1',
       vender: '32',
       manager: 'London, Park Lane no. 0',
@@ -110,7 +102,7 @@ const OrderList = () => {
       registerState: '진행 중',
     },
     {
-      key: '0',
+      key: '5',
       orderId: '24/01/11-1',
       vender: '32',
       manager: 'London, Park Lane no. 0',
@@ -121,7 +113,7 @@ const OrderList = () => {
       registerState: '진행 중',
     },
     {
-      key: '0',
+      key: '6',
       orderId: '24/01/11-1',
       vender: '32',
       manager: 'London, Park Lane no. 0',
@@ -132,7 +124,7 @@ const OrderList = () => {
       registerState: '진행 중',
     },
     {
-      key: '0',
+      key: '7',
       orderId: '24/01/11-1',
       vender: '32',
       manager: 'London, Park Lane no. 0',
@@ -143,7 +135,7 @@ const OrderList = () => {
       registerState: '진행 중',
     },
     {
-      key: '0',
+      key: '8',
       orderId: '24/01/11-1',
       vender: '32',
       manager: 'London, Park Lane no. 0',
@@ -154,7 +146,7 @@ const OrderList = () => {
       registerState: '진행 중',
     },
     {
-      key: '0',
+      key: '9',
       orderId: '24/01/11-1',
       vender: '32',
       manager: 'London, Park Lane no. 0',
@@ -165,7 +157,7 @@ const OrderList = () => {
       registerState: '진행 중',
     },
     {
-      key: '0',
+      key: '10',
       orderId: '24/01/11-1',
       vender: '32',
       manager: 'London, Park Lane no. 0',
@@ -181,6 +173,7 @@ const OrderList = () => {
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
   }
+
 
   const defaultColumns = [
     {
@@ -200,6 +193,7 @@ const OrderList = () => {
     {
       title: '품목',
       dataIndex: 'product',
+      render: (text) => <a href='/orders/order'>{text}</a>,
     },
     {
       title: '주문일',
@@ -219,6 +213,7 @@ const OrderList = () => {
     },
   ];
 
+
   return (
     <>
       <Dropdown menu={menuProps}>
@@ -231,20 +226,18 @@ const OrderList = () => {
       </Dropdown>
       <SearchInput></SearchInput>
       <onSearch></onSearch>
-      <div style={{ display: 'flex' }}>
-        <div>
-          <BtnBlack value={'주문 등록'} onClick={() => window.location.href = '/orders/new'} />
-        </div>
-        <div>
-          <BtnFilter valueArr={['전체', '미확인', '확인', '진행중', '완료']} linkArr={['']} />
+      <div className='order-list-page'>
+        <div className='order-list-wrap'>
+          <div className='order-new'>
+            <BtnBlack value={'주문 등록'} onClick={() => window.location.href = '/orders/new'} />
+          </div>
+          <div className='order-filter'>
+            <BtnFilter valueArr={['전체', '미확인', '확인', '진행중', '완료']} linkArr={['']} />
+          </div>
         </div>
       </div>
-      <BasicTable
-        dataSource={dataSource} defaultColumns={defaultColumns}
-        onDelete={handleDelete} setDataSource={setDataSource}
-      ></BasicTable>
+      <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource}/>
     </>
   )
 }
-
 export default OrderList;

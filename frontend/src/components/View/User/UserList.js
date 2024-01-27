@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Container from '../../Common/Container';
+import Container from '../../Common/PageTitle';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
@@ -25,7 +25,7 @@ const UserList = () => {
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
   }
-  
+
   const defaultColumns = [
     {
       title: '사원명',
@@ -72,18 +72,18 @@ const UserList = () => {
   }
 
   const onClick = () => {
-    window.location.href='/users/new'
+    window.location.href = '/users/new'
   }
 
   return (
     <div>
       {/* <Container title={'사용자 관리'}> */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 24px', marginBottom: '24px'}}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 24px', marginBottom: '24px' }}>
         <SearchSelectBox selectValue={['사원명', '계정 주소']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />
       </div>
       <div style={{ marginBottom: '24px' }}>
-        <BtnBlack value={'사용자 등록'} onClick={onClick}/>
+        <BtnBlack value={'사용자 등록'} onClick={onClick} />
       </div>
       <div style={{ width: '720px' }}>
         <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} />

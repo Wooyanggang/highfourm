@@ -5,7 +5,6 @@ import { Layout, Menu, theme, Breadcrumb } from 'antd';
 import SideBar from './Common/SideBar';
 import Login from './View/Login/Login';
 import Notice from './View/Login/Notice';
-import Container from './Common/Container';
 import OrderList from './View/Order/OrderList'
 import ProductManagement from './View/Production/ProductManagement';
 import Mrp from './View/Production/Mrp';
@@ -14,7 +13,10 @@ import UserList from './View/User/UserList';
 import UserEdit from './View/User/UserEdit';
 import Bom from './View/Production/Bom';
 import WorkPerfomance from './View/Production/WorkPerfomance';
+import Perfomance from './View/Production/Perfomance';
 import OrderNew from './View/Order/OrderNew';
+import PerfomanceChart from './View/Production/PerfomanceChart';
+import PerfomanceControllChart from './View/Production/PerfomanceControllChart';
 import '../App.css'
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -35,7 +37,6 @@ function App() {
     return (
       <div className="App" style={{ position: 'relative' }}>
         <SideBar />
-        <Container />
         <Content
           style={{
             padding: '152px 32px 32px 332px',
@@ -56,6 +57,9 @@ function App() {
                 <Route path='/product-management' element={<ProductManagement />} />
                 <Route path='/bom' element={<Bom />} />
                 <Route path='/work-perfomance' element={<WorkPerfomance />} />
+                <Route path='/production-perfomance' element={<Perfomance />} />
+                <Route path='/production-perfomance/chart' element={<PerfomanceChart />} />
+                <Route path='/production-perfomance/controll-chart' element={<PerfomanceControllChart />} />
               </Routes>
             </Router>
           </div>

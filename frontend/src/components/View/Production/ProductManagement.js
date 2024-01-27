@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Container from '../../Common/Container';
+import Container from '../../Common/PageTitle';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
@@ -52,7 +52,7 @@ const ProductManagement = () => {
       dataIndex: 'operation',
     },
   ];
-  
+
   const defaultColumnsTwo = [
     {
       title: '월',
@@ -101,7 +101,7 @@ const ProductManagement = () => {
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px 19px' }}>
         <div style={{ paddingRight: '20px' }}>
-        <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
+          <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
         </div>
         <div style={{ border: '1px solid #d9d9d9', width: '650px', height: '782px', padding: '40px 45px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>

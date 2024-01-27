@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Container from '../../Common/Container';
+import Container from '../../Common/PageTitle';
 import { SearchInput, SearchSelectBox, BtnFilter } from '../../Common/Module';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
@@ -97,21 +97,21 @@ const Mrp = () => {
         <SearchSelectBox selectValue={['생산계획 코드', '품번', '품명', '자재명', '자재코드']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />
       </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px 19px'}}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px 19px' }}>
         <div className='bordered-box'>
           <div className='box-title'>
             <h2 className='box-title'>생산계획 상세</h2>
             <hr style={{ color: '#000', width: '525px', marginLeft: '20px' }} />
           </div>
-            <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
+          <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
         </div>
-          <div className='box'>
-            <div className='box-title'>
-              <h2 className='box-title'>자재소요 계획</h2>
-              <hr style={{ color: '#000', width: '525px', marginLeft: '20px' }} />
-            </div>
-            <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsTwo} setDataSource={setDataSource} />
+        <div className='box'>
+          <div className='box-title'>
+            <h2 className='box-title'>자재소요 계획</h2>
+            <hr style={{ color: '#000', width: '525px', marginLeft: '20px' }} />
           </div>
+          <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsTwo} setDataSource={setDataSource} />
+        </div>
         {/* <BtnFilter valueArr={['완료', '전체']} linkArr={['/all', '/c']}></BtnFilter> */}
       </div>
       {/* </Container> */}
