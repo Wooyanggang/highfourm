@@ -24,14 +24,14 @@ const SideBar = () => {
       getItem(<a href="/">재고 현황</a>, '2'),
       getItem(<a href="/">수급내역관리</a>, '3'),
     ]),
-    getItem(<a href="/test">제품별 공정/소요자재 관리</a>, '4', <FontAwesomeIcon icon={faTable} />),
-    getItem(<a href="/product-management">생산 계획 수립</a>, '5', <FontAwesomeIcon icon={faIndustry} />),
+    getItem(<a href="/bom">제품별 공정/소요자재 관리</a>, '4', <FontAwesomeIcon icon={faTable} />),
+    getItem(<a href="/production-management">생산 계획 수립</a>, '5', <FontAwesomeIcon icon={faIndustry} />),
     getItem(<a href="/mrp">자재 소요량 산출</a>, '6', <FontAwesomeIcon icon={faCalculator} />),
     getItem('작업 실적 관리', 'sub2', <FontAwesomeIcon icon={faChartLine} />, [
-      getItem(<a href="/">작업 실적 등록</a>, '7'),
-      getItem(<a href="/">작업 실적 조회</a>, '8'),
+      getItem(<a href="/work-perfomance">작업 실적 조회</a>, '7'),
+      getItem(<a href="/work-perfomance/new">작업 실적 입력</a>, '8'),
     ]),
-    getItem(<a href="/">생산 현황 조회</a>, '9', <FontAwesomeIcon icon={faChartSimple} />),
+    getItem(<a href="/production-status">생산 현황 조회</a>, '9', <FontAwesomeIcon icon={faChartSimple} />),
     getItem(<a href="/production-perfomance">생산 실적 조회</a>, '10', <FontAwesomeIcon icon={faChartLine} />),
   ];
   const bottomMenu = [

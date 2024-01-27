@@ -13,7 +13,14 @@ import OrderNew from './View/Order/OrderNew';
 import Bom from './View/Production/Bom';
 import Mrp from './View/Production/Mrp';
 import ProductManagement from './View/Production/ProductManagement';
+import Mrp from './View/Production/Mrp';
+import UserNew from './View/User/UserNew';
+import UserList from './View/User/UserList';
+import UserEdit from './View/User/UserEdit';
+import Bom from './View/Production/Bom';
+import Status from './View/Production/Status';
 import WorkPerfomance from './View/Production/WorkPerfomance';
+import WorkPerfomanceNew from './View/Production/WorkPerfomanceNew';
 import Perfomance from './View/Production/Perfomance';
 import UserEdit from './View/User/UserEdit';
 import UserList from './View/User/UserList';
@@ -71,10 +78,12 @@ function App() {
                 <Route path='/mrp' element={<Mrp />} />
                 <Route path='/product-management' element={<ProductManagement />} />
                 <Route path='/bom' element={<Bom />} />
+                <Route path='/production-status' element={<Status />} />
                 <Route path='/work-perfomance' element={<WorkPerfomance />} />
                 <Route path='/production-perfomance' element={<Perfomance />} />
                 <Route path='/production-perfomance/chart' element={<PerfomanceChart />} />
                 <Route path='/production-perfomance/controll-chart' element={<PerfomanceControllChart />} />
+                <Route path='/work-perfomance/new' element={<WorkPerfomanceNew />} />
               </Routes>
             </Router>
           </div>

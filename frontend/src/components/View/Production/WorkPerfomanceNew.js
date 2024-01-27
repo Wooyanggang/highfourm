@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import BasicTable from '../../Common/Table/BasicTable';
 import { Input, Popconfirm } from "antd";
-import { BtnBlack, BtnGray, InputBar } from '../../Common/Module';
 
-function WorkPerfomance() {
+function WorkPerfomanceNew() {
   const [dataSource, setDataSource] = useState([
     {
       key: 0,
@@ -119,29 +118,6 @@ function WorkPerfomance() {
 
   return (
     <div className='work-perfomance-page'>
-        <form action='' className='search-form'>
-          <div className='search-input-wrap'>
-            <div className='search-input'>
-              <label htmlFor='workDate'>작업 일자</label>
-              <Input type='date' id='workDate' size='large'></Input>
-            </div>
-            <div className='search-input'>
-              <label htmlFor='product-management-id'>생산 계획 번호</label>
-              <InputBar id={'product-management-id'}></InputBar>
-            </div>
-          </div>
-          <div className='search-input-wrap'>
-            <div className='search-input'>
-              <label htmlFor='manager'>담당자</label>
-              <InputBar id={'manager'}></InputBar>
-            </div>
-            <div className='search-input'>
-              <label htmlFor='product-name'>생산품명</label>
-              <InputBar id={'product-name'}></InputBar>
-            </div>
-            <BtnGray value={'검색'}> type={'button'}</BtnGray>
-          </div>
-        </form>
         <div style={{width: '1600px'}}>
           <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} />
         </div>
@@ -149,4 +125,4 @@ function WorkPerfomance() {
   );
 }
 
-export default WorkPerfomance
+export default WorkPerfomanceNew
