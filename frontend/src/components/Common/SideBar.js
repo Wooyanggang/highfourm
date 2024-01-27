@@ -32,7 +32,7 @@ const SideBar = () => {
       getItem(<a href="/">작업 실적 조회</a>, '8'),
     ]),
     getItem(<a href="/">생산 현황 조회</a>, '9', <FontAwesomeIcon icon={faChartSimple} />),
-    getItem(<a href="/">생산 실적 조회</a>, '10', <FontAwesomeIcon icon={faChartLine} />),
+    getItem(<a href="/production-perfomance">생산 실적 조회</a>, '10', <FontAwesomeIcon icon={faChartLine} />),
   ];
   const bottomMenu = [
     getItem(<a href="/users">사용자 관리</a>, '9', <FontAwesomeIcon icon={faUserGroup} />),

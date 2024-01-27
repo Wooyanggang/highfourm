@@ -3,7 +3,7 @@ import { Layout, Menu, theme, Breadcrumb } from 'antd';
 import { BtnBlack } from './Module';
 const { Header, Content, Footer, Sider } = Layout;
 
-const Container = ({ title }) => {
+const PageTitle = ({ title }) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -32,4 +32,4 @@ const Container = ({ title }) => {
   );
 }
 
-export default Container;
+export default PageTitle;

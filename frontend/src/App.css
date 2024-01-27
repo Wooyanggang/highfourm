@@ -89,30 +89,89 @@ input[type="date"]::placeholder {
 }
 
 /* OrderNew */
-
-.order-new-page input[type="date"] {
-  width: 200px;
-}
-
-.order-new-page .input-form .search-input-wrap {
+.order-new-page .search-input-wrap {
   display: flex;
 }
 
-.order-new-page .input-form .search-input-wrap:nth-child(n+2) {
+.order-new-page .search-input-wrap:nth-child(n+2) {
   margin-top: 16px;
 }
 
-.order-new-page .input-form label {
+.order-new-page label {
   display: inline-block;
   width: 100px;
 }
 
-.order-new-page .input-form .input-form {
-  margin-right: 20px;
+.order-new-page .input-form {
+  margin: 20px;
 }
 
 .order-new-page .ant-table-container {
   margin-top: 20px;
+}
+
+.order-new-page .search-input {
+  margin-right: 20px;
+}
+
+.order-new-page .order-new-table{
+  margin-bottom: 16px;
+}
+
+.order-new-page .order-new-pdf-upload{
+  margin: 16px 0 16px 0;
+}
+
+.order-new-page .order-new-btn{
+  display: flex;
+}
+
+.order-new-page .order-new-btn .order-new-add-btn{
+  margin-right: auto;
+}
+
+.order-new-page .order-new-btn .order-new-submit-btn{
+  margin-left: 16px;
+}
+
+/* OrderList */
+
+.order-list-page {
+  width: 100%;
+}
+
+.order-list-page .order-list-wrap {
+  display: flex;
+  margin: 16px 0 24px 0;
+}
+
+.order-list-page .order-list-wrap .order-new{
+  margin-right: auto;
+}
+
+/* production-performance-chart */
+.perfomance-chart-page .search-input-wrap {
+  display: flex;
+}
+
+.perfomance-chart-page .search-input-wrap:nth-child(n+2) {
+  margin-top: 16px;
+}
+
+.perfomance-chart-page label {
+  display: inline-block;
+  width: 100px;
+}
+
+.perfomance-chart-page .search-input {
+  margin-right: 20px;
+}
+
+.perfomance-chart-page h3{
+  margin-top: 24px;
+}
+.perfomance-chart-page hr{
+  margin-bottom: 24px;
 }
 
 /* Login.js Notice.js */
@@ -243,3 +302,5 @@ span.email {
 :where(.css-dev-only-do-not-override-1qhpsh8).ant-menu-light.ant-menu-root.ant-menu-inline {
   border-inline-end: 0;
 }
+
+

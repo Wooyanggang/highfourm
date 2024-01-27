@@ -85,6 +85,7 @@ const UserList = () => {
 
   return (
     <div>
+      {/* <Container title={'사용자 관리'}> */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 24px', marginBottom: '24px' }}>
         <SearchSelectBox selectValue={['사원명', '계정 주소']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />

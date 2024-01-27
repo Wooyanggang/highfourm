@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Container from '../../Common/PageTitle';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
@@ -71,6 +72,7 @@ const ProductManagement = () => {
       dataIndex: 'due_date',
     },
   ];
+
 
   const defaultColumnsTwo = [
     {

@@ -14,11 +14,14 @@ import Bom from './View/Production/Bom';
 import Mrp from './View/Production/Mrp';
 import ProductManagement from './View/Production/ProductManagement';
 import WorkPerfomance from './View/Production/WorkPerfomance';
+import Perfomance from './View/Production/Perfomance';
 import UserEdit from './View/User/UserEdit';
 import UserList from './View/User/UserList';
 import UserNew from './View/User/UserNew';
 import MaterialOrderHistory from './View/Material/MaterialOrderHistory';
 import Join from './View/User/Join';
+import PerfomanceChart from './View/Production/PerfomanceChart';
+import PerfomanceControllChart from './View/Production/PerfomanceControllChart';
 import '../App.css'
 import axios from 'axios';
 const { Header, Content, Footer, Sider } = Layout;
@@ -46,7 +49,6 @@ function App() {
     return (
       <div className="App" style={{ position: 'relative' }}>
         <SideBar />
-        <Container />
         <Content
           style={{
             padding: '152px 32px 32px 332px',
@@ -70,6 +72,9 @@ function App() {
                 <Route path='/product-management' element={<ProductManagement />} />
                 <Route path='/bom' element={<Bom />} />
                 <Route path='/work-perfomance' element={<WorkPerfomance />} />
+                <Route path='/production-perfomance' element={<Perfomance />} />
+                <Route path='/production-perfomance/chart' element={<PerfomanceChart />} />
+                <Route path='/production-perfomance/controll-chart' element={<PerfomanceControllChart />} />
               </Routes>
             </Router>
           </div>
