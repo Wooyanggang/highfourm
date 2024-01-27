@@ -8,27 +8,27 @@ const PageTitle = ({ title }) => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   return (
-      <Header
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          padding: '0 0 0 32px',
-          margin: 0,
-          width: 'calc(100% - 300px)',
-          height: '120px',
-          verticalAlign: 'center',
-          background: colorBgContainer,
-          backgroundColor: '#fff',
-          borderBottom: '1px solid #ccc',
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          boxSizing: 'border-box',
-          zIndex: '99',
-        }}
-      >
-        <h2>제목{/* [[${title}]] */}</h2>
-      </Header>
+    <Header
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 0 0 32px',
+        margin: 0,
+        width: 'calc(100% - 300px)',
+        height: '120px',
+        verticalAlign: 'center',
+        background: colorBgContainer,
+        backgroundColor: '#fff',
+        borderBottom: '1px solid #ccc',
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        boxSizing: 'border-box',
+        zIndex: '99',
+      }}
+    >
+      <h2>잠시만용 화장실점</h2>
+    </Header>
   );
 }
 

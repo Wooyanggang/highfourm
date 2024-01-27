@@ -21,8 +21,8 @@ const SideBar = () => {
   const topMenu = [
     getItem(<a href="/orders">주문관리</a>, '1', <FontAwesomeIcon icon={faFilePen} />),
     getItem('원자재관리', 'sub1', <FontAwesomeIcon icon={faListCheck} />, [
-      getItem(<a href="/">재고 현황</a>, '2'),
-      getItem(<a href="/">수급내역관리</a>, '3'),
+      getItem(<a href="/materials/stock">재고 현황</a>, '2'),
+      getItem(<a href="/materials/order-history">수급내역관리</a>, '3'),
     ]),
     getItem(<a href="/bom">제품별 공정/소요자재 관리</a>, '4', <FontAwesomeIcon icon={faTable} />),
     getItem(<a href="/production-management">생산 계획 수립</a>, '5', <FontAwesomeIcon icon={faIndustry} />),
@@ -40,7 +40,7 @@ const SideBar = () => {
   ];
 
   return (
-    <div style={{ padding: '40px 20px 40px 20px', width: '300px', backgroundColor:'#fff', height: '100vh', borderRight: '1px solid #ccc', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', zIndex: '100', position: 'fixed' }}>
+    <div style={{ padding: '40px 20px 40px 20px', width: '300px', backgroundColor: '#fff', height: '100vh', borderRight: '1px solid #ccc', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', zIndex: '100', position: 'fixed' }}>
       <div>
         <div style={{ paddingBottom: '60px' }}>
           <a href='/'>

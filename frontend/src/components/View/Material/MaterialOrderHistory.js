@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Container from '../../Common/Container';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
@@ -137,7 +136,7 @@ const MaterialOrderHistory = () => {
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <h2 style={{ fontSize: '16px', display: 'inline-block' }}>입고완료</h2>
             <hr style={{ color: '#000', width: '520px', marginLeft: '20px' }
-          } />
+            } />
           </div>
           <div style={{ marginTop: '20px', height: '300px', overflowY: 'auto' }}>
             <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />

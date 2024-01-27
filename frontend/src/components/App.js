@@ -3,7 +3,6 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Layout, theme } from 'antd';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import '../App.css';
-import Container from './Common/Container';
 import SideBar from './Common/SideBar';
 import Login from './View/Login/Login';
 import Notice from './View/Login/Notice';
@@ -13,11 +12,6 @@ import OrderNew from './View/Order/OrderNew';
 import Bom from './View/Production/Bom';
 import Mrp from './View/Production/Mrp';
 import ProductManagement from './View/Production/ProductManagement';
-import Mrp from './View/Production/Mrp';
-import UserNew from './View/User/UserNew';
-import UserList from './View/User/UserList';
-import UserEdit from './View/User/UserEdit';
-import Bom from './View/Production/Bom';
 import Status from './View/Production/Status';
 import WorkPerfomance from './View/Production/WorkPerfomance';
 import WorkPerfomanceNew from './View/Production/WorkPerfomanceNew';
@@ -76,7 +70,7 @@ function App() {
                 <Route path='/users/new' element={<UserNew />} />
                 <Route path='/users/edit' element={<UserEdit />} />
                 <Route path='/mrp' element={<Mrp />} />
-                <Route path='/product-management' element={<ProductManagement />} />
+                <Route path='/production-management' element={<ProductManagement />} />
                 <Route path='/bom' element={<Bom />} />
                 <Route path='/production-status' element={<Status />} />
                 <Route path='/work-perfomance' element={<WorkPerfomance />} />
