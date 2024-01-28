@@ -3,6 +3,7 @@ import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
 import axios from 'axios';
+import PageTitle from '../../Common/PageTitle';
 
 const UserList = () => {
   const [test, setTest] = useState();
@@ -20,6 +21,113 @@ const UserList = () => {
       user_number: '1000',
       email: 'park33@gmail.com',
       accept: '완료',
+    },
+    {
+      key: '2',
+      user_name: '홍길동',
+      user_number: '1001',
+      email: 'hong123@gmail.com',
+      accept: '대기',
+    },
+
+
+    {
+      key: '2',
+      user_name: '홍길동',
+      user_number: '1001',
+      email: 'hong123@gmail.com',
+      accept: '대기',
+    },
+    {
+      key: '2',
+      user_name: '홍길동',
+      user_number: '1001',
+      email: 'hong123@gmail.com',
+      accept: '대기',
+    },
+    {
+      key: '2',
+      user_name: '홍길동',
+      user_number: '1001',
+      email: 'hong123@gmail.com',
+      accept: '대기',
+    },
+    {
+      key: '2',
+      user_name: '홍길동',
+      user_number: '1001',
+      email: 'hong123@gmail.com',
+      accept: '대기',
+    },
+    {
+      key: '2',
+      user_name: '홍길동',
+      user_number: '1001',
+      email: 'hong123@gmail.com',
+      accept: '대기',
+    },
+    {
+      key: '2',
+      user_name: '홍길동',
+      user_number: '1001',
+      email: 'hong123@gmail.com',
+      accept: '대기',
+    },
+    {
+      key: '2',
+      user_name: '홍길동',
+      user_number: '1001',
+      email: 'hong123@gmail.com',
+      accept: '대기',
+    },
+    {
+      key: '2',
+      user_name: '홍길동',
+      user_number: '1001',
+      email: 'hong123@gmail.com',
+      accept: '대기',
+    },
+    {
+      key: '2',
+      user_name: '홍길동',
+      user_number: '1001',
+      email: 'hong123@gmail.com',
+      accept: '대기',
+    },
+    {
+      key: '2',
+      user_name: '홍길동',
+      user_number: '1001',
+      email: 'hong123@gmail.com',
+      accept: '대기',
+    },
+    {
+      key: '2',
+      user_name: '홍길동',
+      user_number: '1001',
+      email: 'hong123@gmail.com',
+      accept: '대기',
+    },
+    {
+      key: '2',
+      user_name: '홍길동',
+      user_number: '1001',
+      email: 'hong123@gmail.com',
+      accept: '대기',
+    },
+    {
+      key: '2',
+      user_name: '홍길동',
+      user_number: '1001',
+      email: 'hong123@gmail.com',
+      accept: '대기',
+    },
+    {
+      key: '2',
+      user_name: '홍길동',
+      user_number: '1001',
+      email: 'hong123@gmail.com',
+      accept: '대기',
     },
     {
       key: '2',
@@ -85,15 +193,16 @@ const UserList = () => {
 
   return (
     <div>
-      {/* <Container title={'사용자 관리'}> */}
+      <PageTitle title={'사용자 관리'} />
+      <div>{test}</div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 24px', marginBottom: '24px' }}>
-        <SearchSelectBox selectValue={['사원명', '계정 주소']} SelectChangeHandler={SelectChangeHandler} />
+        <SearchSelectBox selectValue={['사원명', '사번', '계정 주소', '가입 여부']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />
       </div>
       <div style={{ marginBottom: '24px' }}>
         <BtnBlack value={'사용자 등록'} onClick={onClick} />
       </div>
-      <div style={{ width: '720px' }}>
+      <div style={{ width: '720px', height: '565px', overflowY: 'auto' }}>
         <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} />
       </div>
     </div>

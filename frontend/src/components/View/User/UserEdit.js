@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Container from '../../Common/PageTitle';
 import { BtnBlue, BtnWhite, InputBar } from '../../Common/Module';
+import PageTitle from '../../Common/PageTitle';
 
 const UserNew = () => {
   const navigate = useNavigate();
@@ -12,7 +12,8 @@ const UserNew = () => {
 
   return (
     <div>
-      <form method='post' action='/users'>
+      <PageTitle title={'사용자 수정'} />
+      <form method='post' action='/users/edit'>
         <div className='flex-line'>
           <div className='flex-div'>
             <label htmlFor='user_number' className='label-title'>사번</label>

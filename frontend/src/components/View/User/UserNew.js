@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Container from '../../Common/PageTitle';
 import { BtnBlue, BtnWhite, InputBar } from '../../Common/Module';
 import axios from 'axios';
+import PageTitle from '../../Common/PageTitle';
 
 const UserNew = () => {
 
   useEffect(() => {
-  axios({
-    method: 'POST',
-    url: '/users/new',
-    // data: JSON.stringify({name: 'info',
-    // num: '0',}),
-    data: JSON.stringify,
-    headers: { 'Content-Type': 'application/json' },
-  })
-    .then((res) => console.log(res))
-    .catch((error) => console.log(error))
+    axios({
+      method: 'POST',
+      url: '/users/new',
+      // data: JSON.stringify({name: 'info',
+      // num: '0',}),
+      data: JSON.stringify,
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error))
   }, [])
 
   const navigate = useNavigate();
@@ -27,6 +27,7 @@ const UserNew = () => {
 
   return (
     <div>
+      <PageTitle title={'사용자 등록'} />
       <form method='post' action='/users/new'>
         <div className='flex-line'>
           <div className='flex-div'>

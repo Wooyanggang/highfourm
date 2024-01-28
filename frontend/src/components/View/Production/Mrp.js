@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { SearchInput, SearchSelectBox, BtnFilter } from '../../Common/Module';
-import { Popconfirm } from "antd";
+import { SearchInput, SearchSelectBox } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
+import PageTitle from '../../Common/PageTitle';
 
 const Mrp = () => {
 
@@ -124,6 +124,7 @@ const Mrp = () => {
 
   return (
     <div>
+      <PageTitle title={'자재 소요량 산출'} />
       <div style={{ display: 'flex', gap: '10px 24px', marginBottom: '24px', alignItems: 'center' }}>
         <h2 style={{ fontSize: '16px', margin: 0 }}>생산계획 조회 조건</h2>
         <SearchSelectBox selectValue={['생산계획 코드', '품번', '품명', '자재명', '자재코드']} SelectChangeHandler={SelectChangeHandler} />
@@ -135,14 +136,18 @@ const Mrp = () => {
             <h2 className='bordered-box-title'>생산계획 상세</h2>
             <hr className='box-title-line' />
           </div>
-          <BasicTable dataSource={dataSourceOne} defaultColumns={defaultColumnsOne} setDataSource={setDataSourceOne} />
+          <div style={{ height: '706px', overflowY: 'auto' }}>
+            <BasicTable dataSource={dataSourceOne} defaultColumns={defaultColumnsOne} setDataSource={setDataSourceOne} />
+          </div>
         </div>
         <div className='bordered-box'>
           <div className='bordered-box-title' style={{ marginBottom: '30px', flexWrap: 'wrap' }}>
             <h2 className='bordered-box-title'>자재소요 계획</h2>
             <hr className='box-title-line' />
           </div>
-          <BasicTable dataSource={dataSourceTwo} defaultColumns={defaultColumnsTwo} setDataSource={setDataSourceTwo} />
+          <div style={{ height: '706px', overflowY: 'auto' }}>
+            <BasicTable dataSource={dataSourceTwo} defaultColumns={defaultColumnsTwo} setDataSource={setDataSourceTwo} />
+          </div>
         </div>
       </div>
     </div>
