@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faFilePen, faListCheck, faTable, faIndustry, faCalculator, c, faChartSimple,
+  faFilePen, faListCheck, faTable, faIndustry, faCalculator, faChartSimple,
   faChartLine, faUserGroup, faRightFromBracket
 } from '@fortawesome/free-solid-svg-icons'
 
@@ -15,29 +15,92 @@ const SideBar = () => {
       label,
     };
   }
-  const [mode, setMode] = useState('inline');
-  const [theme, setTheme] = useState('light');
+
+  const mode ='inline';
+  const theme= 'light';
+  const [selectedMenu, setSelectedMenu] = useState(null);
+  const [currentPage, setCurrentPage] = useState('');
+  const [openKeys, setOpenKeys] = useState([]);
+
+  useEffect(() => {
+    // 현재 페이지 URL 가져오기
+    const currentURL = window.location.pathname;
+    // 페이지 URL에 따라 선택한 메뉴 식별
+    const menuKey = getMenuKeyFromURL(currentURL);
+    // 선택한 메뉴 설정
+    setSelectedMenu(menuKey);
+
+    // 현재 페이지가 sub1 메뉴 하위 메뉴인 경우 sub1 메뉴를 열도록 설정
+    if (currentURL.startsWith('/materials/')) {
+      setOpenKeys(['sub1']);
+    } else if (currentURL.startsWith('/work-perfomance')) {
+      setOpenKeys(['sub2']);
+    }
+
+    // 현재 페이지 설정
+    setCurrentPage(currentURL);
+  }, []);
+
+  // URL에 따른 선택한 메뉴 식별 함수
+  const getMenuKeyFromURL = (url) => {
+    // URL에 따라 메뉴를 식별하는 로직을 구현하세요.
+    // 예를 들어, '/materials/stock'일 때는 '1'을 반환하고, '/materials/order-history'일 때는 '2'를 반환할 수 있습니다.
+    // 이 예시에 맞게 로직을 수정하여 사용하시기 바랍니다.
+    if (url === '/materials/stock') {
+      return '1';
+    } else if (url === '/materials/order-history') {
+      return '2';
+    } else if (url === '/bom') {
+      return '3';
+    } else if (url === '/orders') {
+      return '4';
+    } else if (url === '/product-management') {
+      return '5';
+    } else if (url === '/mrp') {
+      return '6';
+    } else if (url === '/work-perfomance/new') {
+      return '7';
+    } else if (url === '/work-perfomance') {
+      return '8';
+    } else if (url === '/production-perfomance') {
+      return '9';
+    } else if (url === '/production-perfomance/chart' || url === '/production-perfomance/controll-chart') {
+      return '10';
+    } else if (url === '/users/' || url === '/users/new') {
+      return '11';
+    } else {
+      return null;
+    }
+  };
 
   const topMenu = [
-    getItem(<a href="/orders">주문관리</a>, '1', <FontAwesomeIcon icon={faFilePen} />),
     getItem('원자재관리', 'sub1', <FontAwesomeIcon icon={faListCheck} />, [
-      getItem(<a href="/materials/stock">재고 현황</a>, '2'),
-      getItem(<a href="/materials/order-history">수급내역관리</a>, '3'),
+      getItem(<a href="/materials/stock">재고 현황</a>, '1'),
+      getItem(<a href="/materials/order-history">수급내역관리</a>, '2'),
     ]),
-    getItem(<a href="/bom">제품별 공정/소요자재 관리</a>, '4', <FontAwesomeIcon icon={faTable} />),
-    getItem(<a href="/production-management">생산 계획 수립</a>, '5', <FontAwesomeIcon icon={faIndustry} />),
+    getItem(<a href="/bom">제품별 공정/소요자재 관리</a>, '3', <FontAwesomeIcon icon={faTable} />),
+    getItem(<a href="/orders">주문관리</a>, '4', <FontAwesomeIcon icon={faFilePen} />),
+    getItem(<a href="/product-management">생산 계획 수립</a>, '5', <FontAwesomeIcon icon={faIndustry} />),
     getItem(<a href="/mrp">자재 소요량 산출</a>, '6', <FontAwesomeIcon icon={faCalculator} />),
     getItem('작업 실적 관리', 'sub2', <FontAwesomeIcon icon={faChartLine} />, [
-      getItem(<a href="/work-perfomance">작업 실적 조회</a>, '7'),
-      getItem(<a href="/work-perfomance/new">작업 실적 입력</a>, '8'),
+      getItem(<a href="/work-perfomance/new">작업 실적 등록</a>, '7'),
+      getItem(<a href="/work-perfomance">작업 실적 조회</a>, '8'),
     ]),
-    getItem(<a href="/production-status">생산 현황 조회</a>, '9', <FontAwesomeIcon icon={faChartSimple} />),
-    getItem(<a href="/production-perfomance">생산 실적 조회</a>, '10', <FontAwesomeIcon icon={faChartLine} />),
+    getItem(<a href="/production-perfomance">생산 현황 조회</a>, '9', <FontAwesomeIcon icon={faChartSimple} />),
+    getItem(<a href="/production-perfomance/chart">생산 실적 조회</a>, '10', <FontAwesomeIcon icon={faChartLine} />),
   ];
   const bottomMenu = [
-    getItem(<a href="/users">사용자 관리</a>, '9', <FontAwesomeIcon icon={faUserGroup} />),
-    getItem(<a href="/">로그아웃</a>, '10', <FontAwesomeIcon icon={faRightFromBracket} />),
+    getItem(<a href="/users">사용자 관리</a>, '11', <FontAwesomeIcon icon={faUserGroup} />),
+    getItem(<a href="/">로그아웃</a>, '12', <FontAwesomeIcon icon={faRightFromBracket} />),
   ];
+
+  const handleClick = (e) => {
+    setSelectedMenu(e.key);
+  };
+
+  const handleOpenChange = (keys) => {
+    setOpenKeys(keys);
+  };
 
   return (
     <div style={{ padding: '40px 20px 40px 20px', width: '300px', backgroundColor: '#fff', height: '100vh', borderRight: '1px solid #ccc', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', zIndex: '100', position: 'fixed' }}>
@@ -58,6 +121,10 @@ const SideBar = () => {
             mode={mode}
             theme={theme}
             items={topMenu}
+            selectedKeys={[selectedMenu]}
+            openKeys={openKeys}
+            onClick={handleClick}
+            onOpenChange={handleOpenChange}
           />
         </div>
       </div>
@@ -69,6 +136,8 @@ const SideBar = () => {
           mode={mode}
           theme={theme}
           items={bottomMenu}
+          selectedKeys={[selectedMenu]}
+          onClick={handleClick}
         />
       </div>
     </div>

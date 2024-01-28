@@ -104,7 +104,7 @@ const StockList = () => {
           onCancel={handleCancel}
           okText='저장'
           cancelText='취소'
-          width='40%'
+          width='50%'
         >
           <StockNew  formAction='/materials/stock' />
         </Modal>

@@ -74,10 +74,10 @@ function App() {
                 <Route path='/bom' element={<Bom />} />
                 <Route path='/production-status' element={<Status />} />
                 <Route path='/work-perfomance' element={<WorkPerfomance />} />
+                <Route path='/work-perfomance/new' element={<WorkPerfomanceNew />} />
                 <Route path='/production-perfomance' element={<Perfomance />} />
                 <Route path='/production-perfomance/chart' element={<PerfomanceChart />} />
                 <Route path='/production-perfomance/controll-chart' element={<PerfomanceControllChart />} />
-                <Route path='/work-perfomance/new' element={<WorkPerfomanceNew />} />
               </Routes>
             </Router>
           </div>
