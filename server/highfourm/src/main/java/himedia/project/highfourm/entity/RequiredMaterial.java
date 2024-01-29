@@ -15,14 +15,13 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @Table(name = "required_material")
 public class RequiredMaterial {
-	
 	@Id
-	//@ManyToOne(cascade = CascadeType.REFRESH)
-	//@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)
 	private Product product;
 	
-	//@ManyToOne(cascade = CascadeType.REFRESH)
-	//@JoinColumn(name = "material_id", referencedColumnName = "material_id", unique = true)
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "material_id", referencedColumnName = "material_id", unique = true)
 	private Material material;
 	
 	@Column(name = "input_process")

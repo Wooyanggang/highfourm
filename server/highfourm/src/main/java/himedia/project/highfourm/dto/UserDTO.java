@@ -1,8 +1,14 @@
 package himedia.project.highfourm.dto;
 
-import lombok.Data;
+import himedia.project.highfourm.entity.Company;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO {
 	
 	private Long userNo;
@@ -13,7 +19,7 @@ public class UserDTO {
 	private String position;
 	private String birth;
 	private String email;
-	private Long companyId;
+	private Company company;
 	private String registerState;
 	private String role;
 	
