@@ -1,8 +1,8 @@
 package himedia.project.highfourm.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import himedia.project.highfourm.dto.UserDTO;
@@ -15,23 +15,17 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
 	private final UserRepository repository;
-//	private final ModelMapper modelMapper;
-	
-	private UserDTO convertDTO(UserDTO userDTO, User user) {
-		// DTO to Entity
-//		User entity = modelMapper.map(userDTO, User.class);
-		
-		// Entity to DTO
-		
-		
-		return null;
-	}
+	private final ModelMapper modelMapper;
 	
 	public List<UserDTO> getAllUsers() {
 		List<User> userList = repository.findAll();
+		
+		
 		return null;
 	}
 	
-	
+	public User save(User user) {
+		return repository.save(user);
+	}
 	
 }

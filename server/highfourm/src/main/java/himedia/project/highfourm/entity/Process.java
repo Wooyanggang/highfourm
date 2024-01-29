@@ -21,8 +21,8 @@ public class Process {
 	@Id
 	@Column(name = "process_id", unique = true)
 	private String processId;
-	@OneToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)	
+	//@OneToOne(cascade = CascadeType.REFRESH)
+	//@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)	
 	private String productId;
 	@Column(name = "sequence")
 	private Long sequence;

@@ -25,6 +25,7 @@ public class User {
 	@Column(name = "user_id")
 	private String userId;
 	
+	@Column(name = "password")
 	private String password;
 	
 	@Column(name = "user_name")
@@ -46,7 +47,7 @@ public class User {
 	@JoinColumn(name = "company_id", referencedColumnName = "company_id")
 	private Company company;
 	
-	@Column(name = "registre_state")
+	@Column(name = "register_state")
 	private String registerState;
 	
 	@Column(name = "role")

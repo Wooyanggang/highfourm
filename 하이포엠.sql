@@ -225,7 +225,7 @@ create table IF NOT EXISTS material_history (
     ON UPDATE CASCADE
 );
 
-select * from material_log;
+select * from material_history;
 
 
 

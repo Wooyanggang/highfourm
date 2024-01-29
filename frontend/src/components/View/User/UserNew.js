@@ -8,24 +8,23 @@ const UserNew = () => {
   const navigate = useNavigate();
   const [newUser, setNewUser] = useState(
     {
-      emoNo: '',
-      user_name: '',
+      empNo: '',
+      userName: '',
       position: '',
       birth: '',
       email: '',
     });
 
-    const onChange = (e) => {
-      setNewUser({
-        ...newUser,
-        [e.target.name]: e.target.value
-      });
-    }
+  const onChange = (e) => {
+    setNewUser({
+      ...newUser,
+      [e.target.name]: e.target.value
+    });
+  }
 
   const onClickSubmit = (e) => {
-    e.preventDefault();
     console.log(newUser)
-  
+
     axios({
       method: 'POST',
       url: '/users/new',
@@ -49,12 +48,12 @@ const UserNew = () => {
       <form id='userForm' method='post' action='/users/new'>
         <div className='flex-line'>
           <div className='flex-div'>
-            <label htmlFor='emo_no' className='label-title'>사번</label>
-            <InputBar id={'emo_no'} name={'emo_no'} placeholderMsg={'사번'} onChange={onChange} />
+            <label htmlFor='empNo' className='label-title'>사번</label>
+            <InputBar id={'empNo'} name={'empNo'} placeholderMsg={'사번'} onChange={onChange} />
           </div>
           <div className='flex-div'>
-            <label htmlFor='user_name' className='label-title'>이름</label>
-            <InputBar id={'user_name'} name={'user_name'} placeholderMsg={'이름'} onChange={onChange} />
+            <label htmlFor='userName' className='label-title'>이름</label>
+            <InputBar id={'userName'} name={'userName'} placeholderMsg={'이름'} onChange={onChange} />
           </div>
         </div>
         <div className='flex-line'>
@@ -78,7 +77,7 @@ const UserNew = () => {
           <span className='email'>@gmail.com</span>
         </div>
         <div className='flex-btn'>
-          <BtnBlue type='submit' value={'등록하기'} onClick={onClickSubmit}/>
+          <BtnBlue type='submit' value={'등록하기'} onClick={onClickSubmit} />
           <BtnWhite value={'취소'} onClick={goBackNavigate} />
         </div>
       </form>

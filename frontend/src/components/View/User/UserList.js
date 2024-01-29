@@ -6,22 +6,13 @@ import axios from 'axios';
 import PageTitle from '../../Common/PageTitle';
 
 const UserList = () => {
-  const [dataSource, setDataSource] = useState([
-    {
-      key: '',
-      user_name: '',
-      emp_no: '',
-      email: '',
-      register_state: '',
-      delete: '',
-    },
-  ]);
+  const [dataSource, setDataSource] = useState();
 
   useEffect(() => {
     async function fetchData() {
       try {
         const res = await axios.get('/users')
-        
+
         const userData = await res.data.map((rowData) => ({
           key: rowData.user_no,
           user_name: rowData.user_name,
@@ -29,13 +20,12 @@ const UserList = () => {
           email: rowData.email,
           register_state: rowData.register_state,
         }))
-        
         setDataSource(dataSource.concat(userData))
-      } catch(e) {
+      } catch (e) {
         console.error(e.message)
       }
     }
-}, []);
+  }, []);
 
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
@@ -47,14 +37,14 @@ const UserList = () => {
       title: '사원명',
       dataIndex: 'user_name',
       width: '20%',
-      // render: (text) => <a href={`/users/edit/${user_no}`}>{text}</a>,
-      render: (text) => <a href='/users/edit/'>{text}</a>,
+      render: (text) => <a href={`/users/edit/${dataSource.user_name}`}>{text}</a>,
+      // render: (text) => <a href='/users/edit/'>{text}</a>,
     },
     {
       title: '사번',
       dataIndex: 'emp_no',
-      // render: (text) => <a href={`/users/edit/${user_no}`}>{text}</a>,
-      render: (text) => <a href='/users/edit/'>{text}</a>,
+      render: (text) => <a href={`/users/edit/${dataSource.emp_no}`}>{text}</a>,
+      // render: (text) => <a href='/users/edit/'>{text}</a>,
     },
     {
       title: '계정 주소',
@@ -68,7 +58,7 @@ const UserList = () => {
       title: '삭제',
       dataIndex: 'delete',
       render: (_, record) =>
-        dataSource.length >= 1 ? (
+        dataSource.legth >= 1 ? (
           <Popconfirm title="해당 사원을 삭제하시겠습니까?" onConfirm={() => handleDelete(record.key)}>
             <a>삭제</a>
           </Popconfirm>
