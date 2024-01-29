@@ -9,26 +9,30 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "work_perfomance")
 public class WorkPerformance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "work_performence_no")
-	private Long workPerformenceNo;
+	@Column(name = "work_performance_no")
+	private Long workPerformanceNo;
 	@OneToMany(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "production_plan_id", referencedColumnName = "production_plan_id")
 	private String productionPlanId;
-	@Column(name = "date")
-	private String date;
+	@Column(name = "working_date")
+	private String workinDate;
 	@Column(name = "production_amount")
 	private Long productionAmount;
-	@Column(name = "acceptancen_amount")
+	@Column(name = "acceptance_amount")
 	private Long acceptancenAmount;
-	@Column(name = "defectiven_amount")
+	@Column(name = "defective_amount")
 	private Long defectivenAmount;
 	@Column(name = "working_time")
 	private Long workingTime;
