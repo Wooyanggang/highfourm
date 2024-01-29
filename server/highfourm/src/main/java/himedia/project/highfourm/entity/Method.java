@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @Table(name = "method")
 public class Method {
 	@Id
-	@Column(name = "method_id")
+	@Column(name="method_id")
 	private Long methodId;
 	
 	@Column(name = "method_name", length=10 )

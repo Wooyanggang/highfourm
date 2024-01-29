@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @Table(name = "material")
 public class Material {
-	
 	@Id
 	@Column(name = "material_id")
 	private String materialId;
