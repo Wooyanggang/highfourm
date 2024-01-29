@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
+@Entity
 @Table(name = "required_material")
 public class RequiredMaterial {
 	

@@ -26,11 +26,7 @@ const PageTitle = ({ value }) => {
         zIndex: '99',
       }}
     >
-<<<<<<< HEAD
-      <h2>{title}</h2>
-=======
       <h2>{value}</h2>
->>>>>>> feature-issue-18
     </Header>
   );
 }
