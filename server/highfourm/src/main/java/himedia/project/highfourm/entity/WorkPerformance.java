@@ -19,8 +19,8 @@ public class WorkPerformance {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "work_performence_no")
 	private Long workPerformenceNo;
-	@OneToMany(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "production_plan_id", referencedColumnName = "production_plan_id")
+//	@OneToMany(cascade = CascadeType.REFRESH)
+//	@JoinColumn(name = "production_plan_id", referencedColumnName = "production_plan_id")
 	private String productionPlanId;
 	@Column(name = "date")
 	private String date;
