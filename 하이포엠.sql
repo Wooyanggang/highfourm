@@ -12,6 +12,9 @@ create table IF NOT EXISTS company (
     primary key(company_id)
 );
 
+insert into company values(1, 'Samsung'); 
+insert into company values(2, 'LG'); 
+
 select * from company;
 
 create table IF NOT EXISTS user (
@@ -30,6 +33,9 @@ create table IF NOT EXISTS user (
 	foreign key (company_id) references company(company_id)
     ON UPDATE CASCADE
 );
+
+insert into user(user_no, user_name, emp_no, position, birth, email, company_id, register_state) values (1, '홍길동', 1000, '사원', '2024-01-01', 'hong333', 1, 'Y');
+insert into user(user_no, user_name, emp_no, position, birth, email, company_id, register_state) values (1, '홍길동', 1000, '사원', '2024-01-01', 'hong333', 1, 'Y');
 
 select * from user;
 

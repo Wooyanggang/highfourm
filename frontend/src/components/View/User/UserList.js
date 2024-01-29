@@ -16,18 +16,11 @@ const UserList = () => {
 
   const [dataSource, setDataSource] = useState([
     {
-      key: '0',
-      user_name: '박보검',
-      user_number: '1000',
-      email: 'park33@gmail.com',
-      accept: '완료',
-    },
-    {
-      key: '1',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
+      key: '',
+      user_name: '',
+      emp_no: '',
+      email: '',
+      register_state: '',
     },
   ]);
 
