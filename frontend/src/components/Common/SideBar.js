@@ -73,22 +73,27 @@ const SideBar = () => {
     }
   };
 
-  const topMenu = [
+  const infoMenu = [
     getItem('원자재관리', 'sub1', <FontAwesomeIcon icon={faListCheck} />, [
       getItem(<a href="/materials/stock">재고 현황</a>, '1'),
       getItem(<a href="/materials/order-history">수급내역관리</a>, '2'),
     ]),
     getItem(<a href="/bom">제품별 공정/소요자재 관리</a>, '3', <FontAwesomeIcon icon={faTable} />),
     getItem(<a href="/orders">주문관리</a>, '4', <FontAwesomeIcon icon={faFilePen} />),
+  ];
+  const productionMenu = [
     getItem(<a href="/product-management">생산 계획 수립</a>, '5', <FontAwesomeIcon icon={faIndustry} />),
     getItem(<a href="/mrp">자재 소요량 산출</a>, '6', <FontAwesomeIcon icon={faCalculator} />),
     getItem('작업 실적 관리', 'sub2', <FontAwesomeIcon icon={faChartLine} />, [
       getItem(<a href="/work-perfomance/new">작업 실적 등록</a>, '7'),
       getItem(<a href="/work-perfomance">작업 실적 조회</a>, '8'),
     ]),
+  ];
+  const inquiryMenu = [
     getItem(<a href="/production-perfomance">생산 현황 조회</a>, '9', <FontAwesomeIcon icon={faChartSimple} />),
     getItem(<a href="/production-perfomance/chart">생산 실적 조회</a>, '10', <FontAwesomeIcon icon={faChartLine} />),
   ];
+
   const bottomMenu = [
     getItem(<a href="/users">사용자 관리</a>, '11', <FontAwesomeIcon icon={faUserGroup} />),
     getItem(<a href="/">로그아웃</a>, '12', <FontAwesomeIcon icon={faRightFromBracket} />),
@@ -113,14 +118,40 @@ const SideBar = () => {
           </a>
         </div>
         <div style={{ width: '260px', }}>
-          <span style={{ width: '87px', height: '14px', paddingBottom: '20px', color: '#808080' }}>Main Menu</span>
+          <span style={{ width: '87px', height: '14px', paddingBottom: '20px', color: '#808080' }}>정보</span>
           <Menu
             style={{
               width: '260px',
             }}
             mode={mode}
             theme={theme}
-            items={topMenu}
+            items={infoMenu}
+            selectedKeys={[selectedMenu]}
+            openKeys={openKeys}
+            onClick={handleClick}
+            onOpenChange={handleOpenChange}
+          />
+          <span style={{ width: '87px', height: '14px', paddingBottom: '20px', color: '#808080' }}>생산</span>
+          <Menu
+            style={{
+              width: '260px',
+            }}
+            mode={mode}
+            theme={theme}
+            items={productionMenu}
+            selectedKeys={[selectedMenu]}
+            openKeys={openKeys}
+            onClick={handleClick}
+            onOpenChange={handleOpenChange}
+            />
+          <span style={{ width: '87px', height: '14px', paddingBottom: '20px', color: '#808080' }}>조회</span>
+          <Menu
+            style={{
+              width: '260px',
+            }}
+            mode={mode}
+            theme={theme}
+            items={inquiryMenu}
             selectedKeys={[selectedMenu]}
             openKeys={openKeys}
             onClick={handleClick}
