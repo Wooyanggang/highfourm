@@ -4,6 +4,7 @@ import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown, message, Tooltip, Popconfirm, Table, FLex } from 'antd';
 import { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, StepBar } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
+import PageTitle from '../../Common/PageTitle';
 
 const Perfomance = () => {
   const defaultColumns = [
@@ -383,6 +384,7 @@ const Perfomance = () => {
   }
   return (
     <div className='perfomance-page'>
+      <PageTitle value={'생산 실적 조회'}/>
       <div style={{ marginBottom: '24px' }}>
         <SearchInput></SearchInput>
       </div>

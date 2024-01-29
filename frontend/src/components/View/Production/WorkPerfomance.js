@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import BasicTable from '../../Common/Table/BasicTable';
 import { Input, Popconfirm } from "antd";
 import { BtnBlack, BtnGray, InputBar } from '../../Common/Module';
+import PageTitle from '../../Common/PageTitle';
 
 function WorkPerfomance() {
   const [dataSource, setDataSource] = useState([
@@ -119,6 +120,7 @@ function WorkPerfomance() {
 
   return (
     <div className='work-perfomance-page'>
+        <PageTitle value={'생산 실적 상세 조회'}/>
         <form action='' className='search-form'>
           <div className='search-input-wrap'>
             <div className='search-input'>

@@ -1,12 +1,12 @@
 package himedia.project.highfourm.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter @Setter
+@RequiredArgsConstructor
 public class FileDTO {
 	private Long fileId;
 	private String orderId;

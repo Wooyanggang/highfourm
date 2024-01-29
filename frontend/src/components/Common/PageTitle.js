@@ -1,9 +1,8 @@
 import React from 'react';
 import { Layout, Menu, theme, Breadcrumb } from 'antd';
-import { BtnBlack } from './Module';
 const { Header, Content, Footer, Sider } = Layout;
 
-const PageTitle = ({ title }) => {
+const PageTitle = ({ value }) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -27,7 +26,11 @@ const PageTitle = ({ title }) => {
         zIndex: '99',
       }}
     >
+<<<<<<< HEAD
       <h2>{title}</h2>
+=======
+      <h2>{value}</h2>
+>>>>>>> feature-issue-18
     </Header>
   );
 }
