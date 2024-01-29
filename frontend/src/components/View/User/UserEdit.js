@@ -12,7 +12,7 @@ const UserNew = () => {
 
   return (
     <div>
-      <PageTitle title={'사용자 수정'} />
+      <PageTitle value={'사용자 수정'} />
       <form method='post' action='/users/edit'>
         <div className='flex-line'>
           <div className='flex-div'>

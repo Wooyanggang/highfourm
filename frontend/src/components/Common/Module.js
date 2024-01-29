@@ -201,12 +201,14 @@ const SelectChangeHandler = (value) => {
   // 각 페이지에서 구현해주세요
 };
 
-const SearchSelectBox = ({ selectValue, SelectChangeHandler }) => {
+const SearchSelectBox = ({ id, name, selectValue, SelectChangeHandler }) => {
   // value 값 배열로 넘기기 <SearchSelectBox selectValue={['가', '나', '다']} SelectChangeHandler={SelectChangeHandler} /> 
 
   return (
     <Space wrap>
       <Select
+        id={id}
+        name={name}
         defaultValue={selectValue[0]}
         style={{
           width: 150,
@@ -260,4 +262,4 @@ const StepBar = ({ stateNum }) => {
   )
 };
 
-export { BtnGray, SignInputBar, BtnLogin, BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, SearchSelectBox, StepBar };
+export { BtnGray, SignInputBar, BtnLogin, BtnBlack, BtnBlackLarge, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, SearchSelectBox, StepBar };

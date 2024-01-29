@@ -27,7 +27,7 @@ const UserNew = () => {
 
   return (
     <div>
-      <PageTitle title={'사용자 등록'} />
+      <PageTitle value={'사용자 등록'} />
       <form method='post' action='/users/new'>
         <div className='flex-line'>
           <div className='flex-div'>
