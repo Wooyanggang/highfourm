@@ -136,11 +136,7 @@ const Mrp = () => {
 
   return (
     <div>
-<<<<<<< HEAD
-      <PageTitle title={'자재 소요량 산출'} />
-=======
       <PageTitle value={'생산 계획 등록'}/>
->>>>>>> feature-issue-18
       <div style={{ display: 'flex', gap: '10px 24px', marginBottom: '24px', alignItems: 'center' }}>
         <h2 style={{ fontSize: '16px', margin: 0 }}>생산계획 조회 조건</h2>
         <SearchSelectBox selectValue={['생산계획 코드', '품번', '품명', '자재명', '자재코드']} SelectChangeHandler={SelectChangeHandler} />
