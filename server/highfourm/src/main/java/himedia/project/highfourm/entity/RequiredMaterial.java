@@ -2,29 +2,15 @@ package himedia.project.highfourm.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-<<<<<<< HEAD
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-=======
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
->>>>>>> feature-issue-18
 @Table(name = "required_material")
 public class RequiredMaterial {
 	

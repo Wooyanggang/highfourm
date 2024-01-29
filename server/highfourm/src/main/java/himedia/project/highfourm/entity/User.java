@@ -9,22 +9,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-<<<<<<< HEAD
-import lombok.Setter;
-
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-=======
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
->>>>>>> feature-issue-18
 @Entity
 @Table(name = "user")
 public class User {
