@@ -3,7 +3,7 @@ import { Table } from 'antd';
 import EditableRow from './EditableRow';
 import EditableCell from './EditableCell';
 
-const pagingTable = ({ dataSource, defaultColumns, setDataSource }) => {
+const PagingTable = ({ dataSource, defaultColumns, setDataSource }) => {
   const handleSave = (row) => {
     const newData = [...dataSource];
     const index = newData.findIndex((item) => row.key === item.key);
@@ -12,8 +12,8 @@ const pagingTable = ({ dataSource, defaultColumns, setDataSource }) => {
       ...item,
       ...row,
     });
-    setDataSource((prevState) => ({ ...prevState, "test": newData })); 
-  };
+    setDataSource(newData);
+  };  
   const components = {
     body: {
       row: EditableRow,
@@ -45,9 +45,9 @@ const pagingTable = ({ dataSource, defaultColumns, setDataSource }) => {
         dataSource={dataSource}
         columns={columns}
         size="middle"
-        pagination={true}
+        pagination={false}
       />
     </div>
   );
 };
-export default pagingTable;
+export default PagingTable;

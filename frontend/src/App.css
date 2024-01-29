@@ -54,6 +54,10 @@
   border-radius: 2px;
 }
 
+.ant-table-middle .ant-table-row {
+  height: 57px;
+}
+
 /* reset */
 h1,
 h2,
@@ -107,7 +111,7 @@ input[type="date"]::placeholder {
   margin-top: 16px;
 }
 .bom-page .ant-table-container {
-  margin-top: 20px;
+  margin-top: 24px;
 }
 
 /* OrderNew */

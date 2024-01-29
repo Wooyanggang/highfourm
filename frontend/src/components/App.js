@@ -23,6 +23,7 @@ import MaterialOrderHistory from './View/Material/MaterialOrderHistory';
 import Join from './View/User/Join';
 import PerfomanceChart from './View/Production/PerfomanceChart';
 import PerfomanceControllChart from './View/Production/PerfomanceControllChart';
+import Test from './View/Test';
 import '../App.css'
 import axios from 'axios';
 const { Header, Content, Footer, Sider } = Layout;
@@ -78,6 +79,7 @@ function App() {
                 <Route path='/production-perfomance/chart' element={<PerfomanceChart />} />
                 <Route path='/production-perfomance/controll-chart' element={<PerfomanceControllChart />} />
                 <Route path='/work-perfomance/new' element={<WorkPerfomanceNew />} />
+                <Route path='/Test' element={<Test />} />
               </Routes>
             </Router>
           </div>
