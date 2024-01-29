@@ -17,7 +17,7 @@ insert into company values(2, 'LG');
 
 select * from company;
 
-create table IF NOT EXISTS user (
+create table IF NOT EXISTS users (
 	user_no bigint auto_increment NOT NULL COMMENT '사용자 번호',
     user_id varchar(50) NOT NULL COMMENT '사용자 ID',
     password varchar(255) NOT NULL COMMENT '비밀번호',
@@ -28,16 +28,16 @@ create table IF NOT EXISTS user (
 	email varchar(50) NOT NULL COMMENT '이메일',
 	company_id int NOT NULL COMMENT '회사 코드',
 	register_state char(1) NOT NULL default 'N' COMMENT '가입 여부',
-    role char(1) NOT NULL COMMENT '권한',
+    role char(10) NOT NULL COMMENT '권한',
 	primary key(user_no),
 	foreign key (company_id) references company(company_id)
     ON UPDATE CASCADE
 );
 
-insert into user(user_no, user_name, emp_no, position, birth, email, company_id, register_state) values (1, '홍길동', 1000, '사원', '2024-01-01', 'hong333', 1, 'Y');
-insert into user(user_no, user_name, emp_no, position, birth, email, company_id, register_state) values (1, '홍길동', 1000, '사원', '2024-01-01', 'hong333', 1, 'Y');
+insert into users values (null, '', '', '홍길동', 1000, '사원', '2024-01-01', 'hong333', 1, 'Y', 'USER');
+insert into users values (null, '', '', '김이박', 1001, '대리', '1990-12-31', 'kimleepark', 2, 'N', 'USER');
 
-select * from user;
+select * from users;
 
 create table IF NOT EXISTS orders (
 	order_id varchar(50) unique NOT NULL COMMENT '주문 코드',
@@ -52,7 +52,7 @@ create table IF NOT EXISTS orders (
 SELECT *
   FROM INFORMATION_SCHEMA.COLUMNS
  WHERE TABLE_SCHEMA = 'highfourm'
-   AND TABLE_NAME   = 'user';
+   AND TABLE_NAME   = 'users';
    
 select * from orders;
 

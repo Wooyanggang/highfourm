@@ -6,14 +6,6 @@ import axios from 'axios';
 import PageTitle from '../../Common/PageTitle';
 
 const UserList = () => {
-  const [test, setTest] = useState();
-
-  useEffect(() => {
-    axios.get('/users')
-      .then(res => setTest(res.data))
-      .catch(error => console.log(error))
-  }, [])
-
   const [dataSource, setDataSource] = useState([
     {
       key: '',
@@ -21,8 +13,29 @@ const UserList = () => {
       emp_no: '',
       email: '',
       register_state: '',
+      delete: '',
     },
   ]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.get('/users')
+        
+        const userData = await res.data.map((rowData) => ({
+          key: rowData.user_no,
+          user_name: rowData.user_name,
+          emp_no: rowData.emp_no,
+          email: rowData.email,
+          register_state: rowData.register_state,
+        }))
+        
+        setDataSource(dataSource.concat(userData))
+      } catch(e) {
+        console.error(e.message)
+      }
+    }
+}, []);
 
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
@@ -34,13 +47,13 @@ const UserList = () => {
       title: '사원명',
       dataIndex: 'user_name',
       width: '20%',
-      // render: (text) => <a href={`/users/edit/${user_number}`}>{text}</a>,
+      // render: (text) => <a href={`/users/edit/${user_no}`}>{text}</a>,
       render: (text) => <a href='/users/edit/'>{text}</a>,
     },
     {
       title: '사번',
       dataIndex: 'emp_no',
-      // render: (text) => <a href={`/users/edit/${user_number}`}>{text}</a>,
+      // render: (text) => <a href={`/users/edit/${user_no}`}>{text}</a>,
       render: (text) => <a href='/users/edit/'>{text}</a>,
     },
     {
@@ -80,7 +93,6 @@ const UserList = () => {
   return (
     <div>
       <PageTitle value={'사용자 관리'} />
-      <div>{test}</div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 24px', marginBottom: '24px' }}>
         <SearchSelectBox selectValue={['사원명', '사번', '계정 주소', '가입 여부']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput id={'search'} name={'search'} onSearch={onSearch} />
