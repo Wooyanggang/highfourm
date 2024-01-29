@@ -82,20 +82,30 @@ const StockList = () => {
     document.body.style.overflow = 'hidden';
   };
 
-  const handleOk = (e) => {
+  const handleSave = (e) => {
     e.preventDefault();
 
     // Get form data
     const formData = new FormData(document.getElementById('stockNewForm'));
   
-    // Convert formData to JSON object
     const jsonData = {};
     formData.forEach((value, key) => {
       jsonData[key] = value;
     });
   
+    // 예제: MaterialRequestDTO와 일치하도록 구성
+    const materialRequest = {
+      materialId: jsonData.materialId,
+      materialName: jsonData.materialName,
+      unit: jsonData.unit,
+      totalStock: parseInt(jsonData.totalStock), // 적절한 형변환을 수행해야 합니다.
+      safetyStock: parseInt(jsonData.safetyStock),
+      maxStock: parseInt(jsonData.maxStock),
+      leadTime: parseInt(jsonData.LeadTime),
+    };
+  
     // Send POST request using Axios
-    axios.post('/materials/stock/new', jsonData)
+    axios.post('http://localhost:8080/materials/stock/new', materialRequest)
       .then(response => {
         // Handle successful response
         console.log('Material added successfully');
@@ -103,6 +113,7 @@ const StockList = () => {
       })
       .catch(error => {
         // Handle errors
+        console.log(jsonData)
         console.error('Error adding material:', error);
       });
     
@@ -123,7 +134,7 @@ const StockList = () => {
         <Modal
           title='원자재 등록'
           open={isModalOpen}
-          onOk={handleOk}
+          onOk={handleSave}
           onCancel={handleCancel}
           okText='저장'
           cancelText='취소'
