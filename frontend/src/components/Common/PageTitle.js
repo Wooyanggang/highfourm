@@ -27,7 +27,7 @@ const PageTitle = ({ title }) => {
         zIndex: '99',
       }}
     >
-      <h2>잠시만용 화장실점</h2>
+      <h2>{title}</h2>
     </Header>
   );
 }

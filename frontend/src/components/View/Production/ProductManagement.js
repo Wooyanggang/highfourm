@@ -118,7 +118,7 @@ const ProductManagement = () => {
     <div>
       <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
         <SearchSelectBox selectValue={['생산계획 코드', '품명', '주문일']} SelectChangeHandler={SelectChangeHandler} />
-        <SearchInput id={'search'} onSearch={onSearch} />
+        <SearchInput id={'search'} name={'search'} onSearch={onSearch} />
       </div>
       <div style={{ marginBottom: '24px' }}>
         <BtnBlack value={'생산계획 등록'} onClick={handleAdd} />
