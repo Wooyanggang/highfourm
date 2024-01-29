@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class MonthlyProductPlanPK implements Serializable{
 	@Column(name = "month")
 	private Long month;
-	@OneToMany(cascade = CascadeType.REFRESH)
+	//@OneToMany(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "production_plan_id", referencedColumnName = "production_plan_id")
 	private String productionPlanId;
 }

@@ -83,17 +83,17 @@ const StockList = () => {
     document.body.style.overflow = 'hidden';
   };
 
-  const handleSave = (e) => {
+  const stockNewformSubmit = (e) => {
     e.preventDefault();
 
     // Get form data
     const formData = new FormData(document.getElementById('stockNewForm'));
-  
+
     const jsonData = {};
     formData.forEach((value, key) => {
       jsonData[key] = value;
     });
-  
+
     // 예제: MaterialRequestDTO와 일치하도록 구성
     const materialRequest = {
       materialId: jsonData.materialId,
@@ -104,9 +104,14 @@ const StockList = () => {
       maxStock: parseInt(jsonData.maxStock),
       leadTime: parseInt(jsonData.LeadTime),
     };
-  
+
     // Send POST request using Axios
-    axios.post('http://localhost:8080/materials/stock/new', materialRequest)
+    axios.post('/materials/stock/new', JSON.stringify(materialRequest),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
       .then(response => {
         // Handle successful response
         console.log('Material added successfully');
@@ -117,7 +122,7 @@ const StockList = () => {
         console.log(jsonData)
         console.error('Error adding material:', error);
       });
-    
+
     setIsModalOpen(false);
   };
   const handleCancel = () => {
@@ -126,7 +131,7 @@ const StockList = () => {
 
   return (
     <div>
-      <PageTitle value={'재고 현황 조회'}/>
+      <PageTitle value={'재고 현황 조회'} />
       <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
         <SearchSelectBox selectValue={['자재코드', '자재명', '재고관리 방식']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />
@@ -136,13 +141,13 @@ const StockList = () => {
         <Modal
           title='원자재 등록'
           open={isModalOpen}
-          onOk={handleSave}
+          onOk={stockNewformSubmit}
           onCancel={handleCancel}
           okText='저장'
           cancelText='취소'
           width='50%'
         >
-          <StockNew  formAction='/materials/stock/new' />
+          <StockNew formAction='/materials/stock/new' />
         </Modal>
       </div>
       <div style={{ width: '1200px', display: 'flex', gap: '10px', flexDirection: 'column' }}>

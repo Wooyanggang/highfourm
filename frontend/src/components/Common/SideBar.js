@@ -75,8 +75,8 @@ const SideBar = () => {
 
   const infoMenu = [
     getItem('원자재관리', 'sub1', <FontAwesomeIcon icon={faListCheck} />, [
-      getItem(<a href="/materials/stock">재고 현황</a>, '1'),
-      getItem(<a href="/materials/order-history">수급내역관리</a>, '2'),
+      getItem(<a href="/materials/stock">원자재 조회/등록</a>, '1'),
+      getItem(<a href="/materials/order-history">원자재 수급내역관리</a>, '2'),
     ]),
     getItem(<a href="/bom">제품별 공정/소요자재 관리</a>, '3', <FontAwesomeIcon icon={faTable} />),
     getItem(<a href="/orders">주문관리</a>, '4', <FontAwesomeIcon icon={faFilePen} />),

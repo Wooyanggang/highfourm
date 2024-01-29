@@ -17,11 +17,11 @@ import lombok.RequiredArgsConstructor;
 @Table(name = "material_stock")
 public class MaterialStock {
 	@Id
-	@OneToOne(cascade = CascadeType.ALL)
+	//@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "material_id", referencedColumnName = "material_id")
 	private String materialId;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	//@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "method_id", referencedColumnName = "method_id")
 	private Long methodId;
 	

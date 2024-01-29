@@ -16,11 +16,11 @@ import lombok.RequiredArgsConstructor;
 @Table(name = "material_history")
 public class MaterialHistory {
 	@Id
-	@OneToOne(cascade = CascadeType.ALL)
+	//@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "material_id", referencedColumnName = "material_id")
 	private String materialHistoryId;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	//@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "material_id", referencedColumnName = "material_id")
 	private String material_id;
 	
