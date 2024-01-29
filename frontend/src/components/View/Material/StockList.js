@@ -1,5 +1,6 @@
-import { Modal } from 'antd';
 import React, { useState } from 'react';
+import axios from 'axios';
+import { Modal } from 'antd';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
 import StockNew from './StockNew';
@@ -81,8 +82,30 @@ const StockList = () => {
     document.body.style.overflow = 'hidden';
   };
 
-  const handleOk = () => {
-    document.getElementById("stockNewForm").submit();
+  const handleOk = (e) => {
+    e.preventDefault();
+
+    // Get form data
+    const formData = new FormData(document.getElementById('stockNewForm'));
+  
+    // Convert formData to JSON object
+    const jsonData = {};
+    formData.forEach((value, key) => {
+      jsonData[key] = value;
+    });
+  
+    // Send POST request using Axios
+    axios.post('/materials/stock/new', jsonData)
+      .then(response => {
+        // Handle successful response
+        console.log('Material added successfully');
+        // Redirect user to another page if needed
+      })
+      .catch(error => {
+        // Handle errors
+        console.error('Error adding material:', error);
+      });
+    
     setIsModalOpen(false);
   };
   const handleCancel = () => {
@@ -106,7 +129,7 @@ const StockList = () => {
           cancelText='취소'
           width='50%'
         >
-          <StockNew  formAction='/materials/stock' />
+          <StockNew  formAction='/materials/stock/new' />
         </Modal>
       </div>
       <div style={{ width: '1200px', display: 'flex', gap: '10px', flexDirection: 'column' }}>

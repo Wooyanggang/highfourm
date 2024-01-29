@@ -1,5 +1,20 @@
 package himedia.project.highfourm.entity;
 
-public class Method {
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "method")
+public class Method {
+	@Id
+	@Column(name = "method_id")
+	private Long methodId;
+	
+	@Column(name = "method_name")
+	private String methodName;
 }
