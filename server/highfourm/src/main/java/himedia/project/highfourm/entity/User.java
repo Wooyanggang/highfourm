@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -43,9 +43,9 @@ public class User {
 	@Column(name = "email")
 	private String email;
 	
-	@OneToMany(cascade = CascadeType.REFRESH)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "company_id", referencedColumnName = "company_id")
-	private Long companyId;
+	private Company company;
 	
 	@Column(name = "registre_state")
 	private String registerState;

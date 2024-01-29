@@ -113,7 +113,7 @@ select * from production_plan;
 create table IF NOT EXISTS work_performance (
 	work_performance_id bigint auto_increment NOT NULL COMMENT '작업 실적 코드',
 	production_plan_id varchar(50) NOT NULL COMMENT '생산 계획 코드',
-	date date NOT NULL COMMENT '작업 실적 일자',
+	working_date date NOT NULL COMMENT '작업 실적 일자',
 	production_amount bigint NOT NULL COMMENT '생산 수량',
 	acceptance_amount bigint NOT NULL COMMENT '양품 수량',
 	defective_amount bigint NOT NULL COMMENT '불량 수량',

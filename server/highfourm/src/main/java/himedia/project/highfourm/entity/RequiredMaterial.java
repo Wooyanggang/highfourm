@@ -5,11 +5,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Getter
@@ -19,13 +17,13 @@ import lombok.RequiredArgsConstructor;
 public class RequiredMaterial {
 	
 	@Id
-	@OneToMany(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)
-	private String productId;
+	//@ManyToOne(cascade = CascadeType.REFRESH)
+	//@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)
+	private Product product;
 	
-	@OneToMany(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "material_id", referencedColumnName = "material_id", unique = true)
-	private String materialId;
+	//@ManyToOne(cascade = CascadeType.REFRESH)
+	//@JoinColumn(name = "material_id", referencedColumnName = "material_id", unique = true)
+	private Material material;
 	
 	@Column(name = "input_process")
 	private String inputProcess;
