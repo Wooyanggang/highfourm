@@ -6,6 +6,7 @@ import { Button, Dropdown, message, Tooltip, Popconfirm, Table, FLex, Upload } f
 import { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, StepBar } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
 import '../../../App.css'
+import PageTitle from '../../Common/PageTitle';
 const { Search } = Input;
 const suffix = (
   <AudioOutlined
@@ -93,6 +94,7 @@ const OrderList = () => {
   ];
   return (
     <>
+    <PageTitle value={'주문 등록'}/>
       <div style={{ width: '750px' }}>
         <div className='order-new-page'>
           <form action='' className='search-form'>

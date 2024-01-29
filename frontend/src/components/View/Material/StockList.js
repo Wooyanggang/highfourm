@@ -4,6 +4,7 @@ import { Modal } from 'antd';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
 import StockNew from './StockNew';
+import PageTitle from '../../Common/PageTitle';
 
 const StockList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -125,6 +126,7 @@ const StockList = () => {
 
   return (
     <div>
+      <PageTitle value={'재고 현황 조회'}/>
       <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
         <SearchSelectBox selectValue={['자재코드', '자재명', '재고관리 방식']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />

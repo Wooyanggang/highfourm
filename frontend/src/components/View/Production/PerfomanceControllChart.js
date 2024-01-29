@@ -4,6 +4,7 @@ import { Progress, Popconfirm, message } from 'antd';
 import { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, StepBar } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList, Label, Area, ComposedChart, Bar, ReferenceLine } from 'recharts';
+import PageTitle from '../../Common/PageTitle';
 
 
 /* 관리도는 임시. 관련한 건 재작성할 예정 */
@@ -163,6 +164,7 @@ const PerfomanceControllChart = () => {
 
   return (
     <>
+      <PageTitle value={'생산 실적 상세 조회'} />
       <div style={{ width: '100%' }}>
         <div className='order-filter'>
           <BtnFilter valueArr={['통계', '불량률 관리']} linkArr={['/production-perfomance/chart', '/production-perfomance/controll-chart']} />

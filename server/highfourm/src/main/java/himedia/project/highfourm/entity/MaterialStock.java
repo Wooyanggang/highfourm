@@ -1,11 +1,13 @@
 package himedia.project.highfourm.entity;
 
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -14,12 +16,13 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @Table(name = "material_stock")
 public class MaterialStock {
-	
 	@Id
-	@Column(name = "material_id")
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "material_id", referencedColumnName = "material_id")
 	private String materialId;
 	
-	@Column(name = "method_id")
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "method_id", referencedColumnName = "method_id")
 	private Long methodId;
 	
 	@Column(name = "total_stock")

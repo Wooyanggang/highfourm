@@ -1,20 +1,21 @@
 package himedia.project.highfourm.entity;
 
-import himedia.project.highfourm.entity.pk.ProductPk;
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Data
+@Getter
+@RequiredArgsConstructor
 @Entity
 @Table(name = "product")
 public class Product {
-	@EmbeddedId
-	private ProductPk productPk;
+	@Id
+	@Column(name = "product_id", unique = true)
+	private String productId;
 	@Column(name = "product_name", unique = true)
 	private String productName;
 	@Column(name = "write_date")

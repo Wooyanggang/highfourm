@@ -138,7 +138,7 @@ const BtnFilter = ({ valueArr, linkArr, type }) => {
   )
 };
 
-const InputBar = ({ type, id, value, name, placeholderMsg, disabled }) => {
+const InputBar = ({ type, id, name, value, placeholderMsg, disabled }) => {
   // disabled={ true | false }
   if(placeholderMsg == null) {
     placeholderMsg = '';
@@ -149,14 +149,14 @@ const InputBar = ({ type, id, value, name, placeholderMsg, disabled }) => {
   )
 };
 
-const SignInputBar = ({ type, id, value, placeholderMsg, disabled }) => {
+const SignInputBar = ({ type, id, value, name, placeholderMsg, disabled }) => {
   // disabled={ true | false }
   if(placeholderMsg == null) {
     placeholderMsg = '';
   }
 
   return (
-    <Input type={type} id={id} value={value} placeholder={`${placeholderMsg}`} style={{ width: '300px' }} size='large' disabled={disabled}/>
+    <Input type={type} id={id} name={name} value={value} placeholder={`${placeholderMsg}`} style={{ width: '300px' }} size='large' disabled={disabled}/>
   )
 };
 
@@ -165,7 +165,7 @@ const onSearch = (value, _e, info) => {
   console.log(info?.source, value);
 }
 
-const SearchInput = ({ onSearch }) => {
+const SearchInput = ({ id, name, onSearch }) => {
   return (
     <ConfigProvider
       theme={{
@@ -181,6 +181,8 @@ const SearchInput = ({ onSearch }) => {
       }}>
       <Space direction='vertical'>
         <Search
+          id={id}
+          name={name}
           placeholder='검색어를 입력하세요.'
           allowClear
           enterButton='검색'

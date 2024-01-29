@@ -3,6 +3,7 @@ import BasicTable from '../../Common/Table/BasicTable';
 import PagingTable from '../../Common/Table/PagingTable';
 import { Button, Popconfirm } from 'antd';
 import { BtnBlack, SearchInput } from '../../Common/Module';
+import PageTitle from '../../Common/PageTitle';
 
 function Bom() {
   // const [loading, setLoading] = useState(true);
@@ -119,6 +120,7 @@ function Bom() {
 
   return (
     <div className='bom-page'>
+        <PageTitle value={'제품별 공정/소요자재 관리'}/>
         <SearchInput></SearchInput>
         <div className='add-btn'>
           <BtnBlack value={"등록"}></BtnBlack>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import BasicTable from '../../Common/Table/BasicTable';
 import { Tag } from "antd";
 import { SearchInput, SearchSelectBox, StepBar } from '../../Common/Module';
+import PageTitle from '../../Common/PageTitle';
 
 function Status() {
   const [dataSource, setDataSource] = useState([
@@ -62,6 +63,7 @@ function Status() {
 
   return (
     <div className='status-page'>
+      <PageTitle value={'생산 현황 조회'}/>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 24px', marginBottom: '24px', alignItems: 'center' }}>
         <SearchSelectBox selectValue={['주문 번호', '품목']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />

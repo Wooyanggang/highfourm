@@ -1,11 +1,9 @@
 package himedia.project.highfourm.entity;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -15,9 +13,9 @@ import lombok.RequiredArgsConstructor;
 @Table(name = "method")
 public class Method {
 	@Id
-	@Column(name = "method_id")
+	@Column(name="method_id")
 	private Long methodId;
 	
-	@Column(name = "method_name")
+	@Column(name = "method_name", length=10 )
 	private String methodName;
 }
