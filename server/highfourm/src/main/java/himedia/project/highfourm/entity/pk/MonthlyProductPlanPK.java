@@ -2,13 +2,13 @@ package himedia.project.highfourm.entity.pk;
 
 import java.io.Serializable;
 
+import himedia.project.highfourm.entity.ProductionPlan;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class MonthlyProductPlanPK implements Serializable{
 	@Column(name = "month")
 	private Long month;
-	@OneToMany(cascade = CascadeType.REFRESH)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "production_plan_id", referencedColumnName = "production_plan_id")
-	private String productionPlanId;
+	private ProductionPlan productionPlan;
 }

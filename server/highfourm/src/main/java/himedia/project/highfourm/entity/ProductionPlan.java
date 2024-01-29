@@ -8,7 +8,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,10 +22,10 @@ public class ProductionPlan {
 	private String productionPlanId;
 	@OneToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)
-	private String productId;
+	private Product product;
 	@OneToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "order_id", referencedColumnName = "order_id", unique = true)
-	private String orderId;
+	private Orders orders;
 	@Column(name = "production_unit")
 	private String productionUnit;
 	@Column(name = "production_amount")
