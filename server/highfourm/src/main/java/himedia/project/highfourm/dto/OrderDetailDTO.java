@@ -1,11 +1,12 @@
 package himedia.project.highfourm.dto;
 
-import himedia.project.highfourm.entity.pk.OrderDetailPk;
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter @Setter
+@RequiredArgsConstructor
 public class OrderDetailDTO {
 	private String orderId;
 	private String productId;

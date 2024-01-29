@@ -3,6 +3,7 @@ import Container from '../../Common/PageTitle';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
+import PageTitle from '../../Common/PageTitle';
 
 const ProductManagement = () => {
 
@@ -116,6 +117,7 @@ const ProductManagement = () => {
 
   return (
     <div>
+      <PageTitle value={'생산 계획 수립'}/>
       <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
         <SearchSelectBox selectValue={['생산계획 코드', '품명', '주문일']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput id={'search'} onSearch={onSearch} />

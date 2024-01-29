@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AudioOutlined } from '@ant-design/icons'; //PDF 파일용. 삭제x
 import { Input, Space } from 'antd';
+import PageTitle from '../../Common/PageTitle';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown, message, Tooltip, Popconfirm, Table, FLex } from 'antd';
 import { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, StepBar } from '../../Common/Module';
@@ -216,6 +217,7 @@ const OrderList = () => {
 
   return (
     <>
+      <PageTitle value={'주문 관리'}/>
       <Dropdown menu={menuProps}>
         <Button>
           <Space>

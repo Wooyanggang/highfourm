@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import BasicTable from '../../Common/Table/BasicTable';
 import { Input, Popconfirm } from "antd";
+import PageTitle from '../../Common/PageTitle';
 
 function WorkPerfomanceNew() {
   const [dataSource, setDataSource] = useState([
@@ -118,6 +119,7 @@ function WorkPerfomanceNew() {
 
   return (
     <div className='work-perfomance-page'>
+      <PageTitle value={'생산 실적 상세 조회'}/>
         <div style={{width: '1600px'}}>
           <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} />
         </div>

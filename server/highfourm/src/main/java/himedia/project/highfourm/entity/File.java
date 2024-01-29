@@ -7,8 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Data
+@Getter
+@RequiredArgsConstructor
 @Entity
 @Table(name = "file")
 public class File {
@@ -20,8 +23,7 @@ public class File {
 	private String orderId;
 	@Column(name = "original_name")
 	private String originalName;
-//	@Column(name = "changed_name")
-	@Column(name = "chaged_name")
+	@Column(name = "changed_name")
 	private String changedName;
 	@Column(name = "file_type")
 	private String fileType;

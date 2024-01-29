@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
+import PageTitle from '../../Common/PageTitle';
 
 const MaterialOrderHistory = () => {
 
@@ -115,6 +116,7 @@ const MaterialOrderHistory = () => {
 
   return (
     <div>
+      <PageTitle value={'원자재 관리 < 원자재 수급 내역 관리'}/>
       <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
         <SearchSelectBox selectValue={['자재코드', '자재명', '발주일', '입고일']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />

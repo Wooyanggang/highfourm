@@ -4,9 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Data
-@Entity
+@Getter
+@RequiredArgsConstructor
 @Table(name = "required_material")
 public class RequiredMaterial {
 	@Id
