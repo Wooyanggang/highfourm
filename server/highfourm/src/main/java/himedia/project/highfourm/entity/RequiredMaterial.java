@@ -7,9 +7,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "required_material")
 public class RequiredMaterial {
@@ -23,9 +28,9 @@ public class RequiredMaterial {
 	@JoinColumn(name = "material_id", referencedColumnName = "material_id", unique = true)
 	private String materialId;
 	
-	@Column(name = "process")
-	private String process;
+	@Column(name = "input_process")
+	private String inputProcess;
 	
-	@Column(name = "input_unit")
-	private String inputUnit;
+	@Column(name = "input_amount")
+	private String inputAmount;
 }

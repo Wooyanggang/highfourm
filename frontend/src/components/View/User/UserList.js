@@ -23,114 +23,7 @@ const UserList = () => {
       accept: '완료',
     },
     {
-      key: '2',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
-    },
-
-
-    {
-      key: '2',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
-    },
-    {
-      key: '2',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
-    },
-    {
-      key: '2',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
-    },
-    {
-      key: '2',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
-    },
-    {
-      key: '2',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
-    },
-    {
-      key: '2',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
-    },
-    {
-      key: '2',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
-    },
-    {
-      key: '2',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
-    },
-    {
-      key: '2',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
-    },
-    {
-      key: '2',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
-    },
-    {
-      key: '2',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
-    },
-    {
-      key: '2',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
-    },
-    {
-      key: '2',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
-    },
-    {
-      key: '2',
-      user_name: '홍길동',
-      user_number: '1001',
-      email: 'hong123@gmail.com',
-      accept: '대기',
-    },
-    {
-      key: '2',
+      key: '1',
       user_name: '홍길동',
       user_number: '1001',
       email: 'hong123@gmail.com',
@@ -153,7 +46,7 @@ const UserList = () => {
     },
     {
       title: '사번',
-      dataIndex: 'user_number',
+      dataIndex: 'emp_no',
       // render: (text) => <a href={`/users/edit/${user_number}`}>{text}</a>,
       render: (text) => <a href='/users/edit/'>{text}</a>,
     },
@@ -163,7 +56,7 @@ const UserList = () => {
     },
     {
       title: '가입 여부',
-      dataIndex: 'accept',
+      dataIndex: 'register_state',
     },
     {
       title: '삭제',
@@ -197,7 +90,7 @@ const UserList = () => {
       <div>{test}</div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 24px', marginBottom: '24px' }}>
         <SearchSelectBox selectValue={['사원명', '사번', '계정 주소', '가입 여부']} SelectChangeHandler={SelectChangeHandler} />
-        <SearchInput onSearch={onSearch} />
+        <SearchInput id={'search'} name={'search'} onSearch={onSearch} />
       </div>
       <div style={{ marginBottom: '24px' }}>
         <BtnBlack value={'사용자 등록'} onClick={onClick} />

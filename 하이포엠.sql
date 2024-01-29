@@ -1,6 +1,6 @@
-create database highfourm character set = utf8mb4;
+drop database IF EXISTS highfourm;
 
-drop database highfourm;
+create database IF NOT EXISTS highfourm character set = utf8mb4;
 
 use highfourm;
 
@@ -25,7 +25,7 @@ create table IF NOT EXISTS user (
 	email varchar(50) NOT NULL COMMENT '이메일',
 	company_id int NOT NULL COMMENT '회사 코드',
 	register_state char(1) NOT NULL default 'N' COMMENT '가입 여부',
-    role char(10) NOT NULL COMMENT '권한',
+    role char(1) NOT NULL COMMENT '권한',
 	primary key(user_no),
 	foreign key (company_id) references company(company_id)
     ON UPDATE CASCADE
@@ -94,7 +94,7 @@ create table IF NOT EXISTS production_plan (
     product_id varchar(50) unique NOT NULL COMMENT '제품 코드',
     order_id varchar(50) unique NOT NULL COMMENT '주문 코드',
 	production_unit varchar(30) NOT NULL COMMENT '생산 단위',
-	production_amount bigint NOT NULL COMMENT '생산 계획 수량',
+	production_plan_amount bigint NOT NULL COMMENT '생산 계획 수량',
 	production_start_date date NOT NULL COMMENT '착수일',
 	due_date date NOT NULL COMMENT '납기일',
     primary key(production_plan_id),
@@ -110,24 +110,24 @@ SELECT *
 
 select * from production_plan;
 
-create table IF NOT EXISTS work_performence (
-	work_performence_no bigint auto_increment NOT NULL COMMENT '작업 실적 코드',
+create table IF NOT EXISTS work_performance (
+	work_performance_id bigint auto_increment NOT NULL COMMENT '작업 실적 코드',
 	production_plan_id varchar(50) NOT NULL COMMENT '생산 계획 코드',
 	date date NOT NULL COMMENT '작업 실적 일자',
 	production_amount bigint NOT NULL COMMENT '생산 수량',
-	acceptancen_amount bigint NOT NULL COMMENT '양품 수량',
-	defectiven_amount bigint NOT NULL COMMENT '불량 수량',
+	acceptance_amount bigint NOT NULL COMMENT '양품 수량',
+	defective_amount bigint NOT NULL COMMENT '불량 수량',
 	working_time int NOT NULL COMMENT '작업 시간',
 	manager varchar(30) NOT NULL COMMENT '담당자',
 	lot_no int NOT NULL COMMENT '로트 번호',
 	valid_date date COMMENT '유효 일자',
 	note varchar(225) COMMENT '비고',
-    primary key(work_performence_no),
+    primary key(work_performance_id),
     foreign key(production_plan_id) references production_plan(production_plan_id)
     ON UPDATE CASCADE
 );
 
-select * from work_performence;
+select * from work_performance;
 
 create table IF NOT EXISTS monthly_product_plan (
 	month int NOT NULL COMMENT '월',
@@ -143,10 +143,10 @@ select * from monthly_product_plan;
 create table IF NOT EXISTS process (
 	product_id varchar(50) unique NOT NULL COMMENT '제품 코드',
 	process_id varchar(50) unique NOT NULL COMMENT '공정 코드',
-	sequance int NOT NULL COMMENT '공정 순서',
-	progress_name varchar(30) NOT NULL COMMENT '공정명',
+	sequence int NOT NULL COMMENT '공정 순서',
+	process_name varchar(30) NOT NULL COMMENT '공정명',
 	time_unit varchar(30) NOT NULL COMMENT '시간 단위',
-	standard_time int NOT NULL COMMENT '표준 작업 시간',
+	standard_work_time int NOT NULL COMMENT '표준 작업 시간',
 	output_unit varchar(20) NOT NULL COMMENT '산출물 단위',
     primary key(process_id),
     foreign key(product_id) references product(product_id)
@@ -166,9 +166,9 @@ select * from material;
 
 create table IF NOT EXISTS required_material (
 	product_id varchar(50) unique NOT NULL COMMENT '제품 코드',
-    material_id varchar(50)	unique NOT NULL COMMENT '자재 코드',
-	process varchar(30)	NOT NULL COMMENT '투입 공정',
-	input_unit varchar(30) NOT NULL COMMENT '투입 단위',
+    material_id varchar(50)	unique NOT NULL COMMENT '원자재 코드',
+	input_process varchar(30)	NOT NULL COMMENT '투입 공정',
+	input_amount varchar(30) NOT NULL COMMENT '투입량',
     primary key(product_id),
     foreign key(product_id) references product(product_id)
     ON UPDATE CASCADE,
@@ -202,19 +202,19 @@ create table IF NOT EXISTS material_stock (
 
 select * from material_stock;
 
-create table IF NOT EXISTS material_log (
-	material_log_id	bigint auto_increment NOT NULL COMMENT '수급 내역 코드',
+create table IF NOT EXISTS material_history (
+	material_history_id bigint auto_increment NOT NULL COMMENT '수급 내역 코드',
 	material_id varchar(50) unique NOT NULL COMMENT '자재 코드',
 	order_date date NOT NULL COMMENT '발주일',
 	recieving_date date COMMENT '입고일',
 	standard varchar(20) NOT NULL COMMENT '규격/사양',
 	supplier varchar(50) NOT NULL COMMENT '공급처',
-	inventory_amount bigint NOT NULL COMMENT '재고량',
+	material_inventory bigint NOT NULL COMMENT '재고량',
 	inbound_amount bigint COMMENT '입고량',
 	order_amount bigint NOT NULL COMMENT '발주량',
-	unit_price bigint NOT NULL COMMENT '입고단가',
+	unit_price bigint COMMENT '입고 단가',
 	note varchar(225) COMMENT '비고',
-    primary key(material_log_id),
+    primary key(material_history_id),
     foreign key(material_id) references material(material_id)
     ON UPDATE CASCADE
 );
