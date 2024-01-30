@@ -2,12 +2,10 @@ package himedia.project.highfourm.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import himedia.project.highfourm.vo.MaterialRequestDTO;
+import himedia.project.highfourm.dto.material.MaterialRequestDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -22,6 +20,10 @@ public class MaterialController {
 		log.info("MaxStock: {}",material.getMaxStock());
 		log.info("SafetyStock : {}",material.getSafetyStock());
 		log.info("Unit: {}",material.getUnit());
+		
+		
+		
+		
 		
 		return "redirect:http://localhost:3000/materials/stock";
 	}

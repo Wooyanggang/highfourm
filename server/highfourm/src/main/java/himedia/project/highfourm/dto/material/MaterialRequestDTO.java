@@ -1,4 +1,4 @@
-package himedia.project.highfourm.vo;
+package himedia.project.highfourm.dto.material;
 
 import org.springframework.web.bind.annotation.RestController;
 
