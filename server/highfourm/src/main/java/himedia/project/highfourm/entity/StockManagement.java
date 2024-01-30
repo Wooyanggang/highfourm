@@ -10,12 +10,12 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 @Entity
-@Table(name = "method")
-public class Method {
+@Table(name = "stock_management")
+public class StockManagement {
 	@Id
-	@Column(name="method_id")
-	private Long methodId;
+	@Column(name="management_id")
+	private Long managementId;
 	
-	@Column(name = "method_name", length=10 )
+	@Column(name = "management_name", length=10 )
 	private String methodName;
 }

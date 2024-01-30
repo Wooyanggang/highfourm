@@ -43,7 +43,7 @@ public class User {
 	@Column(name = "email")
 	private String email;
 	
-	@OneToMany(cascade = CascadeType.REFRESH)
+	//@OneToMany(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "company_id", referencedColumnName = "company_id")
 	private Long companyId;
 	

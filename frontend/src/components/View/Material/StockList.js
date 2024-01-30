@@ -1,5 +1,6 @@
-import { Modal } from 'antd';
 import React, { useState } from 'react';
+import axios from 'axios';
+import { Modal } from 'antd';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
 import StockNew from './StockNew';
@@ -82,8 +83,46 @@ const StockList = () => {
     document.body.style.overflow = 'hidden';
   };
 
-  const handleOk = () => {
-    document.getElementById("stockNewForm").submit();
+  const stockNewformSubmit = (e) => {
+    e.preventDefault();
+
+    // Get form data
+    const formData = new FormData(document.getElementById('stockNewForm'));
+
+    const jsonData = {};
+    formData.forEach((value, key) => {
+      jsonData[key] = value;
+    });
+
+    // 예제: MaterialRequestDTO와 일치하도록 구성
+    const materialRequest = {
+      materialId: jsonData.materialId,
+      materialName: jsonData.materialName,
+      unit: jsonData.unit,
+      totalStock: parseInt(jsonData.totalStock), // 적절한 형변환을 수행해야 합니다.
+      safetyStock: parseInt(jsonData.safetyStock),
+      maxStock: parseInt(jsonData.maxStock),
+      leadTime: parseInt(jsonData.LeadTime),
+    };
+
+    // Send POST request using Axios
+    axios.post('/materials/stock/new', JSON.stringify(materialRequest),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => {
+        // Handle successful response
+        console.log('Material added successfully');
+        // Redirect user to another page if needed
+      })
+      .catch(error => {
+        // Handle errors
+        console.log(jsonData)
+        console.error('Error adding material:', error);
+      });
+
     setIsModalOpen(false);
   };
   const handleCancel = () => {
@@ -92,7 +131,7 @@ const StockList = () => {
 
   return (
     <div>
-      <PageTitle value={'재고 현황 조회'}/>
+      <PageTitle value={'재고 현황 조회'} />
       <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
         <SearchSelectBox selectValue={['자재코드', '자재명', '재고관리 방식']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />
@@ -102,13 +141,13 @@ const StockList = () => {
         <Modal
           title='원자재 등록'
           open={isModalOpen}
-          onOk={handleOk}
+          onOk={stockNewformSubmit}
           onCancel={handleCancel}
           okText='저장'
           cancelText='취소'
-          width='40%'
+          width='50%'
         >
-          <StockNew  formAction='/materials/stock' />
+          <StockNew formAction='/materials/stock/new' />
         </Modal>
       </div>
       <div style={{ width: '1200px', display: 'flex', gap: '10px', flexDirection: 'column' }}>

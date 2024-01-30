@@ -9,39 +9,39 @@ const StockNew = ({ formAction }) => {
         <div style={{display: 'flex', flexDirection: 'row'}}>
           <div  className='modal-line' style={{ marginRight: '40px' }}>
             <div className='modal-div' >
-              <label htmlFor='empNo' className='label-title'>자재코드:</label>
-              <InputBar inputId={'empNo'} id={'empNo'} placeholderMsg={'자재코드'} />
+              <label htmlFor='materialId' className='label-title'>자재코드:</label>
+              <InputBar inputId={'materialId'} name={'materialId'} id={'materialId'} placeholderMsg={'자재코드'} />
             </div>
             <div className='modal-div' style={{ marginBottom: '15px', display: 'flex', alignItems: 'center' }}>
-              <label htmlFor='position' className='label-title'>단위:</label>
-              <InputBar inputId={'position'} id={'position'} placeholderMsg={'단위'} />
+              <label htmlFor='unit' className='label-title'>단위:</label>
+              <InputBar inputId={'unit'} name={'unit'} id={'unit'} placeholderMsg={'단위'} />
             </div>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
-              <label htmlFor='position' className='label-title'>재고관리 방식:</label>
-              <InputBar inputId={'position'} id={'position'} placeholderMsg={'재고관리 방식'} />
+              <label htmlFor='methodId' className='label-title'>재고관리 방식:</label>
+              <InputBar inputId={'methodId'} name={'methodId'} id={'methodId'} placeholderMsg={'재고관리 방식'} />
             </div>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
-              <label htmlFor='position' className='label-title'>최대재고:</label>
-              <InputBar inputId={'position'} id={'position'} placeholderMsg={'최대재고'} />
+              <label htmlFor='maxStock' className='label-title'>최대재고:</label>
+              <InputBar inputId={'maxStock'} name={'maxStock'} id={'maxStock'} placeholderMsg={'최대재고'} />
             </div>
           </div>
   
           <div className='modal-line'>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
-              <label htmlFor='name' className='label-title'>자재명:</label>
-              <InputBar inputId={'name'} id={'name'} placeholderMsg={'자재명'} />
+              <label htmlFor='materialName' className='label-title'>자재명:</label>
+              <InputBar inputId={'materialName'} name={'materialName'} id={'materialName'} placeholderMsg={'자재명'} />
             </div>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
-              <label htmlFor='birth' className='label-title'>총재고량:</label>
-              <InputBar inputId={'birth'} id={'birth'} placeholderMsg={'총재고량'} />
+              <label htmlFor='totalStock' className='label-title'>총재고량:</label>
+              <InputBar inputId={'totalStock'} name={'totalStock'} id={'totalStock'} placeholderMsg={'총재고량'} />
             </div>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
-              <label htmlFor='birth' className='label-title'>안전재고:</label>
-              <InputBar inputId={'birth'} id={'birth'} placeholderMsg={'안전재고'} />
+              <label htmlFor='safetyStock' className='label-title'>안전재고:</label>
+              <InputBar inputId={'safetyStock'} name={'safetyStock'} id={'safetyStock'} placeholderMsg={'안전재고'} />
             </div>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
-              <label htmlFor='birth' className='label-title'>LeadTime:</label>
-              <InputBar inputId={'birth'} id={'birth'} placeholderMsg={'LeadTime'} />
+              <label htmlFor='LeadTime' className='label-title'>LeadTime:</label>
+              <InputBar inputId={'LeadTime'} name={'LeadTime'} id={'LeadTime'} placeholderMsg={'LeadTime'} />
             </div>
           </div>
         </div>
