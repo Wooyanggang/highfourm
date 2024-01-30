@@ -7,9 +7,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "production_plan")
 public class ProductionPlan {
@@ -17,10 +22,10 @@ public class ProductionPlan {
 	@Column(name = "production_plan_id", unique = true)
 	private String productionPlanId;
 //	@OneToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)
+//	@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)
 	private String productId;
 //	@OneToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "order_id", referencedColumnName = "order_id", unique = true)
+//	@JoinColumn(name = "order_id", referencedColumnName = "order_id", unique = true)
 	private String orderId;
 	@Column(name = "production_unit")
 	private String productionUnit;

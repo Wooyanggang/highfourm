@@ -9,7 +9,7 @@ public class UserController {
 	
 	@GetMapping("/users")
 	public String user() {
-		
+		System.out.println("성공");
 		return "GET 성공!!!";
 	}
 

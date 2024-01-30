@@ -7,9 +7,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "process")
 public class Process {
@@ -21,12 +26,12 @@ public class Process {
 	private String productId;
 	@Column(name = "sequence")
 	private Long sequence;
-	@Column(name = "progress_name")
-	private String progressName;
+	@Column(name = "process_name")
+	private String processName;
 	@Column(name = "time_unit")
 	private String timeUnit;
-	@Column(name = "standard_time")
-	private Long standardTime;
+	@Column(name = "standard_work_time")
+	private Long standardWorkTime;
 	@Column(name = "output_unit")
 	private String outputUnit;
 }

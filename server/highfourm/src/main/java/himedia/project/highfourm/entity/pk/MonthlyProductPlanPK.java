@@ -7,10 +7,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Embeddable
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class MonthlyProductPlanPK implements Serializable{
 	@Column(name = "month")
 	private Long month;

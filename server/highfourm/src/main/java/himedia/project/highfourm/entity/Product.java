@@ -16,10 +16,13 @@ public class Product {
 	@Id
 	@Column(name = "product_id", unique = true)
 	private String productId;
+	
 	@Column(name = "product_name", unique = true)
 	private String productName;
+	
 	@Column(name = "write_date")
 	private String writeDate;
+	
 	@Column(name = "update_date")
 	private String updateDate;
 }

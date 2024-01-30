@@ -44,7 +44,7 @@ public class User {
 	private String email;
 	
 //	@OneToMany(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "company_id", referencedColumnName = "company_id")
+//	@JoinColumn(name = "company_id", referencedColumnName = "company_id")
 	private Long companyId;
 	
 	@Column(name = "registre_state")

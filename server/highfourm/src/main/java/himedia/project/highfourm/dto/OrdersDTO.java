@@ -7,11 +7,10 @@ import lombok.Setter;
 
 @Getter @Setter
 @RequiredArgsConstructor
-public class Orders {
+public class OrdersDTO {
 	private String orderId;
 	private String vendor;
 	private String manager; 
-	private String product; 
 	private String dueDate; 
 	private Boolean endingState; 
 	private String orderDate;

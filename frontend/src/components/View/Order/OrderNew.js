@@ -94,7 +94,7 @@ const OrderList = () => {
   ];
   return (
     <>
-    <PageTitle value={'주문 등록'}/>
+      <PageTitle value={'주문 등록'} />
       <div style={{ width: '750px' }}>
         <div className='order-new-page'>
           <form action='' className='search-form'>
@@ -105,17 +105,17 @@ const OrderList = () => {
               </div>
               <div className='search-input'>
                 <label htmlFor="manager">담당자</label>
-                <InputBar placeholderMsg={'manager'} id={'manager'} />
+                <InputBar placeholderMsg={'담당자명'} id={'manager'} />
               </div>
             </div>
             <div className='search-input-wrap'>
               <div className='search-input'>
                 <label htmlFor="orderDate">주문일</label>
-                <InputBar placeholderMsg={'orderDate'} inputId={'orderDate'} />
+                <InputBar placeholderMsg={'yyyy-mm-dd'} inputId={'orderDate'} />
               </div>
               <div className='search-input'>
                 <label htmlFor="dueDate">납기일</label>
-                <InputBar placeholderMsg={'dueDate'} inputId={'dueDate'} />
+                <InputBar placeholderMsg={'yyyy-mm-dd'} inputId={'dueDate'} />
               </div>
             </div>
           </form>
