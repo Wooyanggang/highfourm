@@ -83,8 +83,7 @@ const StockList = () => {
     document.body.style.overflow = 'hidden';
   };
 
-  const stockNewformSubmit = (e) => {
-    e.preventDefault();
+  const handleStockNewSubmit = () => {
 
     // Get form data
     const formData = new FormData(document.getElementById('stockNewForm'));
@@ -99,7 +98,8 @@ const StockList = () => {
       materialId: jsonData.materialId,
       materialName: jsonData.materialName,
       unit: jsonData.unit,
-      totalStock: parseInt(jsonData.totalStock), // 적절한 형변환을 수행해야 합니다.
+      managementId: parseInt(jsonData.managementId),
+      totalStock: parseInt(jsonData.totalStock), // 형변환
       safetyStock: parseInt(jsonData.safetyStock),
       maxStock: parseInt(jsonData.maxStock),
       leadTime: parseInt(jsonData.LeadTime),
@@ -141,13 +141,13 @@ const StockList = () => {
         <Modal
           title='원자재 등록'
           open={isModalOpen}
-          onOk={stockNewformSubmit}
+          onOk={handleStockNewSubmit}
           onCancel={handleCancel}
           okText='저장'
           cancelText='취소'
           width='50%'
         >
-          <StockNew formAction='/materials/stock/new' />
+          <StockNew formAction='/materials/stock/new' onSubmit={handleStockNewSubmit} />
         </Modal>
       </div>
       <div style={{ width: '1200px', display: 'flex', gap: '10px', flexDirection: 'column' }}>

@@ -4,12 +4,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "material")
 public class Material {
@@ -21,4 +23,14 @@ public class Material {
 	private String materialName;
 	
 	private String unit;
+	
+	@Builder
+	public Material(String materialId, String materialName, String unit) {
+		this.materialId = materialId;
+		this.materialName = materialName;
+		this.unit = unit;
+	}
+	
+	
+
 }

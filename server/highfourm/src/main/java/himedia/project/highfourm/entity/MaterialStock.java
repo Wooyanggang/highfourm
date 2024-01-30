@@ -8,18 +8,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "material_stock")
 public class MaterialStock {
 	
 	@Id
 	@Column(name = "material_id")
-	private Long materiaId;
+	private String materialId;
 	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "material_id", referencedColumnName = "material_id")
@@ -40,4 +43,18 @@ public class MaterialStock {
 	
 	@Column(name = "lead_time")
 	int leadTime;
+	
+	@Builder
+	public MaterialStock(String materialId, Material material, StockManagement managementId, Long totalStock,
+			Long safetyStock, Long maxStock, int leadTime) {
+		this.materialId = materialId;
+		this.material = material;
+		this.managementId = managementId;
+		this.totalStock = totalStock;
+		this.safetyStock = safetyStock;
+		this.maxStock = maxStock;
+		this.leadTime = leadTime;
+	}
+
+	
 }
