@@ -1,35 +1,54 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
-import BasicTable from '../../Common/Table/BasicTable';
+import PagingTable from '../../Common/Table/PagingTable';
 import axios from 'axios';
 import PageTitle from '../../Common/PageTitle';
 
 const UserList = () => {
-  const [dataSource, setDataSource] = useState();
+  const navigate = useNavigate();
+  const [dataSource, setDataSource] = useState([]);
+  const [searchType, setSearchType] = useState('');
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get('/users')
+        const res = await axios.get('/users');
 
         const userData = await res.data.map((rowData) => ({
-          key: rowData.user_no,
-          user_name: rowData.user_name,
-          emp_no: rowData.emp_no,
+          key: rowData.userNo,
+          user_name: rowData.userName,
+          emp_no: rowData.empNo,
           email: rowData.email,
-          register_state: rowData.register_state,
-        }))
-        setDataSource(dataSource.concat(userData))
+          register_state: rowData.registerState,
+        }));
+        setDataSource(userData);
       } catch (e) {
-        console.error(e.message)
+        console.error(e.message);
       }
     }
+    fetchData();
   }, []);
 
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
+    // const deleteUserNo = dataSource.filter((item) => console.log(item));
+    // const deleteUserName = dataSource.filter((item) => item.userName);
+
+    // axios({
+    //   method: 'DELETE',
+    //   url: `/users/delete/${deleteUserNo}`,
+    //   data: JSON.stringify(deleteUserNo),
+    //   headers: { 'Content-Type': 'application/json' },
+    // })
+    //   .then((response) => {
+    //     console.log(response);
+    //     alert(`${deleteUserName} 사원이 삭제되었습니다.`);
+    //     navigate('/users');
+    //   })
+    //   .catch(e => console.log(e));
   }
 
   const defaultColumns = [
@@ -37,14 +56,12 @@ const UserList = () => {
       title: '사원명',
       dataIndex: 'user_name',
       width: '20%',
-      render: (text) => <a href={`/users/edit/${dataSource.user_name}`}>{text}</a>,
-      // render: (text) => <a href='/users/edit/'>{text}</a>,
+      render: (text) => <a href={`/users/edit/${dataSource.empNo}`}>{text}</a>,
     },
     {
       title: '사번',
       dataIndex: 'emp_no',
-      render: (text) => <a href={`/users/edit/${dataSource.emp_no}`}>{text}</a>,
-      // render: (text) => <a href='/users/edit/'>{text}</a>,
+      render: (text) => <a href={`/users/edit/${dataSource.empNo}`}>{text}</a>,
     },
     {
       title: '계정 주소',
@@ -53,12 +70,13 @@ const UserList = () => {
     {
       title: '가입 여부',
       dataIndex: 'register_state',
+      render: (text) => text === 'Y' ? '등록' : '대기'
     },
     {
       title: '삭제',
       dataIndex: 'delete',
       render: (_, record) =>
-        dataSource.legth >= 1 ? (
+        dataSource != null ? (
           <Popconfirm title="해당 사원을 삭제하시겠습니까?" onConfirm={() => handleDelete(record.key)}>
             <a>삭제</a>
           </Popconfirm>
@@ -67,12 +85,24 @@ const UserList = () => {
   ];
 
   const SelectChangeHandler = (value) => {
-    console.log(`selected ${value}`);
-    // select 값 선택시 기능 구현 핸들러
+    setSearchType(value);
+    console.log(value);
+    console.log(searchType);
   };
 
   const onSearch = (value, _e, info) => {
-    // search 값 기능 구현 함수
+    axios({
+      method: 'GET',
+      url: '/users/search',
+      params: {
+        searchType: searchType, search: value,
+      }
+    })
+      .catch(e => console.log(e));
+
+
+
+    console.log(searchType);
     console.log(info?.source, value);
   }
 
@@ -90,8 +120,8 @@ const UserList = () => {
       <div style={{ marginBottom: '24px' }}>
         <BtnBlack value={'사용자 등록'} onClick={onClick} />
       </div>
-      <div style={{ width: '720px', height: '565px', overflowY: 'auto' }}>
-        <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} />
+      <div style={{ width: '720px', height: '565px' }}>
+        <PagingTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} />
       </div>
     </div>
   )

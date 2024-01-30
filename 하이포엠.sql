@@ -19,21 +19,21 @@ select * from company;
 
 create table IF NOT EXISTS users (
 	user_no bigint auto_increment NOT NULL COMMENT '사용자 번호',
-    user_id varchar(50) NOT NULL COMMENT '사용자 ID',
-    password varchar(255) NOT NULL COMMENT '비밀번호',
+    user_id varchar(50) COMMENT '사용자 ID',
+    password varchar(255) COMMENT '비밀번호',
 	user_name varchar(20) NOT NULL COMMENT '사용자 이름',
 	emp_no bigint NOT NULL COMMENT '사번',
 	position varchar(30) NOT NULL COMMENT '직급',
 	birth date NOT NULL COMMENT '생년월일',
 	email varchar(50) NOT NULL COMMENT '이메일',
 	company_id int NOT NULL COMMENT '회사 코드',
-	register_state char(1) NOT NULL default 'N' COMMENT '가입 여부',
-    role char(10) NOT NULL COMMENT '권한',
+	register_state char(1) default 'N' COMMENT '가입 여부',
+    role char(10) default 'USER' COMMENT '권한',
 	primary key(user_no),
 	foreign key (company_id) references company(company_id)
     ON UPDATE CASCADE
 );
-
+  drop table users;
 insert into users values (null, '', '', '홍길동', 1000, '사원', '2024-01-01', 'hong333', 1, 'Y', 'USER');
 insert into users values (null, '', '', '김이박', 1001, '대리', '1990-12-31', 'kimleepark', 2, 'N', 'USER');
 
@@ -49,6 +49,9 @@ create table IF NOT EXISTS orders (
 	order_date date NOT NULL COMMENT '주문일',
     primary key(order_id)
 );
+insert into orders values('주문 코드', '', '', '', '1990-00-00', '', '1991-01-01');
+insert into orders values('주문 코드2', '', '', '', '1990-00-00', '', '1991-01-01');
+
 SELECT *
   FROM INFORMATION_SCHEMA.COLUMNS
  WHERE TABLE_SCHEMA = 'highfourm'
@@ -78,12 +81,14 @@ create table IF NOT EXISTS product (
 	update_date date COMMENT '수정일',
     primary key(product_id)
 );
+insert into product values ('제품 코드', '제품명', '2000-01-01', '2000-12-31');
+insert into product values ('제품 코드2', '제품명2', '2000-01-01', '2000-12-31');
 
 select * from product;
 
 create table IF NOT EXISTS order_detail (
-	order_id varchar(50) unique NOT NULL COMMENT '주문 코드',
-    product_id varchar(50) unique NOT NULL COMMENT '제품 코드',
+	order_id varchar(50) NOT NULL COMMENT '주문 코드',
+    product_id varchar(50) NOT NULL COMMENT '제품 코드',
 	product_amount bigint NOT NULL COMMENT '주문 수량',
 	unit_price bigint NOT NULL COMMENT '단가',
     primary key(order_id, product_id),
@@ -98,7 +103,7 @@ select * from order_detail;
 create table IF NOT EXISTS production_plan (
 	production_plan_id varchar(50) unique NOT NULL COMMENT '생산 계획 코드',
     product_id varchar(50) unique NOT NULL COMMENT '제품 코드',
-    order_id varchar(50) unique NOT NULL COMMENT '주문 코드',
+    order_id varchar(50) NOT NULL COMMENT '주문 코드',
 	production_unit varchar(30) NOT NULL COMMENT '생산 단위',
 	production_plan_amount bigint NOT NULL COMMENT '생산 계획 수량',
 	production_start_date date NOT NULL COMMENT '착수일',
@@ -109,6 +114,14 @@ create table IF NOT EXISTS production_plan (
 	foreign key(product_id) references product(product_id)
     ON UPDATE CASCADE
 );
+-- drop table production_plan;
+insert into production_plan values('생산 계획 코드', '제품 코드', '주문 코드', '', 50, '1234-01-01', '1345-01-01');
+insert into production_plan values('생산 계획 코드2', '제품 코드2', '주문 코드2', '', 30, '1234-01-01', '1345-01-01');
+-- insert into production_plan values('생산 계획 코드3', '제품 코드3', '주문 코드', '', 50, '1234-01-01', '1345-01-01');
+-- insert into production_plan values('생산 계획 코드4', '제품 코드', '주문 코드', '', 10, '1234-01-01', '1345-01-01');
+-- insert into production_plan values('생산 계획 코드5', '제품 코드', '주문 코드2', '', 20, '1234-01-01', '1345-01-01');
+-- insert into production_plan values('생산 계획 코드6', '제품 코드', '주문 코드2', '', 30, '1234-01-01', '1345-01-01');
+
 SELECT *
   FROM INFORMATION_SCHEMA.COLUMNS
  WHERE TABLE_SCHEMA = 'highfourm'
@@ -167,20 +180,25 @@ create table IF NOT EXISTS material (
 	unit varchar(20) NOT NULL COMMENT '단위',
 	primary key(material_id)
 );
+insert into material values('원자재 코드', '원자재명', '단위');
+insert into material values('원자재 코드2', '원자재명2', '단위');
 
 select * from material;
 
 create table IF NOT EXISTS required_material (
 	product_id varchar(50) unique NOT NULL COMMENT '제품 코드',
     material_id varchar(50)	unique NOT NULL COMMENT '원자재 코드',
-	input_process varchar(30)	NOT NULL COMMENT '투입 공정',
-	input_amount varchar(30) NOT NULL COMMENT '투입량',
+	input_process varchar(30)NOT NULL COMMENT '투입 공정',
+	input_amount bigint NOT NULL COMMENT '투입량',
     primary key(product_id),
     foreign key(product_id) references product(product_id)
     ON UPDATE CASCADE,
     foreign key(material_id) references material(material_id)
     ON UPDATE CASCADE
 );
+
+insert into required_material values ('제품 코드', '원자재 코드', '투입공정', 100);
+insert into required_material values ('제품 코드2', '원자재 코드2', '투입공정', 100);
 
 select * from required_material;
 
@@ -227,11 +245,45 @@ create table IF NOT EXISTS material_history (
 
 select * from material_history;
 
+-- 자재 총 산출 production_plan 
+select due_date, production_plan_id, plan.product_id, p.product_name, production_plan_amount
+from production_plan plan 
+left join product p on plan.product_id = p.product_id;
 
+-- 자재 총 산출 material 
+select m.material_name, r.material_id, input_amount, sum(production_plan_amount*input_amount) as total_material_amount,
+total_stock, safety_stock, inbound_amount
+from production_plan plan 
+left join required_material r on plan.product_id = r.product_id
+left join material m on r.material_id = m.material_id
+left join material_stock s on m.material_id = s.material_id
+left join material_history h on m.material_id = h.material_id
+where production_plan_id like ?
+group by production_plan_id;
 
+-- 자재 총 산출 검색<생산계획 코드 production_plan_id>
+select due_date, production_plan_id, plan.product_id, p.product_name, production_plan_amount
+from production_plan plan 
+left join product p on plan.product_id = p.product_id
+where production_plan_id like '%생산 계획%';
 
+-- 자재 총 산출 검색<품번 product_id>
+select due_date, production_plan_id, plan.product_id, p.product_name, production_plan_amount
+from production_plan plan 
+left join product p on plan.product_id = p.product_id
+where plan.product_id like '%제품%';
 
+-- 자재 총 산출 검색<품명 product_name>
+select due_date, production_plan_id, plan.product_id, p.product_name, production_plan_amount
+from production_plan plan 
+left join product p on plan.product_id = p.product_id
+where product_name like '%명%';
 
+-- 자재 총 산출 검색<납기일 due_date>
+select due_date, production_plan_id, plan.product_id, p.product_name, production_plan_amount
+from production_plan plan 
+left join product p on plan.product_id = p.product_id
+where due_date like '%01%';
 
 create table IF NOT EXISTS notification (
 	notification VARCHAR(255) COMMENT '알림'

@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,10 @@ import lombok.RequiredArgsConstructor;
 @Table(name = "required_material")
 public class RequiredMaterial {
 	@Id
+	@Column(name = "product_id")
+	private String productId;
+	
+	@MapsId
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)
 	private Product product;

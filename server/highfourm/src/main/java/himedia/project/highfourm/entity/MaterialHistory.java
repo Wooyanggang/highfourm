@@ -1,10 +1,14 @@
 package himedia.project.highfourm.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -14,17 +18,18 @@ import lombok.RequiredArgsConstructor;
 @Table(name = "material_history")
 public class MaterialHistory {
 	@Id
-	@Column(name = "material_history_id")
-	private String materialHistoryId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long materialHistoryId;
 	
-	@Column(name = "material_id")
-	private String material_id;
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "material_id", referencedColumnName = "material_id")
+	private Material material;
 	
 	@Column(name = "order_date")
-	private String order_date;
+	private String orderDate;
 	
 	@Column(name = "recieving_date")
-	private String recieving_date;
+	private String recievingDate;
 	
 	private String standard;
 	
@@ -43,7 +48,4 @@ public class MaterialHistory {
 	private String unitPrice;
 	
 	private String note;
-	
-	
-	
 }

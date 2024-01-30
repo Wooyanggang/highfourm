@@ -69,8 +69,9 @@ function App() {
                 <Route path='/users/join' element={<Join />} />
                 <Route path='/users' element={<UserList />} />
                 <Route path='/users/new' element={<UserNew />} />
-                <Route path='/users/edit' element={<UserEdit />} />
+                <Route path='/users/edit/:empNo' element={<UserEdit />} />
                 <Route path='/mrp' element={<Mrp />} />
+                <Route path='/mrp/search' element={<Mrp />} />
                 <Route path='/production-management' element={<ProductManagement />} />
                 <Route path='/bom' element={<Bom />} />
                 <Route path='/production-status' element={<Status />} />
