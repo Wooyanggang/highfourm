@@ -122,7 +122,7 @@ const MaterialOrderHistory = () => {
         <SearchInput onSearch={onSearch} />
       </div>
       <div style={{ marginBottom: '24px' }}>
-        <BtnBlack value={'생산계획 등록'} onClick={handleAdd} />
+        <BtnBlack value={'수급내역 등록'} onClick={handleAdd} />
       </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={{ border: '1px solid #d9d9d9', padding: '40px 45px', marginBottom: '20px' }}>

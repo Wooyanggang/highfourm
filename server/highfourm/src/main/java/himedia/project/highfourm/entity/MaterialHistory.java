@@ -19,11 +19,11 @@ import lombok.RequiredArgsConstructor;
 public class MaterialHistory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String materialHistoryId;
+	private Long materialHistoryId;
 	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "material_id", referencedColumnName = "material_id")
-	private Material materialId;
+	private Material material;
 	
 	@Column(name = "order_date")
 	private String orderDate;

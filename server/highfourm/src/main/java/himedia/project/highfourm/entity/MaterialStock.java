@@ -16,14 +16,18 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @Table(name = "material_stock")
 public class MaterialStock {
+	
 	@Id
+	@Column(name = "material_id")
+	private Long materiaId;
+	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "material_id", referencedColumnName = "material_id")
 	private Material material;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "method_id", referencedColumnName = "method_id")
-	private Material methodId;
+    @JoinColumn(name = "management_id", referencedColumnName = "management_id")
+	private StockManagement managementId;
 	
 	@Column(name = "total_stock")
 	private Long totalStock;
