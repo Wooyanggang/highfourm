@@ -14,7 +14,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -32,7 +31,7 @@ public class MaterialStock {
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "management_id", referencedColumnName = "management_id")
-	private StockManagement managementId;
+	private StockManagement stockManagement;
 	
 	@Column(name = "total_stock")
 	private Long totalStock;
@@ -47,16 +46,18 @@ public class MaterialStock {
 	int leadTime;
 	
 	@Builder
-	public MaterialStock(String materialId, Material material, StockManagement managementId, Long totalStock,
+	public MaterialStock(String materialId, Material material, StockManagement stockManagement, Long totalStock,
 			Long safetyStock, Long maxStock, int leadTime) {
 		this.materialId = materialId;
 		this.material = material;
-		this.managementId = managementId;
+		this.stockManagement = stockManagement;
 		this.totalStock = totalStock;
 		this.safetyStock = safetyStock;
 		this.maxStock = maxStock;
 		this.leadTime = leadTime;
 	}
+	
+
 
 	
 }

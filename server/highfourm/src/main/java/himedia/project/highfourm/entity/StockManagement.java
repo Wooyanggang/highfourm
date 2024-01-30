@@ -27,7 +27,7 @@ public class StockManagement {
 	@Column(name = "management_name", length=10 )
 	private String methodName;
 	
-	@OneToMany(mappedBy = "material_stock")
+	@OneToMany(mappedBy = "stockManagement")
 	private List<MaterialStock> materialStocks = new ArrayList<>();
 	
 	@Builder

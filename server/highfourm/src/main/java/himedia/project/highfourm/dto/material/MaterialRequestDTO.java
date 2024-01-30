@@ -32,7 +32,7 @@ public class MaterialRequestDTO {
     public MaterialStock toEntitySecond(StockManagement stockManagement) {
     	return MaterialStock.builder()
     			.materialId(materialId)
-    			.managementId(stockManagement)
+    			.stockManagement(stockManagement)
     			.totalStock(totalStock)
     			.safetyStock(safetyStock)
     			.maxStock(maxStock)

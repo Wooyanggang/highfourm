@@ -26,16 +26,16 @@ public class Material {
 	
 	private String unit;
 	
-    @OneToOne(mappedBy = "material_stock", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "material", fetch = FetchType.LAZY)
     private MaterialStock materialStock;
-	
-	@Builder
-	public Material(String materialId, String materialName, String unit) {
+    
+    @Builder
+	public Material(String materialId, String materialName, String unit, MaterialStock materialStock) {
+		super();
 		this.materialId = materialId;
 		this.materialName = materialName;
 		this.unit = unit;
+		this.materialStock = materialStock;
 	}
-	
-	
 
 }
