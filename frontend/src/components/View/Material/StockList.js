@@ -83,48 +83,6 @@ const StockList = () => {
     document.body.style.overflow = 'hidden';
   };
 
-  const handleStockNewSubmit = () => {
-
-    // Get form data
-    const formData = new FormData(document.getElementById('stockNewForm'));
-
-    const jsonData = {};
-    formData.forEach((value, key) => {
-      jsonData[key] = value;
-    });
-
-    // 예제: MaterialRequestDTO와 일치하도록 구성
-    const materialRequest = {
-      materialId: jsonData.materialId,
-      materialName: jsonData.materialName,
-      unit: jsonData.unit,
-      managementId: parseInt(jsonData.managementId),
-      totalStock: parseInt(jsonData.totalStock), // 형변환
-      safetyStock: parseInt(jsonData.safetyStock),
-      maxStock: parseInt(jsonData.maxStock),
-      leadTime: parseInt(jsonData.LeadTime),
-    };
-
-    // Send POST request using Axios
-    axios.post('/materials/stock/new', JSON.stringify(materialRequest),
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(response => {
-        // Handle successful response
-        console.log('Material added successfully');
-        // Redirect user to another page if needed
-      })
-      .catch(error => {
-        // Handle errors
-        console.log(jsonData)
-        console.error('Error adding material:', error);
-      });
-
-    setIsModalOpen(false);
-  };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -141,13 +99,11 @@ const StockList = () => {
         <Modal
           title='원자재 등록'
           open={isModalOpen}
-          onOk={handleStockNewSubmit}
+          footer={null} 
           onCancel={handleCancel}
-          okText='저장'
-          cancelText='취소'
           width='50%'
         >
-          <StockNew formAction='/materials/stock/new' onSubmit={handleStockNewSubmit} />
+          <StockNew formAction='/materials/stock/new'  />
         </Modal>
       </div>
       <div style={{ width: '1200px', display: 'flex', gap: '10px', flexDirection: 'column' }}>

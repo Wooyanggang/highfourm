@@ -4,8 +4,10 @@ package himedia.project.highfourm.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -28,7 +30,7 @@ public class MaterialStock {
     @JoinColumn(name = "material_id", referencedColumnName = "material_id")
 	private Material material;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "management_id", referencedColumnName = "management_id")
 	private StockManagement managementId;
 	

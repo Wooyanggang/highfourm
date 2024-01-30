@@ -2,7 +2,9 @@ package himedia.project.highfourm.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -23,6 +25,9 @@ public class Material {
 	private String materialName;
 	
 	private String unit;
+	
+    @OneToOne(mappedBy = "material_stock", fetch = FetchType.LAZY)
+    private MaterialStock materialStock;
 	
 	@Builder
 	public Material(String materialId, String materialName, String unit) {
