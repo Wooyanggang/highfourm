@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import himedia.project.highfourm.dto.OrdersDTO;
@@ -25,6 +27,12 @@ public class OrderController {
 	@GetMapping("/orders")
 	public Map<String, Object> orderList() {
 		return orderService.findAllOrders();
+	}
+	
+	@PostMapping("/orders/new")
+	public void ordersNew(@RequestBody OrdersDTO ordersDTO) {
+		log.info("납기일{}",ordersDTO.getDueDate());
+		orderService.saveOrder(ordersDTO);
 	}
 	
 }

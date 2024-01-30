@@ -1,13 +1,13 @@
 package himedia.project.highfourm.entity;
 
-import jakarta.persistence.CascadeType;
+import java.util.UUID;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class Orders {
 	@Id
 	@Column(name = "order_id", unique = true)
-	private String orderId;
+	private String orderId = UUID.randomUUID().toString();
 	
 	@Column(name = "vendor")
 	private String vendor;

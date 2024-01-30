@@ -1,21 +1,13 @@
 import React, { useState } from 'react';
 import { UploadOutlined, AudioOutlined } from '@ant-design/icons';
 import { Input, Space, } from 'antd';
+import axios from 'axios';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown, message, Tooltip, Popconfirm, Table, FLex, Upload } from 'antd';
 import { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, StepBar } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
 import '../../../App.css'
 import PageTitle from '../../Common/PageTitle';
-const { Search } = Input;
-const suffix = (
-  <AudioOutlined
-    style={{
-      fontSize: 16,
-      color: '#1677ff',
-    }}
-  />
-);
 
 const OrderList = () => {
 
@@ -92,56 +84,85 @@ const OrderList = () => {
         ) : null,
     },
   ];
+
+  const orderNewformSubmit = () => {
+    const formData = new FormData(document.getElementById('orderNewForm'));
+
+    const jsonData = {};
+    formData.forEach((value, key) => {
+      jsonData[key] = value;
+    });
+    const today = new Date();
+    // 예제: MaterialRequestDTO와 일치하도록 구성
+    const ordersNewRequest = {
+      orderId: `${today.getFullYear()}${today.getMonth() + 1}${today.getDate()}`,
+      vendor: jsonData.vendor,
+      manager: jsonData.manager,
+      orderDate: jsonData.orderDate,
+      dueDate: jsonData.dueDate,
+      endingState: false,
+    };
+
+    axios.post('/orders/new', JSON.stringify(ordersNewRequest),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => {
+        console.log('orders added successfully');
+      })
+      .catch(error => {
+        console.log(jsonData)
+        console.error('Error adding orders:', error);
+      });
+
+  };
+
   return (
     <>
       <PageTitle value={'주문 등록'} />
       <div style={{ width: '750px' }}>
         <div className='order-new-page'>
-          <form action='' className='search-form'>
-            <div className='search-input-wrap'>
-              <div className='search-input'>
-                <label htmlFor="vender">거래처명</label>
-                <InputBar placeholderMsg={'거래처명'} id={'vender'} />
+          <form action='' id='orderNewForm' className='input-form'>
+            <div className='input-wrap'>
+              <div className='input'>
+                <label htmlFor="vendor">거래처명</label>
+                <InputBar placeholderMsg={'거래처명'} name={'vendor'} id={'vendor'} />
               </div>
-              <div className='search-input'>
+              <div className='input'>
                 <label htmlFor="manager">담당자</label>
-                <InputBar placeholderMsg={'담당자명'} id={'manager'} />
+                <InputBar placeholderMsg={'manager'} name={'manager'} id={'manager'} />
+              </div>
+              <div className='input'>
+                <label htmlFor="orderDate">주문일</label>
+                <InputBar placeholderMsg={'orderDate'} name={'orderDate'} inputId={'orderDate'} />
+              </div>
+              <div className='input'>
+                <label htmlFor="dueDate">납기일</label>
+                <InputBar placeholderMsg={'dueDate'} name={'dueDate'} inputId={'dueDate'} />
               </div>
             </div>
-            <div className='search-input-wrap'>
-              <div className='search-input'>
-                <label htmlFor="orderDate">주문일</label>
-                <InputBar placeholderMsg={'yyyy-mm-dd'} inputId={'orderDate'} />
+            <div className='order-new-table'>
+              <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} />
+            </div>
+            <div className='order-new-btn'>
+              <div className='order-new-add-btn'>
+                <BtnBlack value={'제품 추가'} onClick={handleAdd} />
               </div>
-              <div className='search-input'>
-                <label htmlFor="dueDate">납기일</label>
-                <InputBar placeholderMsg={'yyyy-mm-dd'} inputId={'dueDate'} />
+              <div className='order-new-cancel-btn'>
+                <BtnWhite value={'취소'} />
+              </div>
+              <div className='order-new-submit-btn'>
+                <BtnBlue value={'주문 등록'} onClick={orderNewformSubmit} />
               </div>
             </div>
           </form>
-          <div className='order-new-pdf-upload'>
-            <Upload {...props}>
-              <Button icon={<UploadOutlined />}>Upload</Button>
-            </Upload>
-          </div>
-          <div className='order-new-table'>
-            <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} />
-          </div>
-          <div className='order-new-btn'>
-            <div className='order-new-add-btn'>
-              <BtnBlack value={'제품 추가'} onClick={() => handleAdd()} />
-            </div>
-            <div className='order-new-cancel-btn'>
-              <BtnWhite value={'취소'} />
-            </div>
-            <div className='order-new-submit-btn'>
-              <BtnBlue value={'주문 등록'} />
-            </div>
-          </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
+
 
 export default OrderList;
