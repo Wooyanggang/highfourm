@@ -5,39 +5,50 @@ import PageTitle from '../../Common/PageTitle';
 import axios from 'axios';
 
 const UserNew = () => {
-  const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState([]);
 
-  const goBackNavigate = () => {
-    navigate(-1)
-  }
+  const [htmlContent, setHtmlContent] = useState('');
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await axios.get('/users/edit/:userNo');
-
-        // const userData = await res.data
-        //   key: rowData.userNo,
-        //   user_name: rowData.userName,
-        //   emp_no: rowData.empNo,
-        //   birth: rowData.birth,
-        //   position: rowData.position,
-        //   email: rowData.email,
-        //   register_state: rowData.registerState,
-
-        setUserInfo(res.data);
-        console.log(res.data);
-      } catch (e) {
-        console.error(e.message);
-      }
-    }
-    fetchData();
+    fetch('http://localhost:8080/users/edit')
+      /*  fetch('http://localhost:8080/users/edit/:empNo') */
+      .then(response => response.text())
+      .then(data => setHtmlContent(data));
   }, []);
+
+  // const navigate = useNavigate();
+  // const [userInfo, setUserInfo] = useState([]);
+
+  // const goBackNavigate = () => {
+  //   navigate(-1)
+  // }
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const res = await axios.get('/users/edit/:userNo');
+
+  //       // const userData = await res.data
+  //       //   key: rowData.userNo,
+  //       //   user_name: rowData.userName,
+  //       //   emp_no: rowData.empNo,
+  //       //   birth: rowData.birth,
+  //       //   position: rowData.position,
+  //       //   email: rowData.email,
+  //       //   register_state: rowData.registerState,
+
+  //       setUserInfo(res.data);
+  //       console.log(res.data);
+  //     } catch (e) {
+  //       console.error(e.message);
+  //     }
+  //   }
+  //   fetchData();
+  // }, []);
 
   return (
     <div>
-      <PageTitle value={'사용자 수정'} />
+      <div dangerouslySetInnerHTML={{ __html: htmlContent }}></div>
+      {/* <PageTitle value={'사용자 수정'} />
       <form method='post' action='/users/edit'>
         <div className='flex-line'>
           <div className='flex-div'>
@@ -69,7 +80,7 @@ const UserNew = () => {
           <BtnBlue type='submit' value={'수정하기'} />
           <BtnWhite value={'취소'} onClick={goBackNavigate} />
         </div>
-      </form>
+      </form> */}
     </div>
   )
 }

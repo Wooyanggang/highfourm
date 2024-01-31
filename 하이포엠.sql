@@ -35,7 +35,7 @@ create table IF NOT EXISTS users (
 );
 --   drop table users;
 insert into users values (null, '', '', '홍길동', 1000, '사원', '2024-01-01', 'hong333', 1, 'Y', 'USER');
-insert into users values (null, '', '', '김이박', 1001, '대리', '1990-12-31', 'kimleepark', 2, 'N', 'USER');
+insert into users values (null, '1', '', '김이박', 1001, '대리', '1990-12-31', 'kimleepark', 2, 'N', 'USER');
 
 select * from users;
 

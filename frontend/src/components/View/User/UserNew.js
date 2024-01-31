@@ -1,53 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BtnBlue, BtnWhite, InputBar } from '../../Common/Module';
 import axios from 'axios';
 import PageTitle from '../../Common/PageTitle';
 
 const UserNew = () => {
-  const navigate = useNavigate();
-  const [newUser, setNewUser] = useState(
-    {
-      empNo: '',
-      userName: '',
-      position: '',
-      birth: '',
-      email: '',
-    });
 
-  const onChange = (e) => {
-    setNewUser({
-      ...newUser,
-      [e.target.name]: e.target.value
-    });
-  }
+  const [htmlContent, setHtmlContent] = useState('');
 
-  const onClickSubmit = (e) => {
-    console.log(newUser)
+  useEffect(() => {
+    fetch('http://localhost:8080/users/new')
+      .then(response => response.text())
+      .then(data => setHtmlContent(data));
+  }, []);
+  
 
-    axios({
-      method: 'POST',
-      url: '/users/new',
-      data: JSON.stringify(newUser),
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((res) => {
-        console.log(res);
-        navigate('/users');
-      })
-      .catch((error) => console.log(error))
-  }
+  // const navigate = useNavigate();
+  // const [newUser, setNewUser] = useState(
+  //   {
+  //     empNo: '',
+  //     userName: '',
+  //     position: '',
+  //     birth: '',
+  //     email: '',
+  //   });
 
-  const goBackNavigate = () => {
-    navigate(-1)
-  }
+  // const onChange = (e) => {
+  //   setNewUser({
+  //     ...newUser,
+  //     [e.target.name]: e.target.value
+  //   });
+  // }
 
-  const email = document.getElementById('email');
-  const emailCheck = document.getElementById('emailCheck');
+  // const onClickSubmit = (e) => {
+  //   console.log(newUser)
+
+  //   axios({
+  //     method: 'POST',
+  //     url: '/users/new',
+  //     data: JSON.stringify(newUser),
+  //     headers: { 'Content-Type': 'application/json' },
+  //   })
+  //     .then((res) => {
+  //       console.log(res);
+  //       navigate('/users');
+  //     })
+  //     .catch((error) => console.log(error))
+  // }
+
+  // const goBackNavigate = () => {
+  //   navigate(-1)
+  // }
+
+  // const email = document.getElementById('email');
+  // const emailCheck = document.getElementById('emailCheck');
 
   return (
     <div>
-      <PageTitle value={'사용자 등록'} />
+      <div dangerouslySetInnerHTML={{ __html: htmlContent }}></div>
+      {/* <PageTitle value={'사용자 등록'} /> 
       <form id='userForm' method='post' action='/users/new'>
         <div className='flex-line'>
           <div className='flex-div'>
@@ -87,7 +98,7 @@ const UserNew = () => {
           <BtnBlue type='submit' value={'등록하기'} onClick={onClickSubmit} />
           <BtnWhite value={'취소'} onClick={goBackNavigate} />
         </div>
-      </form>
+      </form> */}
     </div>
   )
 }

@@ -3,13 +3,14 @@ package himedia.project.highfourm.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import himedia.project.highfourm.dto.user.UserDTO;
 import himedia.project.highfourm.service.UserService;
@@ -18,7 +19,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RestController
+//@RestController
+@Controller
 @RequiredArgsConstructor
 //@RequestMapping("/users")
 public class UserController {
@@ -45,6 +47,11 @@ public class UserController {
 		return result;
 	}
 	
+	@GetMapping("/users/new")
+	public String addForm() {
+		return "userForm";
+	}
+	
 	@PostMapping("/users/new")
 	public String addNewUser(@RequestBody UserDTO userDTO, HttpSession session) {
 //		Long adminCompanyId = (Long)session.getAttribute("companyId");
@@ -55,10 +62,12 @@ public class UserController {
 		return "redirect:http://localhost:3000/users";
 	}
 	
-	@GetMapping("/users/edit/{empNo}")
-	public UserDTO selectUser(@RequestParam("empNo") Long empNo) {
+	@GetMapping("/users/edit")
+	public String selectUser(@RequestParam("empNo") Long empNo, Model model) {
 		log.info("empNo : ", empNo);
-		return service.findByUserNo(empNo);
+		UserDTO user = service.findByUserNo(empNo);
+		model.addAttribute("user", user);
+		return "userEditForm";
 	}
 
 	@PutMapping("/users/edit/{empNo}")
