@@ -30,7 +30,7 @@ function Test() {
         setDataProduct(result["product"]);
         // .length로 table row 수를 카운트하고 행 추가 핸들러에 쓰임
         setCountTest(result["test"].length);
-        setCountTest(result["product"].length);
+        setCountProduct(result["product"].length);
       })
       .catch(error => {
         console.error('데이터를 가져오는 중 오류 발생:', error);

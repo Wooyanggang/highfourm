@@ -1,5 +1,9 @@
 package himedia.project.highfourm.repository;
 
-public class ProductionRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import himedia.project.highfourm.entity.Product;
+
+public interface ProductionRepository extends JpaRepository<Product, String> {
 
 }

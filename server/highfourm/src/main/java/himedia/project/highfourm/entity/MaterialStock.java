@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "material_stock")
 public class MaterialStock {
-	
 	@Id
 	@Column(name = "material_id")
 	private String materialId;

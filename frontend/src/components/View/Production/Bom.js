@@ -22,17 +22,35 @@ function Bom() {
     },
   ]);
   
-  const handleDelete = (key) => {
-    const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
-  }
+  useEffect(() => {
+    // fetchData();
+    fetch('/bom')
+    .then(response => response.json())
+    .then(result => {
+        const newData = result.map((item, index) => ({ key: index, ...item }));
+        setDataSource(newData);
+        setCount(newData.length);
+        console.log(newData);
+        console.log(newData.length);
+      })
+      .catch(error => {
+        console.error('데이터를 가져오는 중 오류 발생:', error);
+      });
+  }, []);
+
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch('/bom');
+  //     const result = await response.json();
+  //     setData(result.test);
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   }
+  // };
   
   const handleAdd= () => {
     const newData = {
       key: count,
-      // name: '',
-      // age: '',
-      // address: '',
     };
     setDataSource(prevState => [ ...prevState, newData ]);
     setCount(count + 1);
@@ -41,7 +59,7 @@ function Bom() {
   const defaultColumns = [
     {
       title: '제품 코드',
-      dataIndex: 'productID',
+      dataIndex: 'productId',
       editable: true,
     },
     {
@@ -87,11 +105,14 @@ function Bom() {
       <div className='add-btn'>
         <BtnBlack value={"등록"} onClick={handleAdd} type="primary" />
       </div>
+      <div style={{width:'50%'}}>
       <BasicTable 
       dataSource={dataSource} 
       defaultColumns={defaultColumns} 
-      setDataSource={setDataSource} 
+      setDataSource={setDataSource}
+      pagination={false}
       />
+      </div>
     </div>
   );
 }

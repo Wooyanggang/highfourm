@@ -21,12 +21,12 @@ public class ProductionPlan {
 	@Column(name = "production_plan_id", unique = true)
 	private String productionPlanId;
 	
-	//@OneToOne(cascade = CascadeType.REFRESH)
+	@OneToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)
 	private Product product;
 
 	@OneToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "order_id", referencedColumnName = "order_id", unique = true)
+	@JoinColumn(name = "order_id", referencedColumnName = "order_id")
 	private Orders orders;
 	
 	@Column(name = "production_unit")
