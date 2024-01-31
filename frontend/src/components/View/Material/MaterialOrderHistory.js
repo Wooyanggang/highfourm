@@ -30,63 +30,63 @@ const MaterialOrderHistory = () => {
   const defaultColumnsOne = [
     {
       title: '발주일',
-      dataIndex: 'name',
+      dataIndex: 'orderDate',
     },
     {
       title: '입고일',
-      dataIndex: 'age',
+      dataIndex: 'recievingDate ',
     },
     {
       title: '자재코드',
-      dataIndex: 'address',
+      dataIndex: 'materialId ',
     },
     {
       title: '자재명',
-      dataIndex: 'operation',
+      dataIndex: 'materialName',
     },
     {
       title: '규격/사양',
-      dataIndex: 'operation',
+      dataIndex: 'standard',
     },
     {
       title: '단위',
-      dataIndex: 'operation',
+      dataIndex: 'unit',
     },
     {
       title: '공급처',
-      dataIndex: 'operation',
+      dataIndex: 'supplier',
     },
     {
       title: '이월재고량',
-      dataIndex: 'operation',
+      dataIndex: 'restStock',
     },
     {
       title: '재고량',
-      dataIndex: 'operation',
+      dataIndex: 'materialInventory ',
     },
     {
       title: '사용량',
-      dataIndex: 'operation',
+      dataIndex: 'usedAmount',
     },
     {
       title: '입고량',
-      dataIndex: 'operation',
+      dataIndex: 'inboundAmount ',
     },
     {
       title: '발주량',
-      dataIndex: 'operation',
+      dataIndex: 'orderAmount',
     },
     {
       title: '입고 단가',
-      dataIndex: 'operation',
+      dataIndex: 'unitPrice',
     },
     {
       title: '금액',
-      dataIndex: 'operation',
+      dataIndex: 'totalPrice',
     },
     {
       title: '비고',
-      dataIndex: 'operation',
+      dataIndex: 'note',
     },
   ];
 
