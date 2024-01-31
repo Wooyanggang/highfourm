@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
-import PagingTable from '../../Common/Table/PagingTable';
+import BasicTable from '../../Common/Table/BasicTable';
 import axios from 'axios';
 import PageTitle from '../../Common/PageTitle';
 
@@ -121,7 +121,7 @@ const UserList = () => {
         <BtnBlack value={'사용자 등록'} onClick={onClick} />
       </div>
       <div style={{ width: '720px', height: '565px' }}>
-        <PagingTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} />
+        <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} pagination={true} />
       </div>
     </div>
   )
