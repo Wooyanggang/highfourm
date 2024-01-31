@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "material")
 public class Material {
 	@Id
-	@Column(name = "material_id")
+	@Column(name = "material_id", unique = true)
 	private String materialId;
 	
 	@Column(name = "material_name")
