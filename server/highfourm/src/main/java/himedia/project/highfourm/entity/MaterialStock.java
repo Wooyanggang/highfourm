@@ -3,19 +3,23 @@ package himedia.project.highfourm.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "material_stock")
 public class MaterialStock {
 	
 	@Id
 	@Column(name = "material_id")
+	private String materialId;
 	private String materialId;
 	
 	@Column(name = "method_id")
@@ -32,4 +36,20 @@ public class MaterialStock {
 	
 	@Column(name = "lead_time")
 	int leadTime;
+	
+	@Builder
+	public MaterialStock(String materialId, Material material, StockManagement stockManagement, Long totalStock,
+			Long safetyStock, Long maxStock, int leadTime) {
+		this.materialId = materialId;
+		this.material = material;
+		this.stockManagement = stockManagement;
+		this.totalStock = totalStock;
+		this.safetyStock = safetyStock;
+		this.maxStock = maxStock;
+		this.leadTime = leadTime;
+	}
+	
+
+
+	
 }
