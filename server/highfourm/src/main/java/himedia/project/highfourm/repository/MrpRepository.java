@@ -17,8 +17,8 @@ public class MrpRepository {
 	private final EntityManager em;
 
 	public List<MrpDTO> findByProductionPlans() {
-		String sql = "select plan.due_date, plan.production_plan_id, plan.product_id, p.product_name, plan.production_plan_amount "
-				+ "from production_plan plan " + "left join product p on plan.product_id = p.product_id";
+		String sql = "select plan.dueDate, plan.productionPlanId, plan.product.productId, p.productName, plan.productionPlanAmount "
+				+ "from ProductionPlan plan " + "left join plan.product p";
 
 		List<MrpDTO> result = em.createQuery(sql, MrpDTO.class).getResultList();
 		log.info("result1 : {}", result);
@@ -27,13 +27,14 @@ public class MrpRepository {
 	}
 
 	public List<MrpDTO> findByMaterials(String productionPlanId) {
-		String sql = "select m.material_name, r.material_id, r.input_amount, sum(plan.production_plan_amount*r.input_amount) as total_material_amount, "
-				+ "s.total_stock, s.safety_stock, h.inbound_amount " + "from production_plan plan "
-				+ "left join required_material r on plan.product_id = r.product_id "
-				+ "left join material m on r.material_id = m.material_id "
-				+ "left join material_stock s on m.material_id = s.material_id "
-				+ "left join material_history h on m.material_id = h.material_id "
-				+ "where production_plan_id like :productionPlanId " + "group by production_plan_id";
+		String sql = "select m.materialName, r.material.materialId, r.inputAmount, sum(plan.productionPlanAmount*r.inputAmount) as totalMaterialAmount, "
+				+ "s.totalStock, s.safetyStock, h.inboundAmount " + "from ProductionPlan plan "
+				+ "left join plan.product p "
+				+ "left join p.requiredMaterial r "
+				+ "left join r.material m "
+				+ "left join m.materialStock s "
+				+ "left join m.materialHistory h "
+				+ "where plan.productionPlanId like :productionPlanId " + "group by plan.productionPlanId";
 
 		List<MrpDTO> result = em.createQuery(sql, MrpDTO.class)
 				.setParameter("productionPlanId", productionPlanId).getResultList();
@@ -42,10 +43,9 @@ public class MrpRepository {
 	}
 	
 	public List<MrpDTO> findByProductionPlanID(String productionPlanId) {
-		String sql = "select plan.due_date, plan.production_plan_id, plan.product_id, p.product_name, plan.production_plan_amount "
-				+ "from production_plan plan "
-				+ "left join product p on plan.product_id = p.product_id "
-				+ "where production_plan_id like concat('%', :productionPlanId, '%')";
+		String sql = "select plan.dueDate, plan.productionPlanId, plan.product.productId, p.productName, plan.productionPlanAmount "
+				+ "from ProductionPlan plan " + "left join plan.product p"
+				+ "where plan.productionPlanId like concat('%', :productionPlanId, '%')";
 		
 		List<MrpDTO> result = em.createQuery(sql, MrpDTO.class)
 				.setParameter("productionPlanId", productionPlanId).getResultList();
@@ -54,10 +54,9 @@ public class MrpRepository {
 	}
 
 	public List<MrpDTO> findByProductId(String productId) {
-		String sql = "select plan.due_date, plan.production_plan_id, plan.product_id, p.product_name, plan.production_plan_amount "
-				+ "from production_plan plan "
-				+ "left join product p on plan.product_id = p.product_id "
-				+ "where plan.product_id like concat('%', :productId, '%')";
+		String sql = "select plan.dueDate, plan.productionPlanId, plan.product.productId, p.productName, plan.productionPlanAmount "
+				+ "from ProductionPlan plan " + "left join plan.product p"
+				+ "where p.productId like concat('%', :productId, '%')";
 		
 		List<MrpDTO> result = em.createQuery(sql, MrpDTO.class)
 				.setParameter("productId", productId).getResultList();
@@ -66,10 +65,9 @@ public class MrpRepository {
 	}
 
 	public List<MrpDTO> findByProductName(String productName) {
-		String sql = "select plan.due_date, plan.production_plan_id, plan.product_id, p.product_name, plan.production_plan_amount "
-				+ "from production_plan plan "
-				+ "left join product p on plan.product_id = p.product_id "
-				+ "where product_name like concat('%', :productName, '%')";
+		String sql = "select plan.dueDate, plan.productionPlanId, plan.product.productId, p.productName, plan.productionPlanAmount "
+				+ "from ProductionPlan plan " + "left join plan.product p"
+				+ "where p.productName like concat('%', :productName, '%')";
 		
 		List<MrpDTO> result = em.createQuery(sql, MrpDTO.class)
 				.setParameter("productName", productName).getResultList();
@@ -78,10 +76,9 @@ public class MrpRepository {
 	}
 	
 	public List<MrpDTO> findByDueDate(String dueDate) {
-		String sql = "select plan.due_date, plan.production_plan_id, plan.product_id, p.product_name, plan.production_plan_amount "
-				+ "from production_plan plan "
-				+ "left join product p on plan.product_id = p.product_id "
-				+ "where due_date like concat('%', :dueDate, '%')";
+		String sql = "select plan.dueDate, plan.productionPlanId, plan.product.productId, p.productName, plan.productionPlanAmount "
+				+ "from ProductionPlan plan " + "left join plan.product p"
+				+ "where plan.dueDate like concat('%', :dueDate, '%')";
 		
 		List<MrpDTO> result = em.createQuery(sql, MrpDTO.class)
 				.setParameter("dueDate", dueDate).getResultList();

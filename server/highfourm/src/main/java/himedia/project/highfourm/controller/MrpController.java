@@ -23,8 +23,9 @@ public class MrpController {
 	public List<MrpDTO> selectMrpProductionPlanList() {
 		List<MrpDTO> totalList = new ArrayList<>();
 		totalList = service.findByProductionPlans();
-		
-		return totalList;
+		log.info("list : " + totalList.get(0).getProductionPlanId());
+		log.info("list product : " + totalList.get(0).getProductId());
+		return service.findByProductionPlans();
 	}
 
 	@GetMapping("/mrp/{productionPlanId}")

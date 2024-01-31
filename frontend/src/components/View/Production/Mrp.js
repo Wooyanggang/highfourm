@@ -6,63 +6,43 @@ import axios from 'axios';
 
 const Mrp = () => {
   const [searchType, setSearchType] = useState('생산계획 코드');
-
-
-  const [dataSourceOne, setDataSourceOne] = useState(
-    //   [
-    //   {
-    //     key: '',
-    //     due_date: '',
-    //     production_plan_id: '',
-    //     product_id: '',
-    //     product_name: '',
-    //     production_plan_amount: '',
-    //   },
-
-    // ]
-  );
-  const [dataSourceTwo, setDataSourceTwo] = useState(
-    //   [
-    //   {
-    //     key: '',
-    //     material_name: '',
-    //     material_id: '',
-    //     input_amount: '',
-    //     total_material_amount: '',
-    //     total_stock: '',
-    //     safety_stock: '',
-    //     inbound_amount: '',
-    //   },
-    // ]
-  );
+  const [dataSourceOne, setDataSourceOne] = useState([]);
+  const [dataSourceTwo, setDataSourceTwo] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const res = await axios.get('/mrp')
+        console.log(res.data);
 
-        const mrpProductionData = await res.data.map((rowData) => ({
-          key: rowData.data.productionPlanId,
-          due_date: rowData.data.dueDate,
-          production_plan_id: rowData.data.productionPlanId,
-          product_id: rowData.data.productId,
-          product_name: rowData.data.productName,
-          production_amount: rowData.data.productionAmount,
-        }))
+        const mrpProductionData = await res.data.map((rowData) => (
+          console.log("rowData : ", rowData),
+          {
+            key: rowData.productionPlanId,
+            due_date: rowData.dueDate,
+            production_plan_id: rowData.productionPlanId,
+            product_id: rowData.productId,
+            product_name: rowData.productName,
+            production_plan_amount: rowData.productionPlanAmount,
+          }
+        ))
+        setDataSourceOne(mrpProductionData);
+        console.log("mrp : ", mrpProductionData);
+        
+        // const mrpMaterialData = await res.data.map((rowData) => ({
+        //   key: rowData.data.materialId,
+        //   material_name: rowData.data.materialName,
+        //   material_Id: rowData.data.materialId,
+        //   input_unit: rowData.data.inputUnit,
+        //   total_material_amount: rowData.data.totalMaterialAmount,
+        //   total_stock: rowData.data.totalStock,
+        //   safety_stock: rowData.data.safetyStock,
+        //   inbound_amount: rowData.data.inboundAmount,
+        // },
+        //   console.log(rowData.data.materialId)
+        // ))
 
-        const mrpMaterialData = await res.data.map((rowData) => ({
-          key: rowData.data.materialId,
-          material_name: rowData.data.materialName,
-          material_Id: rowData.data.materialId,
-          input_unit: rowData.data.inputUnit,
-          total_material_amount: rowData.data.totalMaterialAmount,
-          total_stock: rowData.data.totalStock,
-          safety_stock: rowData.data.safetyStock,
-          inbound_amount: rowData.data.inboundAmount,
-        }))
-
-        setDataSourceOne(dataSourceOne.concat(dataSourceOne))
-        setDataSourceTwo(dataSourceTwo.concat(dataSourceTwo))
+        // setDataSourceTwo(mrpMaterialData)
       } catch (e) {
         console.error(e.message)
       }
@@ -81,7 +61,7 @@ const Mrp = () => {
     {
       title: '생산계획 코드',
       dataIndex: 'production_plan_id',
-      // render: (text) => <a href={`/mrp/${dataSource.productionPlanId}`}>{text}</a>,
+      render: (text) => <a href={`/mrp/${dataSourceOne.productionPlanId}`}>{text}</a>,
       // production_plan
     },
     {
@@ -177,7 +157,7 @@ const Mrp = () => {
             <hr className='box-title-line' />
           </div>
           <div style={{ height: '706px', overflowY: 'auto' }}>
-            <BasicTable dataSource={dataSourceOne} defaultColumns={defaultColumnsOne} setDataSource={setDataSourceOne} />
+            <BasicTable dataSource={dataSourceOne} defaultColumns={defaultColumnsOne} setDataSource={setDataSourceOne} pagination={false} />
           </div>
         </div>
         <div className='bordered-box'>
@@ -186,7 +166,7 @@ const Mrp = () => {
             <hr className='box-title-line' />
           </div>
           <div style={{ height: '706px', overflowY: 'auto' }}>
-            <BasicTable dataSource={dataSourceTwo} defaultColumns={defaultColumnsTwo} setDataSource={setDataSourceTwo} />
+            <BasicTable dataSource={dataSourceTwo} defaultColumns={defaultColumnsTwo} setDataSource={setDataSourceTwo} pagination={false} />
           </div>
         </div>
       </div>

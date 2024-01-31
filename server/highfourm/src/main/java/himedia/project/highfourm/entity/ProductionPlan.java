@@ -32,8 +32,8 @@ public class ProductionPlan {
 	@Column(name = "production_unit")
 	private String productionUnit;
 	
-	@Column(name = "production_amount")
-	private Long productionAmount;
+	@Column(name = "production_plan_amount")
+	private Long productionPlanAmount;
 	
 	@Column(name = "production_start_date")
 	private String productionStartDate;
