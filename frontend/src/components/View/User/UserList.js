@@ -56,15 +56,15 @@ const UserList = () => {
       title: '사원명',
       dataIndex: 'user_name',
       width: '20%',
-      render: (text) => <a href={`/users/edit/${dataSource.empNo}`}>{text}</a>,
+      render: (text, record) => <a href={`/users/edit/${record.key}`}>{text}</a>,
     },
     {
       title: '사번',
       dataIndex: 'emp_no',
-      render: (text) => <a href={`/users/edit/${dataSource.empNo}`}>{text}</a>,
+      render: (text, record) => <a href={`/users/edit/${record.key}`}>{text}</a>,
     },
     {
-      title: '계정 주소',
+      title: '이메일',
       dataIndex: 'email',
     },
     {
@@ -86,11 +86,9 @@ const UserList = () => {
 
   const SelectChangeHandler = (value) => {
     setSearchType(value);
-    console.log(value);
-    console.log(searchType);
   };
 
-  const onSearch = (value, _e, info) => {
+  const onSearch = (value) => {
     axios({
       method: 'GET',
       url: '/users/search',
@@ -99,11 +97,6 @@ const UserList = () => {
       }
     })
       .catch(e => console.log(e));
-
-
-
-    console.log(searchType);
-    console.log(info?.source, value);
   }
 
   const onClick = () => {
@@ -114,7 +107,7 @@ const UserList = () => {
     <div>
       <PageTitle value={'사용자 관리'} />
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 24px', marginBottom: '24px' }}>
-        <SearchSelectBox selectValue={['사원명', '사번', '계정 주소', '가입 여부']} SelectChangeHandler={SelectChangeHandler} />
+        <SearchSelectBox selectValue={['사원명', '사번', '이메일']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput id={'search'} name={'search'} onSearch={onSearch} />
       </div>
       <div style={{ marginBottom: '24px' }}>

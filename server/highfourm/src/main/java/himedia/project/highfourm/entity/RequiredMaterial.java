@@ -1,7 +1,9 @@
 package himedia.project.highfourm.entity;
 
+import himedia.project.highfourm.entity.pk.RequiredMaterialPK;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -16,18 +18,9 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @Table(name = "required_material")
 public class RequiredMaterial {
-	@Id
-	@Column(name = "product_id")
-	private String productId;
 	
-	@MapsId
-	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)
-	private Product product;
-	
-	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "material_id", referencedColumnName = "material_id", unique = true)
-	private Material material;
+	@EmbeddedId
+	private RequiredMaterialPK requriedMaterialPK;
 	
 	@Column(name = "input_process")
 	private String inputProcess;

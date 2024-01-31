@@ -1,4 +1,4 @@
-package himedia.project.highfourm.dto;
+package himedia.project.highfourm.dto.user;
 
 import java.time.LocalDate;
 

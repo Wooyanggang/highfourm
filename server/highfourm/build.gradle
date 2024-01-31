@@ -35,6 +35,7 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	// https://mvnrepository.com/artifact/org.modelmapper/modelmapper
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.2.0'
+	implementation 'org.springframework.boot:spring-boot-starter-validation:3.2.1'
 	
 }
 

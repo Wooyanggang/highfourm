@@ -1,14 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BtnBlue, BtnWhite, InputBar } from '../../Common/Module';
 import PageTitle from '../../Common/PageTitle';
+import axios from 'axios';
 
 const UserNew = () => {
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState([]);
 
   const goBackNavigate = () => {
     navigate(-1)
   }
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.get('/users/edit/:userNo');
+
+        // const userData = await res.data
+        //   key: rowData.userNo,
+        //   user_name: rowData.userName,
+        //   emp_no: rowData.empNo,
+        //   birth: rowData.birth,
+        //   position: rowData.position,
+        //   email: rowData.email,
+        //   register_state: rowData.registerState,
+
+        setUserInfo(res.data);
+        console.log(res.data);
+      } catch (e) {
+        console.error(e.message);
+      }
+    }
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -17,7 +42,7 @@ const UserNew = () => {
         <div className='flex-line'>
           <div className='flex-div'>
             <label htmlFor='emp_no' className='label-title'>사번</label>
-            <InputBar id={'emp_no'} name={'emp_no'} value={'10001'} disabled={true} />
+            <InputBar id={'emp_no'} name={'emp_no'} value={userInfo.empNo} disabled={true} />
           </div>
           <div className='flex-div'>
             <label htmlFor='user_name' className='label-title'>이름</label>

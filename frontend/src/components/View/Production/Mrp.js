@@ -3,9 +3,11 @@ import { SearchInput, SearchSelectBox } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
 import PageTitle from '../../Common/PageTitle';
 import axios from 'axios';
+import Item from 'antd/es/list/Item';
 
 const Mrp = () => {
   const [searchType, setSearchType] = useState('생산계획 코드');
+  const [selectedProductionPlanId, setSelectedProductionPlanId] = useState();
   const [dataSourceOne, setDataSourceOne] = useState([]);
   const [dataSourceTwo, setDataSourceTwo] = useState([]);
 
@@ -28,27 +30,38 @@ const Mrp = () => {
         ))
         setDataSourceOne(mrpProductionData);
         console.log("mrp : ", mrpProductionData);
-        
-        // const mrpMaterialData = await res.data.map((rowData) => ({
-        //   key: rowData.data.materialId,
-        //   material_name: rowData.data.materialName,
-        //   material_Id: rowData.data.materialId,
-        //   input_unit: rowData.data.inputUnit,
-        //   total_material_amount: rowData.data.totalMaterialAmount,
-        //   total_stock: rowData.data.totalStock,
-        //   safety_stock: rowData.data.safetyStock,
-        //   inbound_amount: rowData.data.inboundAmount,
-        // },
-        //   console.log(rowData.data.materialId)
-        // ))
-
-        // setDataSourceTwo(mrpMaterialData)
       } catch (e) {
         console.error(e.message)
       }
     }
     fetchData();
   }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        if (selectedProductionPlanId) {
+          const res = await axios.get(`/mrp/${selectedProductionPlanId}`);
+          const mrpMaterialData = res.data.map((rowData) => ({
+            key: rowData.materialId,
+            material_name: rowData.materialName,
+            material_id: rowData.materialId,
+            input_amount: rowData.inputAmount,
+            total_material_amount: rowData.totalMaterialAmount,
+            total_stock: rowData.totalStock,
+            safety_stock: rowData.safetyStock,
+            inbound_amount: rowData.inboundAmount,
+          }));
+          setDataSourceTwo(mrpMaterialData);
+        } else {
+          setDataSourceTwo([]);
+        }
+      } catch (e) {
+        console.error(e.message);
+      }
+    }
+    fetchData();
+  }, [selectedProductionPlanId]);
 
 
   const defaultColumnsOne = [
@@ -61,7 +74,7 @@ const Mrp = () => {
     {
       title: '생산계획 코드',
       dataIndex: 'production_plan_id',
-      render: (text) => <a href={`/mrp/${dataSourceOne.productionPlanId}`}>{text}</a>,
+      render: (text) => <a href={`/mrp/${selectedProductionPlanId}`} onClick={handleClick}>{text}</a>,
       // production_plan
     },
     {
@@ -126,9 +139,9 @@ const Mrp = () => {
     console.log(searchType);
   };
 
-  const onSearch = (value, _e, info) => {
+  const onSearch = (value) => {
     // search 값 기능 구현 함수
-    console.log(info?.source, value);
+    console.log('search : ', value);
     axios({
       method: 'GET',
       url: '/users/search',
@@ -139,7 +152,13 @@ const Mrp = () => {
       .catch(e => console.log(e));
 
     console.log(searchType);
-    console.log(info?.source, value);
+    console.log('search2 : ', value);
+  }
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    console.log(event);
+    setSelectedProductionPlanId(event.target.text);
   }
 
   return (

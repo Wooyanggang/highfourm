@@ -2,11 +2,11 @@ package himedia.project.highfourm.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import himedia.project.highfourm.dto.UserDTO;
+import himedia.project.highfourm.dto.user.UserDTO;
 import himedia.project.highfourm.entity.Company;
 import himedia.project.highfourm.entity.User;
 import himedia.project.highfourm.repository.CompanyRepository;
@@ -22,28 +22,46 @@ public class UserService {
 	private final UserRepository repository;
 	private final CompanyRepository companyRepository;
 	
-	private List<UserDTO> convertToDTO(List<User> userlist) {
-		List<UserDTO> result = userlist.stream()
-								.map(user -> UserDTO.builder()
-										.userNo(user.getUserNo())
-										.userName(user.getUserName())
-										.empNo(user.getEmpNo())
-										.position(user.getPosition())
-										.birth(user.getBirth())
-										.email(user.getEmail())
-										.registerState(user.getRegisterState())
-										.build()
-										).collect(Collectors.toList());
+//	public List<UserDTO> toListDTO(List<User> userlist) {
+//		return userlist.stream()
+//				.map(user -> UserDTO.builder()
+//						.userNo(user.getUserNo())
+//						.userName(user.getUserName())
+//						.empNo(user.getEmpNo())
+//						.position(user.getPosition())
+//						.birth(user.getBirth())
+//						.email(user.getEmail())
+//						.registerState(user.getRegisterState())
+//						.build()
+//						).collect(Collectors.toList());
+//	}
+	
+	public List<UserDTO> findAllUsers() {
+		List<User> userlist = repository.findAll();
+		Company company = companyRepository.findById(1L).get();
+		List<UserDTO> result = 
+				userlist.stream().map(user -> user.toDTO(company)).toList();
 		
 		return result;
 	}
 	
-	public List<UserDTO> findAllUsers() {
-		
-		List<User> user = repository.findAll();
-		List<UserDTO> convertedUser = convertToDTO(user);
-		
-		return convertedUser;
+	public UserDTO findByUserNo(@RequestParam Long userNo) {
+		User user = repository.findById(userNo).get();
+		Company company = companyRepository.findById(1L).get();
+		log.info(user.getUserName());
+		return user.toDTO(company);
+	}
+	
+	public List<UserDTO> findByEmpNo(Long empNo) {
+		return repository.findByEmpNo(empNo);
+	}
+	
+	public List<UserDTO> findByUserName(String name) {
+		return repository.findByUserName(name);
+	}
+	
+	public List<UserDTO> findByEmail(String email) {
+		return repository.findByEmail(email);
 	}
 	
 	public void save(UserDTO user) {
@@ -58,5 +76,11 @@ public class UserService {
 		repository.save(userEntity);
 	}
 
+	public void delete(Long userNo) {
+		repository.deleteById(userNo);
+	}
 	
+	public void update(Long userNo) {
+		
+	}
 }
