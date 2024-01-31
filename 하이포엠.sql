@@ -33,7 +33,7 @@ create table IF NOT EXISTS users (
 	foreign key (company_id) references company(company_id)
     ON UPDATE CASCADE
 );
-  drop table users;
+--   drop table users;
 insert into users values (null, '', '', '홍길동', 1000, '사원', '2024-01-01', 'hong333', 1, 'Y', 'USER');
 insert into users values (null, '', '', '김이박', 1001, '대리', '1990-12-31', 'kimleepark', 2, 'N', 'USER');
 
@@ -202,17 +202,17 @@ insert into required_material values ('제품 코드2', '원자재 코드2', '�
 
 select * from required_material;
 
-create table IF NOT EXISTS method (
-	method_id bigint auto_increment NOT NULL COMMENT '재고 관리 코드',
-	method_name varchar(10) NOT NULL COMMENT '재고 관리명',
-    primary key(method_id)
+create table IF NOT EXISTS stock_management (
+	management_id bigint auto_increment NOT NULL COMMENT '재고 관리 코드',
+	management_name varchar(10) NOT NULL COMMENT '재고 관리명',
+    primary key(management_id)
 );
 
-select * from method;
+select * from stock_management;
 
 create table IF NOT EXISTS material_stock (
 	material_id varchar(50) unique NOT NULL COMMENT '원자재 코드',
-	method_id bigint NOT NULL COMMENT '재고 관리 코드',
+	management_id bigint NOT NULL COMMENT '재고 관리 코드',
 	safety_stock bigint COMMENT '안전 재고',
 	max_stock bigint COMMENT '최대 재고',
 	lead_time int COMMENT '리드 타임',
@@ -220,7 +220,7 @@ create table IF NOT EXISTS material_stock (
     primary key(material_id),
     foreign key(material_id) references material(material_id)
     ON UPDATE CASCADE,
-    foreign key(method_id) references method(method_id)
+    foreign key(management_id) references stock_management(management_id)
     ON UPDATE CASCADE
 );
 
@@ -258,7 +258,7 @@ left join required_material r on plan.product_id = r.product_id
 left join material m on r.material_id = m.material_id
 left join material_stock s on m.material_id = s.material_id
 left join material_history h on m.material_id = h.material_id
-where production_plan_id like ?
+where production_plan_id like '%'
 group by production_plan_id;
 
 -- 자재 총 산출 검색<생산계획 코드 production_plan_id>
