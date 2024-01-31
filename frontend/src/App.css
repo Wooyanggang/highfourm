@@ -115,11 +115,11 @@ input[type="date"]::placeholder {
 }
 
 /* OrderNew */
-.order-new-page .search-input-wrap {
+.order-new-page .input-wrap {
   display: flex;
 }
 
-.order-new-page .search-input-wrap:nth-child(n+2) {
+.order-new-page .input-wrap:nth-child(n+2) {
   margin-top: 16px;
 }
 
@@ -136,7 +136,7 @@ input[type="date"]::placeholder {
   margin-top: 20px;
 }
 
-.order-new-page .search-input {
+.order-new-page .input {
   margin-right: 20px;
 }
 

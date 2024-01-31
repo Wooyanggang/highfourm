@@ -31,7 +31,6 @@ public class Material {
     
     @Builder
 	public Material(String materialId, String materialName, String unit, MaterialStock materialStock) {
-		super();
 		this.materialId = materialId;
 		this.materialName = materialName;
 		this.unit = unit;

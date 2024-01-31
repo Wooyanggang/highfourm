@@ -62,8 +62,7 @@ function App() {
           <div>
             <Router>
               <Routes>
-                <Route path='/orders' element={<OrderList />}>
-                </Route>
+                <Route path='/orders' element={<OrderList />} />
                 <Route path='/orders/new' element={<OrderNew />} />
                 <Route path='/materials/stock' element={<StockList />} />
                 <Route path='/materials/order-history' element={<MaterialOrderHistory />} />
