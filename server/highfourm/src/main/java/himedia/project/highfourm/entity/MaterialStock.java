@@ -20,7 +20,6 @@ public class MaterialStock {
 	@Id
 	@Column(name = "material_id")
 	private String materialId;
-	private String materialId;
 	
 	@Column(name = "method_id")
 	private Long methodId;
