@@ -31,7 +31,6 @@ const MaterialOrderHistory = () => {
     {
       title: '발주일',
       dataIndex: 'name',
-      width: '20%',
     },
     {
       title: '입고일',
@@ -101,18 +100,9 @@ const MaterialOrderHistory = () => {
     // search 값 기능 구현 함수
     console.log(info?.source, value);
   }
-
-  const [count, setCount] = useState(dataSource.length);
-  const handleAdd = () => {
-    const newData = {
-      key: count,
-      name: `Edward King ${count}`,
-      age: '32',
-      address: `London, Park Lane no. ${count}`,
-    };
-    setDataSource([...dataSource, newData]);
-    setCount(count + 1);
-  };
+  const onClick = () => {
+    window.location.href = '/materials/order-history/new'
+  }
 
   return (
     <div>
@@ -122,7 +112,7 @@ const MaterialOrderHistory = () => {
         <SearchInput onSearch={onSearch} />
       </div>
       <div style={{ marginBottom: '24px' }}>
-        <BtnBlack value={'수급내역 등록'} onClick={handleAdd} />
+        <BtnBlack value={'수급내역 등록'} onClick={onClick} />
       </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={{ border: '1px solid #d9d9d9', padding: '40px 45px', marginBottom: '20px' }}>
