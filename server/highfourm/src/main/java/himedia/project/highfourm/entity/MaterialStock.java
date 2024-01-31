@@ -20,8 +20,8 @@ public class MaterialStock {
 	@Column(name = "material_id")
 	private String materialId;
 	
-	@Column(name = "method_id")
-	private Long methodId;
+	@Column(name = "management_id")
+	private StockManagement stockManagement;
 	
 	@Column(name = "total_stock")
 	private Long totalStock;
@@ -39,7 +39,6 @@ public class MaterialStock {
 	public MaterialStock(String materialId, Material material, StockManagement stockManagement, Long totalStock,
 			Long safetyStock, Long maxStock, int leadTime) {
 		this.materialId = materialId;
-		this.material = material;
 		this.stockManagement = stockManagement;
 		this.totalStock = totalStock;
 		this.safetyStock = safetyStock;

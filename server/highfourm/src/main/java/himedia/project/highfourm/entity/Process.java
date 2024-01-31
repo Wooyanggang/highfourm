@@ -20,19 +20,15 @@ public class Process {
 	@Id
 	@Column(name = "process_id", unique = true)
 	private String processId;
-//	@OneToOne(cascade = CascadeType.REFRESH)
+	@OneToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)	
 	private Product product;
 	@Column(name = "sequence")
 	private Long sequence;
 	@Column(name = "process_name")
 	private String processName;
-	@Column(name = "process_name")
-	private String processName;
 	@Column(name = "time_unit")
 	private String timeUnit;
-	@Column(name = "standard_work_time")
-	private Long standardWorkTime;
 	@Column(name = "standard_work_time")
 	private Long standardWorkTime;
 	@Column(name = "output_unit")
