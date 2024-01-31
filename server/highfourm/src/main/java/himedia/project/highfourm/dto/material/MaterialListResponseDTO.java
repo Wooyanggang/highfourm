@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MaterialResponseDTO{
+public class MaterialListResponseDTO{
     private String materialId;
     private String materialName;
     private String unit;
@@ -17,5 +17,5 @@ public class MaterialResponseDTO{
     private Long safetyStock;
     private Long maxStock;
     private Integer leadTime;
-	 
+	
 }

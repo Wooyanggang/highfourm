@@ -5,11 +5,12 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import himedia.project.highfourm.dto.material.MaterialListResponseDTO;
+import himedia.project.highfourm.dto.material.MaterialOrderRequestDTO;
 import himedia.project.highfourm.dto.material.MaterialRequestDTO;
-import himedia.project.highfourm.dto.material.MaterialResponseDTO;
+import himedia.project.highfourm.entity.Material;
 import himedia.project.highfourm.entity.StockManagement;
 import himedia.project.highfourm.repository.MaterialHistoryRepository;
-import himedia.project.highfourm.repository.MaterialListRepository;
 import himedia.project.highfourm.repository.MaterialRepository;
 import himedia.project.highfourm.repository.MaterialStockRepository;
 import himedia.project.highfourm.repository.StockManagementRepository;
@@ -23,7 +24,6 @@ public class MaterialService {
 	private final MaterialHistoryRepository historyRepository;
 	private final MaterialStockRepository stockRepository;
 	private final StockManagementRepository managementRepository;
-	private final MaterialListRepository listRepository;
 	
 	
 	public void saveMaterial(MaterialRequestDTO material) {
@@ -34,8 +34,17 @@ public class MaterialService {
 			stockRepository.save(material.toEntitySecond(stockManagement.get()));
 	}
 	
-	public List<MaterialResponseDTO> MaterialList() {
+	public List<MaterialListResponseDTO> MaterialList() {
 		return stockRepository.findMaterialList();
-		//return listRepository.findMaterialList();
+	}
+	
+	public void saveMaterialhistory(MaterialOrderRequestDTO orderRequestDTO ) {
+		
+		Optional<Material> material = materialRepository.findById(orderRequestDTO.getMaterialId());
+		
+		if(material.isPresent()) {
+			historyRepository.save(orderRequestDTO.toEntity(material.get()));
+		}
+		
 	}
 }

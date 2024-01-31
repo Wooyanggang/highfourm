@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,17 +24,19 @@ public class MaterialHistory {
 	private Long materialHistoryId;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "material_id", referencedColumnName = "material_id")
+    @JoinColumn(name = "material_id", referencedColumnName = "material_id", nullable = false)
 	private Material material;
 	
-	@Column(name = "order_date")
+	@Column(name = "order_date", nullable = false)
 	private String orderDate;
 	
 	@Column(name = "recieving_date")
 	private String recievingDate;
 	
+	@Column(nullable = false)
 	private String standard;
 	
+	@Column(nullable = false)
 	private String supplier;
 	
 	@Column(name = "material_inventory")
@@ -42,11 +45,30 @@ public class MaterialHistory {
 	@Column(name = "inbound_amount")
 	private Long inboundAmount;
 	
-	@Column(name = "order_amount")
+	@Column(name = "order_amount", nullable = false)
 	private String orderAmount;
 	
 	@Column(name = "unit_price")
 	private String unitPrice;
 	
 	private String note;
+	
+	@Builder
+	public MaterialHistory(Long materialHistoryId, Material material, String orderDate, String recievingDate,
+			String standard, String supplier, Long materialInventory, Long inboundAmount, String orderAmount,
+			String unitPrice, String note) {
+		this.materialHistoryId = materialHistoryId;
+		this.material = material;
+		this.orderDate = orderDate;
+		this.recievingDate = recievingDate;
+		this.standard = standard;
+		this.supplier = supplier;
+		this.materialInventory = materialInventory;
+		this.inboundAmount = inboundAmount;
+		this.orderAmount = orderAmount;
+		this.unitPrice = unitPrice;
+		this.note = note;
+	}
+	
+	
 }

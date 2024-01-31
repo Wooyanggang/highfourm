@@ -69,7 +69,7 @@ function App() {
                 <Route path='/materials/stock' element={<StockList />} />
                 <Route path='/materials/order-history' element={<MaterialOrderHistory />} />
                 <Route path='/materials/order-history/new' element={<MaterialOrderHistoryNew />} />
-                <Route path='/materials/order-history/new' element={<MaterialOrderHistoryEdit />} />
+                <Route path='/materials/order-history/edit' element={<MaterialOrderHistoryEdit />} />
                 <Route path='/users/join' element={<Join />} />
                 <Route path='/users' element={<UserList />} />
                 <Route path='/users/new' element={<UserNew />} />
