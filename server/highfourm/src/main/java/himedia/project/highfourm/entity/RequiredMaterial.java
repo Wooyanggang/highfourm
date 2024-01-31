@@ -17,11 +17,11 @@ import lombok.RequiredArgsConstructor;
 public class RequiredMaterial {
 	
 	@Id
-	//@OneToMany(cascade = CascadeType.REFRESH)
+//	@OneToMany(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)
 	private String productId;
 	
-	//@OneToMany(cascade = CascadeType.REFRESH)
+//	@OneToMany(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "material_id", referencedColumnName = "material_id", unique = true)
 	private String materialId;
 	

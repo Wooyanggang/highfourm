@@ -29,16 +29,16 @@ public class WorkPerformance {
 	private ProductionPlan productionPlan;
 	
 	@Column(name = "working_date")
-	private String workinDate;
+	private String workingDate;
 	
 	@Column(name = "production_amount")
 	private Long productionAmount;
 	
 	@Column(name = "acceptance_amount")
-	private Long acceptancenAmount;
+	private Long acceptanceAmount;
 	
 	@Column(name = "defective_amount")
-	private Long defectivenAmount;
+	private Long defectiveAmount;
 	
 	@Column(name = "working_time")
 	private Long workingTime;

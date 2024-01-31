@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @Table(name = "material_stock")
 public class MaterialStock {
-	
 	@Id
 	@Column(name = "material_id")
 	private Long materiaId;

@@ -6,10 +6,10 @@ import lombok.Data;
 public class WorkPerfomanceDTO {
 	private Long workPerformenceNo;
 	private String productionPlanId;
-	private String date;
+	private String workingDate;
 	private Long productionAmount;
-	private Long acceptancenAmount;
-	private Long defectivenAmount;
+	private Long acceptanceAmount;
+	private Long defectiveAmount;
 	private Long workingTime;
 	private String manager;
 	private Long lotNo;

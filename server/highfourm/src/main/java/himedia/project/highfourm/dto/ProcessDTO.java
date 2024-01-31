@@ -7,8 +7,8 @@ public class ProcessDTO {
 	private String processId;
 	private String productId;
 	private Long sequence;
-	private String progressName;
+	private String processName;
 	private String timeUnit;
-	private Long standardTime;
+	private Long standardWorkTime;
 	private String outputUnit;
 }
