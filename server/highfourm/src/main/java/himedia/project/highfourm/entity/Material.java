@@ -2,18 +2,21 @@ package himedia.project.highfourm.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "material")
 public class Material {
-	
 	@Id
 	@Column(name = "material_id")
 	private String materialId;
@@ -22,4 +25,16 @@ public class Material {
 	private String materialName;
 	
 	private String unit;
+	
+    @OneToOne(mappedBy = "material", fetch = FetchType.LAZY)
+    private MaterialStock materialStock;
+    
+    @Builder
+	public Material(String materialId, String materialName, String unit, MaterialStock materialStock) {
+		this.materialId = materialId;
+		this.materialName = materialName;
+		this.unit = unit;
+		this.materialStock = materialStock;
+	}
+
 }

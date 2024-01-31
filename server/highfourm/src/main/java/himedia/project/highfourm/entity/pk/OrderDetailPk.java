@@ -4,13 +4,22 @@ import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Embeddable
-@Data
+@EqualsAndHashCode
+@Getter @Setter
 public class OrderDetailPk implements Serializable{
-	@Column(name = "order_id", unique = true)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Column(name = "order_id")
 	private String orderId;
-	@Column(name = "product_id", unique = true)
+	
+	@Column(name = "product_id")
 	private String productId;
 }

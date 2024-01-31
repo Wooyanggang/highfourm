@@ -1,33 +1,27 @@
 package himedia.project.highfourm.entity;
 
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "material_stock")
 public class MaterialStock {
-	
 	@Id
 	@Column(name = "material_id")
-	private Long materiaId;
+	private String materialId;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "material_id", referencedColumnName = "material_id")
-	private Material material;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "method_id", referencedColumnName = "method_id")
-	private Method method;
+	@Column(name = "management_id")
+	private StockManagement stockManagement;
 	
 	@Column(name = "total_stock")
 	private Long totalStock;
@@ -40,4 +34,19 @@ public class MaterialStock {
 	
 	@Column(name = "lead_time")
 	int leadTime;
+	
+	@Builder
+	public MaterialStock(String materialId, Material material, StockManagement stockManagement, Long totalStock,
+			Long safetyStock, Long maxStock, int leadTime) {
+		this.materialId = materialId;
+		this.stockManagement = stockManagement;
+		this.totalStock = totalStock;
+		this.safetyStock = safetyStock;
+		this.maxStock = maxStock;
+		this.leadTime = leadTime;
+	}
+	
+
+
+	
 }

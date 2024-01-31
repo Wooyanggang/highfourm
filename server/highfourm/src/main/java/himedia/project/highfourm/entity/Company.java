@@ -21,5 +21,4 @@ public class Company {
 	
 	@Column(name = "company_name")
 	private String companyName;
-	
 }

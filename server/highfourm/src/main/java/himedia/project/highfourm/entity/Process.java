@@ -8,7 +8,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,9 +20,9 @@ public class Process {
 	@Id
 	@Column(name = "process_id", unique = true)
 	private String processId;
-	//@OneToOne(cascade = CascadeType.REFRESH)
-	//@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)	
-	private String productId;
+	@OneToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)	
+	private Product product;
 	@Column(name = "sequence")
 	private Long sequence;
 	@Column(name = "process_name")

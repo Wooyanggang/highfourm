@@ -23,6 +23,7 @@ import MaterialOrderHistory from './View/Material/MaterialOrderHistory';
 import Join from './View/User/Join';
 import PerfomanceChart from './View/Production/PerfomanceChart';
 import PerfomanceControllChart from './View/Production/PerfomanceControllChart';
+import Test from './View/Test';
 import '../App.css'
 import axios from 'axios';
 const { Header, Content, Footer, Sider } = Layout;
@@ -61,8 +62,7 @@ function App() {
           <div>
             <Router>
               <Routes>
-                <Route path='/orders' element={<OrderList />}>
-                </Route>
+                <Route path='/orders' element={<OrderList />} />
                 <Route path='/orders/new' element={<OrderNew />} />
                 <Route path='/materials/stock' element={<StockList />} />
                 <Route path='/materials/order-history' element={<MaterialOrderHistory />} />
@@ -76,10 +76,11 @@ function App() {
                 <Route path='/bom' element={<Bom />} />
                 <Route path='/production-status' element={<Status />} />
                 <Route path='/work-perfomance' element={<WorkPerfomance />} />
+                <Route path='/work-perfomance/new' element={<WorkPerfomanceNew />} />
                 <Route path='/production-perfomance' element={<Perfomance />} />
                 <Route path='/production-perfomance/chart' element={<PerfomanceChart />} />
                 <Route path='/production-perfomance/controll-chart' element={<PerfomanceControllChart />} />
-                <Route path='/work-perfomance/new' element={<WorkPerfomanceNew />} />
+                <Route path='/Test' element={<Test />} />
               </Routes>
             </Router>
           </div>

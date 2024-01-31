@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AudioOutlined } from '@ant-design/icons'; //PDF 파일용. 삭제x
-import { Input, Space } from 'antd';
+import { Space } from 'antd';
+import axios from 'axios';
 import PageTitle from '../../Common/PageTitle';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Dropdown, message, Tooltip, Popconfirm, Table, FLex } from 'antd';
-import { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, StepBar } from '../../Common/Module';
+import { Button, Dropdown, message } from 'antd';
+import { BtnBlack, BtnFilter, SearchInput } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
 import { Document, Page } from 'react-pdf'; //PDF파일용. 삭제 x
 const onSearch = (value, _e, info) => console.log(info?.source, value);
@@ -46,135 +47,20 @@ const menuProps = {
 };
 
 const OrderList = () => {
-  const [dataSource, setDataSource] = useState([
-    {
-      key: '0',
-      orderId: '24/01/11-1',
-      vender: '32',
-      manager: '김삼식',
-      product: '테스트',
-      orderDate: '2023-05-06',
-      dueDate: '2024-01-01',
-      orderPrice: '7000000',
-      registerState: '진행 중',
-    },
-    {
-      key: '1',
-      orderId: '24/01/11-1',
-      vender: '32',
-      manager: 'London, Park Lane no. 0',
-      product: '테스트',
-      orderDate: '2023-05-06',
-      dueDate: '2024-01-01',
-      orderPrice: '7000000',
-      registerState: '진행 중',
-    },
-    {
-      key: '2',
-      orderId: '24/01/11-1',
-      vender: '32',
-      manager: 'London, Park Lane no. 0',
-      product: '테스트',
-      orderDate: '2023-05-06',
-      dueDate: '2024-01-01',
-      orderPrice: '7000000',
-      registerState: '진행 중',
-    },
-    {
-      key: '3',
-      orderId: '24/01/11-1',
-      vender: '32',
-      manager: 'London, Park Lane no. 0',
-      product: '테스트',
-      orderDate: '2023-05-06',
-      dueDate: '2024-01-01',
-      orderPrice: '7000000',
-      registerState: '진행 중',
-    },
-    {
-      key: '4',
-      orderId: '24/01/11-1',
-      vender: '32',
-      manager: 'London, Park Lane no. 0',
-      product: '테스트',
-      orderDate: '2023-05-06',
-      dueDate: '2024-01-01',
-      orderPrice: '7000000',
-      registerState: '진행 중',
-    },
-    {
-      key: '5',
-      orderId: '24/01/11-1',
-      vender: '32',
-      manager: 'London, Park Lane no. 0',
-      product: '테스트',
-      orderDate: '2023-05-06',
-      dueDate: '2024-01-01',
-      orderPrice: '7000000',
-      registerState: '진행 중',
-    },
-    {
-      key: '6',
-      orderId: '24/01/11-1',
-      vender: '32',
-      manager: 'London, Park Lane no. 0',
-      product: '테스트',
-      orderDate: '2023-05-06',
-      dueDate: '2024-01-01',
-      orderPrice: '7000000',
-      registerState: '진행 중',
-    },
-    {
-      key: '7',
-      orderId: '24/01/11-1',
-      vender: '32',
-      manager: 'London, Park Lane no. 0',
-      product: '테스트',
-      orderDate: '2023-05-06',
-      dueDate: '2024-01-01',
-      orderPrice: '7000000',
-      registerState: '진행 중',
-    },
-    {
-      key: '8',
-      orderId: '24/01/11-1',
-      vender: '32',
-      manager: 'London, Park Lane no. 0',
-      product: '테스트',
-      orderDate: '2023-05-06',
-      dueDate: '2024-01-01',
-      orderPrice: '7000000',
-      registerState: '진행 중',
-    },
-    {
-      key: '9',
-      orderId: '24/01/11-1',
-      vender: '32',
-      manager: 'London, Park Lane no. 0',
-      product: '테스트',
-      orderDate: '2023-05-06',
-      dueDate: '2024-01-01',
-      orderPrice: '7000000',
-      registerState: '진행 중',
-    },
-    {
-      key: '10',
-      orderId: '24/01/11-1',
-      vender: '32',
-      manager: 'London, Park Lane no. 0',
-      product: '테스트',
-      orderDate: '2023-05-06',
-      dueDate: '2024-01-01',
-      orderPrice: '7000000',
-      registerState: '진행 중',
-    },
-  ]);
+  const [orders, setOrders] = useState([]);
 
-  const handleDelete = (key) => {
-    const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
-  }
+  useEffect(() => {
+    axios.get('/orders')
+      .then(res => {
+        const updatedOrders = res.data.orders.map(order => {
+          const details = res.data.orderDetail.filter(detail => detail.orderId === order.orderId);
+          return { ...order, details };
+        });
 
+        setOrders(updatedOrders);
+      })
+      .catch(error => console.log(error));
+  }, []);
 
   const defaultColumns = [
     {
@@ -185,7 +71,7 @@ const OrderList = () => {
     },
     {
       title: '거래처명',
-      dataIndex: 'vender',
+      dataIndex: 'vendor',
     },
     {
       title: '담당자',
@@ -193,8 +79,14 @@ const OrderList = () => {
     },
     {
       title: '품목',
-      dataIndex: 'product',
-      render: (text) => <a href='/orders/order'>{text}</a>,
+      dataIndex: 'details',
+      render: details => {
+        if (details.length === 1) {
+          return <span>{details[0].productId}</span>;
+        } else {
+          return <span>{`${details[0].productId} 외 ${details.length - 1}건`}</span>;
+        }
+      }
     },
     {
       title: '주문일',
@@ -206,18 +98,26 @@ const OrderList = () => {
     },
     {
       title: '금액',
-      dataIndex: 'orderPrice',
+      dataIndex: 'details',
+      render: details => {
+        const totalPrice = details.reduce((sum, detail) => {
+          return sum + (detail.productAmount * detail.unitPrice);
+        }, 0);
+        return <span>{totalPrice.toLocaleString()}원</span>;
+      }
     },
     {
       title: '상태',
-      dataIndex: 'registerState',
+      dataIndex: 'endingState',
+      render: endingState => (endingState ? "완료" : "진행중")
     },
   ];
 
+  console.log(orders);
 
   return (
     <>
-      <PageTitle value={'주문 관리'}/>
+      <PageTitle value={'주문 관리'} />
       <Dropdown menu={menuProps}>
         <Button>
           <Space>
@@ -238,7 +138,7 @@ const OrderList = () => {
           </div>
         </div>
       </div>
-      <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource}/>
+      <BasicTable dataSource={orders} defaultColumns={defaultColumns} />
     </>
   )
 }

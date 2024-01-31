@@ -1,5 +1,6 @@
-import { Modal } from 'antd';
 import React, { useState } from 'react';
+import axios from 'axios';
+import { Modal } from 'antd';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
 import StockNew from './StockNew';
@@ -82,17 +83,13 @@ const StockList = () => {
     document.body.style.overflow = 'hidden';
   };
 
-  const handleOk = () => {
-    document.getElementById("stockNewForm").submit();
-    setIsModalOpen(false);
-  };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
 
   return (
     <div>
-      <PageTitle value={'재고 현황 조회'}/>
+      <PageTitle value={'재고 현황 조회'} />
       <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
         <SearchSelectBox selectValue={['자재코드', '자재명', '재고관리 방식']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />
@@ -102,13 +99,11 @@ const StockList = () => {
         <Modal
           title='원자재 등록'
           open={isModalOpen}
-          onOk={handleOk}
+          footer={null} 
           onCancel={handleCancel}
-          okText='저장'
-          cancelText='취소'
-          width='40%'
+          width='50%'
         >
-          <StockNew  formAction='/materials/stock' />
+          <StockNew formAction='/materials/stock/new'  />
         </Modal>
       </div>
       <div style={{ width: '1200px', display: 'flex', gap: '10px', flexDirection: 'column' }}>
