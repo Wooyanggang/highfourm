@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AudioOutlined } from '@ant-design/icons'; //PDF 파일용. 삭제x
+
 import { Space } from 'antd';
 import axios from 'axios';
 import PageTitle from '../../Common/PageTitle';
@@ -10,10 +11,6 @@ import BasicTable from '../../Common/Table/BasicTable';
 import { Document, Page } from 'react-pdf'; //PDF파일용. 삭제 x
 const onSearch = (value, _e, info) => console.log(info?.source, value);
 
-const handleButtonClick = (e) => {
-  message.info('Click on left button.');
-  console.log('click left button', e);
-};
 const handleMenuClick = (e) => {
   message.info('Click on menu item.');
   console.log('click', e);
@@ -52,14 +49,19 @@ const OrderList = () => {
   useEffect(() => {
     axios.get('/orders')
       .then(res => {
-        const updatedOrders = res.data.orders.map(order => {
-          const details = res.data.orderDetail.filter(detail => detail.orderId === order.orderId);
-          return { ...order, details };
-        });
-
-        setOrders(updatedOrders);
+        if (res.data.orders && res.data.ordersDetail) {
+          const updatedOrders = res.data.orders.map(order => {
+            const details = res.data.ordersDetail.filter(detail => detail.orderId === order.orderId);
+            return { ...order, details };
+          });
+          setOrders(updatedOrders);
+        } else {
+          console.log('Unexpected data structure:', res.data);
+        }
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
   }, []);
 
   const defaultColumns = [
@@ -82,9 +84,9 @@ const OrderList = () => {
       dataIndex: 'details',
       render: details => {
         if (details.length === 1) {
-          return <span>{details[0].productId}</span>;
+          return <span>{details[0].productName}</span>;
         } else {
-          return <span>{`${details[0].productId} 외 ${details.length - 1}건`}</span>;
+          return <span>{`${details[0].productName} 외 ${details.length - 1}건`}</span>;
         }
       }
     },

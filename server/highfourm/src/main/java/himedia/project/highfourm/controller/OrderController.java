@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import himedia.project.highfourm.dto.OrdersDTO;
+import himedia.project.highfourm.dto.orders.OrdersDTO;
 import himedia.project.highfourm.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +25,7 @@ public class OrderController {
 	
 	@GetMapping("/orders")
 	public Map<String, Object> orderList() {
+		System.out.println("응답 테스트");
 		return orderService.findAllOrders();
 	}
 	
