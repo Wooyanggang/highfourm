@@ -1,58 +1,74 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SearchInput, SearchSelectBox } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
 import PageTitle from '../../Common/PageTitle';
+import axios from 'axios';
 
 const Mrp = () => {
+  const [searchType, setSearchType] = useState('생산계획 코드');
 
-  const [dataSourceOne, setDataSourceOne] = useState([
-    {
-      key: '0',
-      due_date: '2024-01-11',
-      production_plan_id: 'PP24011101',
-      product_id: 'P1111111',
-      product_name: '키보드',
-      production_amount: '500',
-    },
-    {
-      key: '1',
-      due_date: '2024-01-15',
-      production_plan_id: 'PP24011501',
-      product_id: 'P1111112',
-      product_name: '키보드',
-      production_amount: '200',
-    },
-    {
-      key: '2',
-      due_date: '2024-01-15',
-      production_plan_id: 'PP24011502',
-      product_id: 'P1111113',
-      product_name: '태블릿',
-      production_amount: '300',
-    },
-  ]);
-  const [dataSourceTwo, setDataSourceTwo] = useState([
-    {
-      key: '0',
-      material_name: '키캡1',
-      material_code: 'M32',
-      input_unit: 'EA',
-      material_amount: '50',
-      total_inventory: '5000',
-      safety_inventory: '2500',
-      expected_stock: '1000',
-    },
-    {
-      key: '1',
-      material_name: '키캡2',
-      material_code: 'M30',
-      input_unit: 'EA',
-      material_amount: '28',
-      total_inventory: '5000',
-      safety_inventory: '2500',
-      expected_stock: '1000',
-    },
-  ]);
+
+  const [dataSourceOne, setDataSourceOne] = useState(
+    //   [
+    //   {
+    //     key: '',
+    //     due_date: '',
+    //     production_plan_id: '',
+    //     product_id: '',
+    //     product_name: '',
+    //     production_plan_amount: '',
+    //   },
+
+    // ]
+  );
+  const [dataSourceTwo, setDataSourceTwo] = useState(
+    //   [
+    //   {
+    //     key: '',
+    //     material_name: '',
+    //     material_id: '',
+    //     input_amount: '',
+    //     total_material_amount: '',
+    //     total_stock: '',
+    //     safety_stock: '',
+    //     inbound_amount: '',
+    //   },
+    // ]
+  );
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.get('/mrp')
+
+        const mrpProductionData = await res.data.map((rowData) => ({
+          key: rowData.data.productionPlanId,
+          due_date: rowData.data.dueDate,
+          production_plan_id: rowData.data.productionPlanId,
+          product_id: rowData.data.productId,
+          product_name: rowData.data.productName,
+          production_amount: rowData.data.productionAmount,
+        }))
+
+        const mrpMaterialData = await res.data.map((rowData) => ({
+          key: rowData.data.materialId,
+          material_name: rowData.data.materialName,
+          material_Id: rowData.data.materialId,
+          input_unit: rowData.data.inputUnit,
+          total_material_amount: rowData.data.totalMaterialAmount,
+          total_stock: rowData.data.totalStock,
+          safety_stock: rowData.data.safetyStock,
+          inbound_amount: rowData.data.inboundAmount,
+        }))
+
+        setDataSourceOne(dataSourceOne.concat(dataSourceOne))
+        setDataSourceTwo(dataSourceTwo.concat(dataSourceTwo))
+      } catch (e) {
+        console.error(e.message)
+      }
+    }
+    fetchData();
+  }, []);
 
 
   const defaultColumnsOne = [
@@ -65,6 +81,7 @@ const Mrp = () => {
     {
       title: '생산계획 코드',
       dataIndex: 'production_plan_id',
+      // render: (text) => <a href={`/mrp/${dataSource.productionPlanId}`}>{text}</a>,
       // production_plan
     },
     {
@@ -79,7 +96,7 @@ const Mrp = () => {
     },
     {
       title: '계획 수량',
-      dataIndex: 'production_amount',
+      dataIndex: 'production_plan_amount',
       // production_plan
     },
   ];
@@ -97,14 +114,14 @@ const Mrp = () => {
       // production_plan(product_id) - required_material(material_id)
     },
     {
-      title: '단위',
-      dataIndex: 'input_unit',
-      // production_plan(product_id) - required_material(input_unit)
+      title: '투입량',
+      dataIndex: 'input_amount',
+      // production_plan(product_id) - required_material(input_amount)
     },
     {
       title: '총 소요 수량',
       dataIndex: 'total_material_amount',
-      // production_plan(production_plan_amount) * required_material(input_unit)
+      // production_plan(production_plan_amount) * required_material(input_amount)
     },
     {
       title: '현 재고',
@@ -124,22 +141,33 @@ const Mrp = () => {
   ];
 
   const SelectChangeHandler = (value) => {
-    console.log(`selected ${value}`);
-    // select 값 선택시 기능 구현 핸들러
-    // 각 페이지에서 구현해주세요
+    setSearchType(value);
+    console.log(value);
+    console.log(searchType);
   };
 
   const onSearch = (value, _e, info) => {
     // search 값 기능 구현 함수
     console.log(info?.source, value);
+    axios({
+      method: 'GET',
+      url: '/users/search',
+      params: {
+        searchType: searchType, search: value,
+      }
+    })
+      .catch(e => console.log(e));
+
+    console.log(searchType);
+    console.log(info?.source, value);
   }
 
   return (
     <div>
-      <PageTitle value={'생산 계획 등록'}/>
+      <PageTitle value={'자재 소요량 산출'} />
       <div style={{ display: 'flex', gap: '10px 24px', marginBottom: '24px', alignItems: 'center' }}>
         <h2 style={{ fontSize: '16px', margin: 0 }}>생산계획 조회 조건</h2>
-        <SearchSelectBox selectValue={['생산계획 코드', '품번', '품명', '자재명', '자재코드']} SelectChangeHandler={SelectChangeHandler} />
+        <SearchSelectBox selectValue={['생산계획 코드', '품번', '품명', '납기일']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput id={'search'} name={'search'} onSearch={onSearch} />
       </div>
       <div style={{ display: 'flex', gap: '24px 19px' }}>

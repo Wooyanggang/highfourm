@@ -25,7 +25,7 @@ public class Orders {
 	@Column(name = "due_date")
 	private String dueDate; 
 	@Column(name = "ending_state")
-	private Boolean endingState;
+	private String endingState;
 	@Column(name = "order_date")
 	private String orderDate;
 

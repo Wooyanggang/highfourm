@@ -1,8 +1,19 @@
 package himedia.project.highfourm.dto;
 
-import lombok.Data;
+import java.time.LocalDate;
 
-@Data
+import himedia.project.highfourm.entity.Company;
+import himedia.project.highfourm.entity.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Builder
+@Setter @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO {
 	
 	private Long userNo;
@@ -11,10 +22,25 @@ public class UserDTO {
 	private String userName;
 	private Long empNo;
 	private String position;
-	private String birth;
+	private LocalDate birth;
 	private String email;
-	private Long companyId;
+	private Company company;
 	private String registerState;
 	private String role;
+	
+	public User toEntity(Company company) {
+		return User.builder()
+				.userId(userId)
+				.password(password)
+				.userName(userName)
+				.empNo(empNo)
+				.position(position)
+				.birth(birth)
+				.email(email)
+				.company(company)
+				.registerState(registerState)
+				.role(role)
+				.build();
+	}
 	
 }

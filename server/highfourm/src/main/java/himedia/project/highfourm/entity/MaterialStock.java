@@ -1,12 +1,9 @@
 package himedia.project.highfourm.entity;
 
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -19,15 +16,10 @@ public class MaterialStock {
 	
 	@Id
 	@Column(name = "material_id")
-	private Long materiaId;
+	private String materialId;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "material_id", referencedColumnName = "material_id")
-	private Material material;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "management_id", referencedColumnName = "management_id")
-	private StockManagement managementId;
+	@Column(name = "method_id")
+	private Long methodId;
 	
 	@Column(name = "total_stock")
 	private Long totalStock;

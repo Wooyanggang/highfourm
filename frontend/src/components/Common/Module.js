@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Flex, Input, Space, Steps, Select, ConfigProvider } from 'antd';
 const { Search } = Input;
 
-const BtnGray= ({ value, onClick, type }) => {
+const BtnGray = ({ value, onClick, type }) => {
   // <BtnGray value={'회색'} onClick={onClick} />
 
   return (
@@ -46,18 +46,18 @@ const BtnBlack = ({ value, onClick, type }) => {
 const BtnLogin = ({ value, onClick, type }) => {
   return (
     <ConfigProvider
-    theme={{
-      components: {
-        Button: { defaultBg: '#000', defaultColor: '#fff' },
-      },
-      token: {
-        colorPrimaryHover: '#d9d9d9',
-        colorPrimaryActive: '#d9d9d9',
-      },
-    }}>
-    <Flex vertical gap="small" style={{ width: '100%' }}>
-      <Button size='large' htmlType={type} onClick={onClick} block>{value}</Button>
-    </Flex>
+      theme={{
+        components: {
+          Button: { defaultBg: '#000', defaultColor: '#fff' },
+        },
+        token: {
+          colorPrimaryHover: '#d9d9d9',
+          colorPrimaryActive: '#d9d9d9',
+        },
+      }}>
+      <Flex vertical gap="small" style={{ width: '100%' }}>
+        <Button size='large' htmlType={type} onClick={onClick} block>{value}</Button>
+      </Flex>
     </ConfigProvider>
   )
 }
@@ -65,18 +65,18 @@ const BtnLogin = ({ value, onClick, type }) => {
 const BtnBlackLarge = ({ value, onClick, type }) => {
   return (
     <ConfigProvider
-    theme={{
-      components: {
-        Button: { defaultBg: '#000', defaultColor: '#fff' },
-      },
-      token: {
-        colorPrimaryHover: '#d9d9d9',
-        colorPrimaryActive: '#d9d9d9',
-      },
-    }}>
-    <Flex vertical gap="small" style={{ width: '100%' }}>
-      <Button size='large' htmlType={type} onClick={onClick}>{value}</Button>
-    </Flex>
+      theme={{
+        components: {
+          Button: { defaultBg: '#000', defaultColor: '#fff' },
+        },
+        token: {
+          colorPrimaryHover: '#d9d9d9',
+          colorPrimaryActive: '#d9d9d9',
+        },
+      }}>
+      <Flex vertical gap="small" style={{ width: '100%' }}>
+        <Button size='large' htmlType={type} onClick={onClick}>{value}</Button>
+      </Flex>
     </ConfigProvider>
   )
 }
@@ -138,25 +138,25 @@ const BtnFilter = ({ valueArr, linkArr, type }) => {
   )
 };
 
-const InputBar = ({ type, id, name, value, placeholderMsg, disabled }) => {
+const InputBar = ({ type, id, name, value, placeholderMsg, onChange, disabled, requried }) => {
   // disabled={ true | false }
-  if(placeholderMsg == null) {
+  if (placeholderMsg == null) {
     placeholderMsg = '';
   }
 
   return (
-    <Input type={type} id={id} name={name} value={value} placeholder={`${placeholderMsg}`} style={{ width: '200px' }} size='large' disabled={disabled}/>
+    <Input type={type} id={id} name={name} value={value} placeholder={`${placeholderMsg}`} style={{ width: '200px' }} size='large' onChange={onChange} disabled={disabled} requried={requried} />
   )
 };
 
 const SignInputBar = ({ type, id, value, name, placeholderMsg, disabled }) => {
   // disabled={ true | false }
-  if(placeholderMsg == null) {
+  if (placeholderMsg == null) {
     placeholderMsg = '';
   }
 
   return (
-    <Input type={type} id={id} name={name} value={value} placeholder={`${placeholderMsg}`} style={{ width: '300px' }} size='large' disabled={disabled}/>
+    <Input type={type} id={id} name={name} value={value} placeholder={`${placeholderMsg}`} style={{ width: '300px' }} size='large' disabled={disabled} />
   )
 };
 
@@ -201,12 +201,14 @@ const SelectChangeHandler = (value) => {
   // 각 페이지에서 구현해주세요
 };
 
-const SearchSelectBox = ({ selectValue, SelectChangeHandler }) => {
+const SearchSelectBox = ({ id, name, selectValue, SelectChangeHandler }) => {
   // value 값 배열로 넘기기 <SearchSelectBox selectValue={['가', '나', '다']} SelectChangeHandler={SelectChangeHandler} /> 
 
   return (
     <Space wrap>
       <Select
+        id={id}
+        name={name}
         defaultValue={selectValue[0]}
         style={{
           width: 150,
@@ -260,4 +262,4 @@ const StepBar = ({ stateNum }) => {
   )
 };
 
-export { BtnGray, SignInputBar, BtnLogin, BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, SearchSelectBox, StepBar };
+export { BtnGray, SignInputBar, BtnLogin, BtnBlack, BtnBlackLarge, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, SearchSelectBox, StepBar };

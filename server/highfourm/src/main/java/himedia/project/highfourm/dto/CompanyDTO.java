@@ -1,8 +1,13 @@
 package himedia.project.highfourm.dto;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CompanyDTO {
 	
 	private Long companyId;

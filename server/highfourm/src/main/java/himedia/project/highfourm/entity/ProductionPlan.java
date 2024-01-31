@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -20,15 +21,13 @@ public class ProductionPlan {
 	@Id
 	@Column(name = "production_plan_id", unique = true)
 	private String productionPlanId;
-	
-	//@OneToOne(cascade = CascadeType.REFRESH)
+	@OneToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)
 	private Product product;
 
 	@OneToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "order_id", referencedColumnName = "order_id", unique = true)
-	private Orders orders;
-	
+	private String orderId;
 	@Column(name = "production_unit")
 	private String productionUnit;
 	
