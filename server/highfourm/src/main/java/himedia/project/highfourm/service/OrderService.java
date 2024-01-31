@@ -60,9 +60,9 @@ public class OrderService {
     }
     
    public void saveOrder(OrdersDTO ordersDTO) {
-	   System.out.println("서비스 1" + ordersDTO.getDueDate());
-	   Orders orders = modelMapper.map(ordersDTO, Orders.class);
-	   System.out.println("서비스 2" + orders.getManager());
-	   ordersRepository.save(orders);
+//	   System.out.println("서비스 1" + ordersDTO.getDueDate());
+//	   Orders orders = modelMapper.map(ordersDTO, Orders.class);
+//	   System.out.println("서비스 2" + orders.getManager());
+//	   ordersRepository.save(orders);
    }
 }

@@ -1,6 +1,5 @@
 package himedia.project.highfourm.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -31,8 +30,8 @@ public class OrderController {
 	
 	@PostMapping("/orders/new")
 	public void ordersNew(@RequestBody OrdersDTO ordersDTO) {
-		log.info("납기일{}",ordersDTO.getDueDate());
-		orderService.saveOrder(ordersDTO);
+//		log.info("납기일{}",ordersDTO.getDueDate());
+//		orderService.saveOrder(ordersDTO);
 	}
 	
 }
