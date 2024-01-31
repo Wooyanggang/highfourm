@@ -72,6 +72,10 @@ h6 {
 }
 
 /* global */
+#root {
+  min-width: 1600px;
+  overflow-x: scroll;
+}
 h2 {
   font-size: 24px;
 }
@@ -112,6 +116,15 @@ input[type="date"]::placeholder {
 }
 .bom-page .ant-table-container {
   margin-top: 24px;
+}
+.bom-page .table-box {
+  width: calc(45% - 10px);
+}
+.bom-page .bordered-box {
+  width: calc(55% - 10px);
+  height: auto;
+  padding: 24px 24px;
+  box-sizing: border-box;
 }
 
 /* OrderNew */
@@ -261,7 +274,7 @@ input[type="date"]::placeholder {
 
 .box-title-line {
   color: #000;
-  width: 80%;
+  flex: 1;
   margin-left: 20px;
 }
 

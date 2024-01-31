@@ -2,85 +2,53 @@ import React, { useState, useEffect } from 'react';
 import BasicTable from '../../Common/Table/BasicTable';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import PageTitle from '../../Common/PageTitle';
+import { calc } from 'antd/es/theme/internal';
 
 function Bom() {
-  const [count, setCount] = useState(0);
-  const [dataSource, setDataSource] = useState([
-    {
-      key: 0,
-      productID: 'A001',
-      productName: '밀키스',
-      writeDate: '2024-01-01',
-      updateDate: '2024-01-02',
-    },
-    {
-      key: 1,
-      productID: 'A002',
-      productName: '봉봉',
-      writeDate: '2024-01-01',
-      updateDate: '2024-01-02',
-    },
-  ]);
+  const [countProduct, setCountProduct] = useState(0);
+  const [countProcess, setCountProcess] = useState(0);
+  const [countMaterial, setCountMaterial] = useState(0);
+  const [dataProduct, setDataProduct] = useState([]);
+  const [dataProcess, setDataProcess] = useState([]);
+  const [dataMaterial, setDataMaterial] = useState([]);
   
   useEffect(() => {
-    // fetchData();
     fetch('/bom')
     .then(response => response.json())
     .then(result => {
-        const newData = result.map((item, index) => ({ key: index, ...item }));
-        setDataSource(newData);
-        setCount(newData.length);
-        console.log(newData);
-        console.log(newData.length);
+        const newData = result["product"].map((item, index) => ({ key: index, ...item }));
+        setDataProduct(newData);
+        setCountProduct(newData.length);
       })
       .catch(error => {
         console.error('데이터를 가져오는 중 오류 발생:', error);
       });
   }, []);
-
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await fetch('/bom');
-  //     const result = await response.json();
-  //     setData(result.test);
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
-  // };
   
   const handleAdd= () => {
     const newData = {
-      key: count,
+      key: countProduct,
     };
-    setDataSource(prevState => [ ...prevState, newData ]);
-    setCount(count + 1);
+    setDataProduct(prevState => [ ...prevState, newData ]);
+    setCountProduct(countProduct + 1);
   };
 
   const defaultColumns = [
     {
       title: '제품 코드',
       dataIndex: 'productId',
-      editable: true,
     },
     {
       title: '제품명',
       dataIndex: 'productName',
-      editable: true,
     },
-    // {
-    //   title: '단위',
-    //   dataIndex: '',
-    //   editable: true,
-    // },
     {
       title: '작성일',
       dataIndex: 'writeDate',
-      editable: true,
     },
     {
       title: '수정일',
       dataIndex: 'updateDate',
-      editable: true,
     },
   ];
 
@@ -105,13 +73,41 @@ function Bom() {
       <div className='add-btn'>
         <BtnBlack value={"등록"} onClick={handleAdd} type="primary" />
       </div>
-      <div style={{width:'50%'}}>
-      <BasicTable 
-      dataSource={dataSource} 
-      defaultColumns={defaultColumns} 
-      setDataSource={setDataSource}
-      pagination={false}
-      />
+      <div style={{ display: 'flex', gap: '24px 19px' }}>
+        <div className='table-box'>
+          <BasicTable 
+          dataSource={dataProduct} 
+          defaultColumns={defaultColumns} 
+          setDataSource={setDataProduct}
+          pagination={false}
+          />
+        </div>
+        <div className='bordered-box'>
+          <div className='bordered-box-title' style={{ flexWrap: 'wrap' }}>
+            <h3 className='bordered-box-title'>공정 조회/설정</h3>
+            <hr className='box-title-line' />
+          </div>
+          <div style={{ minHeight: '240px' }}>
+            <BasicTable 
+            dataSource={dataProduct} 
+            defaultColumns={defaultColumns} 
+            setDataSource={setDataProduct} 
+            pagination={false}
+            />
+          </div>
+          <div className='bordered-box-title' style={{ marginTop:'40px',flexWrap: 'wrap' }}>
+            <h3 className='bordered-box-title'>소요자재 조회/설정</h3>
+            <hr className='box-title-line' />
+          </div>
+          <div style={{ minHeight: '240px' }}>
+            <BasicTable 
+            dataSource={dataProduct} 
+            defaultColumns={defaultColumns} 
+            setDataSource={setDataProduct} 
+            pagination={false}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

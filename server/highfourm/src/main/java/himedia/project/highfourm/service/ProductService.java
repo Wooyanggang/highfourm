@@ -5,15 +5,15 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import himedia.project.highfourm.entity.Product;
-import himedia.project.highfourm.repository.ProductionRepository;
+import himedia.project.highfourm.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ProductionService {
-	private final ProductionRepository productionRepository;
+public class ProductService {
+	private final ProductRepository productRepository;
 	
 	public List<Product> findAllProduct(){
-		return productionRepository.findAll();
+		return productRepository.findAll();
 	}
 }
