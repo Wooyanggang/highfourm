@@ -54,7 +54,7 @@ const SideBar = () => {
       return '3';
     } else if (url === '/orders') {
       return '4';
-    } else if (url === '/product-management') {
+    } else if (url === '/production-plan') {
       return '5';
     } else if (url === '/mrp') {
       return '6';
@@ -82,7 +82,7 @@ const SideBar = () => {
     getItem(<a href="/orders">주문관리</a>, '4', <FontAwesomeIcon icon={faFilePen} />),
   ];
   const productionMenu = [
-    getItem(<a href="/product-management">생산 계획 수립</a>, '5', <FontAwesomeIcon icon={faIndustry} />),
+    getItem(<a href="/product-plan">생산 계획 수립</a>, '5', <FontAwesomeIcon icon={faIndustry} />),
     getItem(<a href="/mrp">자재 소요량 산출</a>, '6', <FontAwesomeIcon icon={faCalculator} />),
     getItem('작업 실적 관리', 'sub2', <FontAwesomeIcon icon={faChartLine} />, [
       getItem(<a href="/work-perfomance/new">작업 실적 등록</a>, '7'),

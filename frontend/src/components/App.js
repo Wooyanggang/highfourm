@@ -11,7 +11,6 @@ import OrderList from './View/Order/OrderList';
 import OrderNew from './View/Order/OrderNew';
 import Bom from './View/Production/Bom';
 import Mrp from './View/Production/Mrp';
-import ProductManagement from './View/Production/ProductManagement';
 import Status from './View/Production/Status';
 import WorkPerfomance from './View/Production/WorkPerfomance';
 import WorkPerfomanceNew from './View/Production/WorkPerfomanceNew';
@@ -26,6 +25,7 @@ import PerfomanceControllChart from './View/Production/PerfomanceControllChart';
 import Test from './View/Test';
 import '../App.css'
 import axios from 'axios';
+import ProductionPlan from './View/Production/ProductionPlan';
 const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
@@ -72,7 +72,7 @@ function App() {
                 <Route path='/users/edit/:empNo' element={<UserEdit />} />
                 <Route path='/mrp' element={<Mrp />} />
                 <Route path='/mrp/search' element={<Mrp />} />
-                <Route path='/production-management' element={<ProductManagement />} />
+                <Route path='/production-plan' element={<ProductionPlan />} />
                 <Route path='/bom' element={<Bom />} />
                 <Route path='/production-status' element={<Status />} />
                 <Route path='/work-perfomance' element={<WorkPerfomance />} />

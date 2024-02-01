@@ -5,7 +5,7 @@ import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
 import PageTitle from '../../Common/PageTitle';
 
-const ProductManagement = () => {
+const ProductionPlan = () => {
 
   const [dataSourceOne, setDataSourceOne] = useState([
     {
@@ -126,7 +126,7 @@ const ProductManagement = () => {
         <BtnBlack value={'생산계획 등록'} onClick={handleAdd} />
       </div>
       <div style={{ display: 'flex', gap: '24px 19px' }}>
-        <div style={{ paddingRight: '20px' }}>
+        <div style={{ paddingRight: '20px', width: '50%'}}>
           <BasicTable dataSource={dataSourceOne} defaultColumns={defaultColumnsOne} setDataSource={setDataSourceOne} />
         </div>
         <div className='bordered-box'>
@@ -141,4 +141,4 @@ const ProductManagement = () => {
   )
 }
 
-export default ProductManagement
+export default ProductionPlan;

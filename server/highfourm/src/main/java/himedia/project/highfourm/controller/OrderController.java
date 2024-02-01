@@ -24,7 +24,6 @@ public class OrderController {
 	
 	@GetMapping("/orders")
 	public Map<String, Object> orderList() {
-		System.out.println("응답 테스트");
 		return orderService.findAllOrders();
 	}
 	

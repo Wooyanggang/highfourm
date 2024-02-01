@@ -46,8 +46,6 @@ public class OrderService {
         		.map(OrderDetailFormDTO::fromEntity)
         		.collect(Collectors.toList());
         
-        System.out.println(orderDetails.get(0).getProduct().getProductName());
-        
         Map<String,Object> response = new HashMap<>();
         response.put("orders", ordersDTO);
         response.put("ordersDetail", orderDetailResponseDTOs);
