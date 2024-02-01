@@ -16,8 +16,8 @@ const SideBar = () => {
     };
   }
 
-  const mode ='inline';
-  const theme= 'light';
+  const mode = 'inline';
+  const theme = 'light';
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [currentPage, setCurrentPage] = useState('');
   const [openKeys, setOpenKeys] = useState([]);
@@ -82,7 +82,7 @@ const SideBar = () => {
     getItem(<a href="/orders">주문관리</a>, '4', <FontAwesomeIcon icon={faFilePen} />),
   ];
   const productionMenu = [
-    getItem(<a href="/product-plan">생산 계획 수립</a>, '5', <FontAwesomeIcon icon={faIndustry} />),
+    getItem(<a href="/production-plan">생산 계획 수립</a>, '5', <FontAwesomeIcon icon={faIndustry} />),
     getItem(<a href="/mrp">자재 소요량 산출</a>, '6', <FontAwesomeIcon icon={faCalculator} />),
     getItem('작업 실적 관리', 'sub2', <FontAwesomeIcon icon={faChartLine} />, [
       getItem(<a href="/work-perfomance/new">작업 실적 등록</a>, '7'),
@@ -143,7 +143,7 @@ const SideBar = () => {
             openKeys={openKeys}
             onClick={handleClick}
             onOpenChange={handleOpenChange}
-            />
+          />
           <span style={{ width: '87px', height: '14px', paddingBottom: '20px', color: '#808080' }}>조회</span>
           <Menu
             style={{
