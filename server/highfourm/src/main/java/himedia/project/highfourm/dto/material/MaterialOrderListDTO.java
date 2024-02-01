@@ -21,6 +21,6 @@ public class MaterialOrderListDTO {
 	private Integer unitPrice;
 	private String note;
 	private String materialName;
-	private String unit;
+	private Long unit;
 	
 }

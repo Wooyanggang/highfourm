@@ -19,7 +19,7 @@ public class MaterialOrderResponseDto {
 	private String materialId;
 	private String materialName;
 	private String standard;
-	private String unit;
+	private Long unit;
 	private String supplier;
 	private Long restStock;	//이월 재고 -> 입고 등록시 stock 테이블 total_stock 총재고량 ||없으면 0
 	private Long materialInventory;	//재고량 ->이월 재고량 total_stock + 입고량	||없으면 0

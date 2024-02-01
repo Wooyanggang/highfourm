@@ -42,7 +42,7 @@ const MaterialOrderHistoryEdit = () => {
 
   return (
     <div>
-      <PageTitle value={'수급내역 수정'} />
+      <PageTitle value={'입고내역 등록'} />
       <form id='userForm' method='post' action='/materials/order-history/new'>
         <div className='flex-line'>
           <div className='flex-div'>

@@ -18,12 +18,13 @@ const MaterialOrderHistoryNew = () => {
 
   const onChange = (e) => {
     let { name, value } = e.target;
-
-    // 값에 쉼표가 포함되어 있다면 쉼표를 제거
-    if (name === 'uniPrice') {
+  
+    // 값에 쉼표가 포함되어 있다면 쉼표를 제거 //
+    if (name === 'unitPrice') {
       value = value.replace(/,/g, '');
     }
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  
+    setFormData({ ...formData, [name]: value });
   };
 
   const onClickSubmit = (e) => {

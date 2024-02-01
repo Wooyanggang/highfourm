@@ -15,7 +15,7 @@ public class MaterialOrderRequestDTO {
 	private String orderDate;
 	private String standard;
 	private String supplier;
-	private Integer unitPrice;
+	private Long unitPrice;
 	private Long orderAmount;
 	private String note;
     
