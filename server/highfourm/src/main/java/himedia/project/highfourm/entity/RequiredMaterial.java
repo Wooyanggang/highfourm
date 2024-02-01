@@ -26,5 +26,5 @@ public class RequiredMaterial {
 	private String inputProcess;
 	
 	@Column(name = "input_amount")
-	private String inputAmount;
+	private Long inputAmount;
 }

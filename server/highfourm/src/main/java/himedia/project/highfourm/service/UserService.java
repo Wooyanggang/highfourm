@@ -2,6 +2,7 @@ package himedia.project.highfourm.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ public class UserService {
 	private final UserRepository repository;
 	private final CompanyRepository companyRepository;
 	
+	
 //	public List<UserDTO> toListDTO(List<User> userlist) {
 //		return userlist.stream()
 //				.map(user -> UserDTO.builder()
@@ -39,8 +41,10 @@ public class UserService {
 	public List<UserDTO> findAllUsers() {
 		List<User> userlist = repository.findAll();
 		Company company = companyRepository.findById(1L).get();
+		
 		List<UserDTO> result = 
-				userlist.stream().map(user -> user.toDTO(company)).toList();
+				userlist.stream().map(user -> user.toDTO(company))
+				.collect(Collectors.toList());
 		
 		return result;
 	}
@@ -53,15 +57,30 @@ public class UserService {
 	}
 	
 	public List<UserDTO> findByEmpNo(Long empNo) {
-		return repository.findByEmpNo(empNo);
+		List<User> userlist = repository.findByEmpNo(empNo);
+		Company company = companyRepository.findById(1L).get();
+		
+		return userlist.stream()
+				.map(user -> user.toDTO(company))
+				.collect(Collectors.toList());
 	}
 	
 	public List<UserDTO> findByUserName(String name) {
-		return repository.findByUserName(name);
+		List<User> userlist = repository.findByUserName(name);
+		Company company = companyRepository.findById(1L).get();
+		
+		return userlist.stream()
+				.map(user -> user.toDTO(company))
+				.collect(Collectors.toList());
 	}
 	
 	public List<UserDTO> findByEmail(String email) {
-		return repository.findByEmail(email);
+		List<User> userlist = repository.findByEmail(email);
+		Company company = companyRepository.findById(1L).get();
+		
+		return userlist.stream()
+				.map(user -> user.toDTO(company))
+				.collect(Collectors.toList());
 	}
 	
 	public void save(UserDTO user) {

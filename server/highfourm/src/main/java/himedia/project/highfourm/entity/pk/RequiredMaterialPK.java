@@ -1,5 +1,7 @@
 package himedia.project.highfourm.entity.pk;
 
+import java.io.Serializable;
+
 import himedia.project.highfourm.entity.Material;
 import himedia.project.highfourm.entity.Product;
 import jakarta.persistence.CascadeType;
@@ -13,7 +15,12 @@ import lombok.Setter;
 @Embeddable
 @EqualsAndHashCode
 @Getter @Setter
-public class RequiredMaterialPK {
+public class RequiredMaterialPK implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id")

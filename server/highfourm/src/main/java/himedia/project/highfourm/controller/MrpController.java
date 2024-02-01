@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,57 +22,57 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequiredArgsConstructor
 public class MrpController {
-	
+
 	private final MrpService service;
-	
-//	@GetMapping(value = "/bom")
-//	public ResponseEntity<Map<String, List<ProductDTO>>> bom() {
-//		Map<String, List<ProductDTO>> responseMap = new HashMap<>();
-//		
-//		// product findAll
-//		List<Product> allEntityList = productService.findAllProduct();
-//		
-//		// product Entity to DTO
-//		List<ProductDTO> productDTOList = allEntityList.stream()
-//        .map(product -> product.toProductDTO())
-//        .collect(Collectors.toList());
-//		
-//		// 보내줄 객체에 담기
-//	    responseMap.put("product", productDTOList);
-//	    
-//		return ResponseEntity.ok(responseMap);
-//	}
 
 	@GetMapping("/mrp")
-	public List<MrpProductionPlanDTO> selectMrpProductionPlanList() {
-		return service.findByProductionPlans();
+	public ResponseEntity<Map<String, Object>> mrp() {
+		Map<String, Object> responseMap = new HashMap<>();
+
+		List<MrpProductionPlanDTO> productionPlanList = service.findByProductionPlans();
+
+		responseMap.put("plan", productionPlanList);
+		return ResponseEntity.ok(responseMap);
 	}
 
 	@GetMapping("/mrp/{productionPlanId}")
-	public List<MrpRequiredMaterialDTO> selectMrpRequiredMaterialList(@RequestParam String productionPlanId) {
-		log.info(productionPlanId);
-		return service.findByMaterials(productionPlanId);
+	public ResponseEntity<Map<String, Object>> mrpDetail(@PathVariable(name = "productionPlanId") String productionPlanId) {
+
+		Map<String, Object> responseMap = new HashMap<>();
+
+		List<MrpProductionPlanDTO> productionPlanList = service.findByProductionPlans();
+		responseMap.put("plan", productionPlanList);
+
+		List<MrpRequiredMaterialDTO> requiredMaterialList = service.findByMaterials(productionPlanId);
+		responseMap.put("requiredMaterial", requiredMaterialList);
+
+		return ResponseEntity.ok(responseMap);
 	}
-	
+
 	@GetMapping("/mrp/search")
-	public List<MrpProductionPlanDTO> mrpSearch(@RequestParam String searchType, @RequestParam String search) {
-		List<MrpProductionPlanDTO> result = new ArrayList<MrpProductionPlanDTO>();
+	public ResponseEntity<Map<String, Object>> mrpSearch(@RequestParam(value = "searchType") String searchType,
+			@RequestParam(value = "search") String search) {
 		
-		log.info("searchType : {}", searchType);
-		log.info("search : {}", search);
-		
-		
-		if(searchType.equals("생산계획 코드")) {
+		Map<String, Object> responseMap = new HashMap<>();
+
+		List<MrpProductionPlanDTO> result = null;
+
+		if (searchType.equals("생산계획 코드")) {
 			result = service.findByProductionPlanID(search);
-		} else if(searchType.equals("품번")) {
+		} else if (searchType.equals("품번")) {
 			result = service.findByProductId(search);
-		} else if(searchType.equals("품명")) {
+		} else if (searchType.equals("품명")) {
 			result = service.findByProductName(search);
-		} else if(searchType.equals("납기일")) {
+		} else if (searchType.equals("납기일")) {
 			result = service.findByDueDate(search);
 		}
+		if (result.isEmpty()) {
+			result = new ArrayList<MrpProductionPlanDTO>();
+		}
 		
-		return result;
+		responseMap.put("plan", result);
+
+		return ResponseEntity.ok(responseMap);
 	}
-	
+
 }
