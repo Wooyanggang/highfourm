@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
@@ -6,26 +7,38 @@ import PageTitle from '../../Common/PageTitle';
 
 const MaterialOrderHistory = () => {
 
-  const [dataSource, setDataSource] = useState([
-    {
-      key: '0',
-      name: 'Edward King 0',
-      age: '32',
-      address: 'London, Park Lane no. 0',
-    },
-    {
-      key: '1',
-      name: 'Edward King 1',
-      age: '32',
-      address: 'London, Park Lane no. 1',
-    },
-    {
-      key: '2',
-      name: 'Edward King 1',
-      age: '32',
-      address: 'London, Park Lane no. 1',
-    },
-  ]);
+  const [dataSource, setDataSource] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.get('/materials/order-history');
+
+        const materialRequest = await res.data.map((rowData) => ({
+          key: rowData.materialHistoryId,
+          materialHistoryId: rowData.materialHistoryId,
+          orderDate: rowData.orderDate,
+          recievingDate: rowData.recievingDate,
+          materialId: rowData.materialId,
+          materialName: rowData.materialName,
+          standard: rowData.standard,
+          unit: rowData.unit,
+          supplier: rowData.supplier,
+          restStock: rowData.restStock,
+          materialInventory: rowData.materialInventory,
+          usedAmount: rowData.LeausedAmountdTime,
+          inboundAmount: rowData.inboundAmount,
+          orderAmount: rowData.orderAmount,
+          unitPrice: rowData.unitPrice,
+          note: rowData.note,
+        }));
+        setDataSource(materialRequest);
+      } catch (e) {
+        console.error(e.message);
+      }
+    }
+    fetchData();
+  }, []);
 
   const defaultColumnsOne = [
     {

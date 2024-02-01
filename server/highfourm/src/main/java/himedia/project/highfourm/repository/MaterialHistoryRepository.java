@@ -17,7 +17,7 @@ public interface MaterialHistoryRepository extends JpaRepository<MaterialHistory
             + "FROM MaterialHistory mh "
             + "LEFT JOIN mh.material ma " // fetch에러 나서 수정된 부분
             + "LEFT JOIN ma.materialStock ms "
-            + "ORDER BY mh.orderDate")
+            + "ORDER BY mh.materialHistoryId DESC")
     List<MaterialOrderListDTO> findAllWithMaterialFields();
     
 }

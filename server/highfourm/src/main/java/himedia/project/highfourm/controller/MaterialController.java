@@ -56,15 +56,15 @@ public class MaterialController {
 	/**
 	 * 수급내역 리스트 조회
 	 */
-	@GetMapping("/materials/order-history")
-	public String getdMaterialHistoryList() {
-		
-		return "redirect:http://localhost:3000/materials/order-history";
-	}
+//	@GetMapping("/materials/order-history")
+//	public String getdMaterialHistoryList() {
+//		
+//		return "redirect:http://localhost:3000/materials/order-history";
+//	}
 	/**
 	 * 
 	 */
-	@GetMapping("/test")
+	@GetMapping("/materials/order-history")
 	public List<MaterialOrderResponseDto> getdMaterialHistoryListTest() {
 		 List<MaterialOrderResponseDto> m =materialService.getMaterialOrderList();
 		return m;

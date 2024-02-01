@@ -50,14 +50,14 @@ public class MaterialHistory {
 	private Long orderAmount;
 	
 	@Column(name = "unit_price")
-	private Integer unitPrice;
+	private Long unitPrice;
 	
 	private String note;
 	
 	@Builder
 	public MaterialHistory(Long materialHistoryId, Material material, String orderDate, String recievingDate,
 			String standard, String supplier, Long materialInventory, Long inboundAmount, Long orderAmount,
-			Integer unitPrice, String note) {
+			Long unitPrice, String note) {
 		super();
 		this.materialHistoryId = materialHistoryId;
 		this.material = material;

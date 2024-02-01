@@ -57,7 +57,7 @@ const MaterialOrderHistoryNew = () => {
             <InputBar type={'date'} id={'orderDate'} name={'orderDate'} placeholderMsg={'발주일'} onChange={onChange} required />
           </div>
           <div className='flex-div'>
-            <label htmlFor='userName' className='label-title'>자재코드	</label>
+            <label htmlFor='userName' className='label-title'>자재코드</label>
             <InputBar id={'materialId '} name={'materialId'} placeholderMsg={'자재코드	'} onChange={onChange} required />
           </div>
         </div>
