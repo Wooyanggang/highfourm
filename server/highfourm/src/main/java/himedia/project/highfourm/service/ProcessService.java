@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 public class ProcessService {
 	private final ProcessRepository processRepository;
 	
-	public List<Process> findByProductId(){
-		return processRepository.findByProductIdAll();
+	public List<Process> findByProductProductId(String productId){
+		return processRepository.findByProductProductId(productId);
 	}
 }

@@ -73,7 +73,7 @@ h6 {
 
 /* global */
 #root {
-  min-width: 1600px;
+  min-width: 1280px;
   overflow-x: scroll;
 }
 h2 {
@@ -118,10 +118,10 @@ input[type="date"]::placeholder {
   margin-top: 24px;
 }
 .bom-page .table-box {
-  width: calc(45% - 10px);
+  width: calc(50% - 10px);
 }
 .bom-page .bordered-box {
-  width: calc(55% - 10px);
+  width: calc(50% - 10px);
   height: auto;
   padding: 24px 24px;
   box-sizing: border-box;

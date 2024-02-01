@@ -6,7 +6,7 @@ import { calc } from 'antd/es/theme/internal';
 import KeyTable from '../../Common/Table/KeyTable';
 import { useNavigate, useParams } from 'react-router-dom';
 
-function Bom() {
+function BomDetail() {
   const navigate = useNavigate();
   const { productId } = useParams();
   const [dataProduct, setDataProduct] = useState([]);
@@ -14,19 +14,22 @@ function Bom() {
   const [dataRequiredMaterial, setDataRequiredMaterial] = useState([]);
   
   useEffect(() => {
-    let currentUrl = '/bom';
-    if (productId) {currentUrl = `/bom/detail/${productId}`}
     fetch(`/bom/detail/${productId}`)
-    // const currentUrl = '/bom';
-    fetch(currentUrl)
     .then(response => response.json())
     .then(result => {
-      if (result["product"]) {
-        const newData = result["product"].map((item, index) => ({ key: index, ...item }));
-        setDataProduct(newData);
-      } else{
-        setDataProduct(result["product"]);
-      }
+        // console.log(result);
+        const newDataProduct = result["product"].map((item, index) => ({ key: index, ...item }));
+        setDataProduct(newDataProduct);
+        // console.log(result["product"]);
+        // console.log(result["process"]);
+        if (result["process"]) {
+          const newDataProcess = result["process"].map((item, index) => ({ key: index, ...item }));
+          setDataProcess(newDataProcess);
+        }
+        if (result["requiredMaterial"]) {
+          const newDataRequiredMaterial = result["requiredMaterial"].map((item, index) => ({ key: index, ...item }));
+          setDataProcess(newDataRequiredMaterial);
+        }
       })
       .catch(error => {
         console.error('데이터를 가져오는 중 오류 발생:', error);
@@ -122,12 +125,11 @@ function Bom() {
       </div>
       <div style={{ display: 'flex', gap: '24px 19px' }}>
         <div className='table-box'>
-          <KeyTable
+          <BasicTable
           dataSource={dataProduct} 
           defaultColumns={defaultColumnsProduct} 
           setDataSource={setDataProduct}
           pagination={false}
-          keyName="productId"
           />
         </div>
         <div className='bordered-box'>
@@ -161,4 +163,4 @@ function Bom() {
   );
 }
 
-export default Bom
+export default BomDetail

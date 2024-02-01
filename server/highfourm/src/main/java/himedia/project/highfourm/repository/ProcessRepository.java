@@ -9,6 +9,6 @@ import himedia.project.highfourm.entity.Process;
 
 public interface ProcessRepository extends JpaRepository<Process, String> {
 
-	List<Process> findByProductIdAll(String productId);
+	List<Process> findByProductProductId(String productId);
 
 }

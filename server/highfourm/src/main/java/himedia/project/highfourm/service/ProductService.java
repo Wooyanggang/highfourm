@@ -1,6 +1,7 @@
 package himedia.project.highfourm.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -15,5 +16,9 @@ public class ProductService {
 	
 	public List<Product> findAllProduct(){
 		return productRepository.findAll();
+	}
+	
+	public Optional<Product> findById(String productId) {
+		return productRepository.findById(productId);
 	}
 }
