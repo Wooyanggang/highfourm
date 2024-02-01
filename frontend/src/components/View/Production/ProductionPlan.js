@@ -7,75 +7,46 @@ import PageTitle from '../../Common/PageTitle';
 
 const ProductionPlan = () => {
 
-  const [dataSourceOne, setDataSourceOne] = useState([
-    {
-      key: '0',
-      product_plan_code: 'PP24011101',
-      product_name: '키보드',
-      procution_unit: 'EA',
-      amount: '500',
-      oder_date: '2024-01-11',
-      production_start_date: '2024-01-12',
-      due_date: '2024-03-02',
-    },
-    {
-      key: '1',
-      product_plan_code: 'PP24011501',
-      product_name: '키보드',
-      procution_unit: 'EA',
-      amount: '200',
-      oder_date: '2024-01-15',
-      production_start_date: '2024-01-15',
-      due_date: '2024-03-02',
-    },
-  ]);
-  const [dataSourceTwo, setDataSourceTwo] = useState([
-    {
-      key: '0',
-      month: '1',
-      procution_amount: '250',
-    },
-    {
-      key: '1',
-      month: '2',
-      procution_amount: '250',
-    },
-  ]);
+  const [productionPlan, setProductionPlan] = useState([]);
+  const [monthlyProductionPlan, setMonthlyProductionPlan] = useState([]);
 
-  const defaultColumnsOne = [
+  const productionPlanColumns = [
     {
       title: '생산계획 코드',
-      dataIndex: 'product_plan_code',
+      dataIndex: 'productPlanCode',
       width: '20%',
     },
     {
-      title: '품명',
-      dataIndex: 'product_name',
+      title: '주문 번호',
+      dataIndex: 'orderId',
     },
     {
-      title: '생산 단위',
-      dataIndex: 'procution_unit',
+      title: '품명',
+      dataIndex: 'productName',
     },
     {
       title: '주문 수량',
-      dataIndex: 'amount',
+      dataIndex: 'productAmount',
+    },
+    {
+      title: '생산 계획 수량',
+      dataIndex: 'productPlanAmount',
     },
     {
       title: '주문일',
-      dataIndex: 'oder_date',
+      dataIndex: 'orderDate',
     },
     {
       title: '착수일',
-      dataIndex: 'production_start_date',
+      dataIndex: 'productionStartDate',
     },
     {
       title: '납기일',
-      dataIndex: 'due_date',
+      dataIndex: 'dueDate',
     },
   ];
 
-
-  const defaultColumnsTwo = [
+  const monthlyProductionPlanColumns = [
     {
       title: '월',
       dataIndex: 'month',
@@ -99,7 +70,7 @@ const ProductionPlan = () => {
     console.log(info?.source, value);
   }
 
-  const [count, setCount] = useState(dataSourceOne.length);
+  const [count, setCount] = useState(productionPlan.length);
   const handleAdd = () => {
     const newData = {
       key: count,
@@ -111,13 +82,13 @@ const ProductionPlan = () => {
       production_start_date: '2024-01-12',
       due_date: '2024-03-02',
     };
-    setDataSourceOne([...dataSourceOne, newData]);
+    setProductionPlan([...productionPlan, newData]);
     setCount(count + 1);
   };
 
   return (
     <div>
-      <PageTitle value={'생산 계획 수립'}/>
+      <PageTitle value={'생산 계획 수립'} />
       <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
         <SearchSelectBox selectValue={['생산계획 코드', '품명', '주문일']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput id={'search'} name={'search'} onSearch={onSearch} />
@@ -126,15 +97,15 @@ const ProductionPlan = () => {
         <BtnBlack value={'생산계획 등록'} onClick={handleAdd} />
       </div>
       <div style={{ display: 'flex', gap: '24px 19px' }}>
-        <div style={{ paddingRight: '20px', width: '50%'}}>
-          <BasicTable dataSource={dataSourceOne} defaultColumns={defaultColumnsOne} setDataSource={setDataSourceOne} />
+        <div style={{ paddingRight: '20px', width: '50%' }}>
+          <BasicTable dataSource={productionPlan} defaultColumns={productionPlanColumns} setDataSource={setProductionPlan} />
         </div>
         <div className='bordered-box'>
           <div className='bordered-box-title' style={{ marginBottom: '30px' }}>
             <h2 className='bordered-box-title'>월별 생산 계획</h2>
             <hr className='box-title-line' />
           </div>
-          <BasicTable dataSource={dataSourceTwo} defaultColumns={defaultColumnsTwo} setDataSource={setDataSourceTwo} />
+          <BasicTable dataSource={monthlyProductionPlan} defaultColumns={monthlyProductionPlanColumns} setDataSource={setMonthlyProductionPlan} />
         </div>
       </div>
     </div>

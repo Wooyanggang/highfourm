@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MonthlyProductPlanPK implements Serializable{
+public class MonthlyProductionPlanPK implements Serializable{
 	
 	/**
 	 * 
