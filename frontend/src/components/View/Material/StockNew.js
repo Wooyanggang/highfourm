@@ -111,16 +111,15 @@ const StockNew = ({  onSubmit, onSubmitSuccess }) => {
               <InputBar inputId={'materialName'} name={'materialName'} id={'materialName'} placeholderMsg={'자재명'} required />
             </div>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
-              <label htmlFor='totalStock' className='label-title'>총재고량:</label>
-              <InputBar inputId={'totalStock'} name={'totalStock'} id={'totalStock'} placeholderMsg={'총재고량'} required/>
-            </div>
-            <div className='modal-div' style={{ marginBottom: '15px' }}>
               <label htmlFor='safetyStock' className='label-title'>안전재고:</label>
               <InputBar inputId={'safetyStock'} name={'safetyStock'} id={'safetyStock'} placeholderMsg={'안전재고'} disabled={leadTimeDisabled} />
             </div>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
               <label htmlFor='LeadTime' className='label-title'>LeadTime:</label>
               <InputBar inputId={'LeadTime'} name={'LeadTime'} id={'LeadTime'} placeholderMsg={'LeadTime'} disabled={leadTimeDisabled} />
+            </div>
+            <div className='modal-div' style={{ marginBottom: '15px' }}>
+              <InputBar type={'hidden'} inputId={'totalStock'} name={'totalStock'} id={'totalStock'} value={0} required/>
             </div>
           </div>
         </div>

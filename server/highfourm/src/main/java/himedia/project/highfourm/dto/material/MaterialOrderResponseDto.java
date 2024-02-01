@@ -1,5 +1,9 @@
 package himedia.project.highfourm.dto.material;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,46 +30,78 @@ public class MaterialOrderResponseDto {
 	private Long totalPrice;	//총금액
 	private String note;
 	
-    public static MaterialOrderResponseDto toOrderDTO(MaterialOrderListDTO materialOrderListDTO) {
-        // 적절한 비즈니스 로직에 따라 값을 설정
-        Long restStock = calculateRestStock(materialOrderListDTO);
-        Long usedAmount = calculateUsedAmount(materialOrderListDTO);
-        Long totalPrice = calculateTotalPrice(materialOrderListDTO);
+    public static MaterialOrderResponseDto toOrderDTO(MaterialOrderListDTO orderListDTO, List<MaterialOrderListDTO> materialOrderListDTOs) {
+    	
+    	
+        // 값을 설정
+        Long restStock = calculateRestStock(orderListDTO);
+        Long usedAmount = calculateUsedAmount(orderListDTO, materialOrderListDTOs);
+        Long totalPrice = calculateTotalPrice(orderListDTO);
+        Long materialInventory = calculateMaterialInventory(orderListDTO);
 
         return MaterialOrderResponseDto.builder()
-                .materialHistoryId(materialOrderListDTO.getMaterialHistoryId())
-                .orderDate(materialOrderListDTO.getOrderDate())
-                .recievingDate(materialOrderListDTO.getRecievingDate())
-                .materialId(materialOrderListDTO.getMaterialId())
-                .materialName(materialOrderListDTO.getMaterialName())
-                .standard(materialOrderListDTO.getStandard())
-                .unit(materialOrderListDTO.getUnit())
-                .supplier(materialOrderListDTO.getSupplier())
+                .materialHistoryId(orderListDTO.getMaterialHistoryId())
+                .orderDate(orderListDTO.getOrderDate())
+                .recievingDate(orderListDTO.getRecievingDate())
+                .materialId(orderListDTO.getMaterialId())
+                .materialName(orderListDTO.getMaterialName())
+                .standard(orderListDTO.getStandard())
+                .unit(orderListDTO.getUnit())
+                .supplier(orderListDTO.getSupplier())
                 .restStock(restStock)
-                .materialInventory(materialOrderListDTO.getMaterialInventory())
+                .materialInventory(materialInventory)	//totalStock을 materialInventory에 저장
                 .usedAmount(usedAmount)
-                .inboundAmount(materialOrderListDTO.getInboundAmount())
-                .orderAmount(materialOrderListDTO.getOrderAmount())
-                .unitPrice(materialOrderListDTO.getUnitPrice())
+                .inboundAmount(orderListDTO.getInboundAmount())
+                .orderAmount(orderListDTO.getOrderAmount())
+                .unitPrice(orderListDTO.getUnitPrice())
                 .totalPrice(totalPrice)
-                .note(materialOrderListDTO.getNote())
+                .note(orderListDTO.getNote())
                 .build();
     }
-
+    
+    //재고량
+    private static Long calculateMaterialInventory(MaterialOrderListDTO orderListDTO) {
+    	if (orderListDTO.getRecievingDate() == null) {
+    		return null;
+    	}
+    	return orderListDTO.getTotalStock() + orderListDTO.getInboundAmount(); 
+    }
+    
+    //이월 재고량
     private static Long calculateRestStock(MaterialOrderListDTO orderListDTO) {
-    	if (orderListDTO.getInboundAmount() !=null) {
-    		return orderListDTO.getInboundAmount()*orderListDTO.getUnitPrice();
+    	if (orderListDTO.getTotalStock() == 0) {
+    		return null;
     	}
-    	return null; 
+    	return orderListDTO.getTotalStock(); 
     }
+    
+    //사용량
+    private static Long calculateUsedAmount(MaterialOrderListDTO orderListDTO, List<MaterialOrderListDTO> materialOrderListDTOs) {
+        if (orderListDTO.getTotalStock() == null || orderListDTO.getTotalStock() == 0) {
+            return null;
+        }
+        
+        // DB에서 해당 MaterialId에 대한 모든 재고 이력 조회
+        List<MaterialOrderListDTO> filteredHistory = materialOrderListDTOs.stream()
+                .filter(dto -> dto.getMaterialId().equals(orderListDTO.getMaterialId()) && dto.getMaterialHistoryId() < orderListDTO.getMaterialHistoryId())
+                .collect(Collectors.toList());
+        //
+        if(filteredHistory.isEmpty()) {
+        	return null;
+        }
+        // materialHistoryId가 가장 큰 객체 찾기
+        MaterialOrderListDTO maxHistoryDTO = filteredHistory.stream()
+                .max(Comparator.comparing(MaterialOrderListDTO::getMaterialHistoryId))
+                .orElse(null);
 
-    private static Long calculateUsedAmount(MaterialOrderListDTO orderListDTO) {
-    	if (orderListDTO.getInboundAmount() !=null) {
-    		return orderListDTO.getInboundAmount()*orderListDTO.getUnitPrice();
-    	}
-    	return null;  
+        // 가장 큰 materialHistoryId의 재고량
+        Long maxHistoryInventory = maxHistoryDTO != null ? maxHistoryDTO.getTotalStock() : 0;
+
+        // 사용량 계산: 가장 큰 materialHistoryId의 재고량 - 이월 재고량
+        return maxHistoryInventory - orderListDTO.getTotalStock();
     }
-
+    
+    // 총 금액
     private static Long calculateTotalPrice(MaterialOrderListDTO orderListDTO) {
     	if (orderListDTO.getInboundAmount() !=null) {
     		return orderListDTO.getInboundAmount()*orderListDTO.getUnitPrice();

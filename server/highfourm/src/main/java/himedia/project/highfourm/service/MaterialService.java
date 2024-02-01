@@ -33,7 +33,7 @@ public class MaterialService {
 		materialRepository.save(material.toEntityFirst());
 
 		Optional<StockManagement> stockManagement = managementRepository.findById(material.getManagementId());
-		//if (stockManagement.isPresent())
+		if (stockManagement.isPresent())
 			stockRepository.save(material.toEntitySecond(stockManagement.get()));
 	}
 
@@ -54,12 +54,21 @@ public class MaterialService {
 	// 수급내역 조회
 	public List<MaterialOrderResponseDto> getMaterialOrderList() {
 		
+//	    List<MaterialOrderListDTO> materialOrderListDTOs = historyRepository.findAllWithMaterialFields();
+//
+//	    // MaterialOrderListDTO를 MaterialOrderResponseDto로 변환! 
+//	    List<MaterialOrderResponseDto> materialOrderResponseDtos = materialOrderListDTOs.stream()
+//	            .map(MaterialOrderResponseDto::toOrderDTO)
+//	            .collect(Collectors.toList());
+//		return materialOrderResponseDtos;
+		
 	    List<MaterialOrderListDTO> materialOrderListDTOs = historyRepository.findAllWithMaterialFields();
 
-	    // MaterialOrderListDTO를 MaterialOrderResponseDto로 변환! 
+	    // MaterialOrderListDTO를 MaterialOrderResponseDto로 변환
 	    List<MaterialOrderResponseDto> materialOrderResponseDtos = materialOrderListDTOs.stream()
-	            .map(MaterialOrderResponseDto::toOrderDTO)
+	            .map(orderListDto -> MaterialOrderResponseDto.toOrderDTO(orderListDto, materialOrderListDTOs))
 	            .collect(Collectors.toList());
-		return materialOrderResponseDtos;
+
+	    return materialOrderResponseDtos;
 	}
 }

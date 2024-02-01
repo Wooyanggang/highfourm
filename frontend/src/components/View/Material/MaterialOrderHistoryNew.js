@@ -12,10 +12,17 @@ const MaterialOrderHistoryNew = () => {
     orderAmount: '',
     supplier: '',
     standard: '',
+    uniPrice: '',
     note: '',
   });
 
   const onChange = (e) => {
+    let { name, value } = e.target;
+
+    // 값에 쉼표가 포함되어 있다면 쉼표를 제거
+    if (name === 'uniPrice') {
+      value = value.replace(/,/g, '');
+    }
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -35,11 +42,9 @@ const MaterialOrderHistoryNew = () => {
       .catch((error) => console.log(error))
   };
 
-
   const goBackNavigate = () => {
     navigate(-1)
   }
-
 
   return (
     <div>
@@ -71,10 +76,16 @@ const MaterialOrderHistoryNew = () => {
             <InputBar id={'standard'} name={'standard'} placeholderMsg={'규격/사양'} onChange={onChange} required />
           </div>
           <div className='flex-div'>
+            <label htmlFor='birth' className='label-title'>입고단가</label>
+            <InputBar id={'unitPrice'} name={'unitPrice'} placeholderMsg={'입고단가'} onChange={onChange} required />
+          </div>
+        </div>
+        <div className='flex-line'>
+          <div className='flex-div'>
             <label htmlFor='birth' className='label-title'>비고</label>
             <InputBar id={'note'} name={'note'} placeholderMsg={'비고'} onChange={onChange} required />
           </div>
-        </div>
+          </div>
         <div className='flex-btn'>
           <BtnBlue type='submit' value={'등록하기'} onClick={onClickSubmit} />
           <BtnWhite value={'취소'} onClick={goBackNavigate} />

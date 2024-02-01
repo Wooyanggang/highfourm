@@ -11,7 +11,7 @@ import himedia.project.highfourm.entity.MaterialStock;
 
 @Repository
 public interface MaterialStockRepository extends JpaRepository<MaterialStock, String> {
-	@Query("SELECT new himedia.project.highfourm.dto.material.MaterialListResponseDTO("
+	@Query("SELECT new himedia.project.highfourm.dto.material.MaterialOrderListDTO("
 	        + "ma.materialId, ma.materialName, ma.unit, sm.managementName, ms.totalStock, ms.safetyStock, ms.maxStock, ms.leadTime) "
 	        + "FROM Material ma "
 	        + "LEFT JOIN ma.materialStock ms "

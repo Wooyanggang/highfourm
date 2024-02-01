@@ -6,37 +6,35 @@ import PageTitle from '../../Common/PageTitle';
 
 const MaterialOrderHistoryEdit = () => {
   const navigate = useNavigate();
-  const [newUser, setNewUser] = useState(
-    {
-      empNo: '',
-      userName: '',
-      position: '',
-      birth: '',
-      email: '',
-    });
+  const [formData, setFormData] = useState({
+    orderDate: '',
+    materialId: '',
+    orderAmount: '',
+    supplier: '',
+    standard: '',
+    note: '',
+  });
 
   const onChange = (e) => {
-    setNewUser({
-      ...newUser,
-      [e.target.name]: e.target.value
-    });
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const onClickSubmit = (e) => {
-    console.log(newUser)
+    e.preventDefault(); // 폼의 기본 동작 방지
 
     axios({
       method: 'POST',
-      url: '/users/new',
-      data: JSON.stringify(newUser),
+      url: '/materials/order-history/new',
+      data: JSON.stringify(formData),
       headers: { 'Content-Type': 'application/json' },
     })
       .then((res) => {
         console.log(res);
-        navigate('/users');
+        navigate('/materials/order-history');
       })
       .catch((error) => console.log(error))
-  }
+  };
+
 
   const goBackNavigate = () => {
     navigate(-1)
@@ -89,7 +87,7 @@ const MaterialOrderHistoryEdit = () => {
         <div className='flex-line'>
           <div className='flex-div'>
             <label htmlFor='birth' className='label-title'>비고</label>
-            <InputBar id={'note '} name={'note '} placeholderMsg={'비고'} onChange={onChange} required />
+            <InputBar id={'note '} name={'note '} placeholderMsg={'비고'} onChange={onChange} />
           </div>
         </div>
         <div className='flex-btn'>
