@@ -22,10 +22,10 @@ public class UserHtmlController {
 	
 	@GetMapping("/users/new")
 	public String addForm() {
-		return "userForm";
+	    return "userForm";
 	}
 	
-	@PostMapping(value = "/hi" )
+	@PostMapping(value = "/users/new" )
 	public String addNewUser(@RequestBody UserDTO userDTO, HttpSession session) {
 //		Long adminCompanyId = (Long)session.getAttribute("companyId");
 //		service.save(userDTO, adminCompanyId);
