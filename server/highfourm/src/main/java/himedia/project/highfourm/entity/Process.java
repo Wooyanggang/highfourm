@@ -51,6 +51,7 @@ public class Process {
 				.productId(product.getProductId())
 				.sequence(sequence)
 				.processName(processName)
+				.timeUnit(timeUnit)
 				.standardWorkTime(standardWorkTime)
 				.outputUnit(outputUnit)
 				.build();
