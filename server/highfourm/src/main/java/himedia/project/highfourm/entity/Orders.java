@@ -1,15 +1,15 @@
 package himedia.project.highfourm.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Getter @Builder
 @Entity
@@ -27,17 +27,17 @@ public class Orders {
 	private String manager; 
 	
 	@Column(name = "due_date")
-	private String dueDate; 
+	private LocalDate dueDate; 
 	
 	@Column(name = "ending_state")
 	private Boolean endingState;
 	
 	@Column(name = "order_date")
-	private String orderDate;
+	private LocalDate orderDate;
 
 	@Builder
-	public Orders(String orderId, String vendor, String manager, String dueDate, Boolean endingState,
-			String orderDate) {
+	public Orders(String orderId, String vendor, String manager, LocalDate dueDate, Boolean endingState,
+			LocalDate orderDate) {
 		super();
 		this.orderId = orderId;
 		this.vendor = vendor;

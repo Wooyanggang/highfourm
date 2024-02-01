@@ -21,7 +21,7 @@ public class OrderDetailDTO {
 	private Long productAmount;
 	private Long unitPrice;
 	
-	public OrderDetail convertDTOtoEntity(OrderDetailDTO orderDetailDTO, Orders orders, Product product) {
+	public OrderDetail toEntity(OrderDetailDTO orderDetailDTO, Orders orders, Product product) {
 	    return OrderDetail.builder()
 	            .orderDetailPk(new OrderDetailPk(orderDetailDTO.getOrderId(), orderDetailDTO.getProductId()))
 	            .productAmount(orderDetailDTO.getProductAmount())
@@ -37,6 +37,15 @@ public class OrderDetailDTO {
 	            .productId(orderDetail.getOrderDetailPk().getProductId())
 	            .productAmount(orderDetail.getProductAmount())
 	            .unitPrice(orderDetail.getUnitPrice())
+	            .build();
+	}
+	
+	public static OrderDetailDTO fromFormDTO(OrderDetailFormDTO formDTO, String productId) {
+	    return OrderDetailDTO.builder()
+	            .orderId(formDTO.getOrderId())
+	            .productId(productId)
+	            .productAmount(formDTO.getProductAmount())
+	            .unitPrice(formDTO.getUnitPrice())
 	            .build();
 	}
 }

@@ -9,12 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import himedia.project.highfourm.dto.orders.OrdersDTO;
+import himedia.project.highfourm.dto.orders.OrdersAndDetailsDTO;
 import himedia.project.highfourm.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Controller
 @Slf4j
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -30,9 +29,11 @@ public class OrderController {
 	}
 	
 	@PostMapping("/orders/new")
-	public void ordersNew(@RequestBody OrdersDTO ordersDTO) {
-//		log.info("납기일{}",ordersDTO.getDueDate());
-//		orderService.saveOrder(ordersDTO);
+	public void ordersNew(@RequestBody OrdersAndDetailsDTO ordersAndDetailsDTO) {
+		log.info("orders{}",ordersAndDetailsDTO.getOrders().getOrderDate());
+		log.info("orders{}",ordersAndDetailsDTO.getOrderDetails().get(0).getProductName());
+		orderService.saveOrder(ordersAndDetailsDTO);
+//		}
 	}
 	
 }

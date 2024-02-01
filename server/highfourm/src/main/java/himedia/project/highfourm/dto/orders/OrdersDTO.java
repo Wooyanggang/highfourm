@@ -1,8 +1,11 @@
 package himedia.project.highfourm.dto.orders;
 
 
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import himedia.project.highfourm.entity.Orders;
-import jakarta.persistence.Column;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,11 +19,13 @@ public class OrdersDTO {
 	private String orderId;
 	private String vendor;
 	private String manager; 
-	private String dueDate; 
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dueDate; 
 	private Boolean endingState;
-	private String orderDate;
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate orderDate;
 	
-	public Orders convertDTOtoEntity(OrdersDTO ordersDTO) {
+	public Orders toEntity(OrdersDTO ordersDTO) {
 	    return Orders.builder()
 	            .orderId(ordersDTO.getOrderId())
 	            .vendor(ordersDTO.getVendor())

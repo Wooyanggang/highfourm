@@ -1,6 +1,7 @@
 package himedia.project.highfourm.dto.orders;
 
 import himedia.project.highfourm.entity.OrderDetail;
+import himedia.project.highfourm.entity.pk.OrderDetailPk;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,15 +13,15 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class OrderDetailResponseDTO {
+public class OrderDetailFormDTO {
 	private String orderId;
 	private String productId;
 	private Long productAmount;
 	private Long unitPrice;
 	private String productName;
 	
-	public static OrderDetailResponseDTO fromEntity(OrderDetail orderDetail) {
-        return OrderDetailResponseDTO.builder()
+	public static OrderDetailFormDTO fromEntity(OrderDetail orderDetail) {
+        return OrderDetailFormDTO.builder()
                 .orderId(orderDetail.getOrderDetailPk().getOrderId())
                 .productId(orderDetail.getOrderDetailPk().getProductId())
                 .productAmount(orderDetail.getProductAmount())
