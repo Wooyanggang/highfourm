@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import himedia.project.highfourm.dto.material.MaterialListResponseDTO;
+import himedia.project.highfourm.dto.material.MaterialOrderListDTO;
 import himedia.project.highfourm.dto.material.MaterialOrderRequestDTO;
+import himedia.project.highfourm.dto.material.MaterialOrderResponseDto;
 import himedia.project.highfourm.dto.material.MaterialRequestDTO;
 import himedia.project.highfourm.service.MaterialService;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class MaterialController {
 	
-	
 	private final MaterialService materialService;
-
+	/**
+	 * 원자재 등록
+	 */
 	@PostMapping("/materials/stock/new")
 	public String addMaterial(@RequestBody MaterialRequestDTO material) {
 		log.info("material.getLeadTime(): {}",material.getLeadTime());
@@ -37,29 +40,39 @@ public class MaterialController {
 		
 		return "redirect:http://localhost:3000/materials/stock";
 	}
-	
+
+	/**
+	 * 원자재 리스트 조회
+	 */
 	@GetMapping("/materials/stock")
 	public List<MaterialListResponseDTO> getMaterialList() {
 		List<MaterialListResponseDTO> MaterialList = materialService.MaterialList();
-		 MaterialList.stream()
-				.filter(material -> material.getMaterialName().contains("자재"))
-				.forEach(material -> System.out.println("Material: " + material.getManagementName()));
+//		 MaterialList.stream()
+//				.filter(material -> material.getMaterialName().contains("자재"))
+//				.forEach(material -> System.out.println("Material: " + material.getManagementName()));
 		
 		return MaterialList;
 	}
-	
+	/**
+	 * 수급내역 리스트 조회
+	 */
 	@GetMapping("/materials/order-history")
 	public String getdMaterialHistoryList() {
 		
 		return "redirect:http://localhost:3000/materials/order-history";
 	}
+	/**
+	 * 
+	 */
+	@GetMapping("/test")
+	public List<MaterialOrderResponseDto> getdMaterialHistoryListTest() {
+		 List<MaterialOrderResponseDto> m =materialService.getMaterialOrderList();
+		return m;
+	}
 	
-//	@GetMapping("/materials/order-history/{orderHistoryId}")
-//	public String getdMaterialHistory() {
-//		
-//		return "redirect:http://localhost:3000/materials/order-history";
-//	}
-
+	/**
+	 * 수급내역 등록
+	 */
 	@PostMapping("/materials/order-history/new")
 	public String addMaterialHistory(@RequestBody MaterialOrderRequestDTO orderRequestDTO) {
 		
@@ -67,5 +80,17 @@ public class MaterialController {
 		materialService.saveMaterialhistory(orderRequestDTO);
 		return "redirect:http://localhost:3000/materials/order-history";
 	}
+	
+	/**
+	 * 수급내역 수정
+	 */
+	@GetMapping("/materials/order-history/{orderHistoryId}")
+	public String getdMaterialHistory() {
+		
+		return "redirect:http://localhost:3000/materials/order-history";
+	}
+	
+	
+	
 	
 }

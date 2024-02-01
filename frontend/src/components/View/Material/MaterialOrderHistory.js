@@ -29,6 +29,11 @@ const MaterialOrderHistory = () => {
 
   const defaultColumnsOne = [
     {
+      title: '발주코드',
+      dataIndex: 'materialHistoryId',
+      render: (text) => <a href={`/users/edit/${dataSource.empNo}`}>{text}</a>,
+    },
+    {
       title: '발주일',
       dataIndex: 'orderDate',
     },
@@ -106,7 +111,7 @@ const MaterialOrderHistory = () => {
 
   return (
     <div>
-      <PageTitle value={'원자재 관리 < 원자재 수급 내역 관리'}/>
+      <PageTitle value={'원자재 관리 < 수급 내역 관리'}/>
       <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
         <SearchSelectBox selectValue={['자재코드', '자재명', '발주일', '입고일']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />
@@ -115,7 +120,7 @@ const MaterialOrderHistory = () => {
         <BtnBlack value={'수급내역 등록'} onClick={onClick} />
       </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div style={{ border: '1px solid #d9d9d9', padding: '40px 45px', marginBottom: '20px' }}>
+        <div style={{ border: '1px solid #d9d9d9', padding: '30px 35px', marginBottom: '20px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <h2 style={{ fontSize: '16px', display: 'inline-block' }}>입고대기</h2>
             <hr style={{ color: '#000', width: '520px', marginLeft: '20px' }} />
@@ -124,7 +129,7 @@ const MaterialOrderHistory = () => {
             <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
           </div>
         </div>
-        <div style={{ border: '1px solid #d9d9d9', padding: '40px 45px', marginBottom: '20px' }}>
+        <div style={{ border: '1px solid #d9d9d9', padding: '30px 35px', marginBottom: '20px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <h2 style={{ fontSize: '16px', display: 'inline-block' }}>입고완료</h2>
             <hr style={{ color: '#000', width: '520px', marginLeft: '20px' }

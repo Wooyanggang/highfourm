@@ -95,7 +95,7 @@ const StockList = () => {
 
   return (
     <div>
-      <PageTitle value={'재고 현황 조회'} />
+      <PageTitle value={'원자재관리 > 조회/등록'} />
       <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
         <SearchSelectBox selectValue={['자재코드', '자재명', '재고관리 방식']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />

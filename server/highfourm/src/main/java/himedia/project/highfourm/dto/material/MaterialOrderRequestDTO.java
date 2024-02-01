@@ -15,7 +15,7 @@ public class MaterialOrderRequestDTO {
 	private String orderDate;
 	private String standard;
 	private String supplier;
-	private String orderAmount;
+	private Long orderAmount;
 	private String note;
     
 	public MaterialHistory toEntity(Material material) {
@@ -28,11 +28,6 @@ public class MaterialOrderRequestDTO {
 				.orderAmount(orderAmount)
 				.standard(standard)
 				.note(note)
-//				.materialHistoryId(null)
-//				.inboundAmount(null)
-//				.recievingDate(null)
-//				.materialInventory(null)
-//				.unitPrice(null)
 				.build();
 	}
 }

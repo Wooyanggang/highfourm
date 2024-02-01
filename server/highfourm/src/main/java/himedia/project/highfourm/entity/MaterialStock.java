@@ -25,11 +25,11 @@ public class MaterialStock {
 	@Column(name = "material_id")
 	private String materialId;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "material_id", referencedColumnName = "material_id")
 	private Material material;
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "management_id", referencedColumnName = "management_id")
 	private StockManagement stockManagement;
 	

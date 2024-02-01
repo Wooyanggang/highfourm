@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -21,9 +21,10 @@ import lombok.NoArgsConstructor;
 public class MaterialHistory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "material_history_id")
 	private Long materialHistoryId;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "material_id", referencedColumnName = "material_id", nullable = false)
 	private Material material;
 	
@@ -46,17 +47,18 @@ public class MaterialHistory {
 	private Long inboundAmount;
 	
 	@Column(name = "order_amount", nullable = false)
-	private String orderAmount;
+	private Long orderAmount;
 	
 	@Column(name = "unit_price")
-	private String unitPrice;
+	private Integer unitPrice;
 	
 	private String note;
 	
 	@Builder
 	public MaterialHistory(Long materialHistoryId, Material material, String orderDate, String recievingDate,
-			String standard, String supplier, Long materialInventory, Long inboundAmount, String orderAmount,
-			String unitPrice, String note) {
+			String standard, String supplier, Long materialInventory, Long inboundAmount, Long orderAmount,
+			Integer unitPrice, String note) {
+		super();
 		this.materialHistoryId = materialHistoryId;
 		this.material = material;
 		this.orderDate = orderDate;
@@ -69,6 +71,5 @@ public class MaterialHistory {
 		this.unitPrice = unitPrice;
 		this.note = note;
 	}
-	
 	
 }

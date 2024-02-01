@@ -22,22 +22,19 @@ const MaterialOrderHistoryNew = () => {
   const onClickSubmit = (e) => {
     e.preventDefault(); // 폼의 기본 동작 방지
 
-    const materialOrderHistory = {
-      materialId: formData.materialId,
-      orderDate: formData.orderDate,
-      standard: formData.standard,
-      supplier: formData.supplier,
-      orderAmount: parseInt(formData.orderAmount),
-      note: formData.note,
-    };
-
-    axios.post('/materials/order-history/new', materialOrderHistory)
+    axios({
+      method: 'POST',
+      url: '/materials/order-history/new',
+      data: JSON.stringify(formData),
+      headers: { 'Content-Type': 'application/json' },
+    })
       .then((res) => {
         console.log(res);
         navigate('/materials/order-history');
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.log(error))
   };
+
 
   const goBackNavigate = () => {
     navigate(-1)
