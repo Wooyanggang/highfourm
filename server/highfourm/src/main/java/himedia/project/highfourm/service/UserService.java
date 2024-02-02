@@ -1,13 +1,16 @@
 package himedia.project.highfourm.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import himedia.project.highfourm.dto.user.UserAddDTO;
 import himedia.project.highfourm.dto.user.UserDTO;
+import himedia.project.highfourm.dto.user.UserEditDTO;
 import himedia.project.highfourm.entity.Company;
 import himedia.project.highfourm.entity.User;
 import himedia.project.highfourm.repository.CompanyRepository;
@@ -68,6 +71,23 @@ public class UserService {
 				.collect(Collectors.toList());
 	}
 	
+	public UserEditDTO findByEmpNoforEdit(Long userNo) {
+		User user = repository.findById(userNo).get();
+		Company company = companyRepository.findById(1L).get();
+		
+		UserDTO userDTO = user.toDTO(company);
+		
+		return UserEditDTO.builder()
+				.userNo(userDTO.getUserNo())
+				.userName(userDTO.getUserName())
+				.empNo(userDTO.getEmpNo())
+				.position(userDTO.getPosition())
+				.birth(userDTO.getBirth())
+				.email(userDTO.getEmail())
+				.build();
+				
+	}
+	
 	public boolean isEmailUnique(String email) {
 		return repository.findByUserEmail(email) == null;
 	}
@@ -82,12 +102,14 @@ public class UserService {
 		User savedUser = repository.save(userEntity);
 		return savedUser.toDTO(company.get());
 	}
+	
+	@Transactional
+	public void updateUser(Long userNo, String name, String position, LocalDate birth) {
+		Optional<User> user = repository.findById(userNo);
+	}
 
 	public void delete(Long userNo) {
 		repository.deleteById(userNo);
 	}
 	
-	public void update(Long userNo) {
-		
-	}
 }

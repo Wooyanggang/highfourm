@@ -37,10 +37,10 @@ const Mrp = () => {
     setSearchType(value);
   };
 
-  const onSearchChange = (value) => {
-    const processedValue = Array.isArray(value) ? value.join(',') : value;
-    setSearchValue(processedValue);
-    console.log(processedValue);
+  const onSearchChange = (e) => {
+    const { value } = e.target;
+    setSearchValue(value);
+    console.log("value : ", e);
   }
 
   const onSearch = async () => {
@@ -48,7 +48,8 @@ const Mrp = () => {
     try {
       let encodedSearchValue = searchValue;
       if (Array.isArray(searchValue)) {
-        encodedSearchValue = searchValue.join(', ');
+        console.log(searchValue);
+        encodedSearchValue = searchValue.values;
       }
       const res = await axios({
         method: 'GET',
@@ -58,7 +59,6 @@ const Mrp = () => {
         //   search: encodeURIComponent(searchValue),
         // }
       })
-      console.log('Server Response:', res);
       // window.location.href = `/mrp/search?searchType=${encodeURIComponent(searchType)}&search=${encodeURIComponent(searchValue)}`;
     } catch (e) {
       console.error(e.message);

@@ -51,11 +51,12 @@ a {
 	<div class="container">
 		<div class="input-form col-md-12 mx-auto">
 			<h2 class="mb-3 fw-bold">사용자 수정</h2>
-			<form th:method="PUT" th:action="@{/users/edit/{userNo}(userNo=${userEditDTO.userNo})}" th:object="${UserEditDTO}" class="mt-5 needs-validation" novalidate>
+			<form th:method="PUT" th:action="@{/users/edit/{userNo}(userNo=${userEditDTO.userNo})}" th:object="${userEditDTO}" class="mt-5 needs-validation" novalidate>
 				<div class="row">
 					<div class="col-md-6 mb-3">
 						<label for="empNo" class="form-label col fw-bold">사번</label> 
 						<input type="text" id="empNo" name="empNo" th:field="*{empNo}" class="form-control col" disabled />
+						<input type="hidden" name="empNo" th:value="*{empNo}" />
 					</div>
 					<div class="col-md-6 mb-3">
 						<label for="userName" class="form-label col fw-bold">이름</label> 
@@ -73,7 +74,7 @@ a {
 					</div>
 					<div class="col-md-6 mb-3">
 						<label for="birth" class="form-label col fw-bold">생년월일</label> 
-						<input type="date" id="birth" name="birth" th:value="${UserEditDTO.birth}" placeholder="생년월일" class="form-control col" required />
+						<input type="date" id="birth" name="birth" th:value="${userEditDTO.birth}" placeholder="생년월일" class="form-control col" required />
 						<div class="invalid-feedback">생년월일을 입력해주세요</div>
 						<div th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}" class="field-error">생년월일을 입력해주세요</div>
 					</div>
@@ -81,6 +82,8 @@ a {
 				<div class="mb-3">
 					<label for="email" class="form-label col fw-bold">이메일 주소</label> 
 					<input type="email" id="email" name="email" th:field="*{email}" class="form-control col" disabled />
+					<input type="hidden" name="email" th:value="*{email}" />
+					<p style="color: rgba(0, 0, 0, 0.45); margin: 10px 0;">사용자 이메일은 수정 불가합니다. 수정을 원할 시 정보를 삭제하고 재등록 해주세요.</p>
 				</div>
 				<div class="mb-4 mt-4">
 					<button type="submit" class="btn btn-primary btn-lg">수정하기</button>

@@ -35,21 +35,21 @@ const UserList = () => {
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
-    // const deleteUserNo = dataSource.filter((item) => console.log(item));
-    // const deleteUserName = dataSource.filter((item) => item.userName);
+    const deleteUserNo = dataSource.filter((item) => console.log("item : ", item));
+    const deleteUserName = dataSource.filter((item) => item.userName);
 
-    // axios({
-    //   method: 'DELETE',
-    //   url: `/users/delete/${deleteUserNo}`,
-    //   data: JSON.stringify(deleteUserNo),
-    //   headers: { 'Content-Type': 'application/json' },
-    // })
-    //   .then((response) => {
-    //     console.log(response);
-    //     alert(`${deleteUserName} 사원이 삭제되었습니다.`);
-    //     navigate('/users');
-    //   })
-    //   .catch(e => console.log(e));
+    axios({
+      method: 'DELETE',
+      url: `/users/delete/${deleteUserNo}`,
+      data: JSON.stringify(deleteUserNo),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        console.log(response);
+        alert(`${deleteUserName} 사원이 삭제되었습니다.`);
+        navigate('/users');
+      })
+      .catch(e => console.log(e));
   }
 
   const defaultColumns = [
