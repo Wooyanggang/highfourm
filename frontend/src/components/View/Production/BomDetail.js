@@ -57,7 +57,7 @@ function BomDetail() {
   const defaultColumnsProcess = [
     {
       title: '공정 코드',
-      dataIndex: 'productId',
+      dataIndex: 'processId',
     },
     {
       title: '공정 순서',
