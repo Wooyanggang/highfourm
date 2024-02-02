@@ -43,6 +43,11 @@ public class UserHtmlController {
 			return "userForm";
 		}
 		
+		if(!service.isEmailUnique(userAddDTO.getEmail())) {
+			bindingResult.rejectValue("email", "error.user", "이미 사용중인 이메일입니다.");
+			return "userForm";
+		}
+		
 		log.info("통신 성공 값 : " + userAddDTO.getPosition());
 		
 		service.save(userAddDTO);

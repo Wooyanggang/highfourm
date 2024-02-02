@@ -68,6 +68,10 @@ public class UserService {
 				.collect(Collectors.toList());
 	}
 	
+	public boolean isEmailUnique(String email) {
+		return repository.findByUserEmail(email) == null;
+	}
+	
 	public UserDTO save(UserAddDTO user) {
 //		public void save(UserDTO user, Long adminCompanyId) {
 //		Optional<Company> company = companyRepository.findById(adminCompanyId);

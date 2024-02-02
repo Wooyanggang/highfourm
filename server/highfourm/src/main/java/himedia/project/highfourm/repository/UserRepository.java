@@ -14,4 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	List<User> findByUserName(String name);
 	List<User> findByEmail(String email);
 	
+	@Query(value = "select * from users where email like ?", nativeQuery = true)
+	User findByUserEmail(String email);
+	
 }
