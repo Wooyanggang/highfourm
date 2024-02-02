@@ -14,11 +14,13 @@ import himedia.project.highfourm.dto.material.MaterialOrderResponseDto;
 import himedia.project.highfourm.dto.material.MaterialRequestDTO;
 import himedia.project.highfourm.entity.Material;
 import himedia.project.highfourm.entity.MaterialHistory;
+import himedia.project.highfourm.entity.MaterialStock;
 import himedia.project.highfourm.entity.StockManagement;
 import himedia.project.highfourm.repository.MaterialHistoryRepository;
 import himedia.project.highfourm.repository.MaterialRepository;
 import himedia.project.highfourm.repository.MaterialStockRepository;
 import himedia.project.highfourm.repository.StockManagementRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -35,8 +37,10 @@ public class MaterialService {
 		materialRepository.save(material.toEntityFirst());
 
 		Optional<StockManagement> stockManagement = managementRepository.findById(material.getManagementId());
-		if (stockManagement.isPresent())
+		System.out.println("관리방법!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + stockManagement.get().getManagementName());
+		if (stockManagement.isPresent()) {
 			stockRepository.save(material.toEntitySecond(stockManagement.get()));
+		}
 	}
 
 	// 원자재 리스트 조회
@@ -69,7 +73,7 @@ public class MaterialService {
 	// 입고내역 등록화면 조회
 	public MaterialOrderEditFormDTO getMaterialhistoryInfo(Long materialHistoryId) {
 		Optional<MaterialHistory> materialHistory = historyRepository.findById(materialHistoryId);
-		//Optional<MaterialHistory> materialHistory = historyRepository.findByMaterialHistoryId(materialHistoryId);
+		
 		//MaterialHistory를 MaterialOrderResponseDTO로 변환
 		MaterialHistory material = materialHistory.get();
 			
@@ -86,6 +90,24 @@ public class MaterialService {
 				.note(material.getNote())
 				.build();
 		
+	}
+	
+	//입고내역 등록
+	@Transactional
+	public void updateMaterialHistory(MaterialOrderEditFormDTO editDTO) {
+		MaterialHistory materialHistory = historyRepository.findById(editDTO.getMaterialHistoryId())
+		        .orElseThrow();
+		
+		//materialInventory 계산&저장 로직 필요
+		MaterialStock materialStock =  stockRepository.findById(editDTO.getMaterialId()).orElseThrow();
+		Long materialInventory = materialStock.getTotalStock()- editDTO.getInboundAmount();
+		
+		materialHistory.updateMaterialHistory(editDTO.getInboundAmount(), materialInventory, editDTO.getRecievingDate(), editDTO.getNote());
+
+
+        // 수정된 엔티티 저장
+        historyRepository.save(materialHistory);
+	        
 	}
 	
 }

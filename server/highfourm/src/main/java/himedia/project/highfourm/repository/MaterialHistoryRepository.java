@@ -18,7 +18,5 @@ public interface MaterialHistoryRepository extends JpaRepository<MaterialHistory
             + "ORDER BY mh.materialHistoryId DESC")
     List<MaterialOrderListDTO> findAllWithMaterialFields();
     
-	//Optional<MaterialHistory> findByMaterialHistoryId(String materialHistoryId);
-
     
 }

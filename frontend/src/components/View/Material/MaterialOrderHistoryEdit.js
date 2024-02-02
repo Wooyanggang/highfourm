@@ -7,24 +7,18 @@ import PageTitle from '../../Common/PageTitle';
 const MaterialOrderHistoryEdit = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    orderDate: '',
-    materialId: '',
-    orderAmount: '',
     recievingDate: '',
-    supplier: '',
-    standard: '',
     inboundAmount: '',
-    unitPrice: '',
     note: '',
+    materialInventory: '',
   });
   const [dataSource, setDataSource] = useState([]);
   const { orderHistoryId } = useParams()
-  console.log(dataSource);
+  
   useEffect(() => {
     async function fetchData() {
       try {
         const res = await axios.get(`/materials/order-history/edit/${orderHistoryId}`);
-  
         const materialRequest = {
           key: res.data.materialHistoryId,
           materialHistoryId: res.data.materialHistoryId,
@@ -47,16 +41,16 @@ const MaterialOrderHistoryEdit = () => {
   }, [orderHistoryId]);
 
   const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setDataSource({ ...dataSource, [e.target.name]: e.target.value });
   };
 
   const onClickSubmit = (e) => {
     e.preventDefault(); // 폼의 기본 동작 방지
-
+    console.log(JSON.stringify(dataSource));
     axios({
       method: 'POST',
-      url: '/materials/order-history/new',
-      data: JSON.stringify(formData),
+      url: `/materials/order-history/edit/${orderHistoryId}`,
+      data: JSON.stringify(dataSource),
       headers: { 'Content-Type': 'application/json' },
     })
       .then((res) => {
@@ -78,31 +72,31 @@ const MaterialOrderHistoryEdit = () => {
         <div className='flex-line'>
           <div className='flex-div'>
             <label htmlFor='empNo' className='label-title'>발주일</label>
-            <InputBar value={dataSource.orderDate} id={'orderDate'} name={'orderDate'} placeholderMsg={'발주일'} onChange={onChange} disabled={true} />
+            <InputBar value={dataSource.orderDate} id={'orderDate'} name={'orderDate'} placeholderMsg={'발주일'} disabled={true} />
           </div>
           <div className='flex-div'>
             <label htmlFor='userName' className='label-title'>입고일</label>
-            <InputBar type={'date'} id={'recievingDate '} name={'recievingDate '} placeholderMsg={'입고일'} onChange={onChange} requried={true} />
+            <InputBar type={'date'} id={'recievingDate'} name={'recievingDate'} placeholderMsg={'입고일'} onChange={onChange} requried={true} />
           </div>
         </div>
         <div className='flex-line'>
           <div className='flex-div'>
             <label htmlFor='userName' className='label-title'>자재코드</label>
-            <InputBar id={'materialId '} value={'아아아'} name={'materialId'} placeholderMsg={'자재코드'} onChange={onChange} disabled={true} />
+            <InputBar id={'materialId '} value={dataSource.materialId} name={'materialId'} placeholderMsg={'자재코드'} disabled={true} />
           </div>
           <div className='flex-div'>
             <label htmlFor='birth' className='label-title'>공급처</label>
-            <InputBar id={'supplier'} value={'아아아'} name={'supplier'} placeholderMsg={'공급처'} onChange={onChange} disabled={true} />
+            <InputBar id={'supplier'} value={dataSource.supplier} name={'supplier'} placeholderMsg={'공급처'} disabled={true} />
           </div>
         </div>
         <div className='flex-line'>
           <div className='flex-div'>
             <label htmlFor='position' className='label-title'>규격/사양</label>
-            <InputBar id={'standard'} value={'아아아'} name={'standard'} placeholderMsg={'규격/사양'} onChange={onChange} disabled={true} />
+            <InputBar id={'standard'} value={dataSource.standard} name={'standard'} placeholderMsg={'규격/사양'} disabled={true} />
           </div>
           <div className='flex-div'>
             <label htmlFor='position' className='label-title'>발주량</label>
-            <InputBar id={'orderAmount'} value={'아아아'} name={'orderAmount'} placeholderMsg={'발주량'} onChange={onChange} disabled={true} />
+            <InputBar id={'orderAmount'} value={dataSource.orderAmount} name={'orderAmount'} placeholderMsg={'발주량'} disabled={true} />
           </div>
         </div>
         <div className='flex-line'>
@@ -112,13 +106,13 @@ const MaterialOrderHistoryEdit = () => {
           </div>
           <div className='flex-div'>
             <label htmlFor='birth' className='label-title'>입고단가</label>
-            <InputBar id={'unitPrice'} value={dataSource.unitPrice} name={'unitPrice'} placeholderMsg={'입고단가'} onChange={onChange} disabled={true} />
+            <InputBar id={'unitPrice'} value={dataSource.unitPrice} name={'unitPrice'} placeholderMsg={'입고단가'} disabled={true} />
           </div>
         </div>
         <div className='flex-line'>
           <div className='flex-div'>
             <label htmlFor='birth' className='label-title'>비고</label>
-            <InputBar id={'note '} name={'note '} placeholderMsg={'비고'} onChange={onChange} />
+            <InputBar id={'note'} name={'note'} placeholderMsg={'비고'} onChange={onChange} />
           </div>
         </div>
         <div className='flex-btn'>

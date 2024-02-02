@@ -8,6 +8,9 @@ import PageTitle from '../../Common/PageTitle';
 const MaterialOrderHistory = () => {
 
   const [dataSource, setDataSource] = useState([]);
+  const [waitingData, setWaitingData] = useState([]);
+  const [completedData, setCompletedData] = useState([]);
+
 
   useEffect(() => {
     async function fetchData() {
@@ -31,14 +34,25 @@ const MaterialOrderHistory = () => {
           orderAmount: rowData.orderAmount,
           unitPrice: rowData.unitPrice,
           note: rowData.note,
+          totalPrice: rowData.totalPrice,
         }));
         setDataSource(materialRequest);
+        filterData(materialRequest)
       } catch (e) {
         console.error(e.message);
       }
     }
     fetchData();
   }, []);
+
+  const filterData = (data) => {
+    const waitingData = data.filter(item => !item.inboundAmount && !item.recievingDate);
+    const completedData = data.filter(item => item.inboundAmount && item.recievingDate);
+
+    setWaitingData(waitingData);
+    setCompletedData(completedData);
+  };
+
 
   const defaultColumnsOne = [
     {
@@ -52,11 +66,11 @@ const MaterialOrderHistory = () => {
     },
     {
       title: '입고일',
-      dataIndex: 'recievingDate ',
+      dataIndex: 'recievingDate',
     },
     {
       title: '자재코드',
-      dataIndex: 'materialId ',
+      dataIndex: 'materialId',
     },
     {
       title: '자재명',
@@ -80,7 +94,7 @@ const MaterialOrderHistory = () => {
     },
     {
       title: '재고량',
-      dataIndex: 'materialInventory ',
+      dataIndex: 'materialInventory',
     },
     {
       title: '사용량',
@@ -88,7 +102,7 @@ const MaterialOrderHistory = () => {
     },
     {
       title: '입고량',
-      dataIndex: 'inboundAmount ',
+      dataIndex: 'inboundAmount',
     },
     {
       title: '발주량',
@@ -139,7 +153,7 @@ const MaterialOrderHistory = () => {
             <hr style={{ color: '#000', width: '520px', marginLeft: '20px' }} />
           </div>
           <div style={{ marginTop: '20px', height: '300px', overflowY: 'auto' }}>
-            <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
+            <BasicTable dataSource={waitingData} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
           </div>
         </div>
         <div style={{ border: '1px solid #d9d9d9', padding: '30px 35px', marginBottom: '20px' }}>
@@ -149,12 +163,10 @@ const MaterialOrderHistory = () => {
             } />
           </div>
           <div style={{ marginTop: '20px', height: '300px', overflowY: 'auto' }}>
-            <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
+            <BasicTable dataSource={completedData} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
           </div>
         </div>
       </div>
-
-      {/* </ Container> */}
     </div>
   )
 }

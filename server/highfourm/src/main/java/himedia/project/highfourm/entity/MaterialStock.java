@@ -42,8 +42,8 @@ public class MaterialStock {
 	@Column(name = "max_stock")
 	private Long maxStock;
 	
-	@Column(name = "lead_time")
-	int leadTime;
+	@Column(name = "lead_time", nullable = true)
+	Integer leadTime;
 	
 	@Builder
 	public MaterialStock(String materialId, Material material, StockManagement stockManagement, Long totalStock,

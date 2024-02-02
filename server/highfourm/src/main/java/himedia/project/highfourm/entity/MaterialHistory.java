@@ -72,4 +72,12 @@ public class MaterialHistory {
 		this.note = note;
 	}
 	
+    public void updateMaterialHistory(Long inboundAmount, Long materialInventory,  String recievingDate, String note) {
+        this.materialInventory = materialInventory;
+        this.inboundAmount = inboundAmount;
+        this.recievingDate = recievingDate;
+        this.note = note;
+    }
+
+	
 }

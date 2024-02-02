@@ -22,7 +22,7 @@ public class MaterialOrderResponseDto {
 	private String unit;
 	private String supplier;
 	private Long restStock;	//이월 재고 -> 입고 등록시 stock 테이블 total_stock 총재고량 ||없으면 0
-	private Long materialInventory;	//재고량 ->이월 재고량 total_stock + 입고량	||없으면 0
+	private Long materialInventory;	//재고량 ->이월 재고량(total_stock) + 입고량	|| 없으면 0
 	private Long usedAmount;	//사용량 1. 이전 재고량(직전material_inventory - 이월 재고량total_stock) ||없으면 0  
 	private Long inboundAmount;	
 	private Long orderAmount;
@@ -104,9 +104,9 @@ public class MaterialOrderResponseDto {
     
     // 총 금액
     private static Long calculateTotalPrice(MaterialOrderListDTO orderListDTO) {
-    	if (orderListDTO.getInboundAmount() !=null) {
-    		return orderListDTO.getInboundAmount()*orderListDTO.getUnitPrice();
+    	if (orderListDTO.getInboundAmount() == null) {
+    		return null;  
     	}
-    	return null;  
+    	return orderListDTO.getInboundAmount()*orderListDTO.getUnitPrice();
     }
 }

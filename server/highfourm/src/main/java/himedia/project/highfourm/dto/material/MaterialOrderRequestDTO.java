@@ -16,6 +16,8 @@ public class MaterialOrderRequestDTO {
 	private String standard;
 	private String supplier;
 	private Long unitPrice;
+	private String recievingDate;
+	private Long inboundAmount;	
 	private Long orderAmount;
 	private String note;
     
@@ -30,6 +32,8 @@ public class MaterialOrderRequestDTO {
 				.standard(standard)
 				.orderAmount(orderAmount)
 				.note(note)
+				.inboundAmount(inboundAmount)
+				.recievingDate(recievingDate)
 				.build();
 	}
 }
