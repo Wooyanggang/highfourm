@@ -20,6 +20,8 @@ import UserEdit from './View/User/UserEdit';
 import UserList from './View/User/UserList';
 import UserNew from './View/User/UserNew';
 import MaterialOrderHistory from './View/Material/MaterialOrderHistory';
+import MaterialOrderHistoryNew from './View/Material/MaterialOrderHistoryNew';
+import MaterialOrderHistoryEdit from './View/Material/MaterialOrderHistoryEdit';
 import Join from './View/User/Join';
 import PerfomanceChart from './View/Production/PerfomanceChart';
 import PerfomanceControllChart from './View/Production/PerfomanceControllChart';
@@ -66,6 +68,8 @@ function App() {
                 <Route path='/orders/new' element={<OrderNew />} />
                 <Route path='/materials/stock' element={<StockList />} />
                 <Route path='/materials/order-history' element={<MaterialOrderHistory />} />
+                <Route path='/materials/order-history/new' element={<MaterialOrderHistoryNew />} />
+                <Route path='/materials/order-history/edit/:orderHistoryId' element={<MaterialOrderHistoryEdit />} />
                 <Route path='/users/join' element={<Join />} />
                 <Route path='/users' element={<UserList />} />
                 <Route path='/users/new' element={<UserNew />} />

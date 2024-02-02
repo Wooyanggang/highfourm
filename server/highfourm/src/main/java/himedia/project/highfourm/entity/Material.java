@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "material")
 public class Material {
 	@Id
-	@Column(name = "material_id")
+	@Column(name = "material_id", unique = true)
 	private String materialId;
 	
 	@Column(name = "material_name")
@@ -28,6 +28,9 @@ public class Material {
 	
     @OneToOne(mappedBy = "material", fetch = FetchType.LAZY)
     private MaterialStock materialStock;
+    
+    //@OneToMany(mappedBy = "material", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //private List<MaterialHistory> materialHistories;
     
     @Builder
 	public Material(String materialId, String materialName, String unit, MaterialStock materialStock) {

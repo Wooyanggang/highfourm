@@ -25,11 +25,11 @@ public class MaterialStock {
 	@Column(name = "material_id")
 	private String materialId;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "material_id", referencedColumnName = "material_id")
 	private Material material;
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "management_id", referencedColumnName = "management_id")
 	private StockManagement stockManagement;
 	
@@ -43,7 +43,7 @@ public class MaterialStock {
 	private Long maxStock;
 	
 	@Column(name = "lead_time")
-	int leadTime;
+	Integer leadTime;
 	
 	@Builder
 	public MaterialStock(String materialId, Material material, StockManagement stockManagement, Long totalStock,
@@ -55,5 +55,9 @@ public class MaterialStock {
 		this.safetyStock = safetyStock;
 		this.maxStock = maxStock;
 		this.leadTime = leadTime;
+	}
+	
+	public void updateMaterialStock(Long materialInventory) {
+		this.totalStock = materialInventory;
 	}
 }

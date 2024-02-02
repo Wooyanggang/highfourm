@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Select } from 'antd';
 import { InputBar, BtnBlue, BtnWhite } from '../../Common/Module';
 
-const StockNew = ({ formAction, onSubmit, onSubmitSuccess }) => {
+const StockNew = ({  onSubmit, onSubmitSuccess }) => {
   const [manageValue, setManageValue] = useState("");
   const [leadTimeDisabled, setLeadTimeDisabled] = useState(false);
 
@@ -31,10 +31,10 @@ const StockNew = ({ formAction, onSubmit, onSubmitSuccess }) => {
       materialName: jsonData.materialName,
       unit: jsonData.unit,
       managementId: parseInt(jsonData.managementId),
-      totalStock: parseInt(jsonData.totalStock), // 형변환
-      safetyStock: parseInt(jsonData.safetyStock),
+      totalStock: 0, 
+      safetyStock: jsonData.managementId === '3' ? 0 : parseInt(jsonData.safetyStock),
       maxStock: parseInt(jsonData.maxStock),
-      leadTime: parseInt(jsonData.LeadTime),
+      leadTime: jsonData.managementId === '3' ? 0 : parseInt(jsonData.LeadTime),
     };
 
     // Send POST request using Axios
@@ -72,16 +72,16 @@ const StockNew = ({ formAction, onSubmit, onSubmitSuccess }) => {
 
   return (
     <>
-      <form id='stockNewForm' method='post' ref={formRef} action={formAction} style={{ borderTop: '1px solid #ccc' }} onSubmit={handleSubmit}>
+      <form id='stockNewForm' method='post' ref={formRef}  style={{ borderTop: '1px solid #ccc' }} onSubmit={handleSubmit}>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <div className='modal-line' style={{ marginRight: '40px' }}>
             <div className='modal-div' >
               <label htmlFor='materialId' className='label-title'>자재코드:</label>
-              <InputBar inputId={'materialId'} name={'materialId'} id={'materialId'} placeholderMsg={'자재코드'} required/>
+              <InputBar inputId={'materialId'} name={'materialId'} id={'materialId'} placeholderMsg={'자재코드'} />
             </div>
             <div className='modal-div' style={{ marginBottom: '15px', display: 'flex', alignItems: 'center' }}>
               <label htmlFor='unit' className='label-title'>단위:</label>
-              <InputBar inputId={'unit'} name={'unit'} id={'unit'} placeholderMsg={'단위'} required/>
+              <InputBar inputId={'unit'} name={'unit'} id={'unit'} placeholderMsg={'단위'} />
             </div>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
               <label htmlFor='managementId' className='label-title'>재고관리 방식:</label>
@@ -109,10 +109,6 @@ const StockNew = ({ formAction, onSubmit, onSubmitSuccess }) => {
             <div className='modal-div' style={{ marginBottom: '15px' }}>
               <label htmlFor='materialName' className='label-title'>자재명:</label>
               <InputBar inputId={'materialName'} name={'materialName'} id={'materialName'} placeholderMsg={'자재명'} required />
-            </div>
-            <div className='modal-div' style={{ marginBottom: '15px' }}>
-              <label htmlFor='totalStock' className='label-title'>총재고량:</label>
-              <InputBar inputId={'totalStock'} name={'totalStock'} id={'totalStock'} placeholderMsg={'총재고량'} required/>
             </div>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
               <label htmlFor='safetyStock' className='label-title'>안전재고:</label>

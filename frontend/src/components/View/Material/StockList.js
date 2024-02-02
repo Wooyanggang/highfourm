@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Modal } from 'antd';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
@@ -8,61 +8,64 @@ import PageTitle from '../../Common/PageTitle';
 
 const StockList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [dataSource, setDataSource] = useState([
-    {
-      key: '0',
-      name: 'Edward King 0',
-      age: 'London, Park Lane no. 1',
-      address: 'g',
-    },
-    {
-      key: '1',
-      name: 'Edward King 1',
-      age: 'London, Park Lane no. 132',
-      address: 'kg',
-    },
-  ]);
+  const [dataSource, setDataSource] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.get('/materials/stock');
+
+        const materialRequest = await res.data.map((rowData) => ({
+          key: rowData.materialId,
+          materialId: rowData.materialId,
+          materialName: rowData.materialName,
+          unit: rowData.unit,
+          totalStock: rowData.totalStock,
+          managementName: rowData.managementName,
+          safetyStock: rowData.safetyStock,
+          maxStock: rowData.maxStock,
+          leadTime: rowData.leadTime,
+        }));
+        setDataSource(materialRequest);
+      } catch (e) {
+        console.error(e.message);
+      }
+    }
+    fetchData();
+  }, []);
 
   const defaultColumnsOne = [
     {
       title: '자재 코드',
-      dataIndex: 'name',
-      width: '20%',
+      dataIndex: 'materialId',
     },
     {
       title: '자재명',
-      dataIndex: 'age',
-      editable: true,
+      dataIndex: 'materialName',
     },
     {
       title: '단위',
-      dataIndex: 'address',
-      editable: true,
+      dataIndex: 'unit',
     },
     {
       title: '총재고량',
-      dataIndex: 'operation',
-      editable: true,
+      dataIndex: 'totalStock',
     },
     {
       title: '재고관리 방식',
-      dataIndex: 'operation',
-      editable: true,
+      dataIndex: 'managementName',
     },
     {
       title: '안전재고',
-      dataIndex: 'operation',
-      editable: true,
+      dataIndex: 'safetyStock',
     },
     {
       title: '최대재고',
-      dataIndex: 'operation',
-      editable: true,
+      dataIndex: 'maxStock',
     },
     {
       title: 'LeadTime',
-      dataIndex: 'operation',
-      editable: true,
+      dataIndex: 'leadTime',
     },
   ];
 
@@ -77,19 +80,22 @@ const StockList = () => {
     console.log(info?.source, value);
   }
 
-  //등록 버튼 클릭 시 모달
+  //원자재 등록 버튼 클릭 시 모달 오픈
   const showModal = () => {
     setIsModalOpen(true);
     document.body.style.overflow = 'hidden';
   };
 
+  const handleStockNewSubmit = () => {
+    setIsModalOpen(false);
+  };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
 
   return (
     <div>
-      <PageTitle value={'재고 현황 조회'} />
+      <PageTitle value={'원자재관리 > 조회/등록'} />
       <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
         <SearchSelectBox selectValue={['자재코드', '자재명', '재고관리 방식']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />
@@ -99,11 +105,11 @@ const StockList = () => {
         <Modal
           title='원자재 등록'
           open={isModalOpen}
-          footer={null} 
+          footer={null}
           onCancel={handleCancel}
           width='50%'
         >
-          <StockNew formAction='/materials/stock/new'  />
+          <StockNew onSubmit={handleStockNewSubmit} />
         </Modal>
       </div>
       <div style={{ width: '1200px', display: 'flex', gap: '10px', flexDirection: 'column' }}>

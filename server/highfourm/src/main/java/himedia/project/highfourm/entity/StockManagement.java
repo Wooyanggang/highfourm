@@ -23,14 +23,16 @@ public class StockManagement {
 	private int managementId;
 	
 	@Column(name = "management_name", length=10 )
-	private String methodName;
+	private String managementName;
 	
 	@OneToMany(mappedBy = "stockManagement")
 	private List<MaterialStock> materialStocks = new ArrayList<>();
 	
 	@Builder
-	public StockManagement(int managementId, String methodName) {
+	public StockManagement(int managementId, String managementName, List<MaterialStock> materialStocks) {
 		this.managementId = managementId;
-		this.methodName = methodName;
+		this.managementName = managementName;
+		this.materialStocks = materialStocks;
 	}
+	
 }

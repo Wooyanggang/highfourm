@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
@@ -6,88 +7,118 @@ import PageTitle from '../../Common/PageTitle';
 
 const MaterialOrderHistory = () => {
 
-  const [dataSource, setDataSource] = useState([
-    {
-      key: '0',
-      name: 'Edward King 0',
-      age: '32',
-      address: 'London, Park Lane no. 0',
-    },
-    {
-      key: '1',
-      name: 'Edward King 1',
-      age: '32',
-      address: 'London, Park Lane no. 1',
-    },
-    {
-      key: '2',
-      name: 'Edward King 1',
-      age: '32',
-      address: 'London, Park Lane no. 1',
-    },
-  ]);
+  const [dataSource, setDataSource] = useState([]);
+  const [waitingData, setWaitingData] = useState([]);
+  const [completedData, setCompletedData] = useState([]);
+
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.get('/materials/order-history');
+
+        const materialRequest = await res.data.map((rowData) => ({
+          key: rowData.materialHistoryId,
+          materialHistoryId: rowData.materialHistoryId,
+          orderDate: rowData.orderDate,
+          recievingDate: rowData.recievingDate,
+          materialId: rowData.materialId,
+          materialName: rowData.materialName,
+          standard: rowData.standard,
+          unit: rowData.unit,
+          supplier: rowData.supplier,
+          restStock: rowData.restStock,
+          materialInventory: rowData.materialInventory,
+          usedAmount: rowData.LeausedAmountdTime,
+          inboundAmount: rowData.inboundAmount,
+          orderAmount: rowData.orderAmount,
+          unitPrice: rowData.unitPrice,
+          note: rowData.note,
+          totalPrice: rowData.totalPrice,
+        }));
+        setDataSource(materialRequest);
+        filterData(materialRequest)
+      } catch (e) {
+        console.error(e.message);
+      }
+    }
+    fetchData();
+  }, []);
+
+  const filterData = (data) => {
+    const waitingData = data.filter(item => !item.inboundAmount && !item.recievingDate);
+    const completedData = data.filter(item => item.inboundAmount && item.recievingDate);
+
+    setWaitingData(waitingData);
+    setCompletedData(completedData);
+  };
+
 
   const defaultColumnsOne = [
     {
+      title: '발주코드',
+      dataIndex: 'materialHistoryId',
+      render: (text, record) => <a href = {`/materials/order-history/edit/${record.materialHistoryId}`}>{text}</a>,
+    },
+    {
       title: '발주일',
-      dataIndex: 'name',
-      width: '20%',
+      dataIndex: 'orderDate',
     },
     {
       title: '입고일',
-      dataIndex: 'age',
+      dataIndex: 'recievingDate',
     },
     {
       title: '자재코드',
-      dataIndex: 'address',
+      dataIndex: 'materialId',
     },
     {
       title: '자재명',
-      dataIndex: 'operation',
+      dataIndex: 'materialName',
     },
     {
       title: '규격/사양',
-      dataIndex: 'operation',
+      dataIndex: 'standard',
     },
     {
       title: '단위',
-      dataIndex: 'operation',
+      dataIndex: 'unit',
     },
     {
       title: '공급처',
-      dataIndex: 'operation',
+      dataIndex: 'supplier',
     },
     {
       title: '이월재고량',
-      dataIndex: 'operation',
+      dataIndex: 'restStock',
     },
     {
       title: '재고량',
-      dataIndex: 'operation',
+      dataIndex: 'materialInventory',
     },
     {
       title: '사용량',
-      dataIndex: 'operation',
+      dataIndex: 'usedAmount',
     },
     {
       title: '입고량',
-      dataIndex: 'operation',
+      dataIndex: 'inboundAmount',
     },
     {
       title: '발주량',
-      dataIndex: 'operation',
+      dataIndex: 'orderAmount',
     },
     {
       title: '입고 단가',
-      dataIndex: 'operation',
+      dataIndex: 'unitPrice',
     },
     {
       title: '금액',
-      dataIndex: 'operation',
+      dataIndex: 'totalPrice',
     },
     {
       title: '비고',
-      dataIndex: 'operation',
+      dataIndex: 'note',
     },
   ];
 
@@ -101,52 +132,41 @@ const MaterialOrderHistory = () => {
     // search 값 기능 구현 함수
     console.log(info?.source, value);
   }
-
-  const [count, setCount] = useState(dataSource.length);
-  const handleAdd = () => {
-    const newData = {
-      key: count,
-      name: `Edward King ${count}`,
-      age: '32',
-      address: `London, Park Lane no. ${count}`,
-    };
-    setDataSource([...dataSource, newData]);
-    setCount(count + 1);
-  };
+  const onClick = () => {
+    window.location.href = '/materials/order-history/new'
+  }
 
   return (
     <div>
-      <PageTitle value={'원자재 관리 < 원자재 수급 내역 관리'}/>
+      <PageTitle value={'원자재 관리 < 수급 내역 관리'}/>
       <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
         <SearchSelectBox selectValue={['자재코드', '자재명', '발주일', '입고일']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />
       </div>
       <div style={{ marginBottom: '24px' }}>
-        <BtnBlack value={'수급내역 등록'} onClick={handleAdd} />
+        <BtnBlack value={'수급내역 등록'} onClick={onClick} />
       </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div style={{ border: '1px solid #d9d9d9', padding: '40px 45px', marginBottom: '20px' }}>
+        <div style={{ border: '1px solid #d9d9d9', padding: '30px 35px', marginBottom: '20px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <h2 style={{ fontSize: '16px', display: 'inline-block' }}>입고대기</h2>
             <hr style={{ color: '#000', width: '520px', marginLeft: '20px' }} />
           </div>
           <div style={{ marginTop: '20px', height: '300px', overflowY: 'auto' }}>
-            <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
+            <BasicTable dataSource={waitingData} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
           </div>
         </div>
-        <div style={{ border: '1px solid #d9d9d9', padding: '40px 45px', marginBottom: '20px' }}>
+        <div style={{ border: '1px solid #d9d9d9', padding: '30px 35px', marginBottom: '20px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <h2 style={{ fontSize: '16px', display: 'inline-block' }}>입고완료</h2>
             <hr style={{ color: '#000', width: '520px', marginLeft: '20px' }
             } />
           </div>
           <div style={{ marginTop: '20px', height: '300px', overflowY: 'auto' }}>
-            <BasicTable dataSource={dataSource} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
+            <BasicTable dataSource={completedData} defaultColumns={defaultColumnsOne} setDataSource={setDataSource} />
           </div>
         </div>
       </div>
-
-      {/* </ Container> */}
     </div>
   )
 }

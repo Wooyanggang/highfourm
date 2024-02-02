@@ -48,7 +48,7 @@ const SideBar = () => {
     // 이 예시에 맞게 로직을 수정하여 사용하시기 바랍니다.
     if (url === '/materials/stock') {
       return '1';
-    } else if (url === '/materials/order-history') {
+    } else if (url === '/materials/order-history' || url === '/materials/order-history/new') {
       return '2';
     } else if (url === '/bom') {
       return '3';
