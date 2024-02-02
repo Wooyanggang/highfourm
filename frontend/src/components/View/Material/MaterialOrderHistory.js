@@ -44,7 +44,7 @@ const MaterialOrderHistory = () => {
     {
       title: '발주코드',
       dataIndex: 'materialHistoryId',
-      render: (text) => <a href={`/users/edit/${dataSource.empNo}`}>{text}</a>,
+      render: (text, record) => <a href = {`/materials/order-history/edit/${record.materialHistoryId}`}>{text}</a>,
     },
     {
       title: '발주일',

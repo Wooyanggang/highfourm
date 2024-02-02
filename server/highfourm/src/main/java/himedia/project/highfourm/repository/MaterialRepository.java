@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import himedia.project.highfourm.entity.Material;
 
-@Repository
 public interface MaterialRepository extends JpaRepository<Material, String> {
 	
 }

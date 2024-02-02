@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import himedia.project.highfourm.dto.material.MaterialListResponseDTO;
+import himedia.project.highfourm.dto.material.MaterialOrderEditFormDTO;
 import himedia.project.highfourm.dto.material.MaterialOrderListDTO;
 import himedia.project.highfourm.dto.material.MaterialOrderRequestDTO;
 import himedia.project.highfourm.dto.material.MaterialOrderResponseDto;
@@ -53,43 +55,36 @@ public class MaterialController {
 		
 		return MaterialList;
 	}
-	/**
-	 * 수급내역 리스트 조회
-	 */
-//	@GetMapping("/materials/order-history")
-//	public String getdMaterialHistoryList() {
-//		
-//		return "redirect:http://localhost:3000/materials/order-history";
-//	}
-	/**
-	 * 
-	 */
-	@GetMapping("/materials/order-history")
-	public List<MaterialOrderResponseDto> getdMaterialHistoryListTest() {
-		 List<MaterialOrderResponseDto> m =materialService.getMaterialOrderList();
-		return m;
-	}
-	
+
 	/**
 	 * 수급내역 등록
 	 */
 	@PostMapping("/materials/order-history/new")
 	public String addMaterialHistory(@RequestBody MaterialOrderRequestDTO orderRequestDTO) {
-		
 		log.info("자재코드 >>> {}", orderRequestDTO.getMaterialId());
 		materialService.saveMaterialhistory(orderRequestDTO);
+
 		return "redirect:http://localhost:3000/materials/order-history";
 	}
 	
 	/**
-	 * 수급내역 수정
+	 * 입고내역 등록
 	 */
-	@GetMapping("/materials/order-history/{orderHistoryId}")
-	public String getdMaterialHistory() {
-		
-		return "redirect:http://localhost:3000/materials/order-history";
+	@GetMapping("/materials/order-history/edit/{orderHistoryId}")
+	public MaterialOrderEditFormDTO getdMaterialHistory(@PathVariable(name ="orderHistoryId") Long orderHistoryId) {
+		//System.out.println(materialService.getMaterialhistoryInfo(orderHistoryId).getMaterialId());
+		return materialService.getMaterialhistoryInfo(orderHistoryId);
 	}
 	
+	/**
+	 * 수급내역 리스트 조회
+	 */
+	
+	@GetMapping("/materials/order-history")
+	public List<MaterialOrderResponseDto> getdMaterialHistoryList() {
+		List<MaterialOrderResponseDto> mateiralOderList =materialService.getMaterialOrderList();
+		return mateiralOderList;
+	}
 	
 	
 	

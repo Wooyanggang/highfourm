@@ -54,7 +54,7 @@ const MaterialOrderHistoryNew = () => {
         <div className='flex-line'>
           <div className='flex-div'>
             <label htmlFor='empNo' className='label-title'>발주일</label>
-            <InputBar type={'date'} id={'orderDate'} name={'orderDate'} placeholderMsg={'발주일'} onChange={onChange} required />
+            <InputBar type={'date'}  id={'orderDate'} name={'orderDate'} placeholderMsg={'발주일'} onChange={onChange} required />
           </div>
           <div className='flex-div'>
             <label htmlFor='userName' className='label-title'>자재코드</label>
@@ -68,7 +68,7 @@ const MaterialOrderHistoryNew = () => {
           </div>
           <div className='flex-div'>
             <label htmlFor='birth' className='label-title'>공급처</label>
-            <InputBar id={'supplier'} name={'supplier'} placeholderMsg={'공급처'} onChange={onChange} required />
+            <InputBar id={'supplier'} name={'supplier'} placeholderMsg={'공급처'} onChange={onChange} required={true} />
           </div>
         </div>
         <div className='flex-line'>

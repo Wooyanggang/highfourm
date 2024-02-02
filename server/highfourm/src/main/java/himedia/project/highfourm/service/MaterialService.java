@@ -7,11 +7,13 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import himedia.project.highfourm.dto.material.MaterialListResponseDTO;
+import himedia.project.highfourm.dto.material.MaterialOrderEditFormDTO;
 import himedia.project.highfourm.dto.material.MaterialOrderListDTO;
 import himedia.project.highfourm.dto.material.MaterialOrderRequestDTO;
 import himedia.project.highfourm.dto.material.MaterialOrderResponseDto;
 import himedia.project.highfourm.dto.material.MaterialRequestDTO;
 import himedia.project.highfourm.entity.Material;
+import himedia.project.highfourm.entity.MaterialHistory;
 import himedia.project.highfourm.entity.StockManagement;
 import himedia.project.highfourm.repository.MaterialHistoryRepository;
 import himedia.project.highfourm.repository.MaterialRepository;
@@ -63,4 +65,27 @@ public class MaterialService {
 
 	    return materialOrderResponseDtos;
 	}
+	
+	// 입고내역 등록화면 조회
+	public MaterialOrderEditFormDTO getMaterialhistoryInfo(Long materialHistoryId) {
+		Optional<MaterialHistory> materialHistory = historyRepository.findById(materialHistoryId);
+		//Optional<MaterialHistory> materialHistory = historyRepository.findByMaterialHistoryId(materialHistoryId);
+		//MaterialHistory를 MaterialOrderResponseDTO로 변환
+		MaterialHistory material = materialHistory.get();
+			
+		return MaterialOrderEditFormDTO.builder()
+				.materialHistoryId(material.getMaterialHistoryId())
+				.orderDate(material.getOrderDate())
+				.recievingDate(material.getRecievingDate())
+				.materialId(material.getMaterial().getMaterialId())
+				.standard(material.getStandard())
+				.supplier(material.getSupplier())
+				.inboundAmount(material.getInboundAmount())
+				.orderAmount(material.getOrderAmount())
+				.unitPrice(material.getUnitPrice())
+				.note(material.getNote())
+				.build();
+		
+	}
+	
 }
