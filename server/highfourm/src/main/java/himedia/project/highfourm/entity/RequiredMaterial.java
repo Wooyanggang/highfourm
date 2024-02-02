@@ -22,11 +22,11 @@ public class RequiredMaterial {
 	
 	@MapsId
 	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)
+	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
 	private Product product;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "material_id", referencedColumnName = "material_id", unique = true)
+	@JoinColumn(name = "material_id", referencedColumnName = "material_id")
 	private Material material;
 	
 	@Column(name = "input_process")

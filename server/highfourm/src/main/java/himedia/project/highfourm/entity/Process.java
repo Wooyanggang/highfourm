@@ -18,10 +18,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "process")
 public class Process {
 	@Id
-	@Column(name = "process_id", unique = true)
+	@Column(name = "process_id")
 	private String processId;
 	@OneToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "product_id", referencedColumnName = "product_id", unique = true)	
+	@JoinColumn(name = "product_id", referencedColumnName = "product_id")	
 	private Product product;
 	@Column(name = "sequence")
 	private Long sequence;

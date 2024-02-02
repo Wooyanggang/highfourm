@@ -2,6 +2,7 @@ package himedia.project.highfourm.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import java.util.stream.IntStream;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import himedia.project.highfourm.dto.ProductionPlanDTO;
 import himedia.project.highfourm.dto.orders.OrderDetailDTO;
 import himedia.project.highfourm.dto.orders.OrderDetailFormDTO;
 import himedia.project.highfourm.dto.orders.OrdersAndDetailsDTO;
@@ -86,6 +88,10 @@ public class OrderService {
 
 	    ordersRepository.save(orders);
 	    orderDetails.stream()
-	    	.forEach(e -> orderDetailRepository.save(e));;
+	    	.forEach(e -> orderDetailRepository.save(e));
+//	    List<ProductionPlanDTO> productionPlanDTOs = new ArrayList<>();
+//	    for(OrderDetail i: orderDetails) {
+//	    	productionPlanDTOs.add(new Pro)
+//	    }
+	    }
    }
-}

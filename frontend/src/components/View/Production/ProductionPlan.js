@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Container from '../../Common/PageTitle';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
+import axios from 'axios';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
 import PageTitle from '../../Common/PageTitle';
@@ -9,6 +10,21 @@ const ProductionPlan = () => {
 
   const [productionPlan, setProductionPlan] = useState([]);
   const [monthlyProductionPlan, setMonthlyProductionPlan] = useState([]);
+
+  useEffect(() => {
+    axios.get('/production-plan')
+      .then(res => {
+        const productionPlan = res.data;
+        if (productionPlan) {
+          setProductionPlan(productionPlan);
+        } else {
+          console.log('No production plan data received:', res.data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
   const productionPlanColumns = [
     {

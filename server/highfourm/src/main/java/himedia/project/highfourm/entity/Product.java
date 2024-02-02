@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Table(name = "product")
 public class Product {
 	@Id
-	@Column(name = "product_id", unique = true)
+	@Column(name = "product_id")
 	private String productId;
 	
 	@Column(name = "product_name", unique = true)
@@ -28,10 +28,10 @@ public class Product {
 	
 	@Column(name = "update_date")
 	private String updateDate;
-
+	
 	@Builder
 	public Product(String productId, String productName, String writeDate, String updateDate) {
-		super();
+//		super();
 		this.productId = productId;
 		this.productName = productName;
 		this.writeDate = writeDate;
