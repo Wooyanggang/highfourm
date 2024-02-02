@@ -1,16 +1,21 @@
 package himedia.project.highfourm.entity;
 
+import himedia.project.highfourm.dto.RequiredMaterialDTO;
 import himedia.project.highfourm.entity.pk.RequiredMaterialPK;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "required_material")
 public class RequiredMaterial {
 	
@@ -21,5 +26,15 @@ public class RequiredMaterial {
 	private String inputProcess;
 	
 	@Column(name = "input_amount")
-	private String inputAmount;
+	private Long inputAmount;
+	
+	public RequiredMaterialDTO toRequiredMaterialDTO() {
+		return RequiredMaterialDTO
+				.builder()
+				.productId(requriedMaterialPK.getProduct().getProductId())
+				.materialId(requriedMaterialPK.getMaterial().getMaterialId())
+				.inputProcess(inputProcess)
+				.inputAmount(inputAmount)
+				.build();
+	}
 }

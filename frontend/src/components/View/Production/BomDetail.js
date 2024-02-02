@@ -4,10 +4,9 @@ import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import PageTitle from '../../Common/PageTitle';
 import { calc } from 'antd/es/theme/internal';
 import KeyTable from '../../Common/Table/KeyTable';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function BomDetail() {
-  const navigate = useNavigate();
   const { productId } = useParams();
   const [dataProduct, setDataProduct] = useState([]);
   const [dataProcess, setDataProcess] = useState([]);
@@ -17,18 +16,18 @@ function BomDetail() {
     fetch(`/bom/detail/${productId}`)
     .then(response => response.json())
     .then(result => {
-        // console.log(result);
+        console.log(result);
         const newDataProduct = result["product"].map((item, index) => ({ key: index, ...item }));
         setDataProduct(newDataProduct);
-        // console.log(result["product"]);
+        console.log(result["product"]);
         // console.log(result["process"]);
         if (result["process"]) {
           const newDataProcess = result["process"].map((item, index) => ({ key: index, ...item }));
           setDataProcess(newDataProcess);
         }
-        if (result["requiredMaterial"]) {
-          const newDataRequiredMaterial = result["requiredMaterial"].map((item, index) => ({ key: index, ...item }));
-          setDataProcess(newDataRequiredMaterial);
+        if (result["bomRequiredMaterial"]) {
+          const newDataRequiredMaterial = result["bomRequiredMaterial"].map((item, index) => ({ key: index, ...item }));
+          setDataRequiredMaterial(newDataRequiredMaterial);
         }
       })
       .catch(error => {

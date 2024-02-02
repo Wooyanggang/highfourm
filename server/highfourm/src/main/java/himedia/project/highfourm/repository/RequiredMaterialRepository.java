@@ -12,15 +12,14 @@ import lombok.RequiredArgsConstructor;
 @Repository
 public class RequiredMaterialRepository {
 	
-	private EntityManager em;
+	private final EntityManager em;
 	
-	public List<BomRequiredMaterialDTO> findByMaterialId(String materialId) {
-		String sql = "select rm.materialId, rm.inputProcess, m.materialName, rm.inputAmount" 
-				+ "from RequiredMaterial rm"
-				+ "left join requiredMaterial.Material m"
-				+ "where rm.materialId like :materialId";
+	public List<BomRequiredMaterialDTO> findByProductId(String productId) {
+		String sql = "select rm.requriedMaterialPK.material.materialId, rm.inputProcess, rm.requriedMaterialPK.material.materialName, rm.inputAmount " 
+	            + "from RequiredMaterial rm "
+	            + "where rm.requriedMaterialPK.product.productId like :productId";
 		List<BomRequiredMaterialDTO> result = em.createQuery(sql, BomRequiredMaterialDTO.class)
-				.setParameter("materialId", materialId).getResultList();
+				.setParameter("productId", productId).getResultList();
 		return result;
 	}
 }

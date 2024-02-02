@@ -10,11 +10,11 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class RequiredMaterial {
+public class RequiredMaterialService {
 	private final RequiredMaterialRepository requiredMaterialRepository;
 	
-	public List<BomRequiredMaterialDTO> findByMaterialId(String materialId){
-		return requiredMaterialRepository.findByMaterialId(materialId);
+	public List<BomRequiredMaterialDTO> findByProductId(String productId){
+		return requiredMaterialRepository.findByProductId(productId);
 	}
 
 }

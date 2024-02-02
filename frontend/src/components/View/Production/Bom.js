@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Modal } from 'antd';
 import BasicTable from '../../Common/Table/BasicTable';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import PageTitle from '../../Common/PageTitle';
 import { calc } from 'antd/es/theme/internal';
 import KeyTable from '../../Common/Table/KeyTable';
 import { useNavigate, useParams } from 'react-router-dom';
+import BomNew from './BomNew';
 
 function Bom() {
   const navigate = useNavigate();
@@ -12,13 +14,10 @@ function Bom() {
   const [dataProduct, setDataProduct] = useState([]);
   const [dataProcess, setDataProcess] = useState([]);
   const [dataRequiredMaterial, setDataRequiredMaterial] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   useEffect(() => {
-    let currentUrl = '/bom';
-    if (productId) {currentUrl = `/bom/detail/${productId}`}
-    fetch(`/bom/detail/${productId}`)
-    // const currentUrl = '/bom';
-    fetch(currentUrl)
+    fetch('/bom')
     .then(response => response.json())
     .then(result => {
       if (result["product"]) {
@@ -109,6 +108,18 @@ function Bom() {
     console.log(info?.source, value);
   }
 
+  const showModal = () => {
+    setIsModalOpen(true);
+    // document.body.style.overflow = 'hidden';
+  };
+
+  const handleBomNewSubmit = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className='bom-page'>
       <PageTitle value={'제품별 공정/소요자재 관리'}/>
@@ -118,7 +129,16 @@ function Bom() {
         <SearchInput onSearch={onSearch} />
       </div>
       <div className='add-btn'>
-        <BtnBlack value={"항목 추가"} type="primary" />
+        <BtnBlack value={"항목 추가"} onClick={showModal} />
+        <Modal
+          title='제품별 공정/소요자재 등록'
+          open={isModalOpen}
+          footer={null}
+          onCancel={handleCancel}
+          width='50%'
+        >
+          <BomNew onSubmit={handleBomNewSubmit} />
+        </Modal>
       </div>
       <div style={{ display: 'flex', gap: '24px 19px' }}>
         <div className='table-box'>
@@ -127,6 +147,7 @@ function Bom() {
           defaultColumns={defaultColumnsProduct} 
           setDataSource={setDataProduct}
           pagination={false}
+          url="bom/detail"
           keyName="productId"
           />
         </div>
@@ -139,7 +160,7 @@ function Bom() {
             <BasicTable 
             dataSource={dataProcess} 
             defaultColumns={defaultColumnsProcess} 
-            setDataSource={setDataProduct} 
+            setDataSource={setDataProcess} 
             pagination={false}
             />
           </div>
