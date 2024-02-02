@@ -120,7 +120,7 @@ function WorkPerfomanceNew() {
   return (
     <div className='work-perfomance-page'>
       <PageTitle value={'생산 실적 상세 조회'}/>
-        <div style={{width: '1600px'}}>
+        <div>
           <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} />
         </div>
     </div>

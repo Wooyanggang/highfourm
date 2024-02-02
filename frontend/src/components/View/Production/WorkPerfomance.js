@@ -144,7 +144,7 @@ function WorkPerfomance() {
             <BtnGray value={'검색'}> type={'button'}</BtnGray>
           </div>
         </form>
-        <div style={{width: '1600px'}}>
+        <div>
           <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} />
         </div>
     </div>

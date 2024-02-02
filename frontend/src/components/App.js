@@ -30,6 +30,7 @@ import PerfomanceControllChart from './View/Production/PerfomanceControllChart';
 import Test from './View/Test';
 import '../App.css'
 import axios from 'axios';
+import BomDetail from './View/Production/BomDetail';
 const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
@@ -82,6 +83,7 @@ function App() {
                 <Route path='/mrp/search/:productionPlanId' element={<MrpSearch />} />
                 <Route path='/production-management' element={<ProductManagement />} />
                 <Route path='/bom' element={<Bom />} />
+                <Route path='/bom/detail/:productId' element={<BomDetail />} />
                 <Route path='/production-status' element={<Status />} />
                 <Route path='/work-perfomance' element={<WorkPerfomance />} />
                 <Route path='/work-perfomance/new' element={<WorkPerfomanceNew />} />

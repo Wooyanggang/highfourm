@@ -1,31 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { Modal } from 'antd';
 import BasicTable from '../../Common/Table/BasicTable';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import PageTitle from '../../Common/PageTitle';
 import { calc } from 'antd/es/theme/internal';
 import KeyTable from '../../Common/Table/KeyTable';
-import { useNavigate, useParams } from 'react-router-dom';
-import BomNew from './BomNew';
+import { useParams } from 'react-router-dom';
 
-function Bom() {
-  const navigate = useNavigate();
+function BomDetail() {
   const { productId } = useParams();
   const [dataProduct, setDataProduct] = useState([]);
   const [dataProcess, setDataProcess] = useState([]);
   const [dataRequiredMaterial, setDataRequiredMaterial] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   
   useEffect(() => {
-    fetch('/bom')
+    fetch(`/bom/detail/${productId}`)
     .then(response => response.json())
     .then(result => {
-      if (result["product"]) {
-        const newData = result["product"].map((item, index) => ({ key: index, ...item }));
-        setDataProduct(newData);
-      } else{
-        setDataProduct(result["product"]);
-      }
+        console.log(result);
+        const newDataProduct = result["product"].map((item, index) => ({ key: index, ...item }));
+        setDataProduct(newDataProduct);
+        console.log(result["product"]);
+        // console.log(result["process"]);
+        if (result["process"]) {
+          const newDataProcess = result["process"].map((item, index) => ({ key: index, ...item }));
+          setDataProcess(newDataProcess);
+        }
+        if (result["bomRequiredMaterial"]) {
+          const newDataRequiredMaterial = result["bomRequiredMaterial"].map((item, index) => ({ key: index, ...item }));
+          setDataRequiredMaterial(newDataRequiredMaterial);
+        }
       })
       .catch(error => {
         console.error('데이터를 가져오는 중 오류 발생:', error);
@@ -108,18 +111,6 @@ function Bom() {
     console.log(info?.source, value);
   }
 
-  const showModal = () => {
-    setIsModalOpen(true);
-    // document.body.style.overflow = 'hidden';
-  };
-
-  const handleBomNewSubmit = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
   return (
     <div className='bom-page'>
       <PageTitle value={'제품별 공정/소요자재 관리'}/>
@@ -129,26 +120,15 @@ function Bom() {
         <SearchInput onSearch={onSearch} />
       </div>
       <div className='add-btn'>
-        <BtnBlack value={"항목 추가"} onClick={showModal} />
-        <Modal
-          title='제품별 공정/소요자재 등록'
-          open={isModalOpen}
-          footer={null}
-          onCancel={handleCancel}
-          width='50%'
-        >
-          <BomNew onSubmit={handleBomNewSubmit} />
-        </Modal>
+        <BtnBlack value={"항목 추가"} type="primary" />
       </div>
       <div style={{ display: 'flex', gap: '24px 19px' }}>
         <div className='table-box'>
-          <KeyTable
+          <BasicTable
           dataSource={dataProduct} 
           defaultColumns={defaultColumnsProduct} 
           setDataSource={setDataProduct}
           pagination={false}
-          url="bom/detail"
-          keyName="productId"
           />
         </div>
         <div className='bordered-box'>
@@ -160,7 +140,7 @@ function Bom() {
             <BasicTable 
             dataSource={dataProcess} 
             defaultColumns={defaultColumnsProcess} 
-            setDataSource={setDataProcess} 
+            setDataSource={setDataProduct} 
             pagination={false}
             />
           </div>
@@ -182,4 +162,4 @@ function Bom() {
   );
 }
 
-export default Bom
+export default BomDetail

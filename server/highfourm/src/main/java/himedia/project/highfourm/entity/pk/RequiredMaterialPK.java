@@ -8,13 +8,16 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Embeddable
 @EqualsAndHashCode
-@Getter @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class RequiredMaterialPK implements Serializable {
 
 	/**
