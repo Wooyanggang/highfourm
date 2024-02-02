@@ -43,7 +43,8 @@ a {
 }
 
 .field-error {
-	color: #f00;
+	color: #dc3545;
+	font-size: .875em;
 }
 </style>
 </head>
@@ -51,54 +52,95 @@ a {
 <body>
 	<div class="container">
 		<div class="input-form col-md-12 mx-auto">
-			<!-- <h2 class="mb-3 fw-bold">사용자 등록</h2> -->
-			<form method="post" th:action="@{http://localhost:3000/hi}" class="validation-form"
-				novalidate>
+			<h2 class="mb-3 fw-bold">사용자 등록</h2>
+			<form method="POST" th:action="@{/users/new}" th:object="${userAddDTO}" class="needs-validation" novalidate>
 				<div class="row">
 					<div class="col-md-6 mb-3">
 						<label for="empNo" class="form-label col fw-bold">사번</label> 
 						<input type="text" id="empNo" name="empNo" placeholder="사번" class="form-control col" required />
-						<!--<div th:if="${#fields.hasErrors('empNo')}" th:errors="*{empNo}" class="field-error">incorrect data</div>-->
+						<div class="invalid-feedback">사번을 입력해주세요</div>
+						<div th:if="${#fields.hasErrors('empNo')}" th:errors="*{empNo}" class="field-error">사번을 입력해주세요</div>
 					</div>
 					<div class="col-md-6 mb-3">
 						<label for="userName" class="form-label col fw-bold">이름</label> 
 						<input type="text" id="userName" name="userName" placeholder="이름" class="form-control col" required />
-						<!--<div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="field-error">incorrect data</div>-->
+						<div class="invalid-feedback">이름을 입력해주세요</div>
+						<div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="field-error">이름을 입력해주세요</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 mb-3">
 						<label for="position" class="form-label col fw-bold">직급</label> 
 						<input type="text" id="position" name="position" placeholder="직급" class="form-control col" required />
-						<!--<div th:if="${#fields.hasErrors('position')}" th:errors="*{position}" class="field-error">incorrect data</div>-->
+						<div class="invalid-feedback">직급을 입력해주세요</div>
+						<div th:if="${#fields.hasErrors('position')}" th:errors="*{position}" class="field-error">직급을 입력해주세요</div>
 					</div>
 					<div class="col-md-6 mb-3">
 						<label for="birth" class="form-label col fw-bold">생년월일</label> 
 						<input type="date" id="birth" name="birth" placeholder="생년월일" class="form-control col" required />
-						<!--<div th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}" class="field-error">incorrect data</div>-->
+						<div class="invalid-feedback">생년월일을 입력해주세요</div>
+						<div th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}" class="field-error">생년월일을 입력해주세요</div>
 					</div>
 				</div>
 				<div class="mb-3">
 					<label for="email" class="form-label col fw-bold">이메일 주소</label> 
 					<input type="email" id="email" name="email" placeholder="이메일 주소" class="form-control col" required />
-					<!--<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="field-error">incorrect data</div>-->
+					<div class="invalid-feedback">이메일을 입력해주세요</div>
+					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="field-error">이메일을 입력해주세요</div>
 				</div>
 				<div class="mb-4">
 					<label for="emailCheck" class="form-label col fw-bold">이메일 주소 확인</label> 
-					<input type="email" id="emailCheck" name="emailCheck" placeholder="이메일 주소 확인" class="form-control col" required />
-					<!--<div th:if="${email.value != emailCheck.value}" class="field-error">
-							이메일이 일치하지 않습니다.
-						</div>-->
+					<input type="email" id="emailCheck" name="emailCheck" placeholder="이메일 주소 확인" class="form-control col" onchange="onChange()" required />
+					 <div class="invalid-feedback">이메일을 확인해주세요</div>
 				</div>
 				<div class="mb-4 mt-4">
 					<button type="submit" id="submitBtn" class="btn btn-primary btn-lg">등록하기</button>
 					<button type="button" onclick="history.back()"
-						class="btn btn-light btn-lg ms-2">취소</button>
+						class="btn btn-light btn-lg ms-2">이전</button>
 				</div>
 			</form>
 		</div>
 	</div>
+	<script type="text/javascript">
+		const email = document.getElementById("email");
+		const emailCheck = document.getElementById("emailCheck");
 
+		const onChange = () => {
+		    const errorDiv = document.getElementById("emailError");
+
+		    if (email.value !== emailCheck.value && emailCheck.value !== null) {
+		        if (!errorDiv) {
+		            const div = document.createElement('div');
+		            div.className = 'field-error';
+		            div.id = 'emailError';
+		            div.textContent = '이메일이 일치하지 않습니다.';
+		            emailCheck.parentNode.appendChild(div);
+		        }
+		    } else {
+		        if (errorDiv) {
+		            errorDiv.remove();
+		        }
+		    }
+		}
+		
+		(function () {
+			  'use strict'
+
+			  var forms = document.querySelectorAll('.needs-validation')
+
+			  Array.prototype.slice.call(forms)
+			    .forEach(function (form) {
+			      form.addEventListener('submit', function (event) {
+			        if (!form.checkValidity()) {
+			          event.preventDefault()
+			          event.stopPropagation()
+			        }
+
+			        form.classList.add('was-validated')
+			      }, false)
+			    })
+			})()
+	</script>
 </body>
 
 </html>

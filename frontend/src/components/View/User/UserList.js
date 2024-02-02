@@ -18,6 +18,7 @@ const UserList = () => {
 
         const userData = await res.data.map((rowData) => ({
           key: rowData.userNo,
+          user_no: rowData.userNo,
           user_name: rowData.userName,
           emp_no: rowData.empNo,
           email: rowData.email,
@@ -56,12 +57,12 @@ const UserList = () => {
       title: '사원명',
       dataIndex: 'user_name',
       width: '20%',
-      render: (text, record) => <a href={`/users/edit/${record.key}`}>{text}</a>,
+      render: (text, record) => <a href={`/users/edit/${record.user_no}`}>{text}</a>,
     },
     {
       title: '사번',
       dataIndex: 'emp_no',
-      render: (text, record) => <a href={`/users/edit/${record.key}`}>{text}</a>,
+      render: (text, record) => <a href={`/users/edit/${record.user_no}`}>{text}</a>,
     },
     {
       title: '이메일',

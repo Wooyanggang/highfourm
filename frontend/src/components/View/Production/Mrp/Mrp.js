@@ -10,6 +10,7 @@ const Mrp = () => {
   const [dataPlan, setDataPlan] = useState([]);
   const [dataRequiredMaterial, setDataRequiredMaterial] = useState([]);
   const [searchValue, setSearchValue] = useState([]);
+  const { productionPlanId } = useParams();
 
   useEffect(() => {
     fetch('/mrp')
@@ -37,19 +38,28 @@ const Mrp = () => {
   };
 
   const onSearchChange = (value) => {
-    setSearchValue(value);
+    const processedValue = Array.isArray(value) ? value.join(',') : value;
+    setSearchValue(processedValue);
+    console.log(processedValue);
   }
 
   const onSearch = async () => {
+    console.log('searchhType', searchType, 'searchValue', searchValue);
     try {
-      const res = axios({
+      let encodedSearchValue = searchValue;
+      if (Array.isArray(searchValue)) {
+        encodedSearchValue = searchValue.join(', ');
+      }
+      const res = await axios({
         method: 'GET',
-        url: '/mrp/search',
-        params: {
-          searchType: searchType, search: searchValue,
-        }
+        url: `/mrp/search?searchType=${encodeURIComponent(searchType.toString())}&search=${encodeURIComponent(encodedSearchValue.toString())}`,
+        // params: {
+        //   searchType: encodeURIComponent(searchType),
+        //   search: encodeURIComponent(searchValue),
+        // }
       })
-      window.location.href = '/mrp/search'
+      console.log('Server Response:', res);
+      // window.location.href = `/mrp/search?searchType=${encodeURIComponent(searchType)}&search=${encodeURIComponent(searchValue)}`;
     } catch (e) {
       console.error(e.message);
     }

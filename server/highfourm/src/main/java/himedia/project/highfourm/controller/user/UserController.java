@@ -41,7 +41,11 @@ public class UserController {
 	public ResponseEntity<List<UserDTO>> searchUserList(@RequestParam(value = "searchType") String searchType, @RequestParam(value = "search") String search) {
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setCacheControl(CacheControl.noStore());
-		List<UserDTO> result = null;
+	    
+	    log.info("searchType : ", searchType);
+	    log.info("search : ", search);
+
+	    List<UserDTO> result = null;
 		
 			if(searchType.equals("사원명")) {
 				result = service.findByUserName(search);
@@ -54,23 +58,8 @@ public class UserController {
 				result = new ArrayList<UserDTO>();
 			}
 		
-		return new ResponseEntity<>(result, headers, HttpStatus.OK);
-	}
-	
-
-
-	@PutMapping("/users/edit/{empNo}")
-	public String updateByUserNo() {
-		return "redirect:/users/edit";
-	}
-	
-	@DeleteMapping("/users/delete/{deleteUserNo}")
-	public String deleteByUserNo(@PathVariable(value = "deleteUserNo") String deleteUserNo) {
-		Long userNo = Long.parseLong(deleteUserNo);
-		
-		log.info("delete : " + deleteUserNo);
-		
-		return "redirect:http://localhost:3000/users";
+//		return new ResponseEntity<>(result, headers, HttpStatus.OK);
+			return ResponseEntity.ok(result);
 	}
 	
 }

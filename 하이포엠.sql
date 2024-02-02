@@ -27,15 +27,15 @@ create table IF NOT EXISTS users (
 	birth date NOT NULL COMMENT '생년월일',
 	email varchar(50) unique NOT NULL COMMENT '이메일',
 	company_id int NOT NULL COMMENT '회사 코드',
-	register_state char(1) default 'N' COMMENT '가입 여부',
-    role char(10) default 'USER' COMMENT '권한',
+	register_state char(1) NOT NULL default 'N' COMMENT '가입 여부',
+    role char(10) NOT NULL default 'USER' COMMENT '권한',
 	primary key(user_no),
 	foreign key (company_id) references company(company_id)
     ON UPDATE CASCADE
 );
 --   drop table users;
-insert into users values (null, '', '', '홍길동', 1000, '사원', '2024-01-01', 'hong333', 1, 'Y', 'USER');
-insert into users values (null, '1', '', '김이박', 1001, '대리', '1990-12-31', 'kimleepark', 2, 'N', 'USER');
+insert into users values (null, '', '', '홍길동', 1000, '사원', '2024-01-01', 'hong333@gmail.com', 1, null, null);
+insert into users values (null, 'id', '', '김이박', 1001, '대리', '1990-12-31', 'kimleepark@naver.com', 2, 'N', 'USER');
 
 select * from users;
 
@@ -49,8 +49,8 @@ create table IF NOT EXISTS orders (
 	order_date date NOT NULL COMMENT '주문일',
     primary key(order_id)
 );
-insert into orders values('주문 코드', '', '', '', '1990-00-00', '', '1991-01-01');
-insert into orders values('주문 코드2', '', '', '', '1990-00-00', '', '1991-01-01');
+insert into orders values('주문 코드', '', '', '1990-00-00', '', '1991-01-01');
+insert into orders values('주문 코드2', '', '', '1990-00-00', '', '1991-01-01');
 
 SELECT *
   FROM INFORMATION_SCHEMA.COLUMNS
@@ -83,6 +83,7 @@ create table IF NOT EXISTS product (
 );
 insert into product values ('제품 코드', '제품명', '2000-01-01', '2000-12-31');
 insert into product values ('제품 코드2', '제품명2', '2000-01-01', '2000-12-31');
+insert into product values ('product_id', 'product_name', '2000-01-01', '2000-12-31');
 
 select * from product;
 
@@ -117,10 +118,12 @@ create table IF NOT EXISTS production_plan (
 -- drop table production_plan;
 insert into production_plan values('생산 계획 코드', '제품 코드', '주문 코드', '', 50, '1234-01-01', '1345-01-01');
 insert into production_plan values('생산 계획 코드2', '제품 코드2', '주문 코드2', '', 30, '1234-01-01', '1345-01-01');
--- insert into production_plan values('생산 계획 코드3', '제품 코드3', '주문 코드', '', 50, '1234-01-01', '1345-01-01');
+insert into production_plan values('plan1', 'product_id', '주문 코드', '', 25, '1990-00-00', '2023-05-10');
 -- insert into production_plan values('생산 계획 코드4', '제품 코드', '주문 코드', '', 10, '1234-01-01', '1345-01-01');
 -- insert into production_plan values('생산 계획 코드5', '제품 코드', '주문 코드2', '', 20, '1234-01-01', '1345-01-01');
 -- insert into production_plan values('생산 계획 코드6', '제품 코드', '주문 코드2', '', 30, '1234-01-01', '1345-01-01');
+
+select * from production_plan;
 
 SELECT *
   FROM INFORMATION_SCHEMA.COLUMNS

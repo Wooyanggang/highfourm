@@ -59,6 +59,9 @@ public class MrpController {
 		Map<String, Object> responseMap = new HashMap<>();
 
 		List<MrpProductionPlanDTO> result = null;
+		
+		  log.info("searchType : ", searchType);
+		    log.info("search : ", search);
 
 		if (searchType.equals("생산계획 코드")) {
 			result = service.findByProductionPlanID(search);
