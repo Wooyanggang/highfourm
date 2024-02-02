@@ -79,5 +79,4 @@ public class MaterialHistory {
         this.note = note;
     }
 
-	
 }

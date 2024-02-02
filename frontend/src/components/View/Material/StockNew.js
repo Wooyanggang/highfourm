@@ -31,10 +31,10 @@ const StockNew = ({  onSubmit, onSubmitSuccess }) => {
       materialName: jsonData.materialName,
       unit: jsonData.unit,
       managementId: parseInt(jsonData.managementId),
-      totalStock: parseInt(jsonData.totalStock), // 형변환
-      safetyStock: parseInt(jsonData.safetyStock),
+      totalStock: 0, 
+      safetyStock: jsonData.managementId === '3' ? 0 : parseInt(jsonData.safetyStock),
       maxStock: parseInt(jsonData.maxStock),
-      leadTime: parseInt(jsonData.LeadTime),
+      leadTime: jsonData.managementId === '3' ? 0 : parseInt(jsonData.LeadTime),
     };
 
     // Send POST request using Axios
@@ -117,9 +117,6 @@ const StockNew = ({  onSubmit, onSubmitSuccess }) => {
             <div className='modal-div' style={{ marginBottom: '15px' }}>
               <label htmlFor='LeadTime' className='label-title'>LeadTime:</label>
               <InputBar inputId={'LeadTime'} name={'LeadTime'} id={'LeadTime'} placeholderMsg={'LeadTime'} disabled={leadTimeDisabled} />
-            </div>
-            <div className='modal-div' style={{ marginBottom: '15px' }}>
-              <InputBar type={'hidden'} inputId={'totalStock'} name={'totalStock'} id={'totalStock'} value={0} required/>
             </div>
           </div>
         </div>

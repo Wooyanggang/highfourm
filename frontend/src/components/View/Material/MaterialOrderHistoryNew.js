@@ -12,7 +12,7 @@ const MaterialOrderHistoryNew = () => {
     orderAmount: '',
     supplier: '',
     standard: '',
-    uniPrice: '',
+    unitPrice: '',
     note: '',
   });
 

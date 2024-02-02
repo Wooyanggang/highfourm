@@ -42,7 +42,7 @@ public class MaterialStock {
 	@Column(name = "max_stock")
 	private Long maxStock;
 	
-	@Column(name = "lead_time", nullable = true)
+	@Column(name = "lead_time")
 	Integer leadTime;
 	
 	@Builder
@@ -55,5 +55,9 @@ public class MaterialStock {
 		this.safetyStock = safetyStock;
 		this.maxStock = maxStock;
 		this.leadTime = leadTime;
+	}
+	
+	public void updateMaterialStock(Long materialInventory) {
+		this.totalStock = materialInventory;
 	}
 }

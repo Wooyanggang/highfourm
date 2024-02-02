@@ -32,6 +32,7 @@ public class MaterialOrderRequestDTO {
 				.standard(standard)
 				.orderAmount(orderAmount)
 				.note(note)
+				.unitPrice(unitPrice)
 				.inboundAmount(inboundAmount)
 				.recievingDate(recievingDate)
 				.build();

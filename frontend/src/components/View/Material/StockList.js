@@ -24,7 +24,7 @@ const StockList = () => {
           managementName: rowData.managementName,
           safetyStock: rowData.safetyStock,
           maxStock: rowData.maxStock,
-          leadTime: rowData.LeadTime,
+          leadTime: rowData.leadTime,
         }));
         setDataSource(materialRequest);
       } catch (e) {

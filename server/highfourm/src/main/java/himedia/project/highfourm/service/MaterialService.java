@@ -35,12 +35,10 @@ public class MaterialService {
 	// 원자재 등록
 	public void saveMaterial(MaterialRequestDTO material) {
 		materialRepository.save(material.toEntityFirst());
-
+		
 		Optional<StockManagement> stockManagement = managementRepository.findById(material.getManagementId());
-		System.out.println("관리방법!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + stockManagement.get().getManagementName());
-		if (stockManagement.isPresent()) {
+		if(stockManagement.isPresent())
 			stockRepository.save(material.toEntitySecond(stockManagement.get()));
-		}
 	}
 
 	// 원자재 리스트 조회
@@ -95,15 +93,23 @@ public class MaterialService {
 	//입고내역 등록
 	@Transactional
 	public void updateMaterialHistory(MaterialOrderEditFormDTO editDTO) {
+		
 		MaterialHistory materialHistory = historyRepository.findById(editDTO.getMaterialHistoryId())
 		        .orElseThrow();
 		
 		//materialInventory 계산&저장 로직 필요
-		MaterialStock materialStock =  stockRepository.findById(editDTO.getMaterialId()).orElseThrow();
-		Long materialInventory = materialStock.getTotalStock()- editDTO.getInboundAmount();
+		Optional<MaterialStock> materialStock =  stockRepository.findById(editDTO.getMaterialId());
+		
+		Long materialInventory = 0L;
+		
+		// material_stock 테이블 total_stock에 입고량 반영 
+		if(materialStock.isPresent()) {
+			materialInventory = materialStock.get().getTotalStock() + editDTO.getInboundAmount();
+			materialStock.get().updateMaterialStock(materialInventory);
+			stockRepository.save(materialStock.get());
+		}
 		
 		materialHistory.updateMaterialHistory(editDTO.getInboundAmount(), materialInventory, editDTO.getRecievingDate(), editDTO.getNote());
-
 
         // 수정된 엔티티 저장
         historyRepository.save(materialHistory);

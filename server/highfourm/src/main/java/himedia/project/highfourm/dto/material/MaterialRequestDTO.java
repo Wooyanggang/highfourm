@@ -19,7 +19,7 @@ public class MaterialRequestDTO {
     private Long totalStock;
     private Long safetyStock;
     private Long maxStock;
-    private Integer leadTime;
+    private int leadTime;
 
     public Material toEntityFirst() {
         return Material.builder()
