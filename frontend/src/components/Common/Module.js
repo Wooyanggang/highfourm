@@ -165,7 +165,22 @@ const onSearch = (value, _e, info) => {
   console.log(info?.source, value);
 }
 
-const SearchInput = ({ id, name, onSearch }) => {
+const SearchInput = ({ id, name, onSearch, onChange }) => {
+  const handleChange = (e) => {
+    // 여기에 로그 추가
+    if (e && e.target && e.target.value !== undefined) {
+      console.log('SearchInput value:', e.target.value);
+      onChange && onChange(e.target.value);
+    }
+  };
+
+  const handleSearch = (value) => {
+    // 여기에 로그 추가
+    if (value && value.target && value.target.value !== undefined) {
+      console.log('SearchInput search:', value);
+      onSearch && onSearch(value);
+    }
+  };
   return (
     <ConfigProvider
       theme={{
@@ -186,7 +201,8 @@ const SearchInput = ({ id, name, onSearch }) => {
           placeholder='검색어를 입력하세요.'
           allowClear
           enterButton='검색'
-          onSearch={onSearch}
+          onSearch={handleChange}
+          onChange={handleSearch}
           style={{ width: '250px' }}
           size='large'
         />

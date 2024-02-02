@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BtnBlue, BtnWhite, InputBar } from '../../Common/Module';
 import axios from 'axios';
@@ -6,15 +6,61 @@ import PageTitle from '../../Common/PageTitle';
 
 const UserNew = () => {
   const navigate = useNavigate();
-  const [newUser, setNewUser] = useState(
-    {
-      empNo: '',
-      userName: '',
-      position: '',
-      birth: '',
-      email: '',
-    });
+  const [htmlContent, setHtmlContent] = useState('');
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [newUser, setNewUser] = useState({
+    empNo: '',
+    userName: '',
+    position: '',
+    birth: '',
+    email: '',
+    emailCheck: '',
+  });
 
+  const [validationErrors, setValidationErrors] = useState({
+    empNo: '',
+    userName: '',
+    position: '',
+    birth: '',
+    email: '',
+    emailCheck: '',
+  });
+
+  useEffect(() => {
+    fetch('http://localhost:8080/users/new')
+      .then(response => response.text())
+      .then(data => setHtmlContent(data));
+  }, []);
+
+  const postBtn = document.querySelector('#submitBtn')
+
+  console.log(postBtn);
+  const postData = (event) => {
+    console.log("데이터 전송 : ", event);
+
+    fetch('http://localhost:8080/users/new', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(event)
+    })
+  }
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+
+    // postBtn.addEventListener('click', postData);
+
+    // const navigate = useNavigate();
+    // const [newUser, setNewUser] = useState(
+    //   {
+    //     empNo: '',
+    //     userName: '',
+    //     position: '',
+    //     birth: '',
+    //     email: '',
+    //   });
+  }
   const onChange = (e) => {
     setNewUser({
       ...newUser,
@@ -42,12 +88,14 @@ const UserNew = () => {
     navigate(-1)
   }
 
-  const email = document.getElementById('email');
-  const emailCheck = document.getElementById('emailCheck');
+  // const email = document.getElementById('email');
+  // const emailCheck = document.getElementById('emailCheck');
 
   return (
     <div>
+      <div dangerouslySetInnerHTML={{ __html: htmlContent }}></div>
       <PageTitle value={'사용자 등록'} />
+      {/* 
       <form id='userForm' method='post' action='/users/new'>
         <div className='flex-line'>
           <div className='flex-div'>
@@ -87,7 +135,7 @@ const UserNew = () => {
           <BtnBlue type='submit' value={'등록하기'} onClick={onClickSubmit} />
           <BtnWhite value={'취소'} onClick={goBackNavigate} />
         </div>
-      </form>
+      </form> */}
     </div>
   )
 }

@@ -1,23 +1,61 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { BtnBlue, BtnWhite, InputBar } from '../../Common/Module';
 import PageTitle from '../../Common/PageTitle';
+import axios from 'axios';
 
 const UserNew = () => {
+  const [htmlContent, setHtmlContent] = useState('');
+  const { userNo } = useParams();
+
+  useEffect(() => {
+    // fetch(`http://localhost:8080/users/edit/${userNo}`)
+    fetch(`/users/edit/${userNo}`)
+      .then(response => response.text())
+      .then(data => setHtmlContent(data));
+  }, []);
+
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState([]);
 
   const goBackNavigate = () => {
     navigate(-1)
   }
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.get(`/users/edit/${userNo}`);
+
+        const newUserInfo = await res.data.map()
+        // const userData = await res.data
+        //   key: rowData.userNo,
+        //   user_name: rowData.userName,
+        //   emp_no: rowData.empNo,
+        //   birth: rowData.birth,
+        //   position: rowData.position,
+        //   email: rowData.email,
+        //   register_state: rowData.registerState,
+
+        setUserInfo(res.data);
+        console.log(res.data);
+      } catch (e) {
+        console.error(e.message);
+      }
+    }
+    fetchData();
+  }, []);
+
+  console.log(userInfo);
   return (
     <div>
+      {/* <div dangerouslySetInnerHTML={{ __html: htmlContent }}></div> */}
       <PageTitle value={'사용자 수정'} />
       <form method='post' action='/users/edit'>
         <div className='flex-line'>
           <div className='flex-div'>
             <label htmlFor='emp_no' className='label-title'>사번</label>
-            <InputBar id={'emp_no'} name={'emp_no'} value={'10001'} disabled={true} />
+            <InputBar id={'emp_no'} name={'emp_no'} value={userInfo.emp_no} disabled={true} />
           </div>
           <div className='flex-div'>
             <label htmlFor='user_name' className='label-title'>이름</label>
@@ -37,7 +75,6 @@ const UserNew = () => {
         <div className='flex-div' >
           <label htmlFor='email' className='label-title'>이메일 주소</label>
           <InputBar id={'email'} name={'email'} value={'hong123'} disabled={true} />
-          <span className='email'>@gmail.com</span>
         </div>
         <p style={{ color: 'rgba(0, 0, 0, 0.45)', marginBottom: '40px' }}>사용자 이메일은 수정 불가합니다. 수정을 원할 시 정보를 삭제하고 재등록 해주세요.</p>
         <div className='flex-btn'>

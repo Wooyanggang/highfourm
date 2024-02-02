@@ -1,10 +1,14 @@
 package himedia.project.highfourm.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import himedia.project.highfourm.dto.MrpDTO;
+import himedia.project.highfourm.dto.mrp.MrpProductionPlanDTO;
+import himedia.project.highfourm.dto.mrp.MrpRequiredMaterialDTO;
 import himedia.project.highfourm.repository.MrpRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -14,27 +18,27 @@ public class MrpService {
 
 	private final MrpRepository repository;
 	
-	public List<MrpDTO> findByProductionPlans() {
+	public List<MrpProductionPlanDTO> findByProductionPlans() {
 		return repository.findByProductionPlans();
 	}
 	
-	public List<MrpDTO> findByMaterials(String productionPlanId) {
+	public List<MrpRequiredMaterialDTO> findByMaterials(String productionPlanId) {
 		return repository.findByMaterials(productionPlanId);
 	}
 	
-	public List<MrpDTO> findByProductionPlanID(String productionPlanId) {
+	public List<MrpProductionPlanDTO> findByProductionPlanID(String productionPlanId) {
 		return repository.findByProductionPlanID(productionPlanId);
 	}
-	
-	public List<MrpDTO> findByProductId(String productId) {
+
+	public List<MrpProductionPlanDTO> findByProductId(String productId) {
 		return repository.findByProductId(productId);
 	}
 	
-	public List<MrpDTO> findByProductName(String productName) {
+	public List<MrpProductionPlanDTO> findByProductName(String productName) {
 		return repository.findByProductName(productName);
 	}
 	
-	public List<MrpDTO> findByDueDate(String dueDate) {
+	public List<MrpProductionPlanDTO> findByDueDate(String dueDate) {
 		return repository.findByDueDate(dueDate);
 	}
 }

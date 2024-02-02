@@ -10,7 +10,9 @@ import StockList from './View/Material/StockList';
 import OrderList from './View/Order/OrderList';
 import OrderNew from './View/Order/OrderNew';
 import Bom from './View/Production/Bom';
-import Mrp from './View/Production/Mrp';
+import Mrp from './View/Production/Mrp/Mrp';
+import MrpDetail from './View/Production/Mrp/MrpDetail';
+import MrpSearch from './View/Production/Mrp/MrpSearch';
 import ProductManagement from './View/Production/ProductManagement';
 import Status from './View/Production/Status';
 import WorkPerfomance from './View/Production/WorkPerfomance';
@@ -73,9 +75,11 @@ function App() {
                 <Route path='/users/join' element={<Join />} />
                 <Route path='/users' element={<UserList />} />
                 <Route path='/users/new' element={<UserNew />} />
-                <Route path='/users/edit/:empNo' element={<UserEdit />} />
+                <Route path='/users/edit/:userNo' element={<UserEdit />} />
                 <Route path='/mrp' element={<Mrp />} />
                 <Route path='/mrp/search' element={<Mrp />} />
+                <Route path='/mrp/:productionPlanId' element={<MrpDetail />} />
+                <Route path='/mrp/search/:productionPlanId' element={<MrpSearch />} />
                 <Route path='/production-management' element={<ProductManagement />} />
                 <Route path='/bom' element={<Bom />} />
                 <Route path='/production-status' element={<Status />} />

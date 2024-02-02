@@ -1,5 +1,6 @@
 package himedia.project.highfourm.entity;
 
+import himedia.project.highfourm.dto.ProductionPlanDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,9 +9,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,12 +35,23 @@ public class ProductionPlan {
 	@Column(name = "production_unit")
 	private String productionUnit;
 	
-	@Column(name = "production_amount")
-	private Long productionAmount;
+	@Column(name = "production_plan_amount")
+	private Long productionPlanAmount;
 	
 	@Column(name = "production_start_date")
 	private String productionStartDate;
 	
 	@Column(name = "due_date")
 	private String dueDate;
+	
+	public ProductionPlanDTO toDTO(Product product, Orders orders) {
+		return ProductionPlanDTO.builder()
+					.productionPlanId(productionPlanId)
+					.product(product)
+					.orders(orders)
+					.productionUnit(productionUnit)
+					.productionStartDate(productionStartDate)
+					.dueDate(dueDate)
+					.build();
+	}
 }
