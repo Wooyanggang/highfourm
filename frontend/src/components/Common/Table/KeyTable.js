@@ -4,7 +4,7 @@ import EditableRow from './EditableRow';
 import EditableCell from './EditableCell';
 import { useNavigate } from 'react-router-dom';
 
-const KeyTable = ({ dataSource, defaultColumns, setDataSource, pagination, keyName }) => {
+const KeyTable = ({ dataSource, defaultColumns, setDataSource, pagination, url, keyName }) => {
   const [recordKey, setRecordKey] = useState();
   const [activeIndex, setActiveIndex] = useState();
   const navigate = useNavigate();
@@ -58,7 +58,7 @@ const KeyTable = ({ dataSource, defaultColumns, setDataSource, pagination, keyNa
         pagination={pagination}
         onRow={(record, index) => ({
           onClick: () => {
-            const newUrl = `/bom/detail/${record[keyName]}`;
+            const newUrl = `/${url}/${record[keyName]}`;
             navigate(newUrl);
           },
         })}

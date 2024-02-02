@@ -126,7 +126,9 @@ input[type="date"]::placeholder {
   padding: 24px 24px;
   box-sizing: border-box;
 }
-
+#bomNewForm label.label-title {
+  font-weight: 500;
+}
 /* OrderNew */
 .order-new-page .input-wrap {
   display: flex;
