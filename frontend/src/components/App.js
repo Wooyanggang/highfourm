@@ -75,8 +75,8 @@ function App() {
                 <Route path='/materials/order-history/edit/:orderHistoryId' element={<MaterialOrderHistoryEdit />} />
                 <Route path='/users/join' element={<Join />} />
                 <Route path='/users' element={<UserList />} />
-                <Route path='/users/new' element={<UserNew />} />
-                <Route path='/users/edit/:userNo' element={<UserEdit />} />
+                {/* <Route path='/users/new' element={<UserNew />} />
+                <Route path='/users/edit/:userNo' element={<UserEdit />} /> */}
                 <Route path='/mrp' element={<Mrp />} />
                 <Route path='/mrp/search' element={<Mrp />} />
                 <Route path='/mrp/:productionPlanId' element={<MrpDetail />} />

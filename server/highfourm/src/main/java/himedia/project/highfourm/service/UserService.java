@@ -15,6 +15,7 @@ import himedia.project.highfourm.entity.Company;
 import himedia.project.highfourm.entity.User;
 import himedia.project.highfourm.repository.CompanyRepository;
 import himedia.project.highfourm.repository.UserRepository;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +26,7 @@ public class UserService {
 
 	private final UserRepository repository;
 	private final CompanyRepository companyRepository;
+	private final EntityManager entityManager;
 	
 	public List<UserDTO> findAllUsers() {
 		List<User> userlist = repository.findAll();
@@ -104,8 +106,16 @@ public class UserService {
 	}
 	
 	@Transactional
-	public void updateUser(Long userNo, String name, String position, LocalDate birth) {
-		Optional<User> user = repository.findById(userNo);
+	public UserDTO updateUser(UserEditDTO userEdit) {
+		User user = repository.findById(userEdit.getUserNo()).get();
+		UserDTO userDto = user.toDTO(user.getCompany());
+		userDto.setUserName(userEdit.getUserName());
+		userDto.setPosition(userEdit.getPosition());
+		userDto.setBirth(userEdit.getBirth());
+		
+		log.info("service check : ", user.getUserName());
+		
+		return userDto;
 	}
 
 	public void delete(Long userNo) {

@@ -48,8 +48,6 @@ public class UserHtmlController {
 			return "userForm";
 		}
 		
-		log.info("통신 성공 값 : " + userAddDTO.getPosition());
-		
 		service.save(userAddDTO);
 		
 		return "redirect:/users";
@@ -63,25 +61,18 @@ public class UserHtmlController {
 		return "userEditForm";
 	}
 	
-	@PutMapping("/users/edit/{userNo}")
+	@PostMapping("/users/edit/{userNo}")
 	public String editUser(@PathVariable("userNo") Long userNo, @ModelAttribute @Valid UserEditDTO userEditDto, 
 			BindingResult bindingResult, Model model) {
 
 		if (bindingResult.hasErrors()) {
 			return "userEditForm";
 		}
+		log.info("controller check : ", userEditDto.getUserName());
 		
-		service.updateUser(userNo, userEditDto.getUserName(), userEditDto.getPosition(), userEditDto.getBirth());
+		service.updateUser(userEditDto);
 
 		return "redirect:/users";
 	}
 	
-	@DeleteMapping("/users/delete/{deleteUserNo}")
-	public String deleteByUserNo(@PathVariable(value = "deleteUserNo") String deleteUserNo) {
-		Long userNo = Long.parseLong(deleteUserNo);
-		service.delete(userNo);
-		log.info("delete : " + deleteUserNo);
-		
-		return "redirect:/users";
-	}
 }

@@ -51,7 +51,7 @@ a {
 	<div class="container">
 		<div class="input-form col-md-12 mx-auto">
 			<h2 class="mb-3 fw-bold">사용자 수정</h2>
-			<form th:method="PUT" th:action="@{/users/edit/{userNo}(userNo=${userEditDTO.userNo})}" th:object="${userEditDTO}" class="mt-5 needs-validation" novalidate>
+			<form th:method="POST" th:action="@{/users/edit/{userNo}(userNo=${userEditDTO.userNo})}" th:object="${userEditDTO}" class="mt-5 needs-validation" novalidate>
 				<div class="row">
 					<div class="col-md-6 mb-3">
 						<label for="empNo" class="form-label col fw-bold">사번</label> 

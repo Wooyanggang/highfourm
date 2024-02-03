@@ -35,8 +35,12 @@ const UserList = () => {
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
-    const deleteUserNo = dataSource.filter((item) => console.log("item : ", item));
-    const deleteUserName = dataSource.filter((item) => item.userName);
+
+    const deleteUserNo = key;
+    let deleteUserInfo = dataSource.filter((item) => item.key === key);
+    for (const name of deleteUserInfo) {
+      deleteUserInfo = name.user_name;
+    }
 
     axios({
       method: 'DELETE',
@@ -44,11 +48,9 @@ const UserList = () => {
       data: JSON.stringify(deleteUserNo),
       headers: { 'Content-Type': 'application/json' },
     })
-      .then((response) => {
-        console.log(response);
-        alert(`${deleteUserName} 사원이 삭제되었습니다.`);
-        navigate('/users');
-      })
+      .then(
+        alert(`${deleteUserInfo} 사원이 삭제되었습니다.`),
+      )
       .catch(e => console.log(e));
   }
 

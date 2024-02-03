@@ -62,4 +62,12 @@ public class UserController {
 			return ResponseEntity.ok(result);
 	}
 	
+	@DeleteMapping("/users/delete/{deleteUserNo}")
+	public String deleteByUserNo(@PathVariable(value = "deleteUserNo") String deleteUserNo) {
+		Long userNo = Long.parseLong(deleteUserNo);
+		service.delete(userNo);
+		log.info("delete : " + deleteUserNo);
+		
+		return "redirect:/users";
+	}
 }
