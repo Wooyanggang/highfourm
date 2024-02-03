@@ -1,22 +1,22 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from '../../Common/PageTitle';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import axios from 'axios';
-import { Popconfirm } from "antd";
+import { Popconfirm, Input } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
 import PageTitle from '../../Common/PageTitle';
 
 const ProductionPlan = () => {
 
-  const [productionPlan, setProductionPlan] = useState([]);
-  const [monthlyProductionPlan, setMonthlyProductionPlan] = useState([]);
+  const [productionPlans, setProductionPlans] = useState([]);
+  const [monthlyProductionPlans, setMonthlyProductionPlans] = useState([]);
 
   useEffect(() => {
     axios.get('/production-plan')
       .then(res => {
         const productionPlan = res.data;
         if (productionPlan) {
-          setProductionPlan(productionPlan);
+          setProductionPlans(productionPlan);
         } else {
           console.log('No production plan data received:', res.data);
         }
@@ -26,41 +26,142 @@ const ProductionPlan = () => {
       });
   }, []);
 
-  const productionPlanColumns = [
-    {
-      title: '생산계획 코드',
-      dataIndex: 'productPlanCode',
-      width: '20%',
-    },
-    {
-      title: '주문 번호',
-      dataIndex: 'orderId',
-    },
-    {
-      title: '품명',
-      dataIndex: 'productName',
-    },
-    {
-      title: '주문 수량',
-      dataIndex: 'productAmount',
-    },
-    {
-      title: '생산 계획 수량',
-      dataIndex: 'productPlanAmount',
-    },
-    {
-      title: '주문일',
-      dataIndex: 'orderDate',
-    },
-    {
-      title: '착수일',
-      dataIndex: 'productionStartDate',
-    },
-    {
-      title: '납기일',
-      dataIndex: 'dueDate',
-    },
-  ];
+  const onProductionPlanClick = (record) => {
+    axios.get(`/production-plan/${record.productionPlanId}`)
+      .then(res => {
+        if (res.data && res.data.length > 0) {
+          setMonthlyProductionPlans(res.data);
+        } else {
+          const orderDate = new Date(record.orderDate);
+          const dueDate = new Date(record.dueDate);
+          const calculatedMonthsAndDays = getMonthsAndDays(orderDate, dueDate);
+
+          const newPlans = Object.entries(calculatedMonthsAndDays).map(([month, days]) => ({
+            month: month,
+            productionAmount: days,
+            editable: false
+          }));
+          setMonthlyProductionPlans(newPlans);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching monthly production plans:', error);
+      });
+  };
+
+  const getProductionPlanColumns = (productionPlan) => {
+    return [
+      {
+        title: '생산계획 코드',
+        dataIndex: 'productionPlanId',
+        width: '20%',
+      },
+      {
+        title: '주문 번호',
+        dataIndex: 'orderId',
+      },
+      {
+        title: '품명',
+        dataIndex: 'productName',
+      },
+      {
+        title: '주문 수량',
+        dataIndex: 'productAmount',
+      },
+      {
+        title: '생산 계획 수량',
+        dataIndex: 'productionPlanAmount',
+        render: (text, record) => {
+          return record.productionPlanAmount ? text : (
+            <Input
+              defaultValue={text}
+              type='number'
+              style={{ border: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
+            />
+          );
+        },
+      },
+      {
+        title: '주문일',
+        dataIndex: 'orderDate',
+      },
+      {
+        title: '착수일',
+        dataIndex: 'productionStartDate',
+        render: (text, record) => {
+          return record.productionStartDate ? text : (
+            <Input
+              type='date'
+              defaultValue={text}
+              style={{ border: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
+            />
+          );
+        },
+      },
+      {
+        title: '납기일',
+        dataIndex: 'dueDate',
+      },
+    ];
+  };
+
+  function getMonthsAndDays(orderDate, dueDate) {
+    let monthsAndDays = {};
+    let current = new Date(orderDate.getFullYear(), orderDate.getMonth(), 1);
+
+    while (current <= dueDate) {
+      let lastDayOfMonth = new Date(current.getFullYear(), current.getMonth() + 1, 0);
+      let month = `${current.getFullYear().toString().substr(2, 2)}-${(current.getMonth() + 1).toString().padStart(2, '0')}`;
+      let daysInMonth;
+
+      if (current.getMonth() === orderDate.getMonth() && current.getFullYear() === orderDate.getFullYear()) {
+        if (lastDayOfMonth <= dueDate) {
+          daysInMonth = lastDayOfMonth.getDate() - orderDate.getDate() + 1;
+        } else {
+          daysInMonth = dueDate.getDate() - orderDate.getDate() + 1;
+        }
+      } else if (current.getMonth() === dueDate.getMonth() && current.getFullYear() === dueDate.getFullYear()) {
+        daysInMonth = dueDate.getDate();
+      } else {
+        daysInMonth = lastDayOfMonth.getDate();
+      }
+
+      monthsAndDays[month] = daysInMonth;
+      current = new Date(current.getFullYear(), current.getMonth() + 1, 1);
+    }
+
+    return monthsAndDays;
+  }
+
+  const getMonthlyProductionPlanColumns = () => {
+    // 기본 컬럼 구조 정의
+    const columns = [
+      {
+        title: '월',
+        dataIndex: 'month',
+        width: '50%',
+        editable: false
+      },
+      {
+        title: '생산계획 수량',
+        dataIndex: 'productionAmount',
+        editable: monthlyProductionPlans.length === 0
+      },
+    ];
+
+    if (monthlyProductionPlans.length > 0 && monthlyProductionPlans.some(plan => plan.hasOwnProperty('editable'))) {
+      return columns.map(col => ({
+        ...col,
+        editable: true,
+      }));
+    } else {
+      // 서버로부터 데이터를 받지 못한 경우 (데이터가 없거나, 서버 요청을 하지 않았을 경우)
+      return columns.map(col => ({
+        ...col,
+        editable: false, // 사용자가 데이터를 입력할 수 있도록 editable을 true로 설정
+      }));
+    }
+  };
 
   const monthlyProductionPlanColumns = [
     {
@@ -70,8 +171,7 @@ const ProductionPlan = () => {
     },
     {
       title: '생산계획 수량',
-      dataIndex: 'procution_amount',
-      editable: true,
+      dataIndex: 'productionAmount',
     },
   ];
 
@@ -86,7 +186,7 @@ const ProductionPlan = () => {
     console.log(info?.source, value);
   }
 
-  const [count, setCount] = useState(productionPlan.length);
+  const [count, setCount] = useState(productionPlans.length);
   const handleAdd = () => {
     const newData = {
       key: count,
@@ -98,10 +198,11 @@ const ProductionPlan = () => {
       production_start_date: '2024-01-12',
       due_date: '2024-03-02',
     };
-    setProductionPlan([...productionPlan, newData]);
+    setProductionPlans([...productionPlans, newData]);
     setCount(count + 1);
   };
 
+  console.log(productionPlans)
   return (
     <div>
       <PageTitle value={'생산 계획 수립'} />
@@ -113,19 +214,33 @@ const ProductionPlan = () => {
         <BtnBlack value={'생산계획 등록'} onClick={handleAdd} />
       </div>
       <div style={{ display: 'flex', gap: '24px 19px' }}>
-        <div style={{ paddingRight: '20px', width: '50%' }}>
-          <BasicTable dataSource={productionPlan} defaultColumns={productionPlanColumns} setDataSource={setProductionPlan} />
+        <div style={{ paddingRight: '20px' }}>
+          <BasicTable
+            dataSource={productionPlans}
+            defaultColumns={getProductionPlanColumns(productionPlans)}
+            setDataSource={setProductionPlans}
+            pagination={true}
+            onRowClick={(record, rowIndex, event) => {
+              console.log("Row clicked:", record, rowIndex);
+              onProductionPlanClick(record);
+            }}
+          />
         </div>
         <div className='bordered-box'>
           <div className='bordered-box-title' style={{ marginBottom: '30px' }}>
             <h2 className='bordered-box-title'>월별 생산 계획</h2>
             <hr className='box-title-line' />
           </div>
-          <BasicTable dataSource={monthlyProductionPlan} defaultColumns={monthlyProductionPlanColumns} setDataSource={setMonthlyProductionPlan} />
+          <BasicTable
+            dataSource={monthlyProductionPlans}
+            defaultColumns={getMonthlyProductionPlanColumns()}
+            setDataSource={setMonthlyProductionPlans}
+            pagination={false}
+          />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ProductionPlan;

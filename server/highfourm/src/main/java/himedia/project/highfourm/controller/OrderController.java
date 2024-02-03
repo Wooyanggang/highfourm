@@ -26,15 +26,12 @@ public class OrderController {
 	
 	@GetMapping("/orders")
 	public Map<String, Object> orderList() {
-		System.out.println("xptm");
 		return orderService.findAllOrders();
 		
 	}
 	
 	@PostMapping("/orders/new")
 	public void ordersNew(@RequestBody OrdersAndDetailsDTO ordersAndDetailsDTO) {
-		log.info("orders{}",ordersAndDetailsDTO.getOrders().getOrderDate());
-		log.info("orders{}",ordersAndDetailsDTO.getOrderDetails().get(0).getProductName());
 		orderService.saveOrder(ordersAndDetailsDTO);
 	}
 }

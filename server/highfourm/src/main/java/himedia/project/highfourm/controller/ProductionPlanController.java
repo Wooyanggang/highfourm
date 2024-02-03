@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import himedia.project.highfourm.dto.MonthlyProductionPlanDTO;
 import himedia.project.highfourm.dto.ProductionPlanDTO;
 import himedia.project.highfourm.service.ProductionPlanService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +22,14 @@ public class ProductionPlanController {
 	
 	@GetMapping("/production-plan")
 	public List<ProductionPlanDTO> productionPlan(){
+		
 		return productionPlanService.findAllProductionPlans();
+	}
+	
+	@GetMapping("/production-plan/{productionPlanId}")
+	public List<MonthlyProductionPlanDTO> monthlyProductionPlan(@PathVariable("productionPlanId") String productionPlanId) {
+		List<MonthlyProductionPlanDTO> monthlyProductionPlans = productionPlanService.findMonthlyProductionPlan(productionPlanId);
+		return monthlyProductionPlans;
 	}
 
 }

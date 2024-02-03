@@ -62,9 +62,9 @@ const SideBar = () => {
       return '7';
     } else if (url === '/work-perfomance') {
       return '8';
-    } else if (url === '/production-perfomance') {
+    } else if (url === '/production-status') {
       return '9';
-    } else if (url === '/production-perfomance/chart' || url === '/production-perfomance/controll-chart') {
+    } else if (url === '/production-performance/chart' || url === '/production-performance/controll-chart') {
       return '10';
     } else if (url === '/users/' || url === '/users/new') {
       return '11';
@@ -90,8 +90,8 @@ const SideBar = () => {
     ]),
   ];
   const inquiryMenu = [
-    getItem(<a href="/production-perfomance">생산 현황 조회</a>, '9', <FontAwesomeIcon icon={faChartSimple} />),
-    getItem(<a href="/production-perfomance/chart">생산 실적 조회</a>, '10', <FontAwesomeIcon icon={faChartLine} />),
+    getItem(<a href="/production-status">생산 현황 조회</a>, '9', <FontAwesomeIcon icon={faChartSimple} />),
+    getItem(<a href="/production-performance">생산 실적 조회</a>, '10', <FontAwesomeIcon icon={faChartLine} />),
   ];
 
   const bottomMenu = [

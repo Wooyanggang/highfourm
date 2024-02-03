@@ -21,7 +21,7 @@ public class ProductionPlanDTO {
 	private String productId;
 	private String orderId;
 	private String productionUnit;
-	private Long productPlanAmount;
+	private Long productionPlanAmount;
 	private LocalDate productionStartDate;
 	private String productName;
 	private Long productAmount;
@@ -30,7 +30,7 @@ public class ProductionPlanDTO {
 	private Orders orders;
 	private Product product;
 	
-	public ProductionPlanDTO(Long productAmount, String orderId, LocalDate orderDate, LocalDate dueDate,String productName, String productionPlanId, LocalDate productionStartDate) {
+	public ProductionPlanDTO(Long productAmount, String orderId, LocalDate orderDate, LocalDate dueDate,String productName, String productionPlanId, LocalDate productionStartDate, Long productionPlanAmount) {
 		this.productAmount = productAmount;
 		this.orderId = orderId;
 		this.orderDate = orderDate;
@@ -38,12 +38,13 @@ public class ProductionPlanDTO {
 		this.productName = productName;
 		this.productionPlanId = productionPlanId;
 		this.productionStartDate = productionStartDate;
+		this.productionPlanAmount = productionPlanAmount;
 	}
 	
-	public ProductionPlan toEntityForInsert(ProductionPlanDTO productionPlanDTO, Orders orders, Product product) {
+	public static ProductionPlan toEntityForInsert(String productionPlanId,String productionUnit ,Orders orders, Product product) {
 		return ProductionPlan.builder()
-				.productionPlanId(productionPlanDTO.getProductionPlanId())
-				.productionUnit(productionPlanDTO.getProductionUnit())
+				.productionPlanId(productionPlanId)
+				.productionUnit(productionUnit)
 				.orders(orders)
 				.product(product)
 				.build();

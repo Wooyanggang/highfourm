@@ -26,8 +26,8 @@ public class MonthlyProductionPlanPK implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "month")
-	private Long month;
+	private String month;
 	
-	@Column(name = "product_plan_id")
+	@Column(name = "production_plan_id")
 	private String productionPlanId;
 }

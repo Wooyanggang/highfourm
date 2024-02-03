@@ -14,18 +14,17 @@ import Mrp from './View/Production/Mrp';
 import Status from './View/Production/Status';
 import WorkPerfomance from './View/Production/WorkPerfomance';
 import WorkPerfomanceNew from './View/Production/WorkPerfomanceNew';
-import Perfomance from './View/Production/Perfomance';
 import UserEdit from './View/User/UserEdit';
 import UserList from './View/User/UserList';
 import UserNew from './View/User/UserNew';
 import MaterialOrderHistory from './View/Material/MaterialOrderHistory';
 import Join from './View/User/Join';
-import PerfomanceChart from './View/Production/PerfomanceChart';
-import PerfomanceControllChart from './View/Production/PerfomanceControllChart';
 import Test from './View/Test';
 import '../App.css'
-import axios from 'axios';
+import Performance from './View/Production/Performance';
 import ProductionPlan from './View/Production/ProductionPlan';
+import PerformanceChart from './View/Production/PerformanceChart';
+import PerformanceControllChart from './View/Production/PerformanceControllChart';
 const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
@@ -77,9 +76,9 @@ function App() {
                 <Route path='/production-status' element={<Status />} />
                 <Route path='/work-perfomance' element={<WorkPerfomance />} />
                 <Route path='/work-perfomance/new' element={<WorkPerfomanceNew />} />
-                <Route path='/production-perfomance' element={<Perfomance />} />
-                <Route path='/production-perfomance/chart' element={<PerfomanceChart />} />
-                <Route path='/production-perfomance/controll-chart' element={<PerfomanceControllChart />} />
+                <Route path='/production-performance' element={<Performance />} />
+                <Route path='/production-performance/chart' element={<PerformanceChart />} />
+                <Route path='/production-performance/controll-chart' element={<PerformanceControllChart />} />
                 <Route path='/Test' element={<Test />} />
               </Routes>
             </Router>

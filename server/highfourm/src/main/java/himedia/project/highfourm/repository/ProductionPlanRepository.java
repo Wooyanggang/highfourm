@@ -6,16 +6,30 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import himedia.project.highfourm.dto.PerformanceDTO;
 import himedia.project.highfourm.dto.ProductionPlanDTO;
 import himedia.project.highfourm.entity.ProductionPlan;
 
 public interface ProductionPlanRepository extends JpaRepository<ProductionPlan, String> {
 	
-	@Query("SELECT new himedia.project.highfourm.dto.ProductionPlanDTO"
-			+ "(od.productAmount, o.orderId, o.orderDate, o.dueDate, p.productName, plan.productionPlanId, plan.productionStartDate) " +
-		       "FROM OrderDetail od " +
-		       "LEFT JOIN od.orders o " +
-		       "LEFT JOIN od.product p " +
-		       "LEFT JOIN o.productionPlans plan")
-		List<ProductionPlanDTO> findAllProductionPlan(Sort sort);
+	@Query("SELECT DISTINCT new himedia.project.highfourm.dto.ProductionPlanDTO" +
+		       "(od.productAmount, o.orderId, o.orderDate, o.dueDate, p.productName, plan.productionPlanId, plan.productionStartDate, plan.productionPlanAmount) " +
+		       "FROM ProductionPlan plan " +
+		       "LEFT JOIN plan.orders o " +
+		       "LEFT JOIN plan.product p " +
+		       "LEFT JOIN o.orderDetails od "
+		       + "WHERE od.orders = o and od.product = p")
+	List<ProductionPlanDTO> findAllProductionPlan(Sort sort);
+	
+	@Query("SELECT new himedia.project.highfourm.dto.PerformanceDTO"
+			+ "(plan.productionPlanId, plan.productionStartDate,plan.productionPlanAmount,o.orderId,o.vendor,o.manager,o.orderDate,o.dueDate,o.endingState,p.productId,p.productName,od.productAmount) "
+			+ "FROM ProductionPlan plan "
+			+ "LEFT JOIN plan.orders o "
+			+ "LEFT JOIN plan.product p "
+			+ "LEFT JOIN o.orderDetails od "
+			+ "WHERE od.orders = o and od.product = p")
+	List<PerformanceDTO> findAllPerformances(Sort sort);
+	
+	@Query(value = "SELECT IFNULL(SUM(acceptance_amount),0) FROM work_performance WHERE production_plan_id like ?1" , nativeQuery = true)
+	Long sumProductionAmount(String productionPlanId);
 }
