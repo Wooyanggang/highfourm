@@ -55,21 +55,18 @@ public class UserHtmlController {
 	
 	@GetMapping("/users/edit/{userNo}")
 	public String selectUser(@PathVariable("userNo") Long userNo, Model model) {
-		UserEditDTO user = service.findByEmpNoforEdit(userNo);
+		UserEditDTO user = service.findByUserNoforEdit(userNo);
 		
 		model.addAttribute("userEditDTO", user);
 		return "userEditForm";
 	}
 	
-	@PostMapping("/users/edit/{userNo}")
+	@PutMapping("/users/edit/{userNo}")
 	public String editUser(@PathVariable("userNo") Long userNo, @ModelAttribute @Valid UserEditDTO userEditDto, 
 			BindingResult bindingResult, Model model) {
-
 		if (bindingResult.hasErrors()) {
 			return "userEditForm";
 		}
-		log.info("controller check : ", userEditDto.getUserName());
-		
 		service.updateUser(userEditDto);
 
 		return "redirect:/users";

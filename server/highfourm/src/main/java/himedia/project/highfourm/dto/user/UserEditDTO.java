@@ -26,7 +26,7 @@ public class UserEditDTO {
 	@NotBlank(message = "이름을 입력해주세요")
 	private String userName;
 	
-	@NotNull(message = "사번을 입력해주세요")
+	@NotNull
 	private Long empNo;
 	
 	@NotBlank(message = "직급을 입력해주세요")
@@ -40,7 +40,14 @@ public class UserEditDTO {
 	@NotBlank
 	private String email;
 	
-	public User toEntity() {
+	private Company company;
+	
+	private String registerState;
+	
+	private String role;
+	
+	
+	public User toEntity(Company company) {
 		return User.builder()
 				.userNo(userNo)
 				.userName(userName)
@@ -48,6 +55,7 @@ public class UserEditDTO {
 				.position(position)
 				.birth(birth)
 				.email(email)
+				.company(company)
 				.build();
 	}
 	

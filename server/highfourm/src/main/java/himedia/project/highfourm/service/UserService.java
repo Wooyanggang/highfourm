@@ -26,7 +26,7 @@ public class UserService {
 
 	private final UserRepository repository;
 	private final CompanyRepository companyRepository;
-	private final EntityManager entityManager;
+	private final EntityManager em;
 	
 	public List<UserDTO> findAllUsers() {
 		List<User> userlist = repository.findAll();
@@ -73,7 +73,7 @@ public class UserService {
 				.collect(Collectors.toList());
 	}
 	
-	public UserEditDTO findByEmpNoforEdit(Long userNo) {
+	public UserEditDTO findByUserNoforEdit(Long userNo) {
 		User user = repository.findById(userNo).get();
 		Company company = companyRepository.findById(1L).get();
 		
@@ -86,6 +86,9 @@ public class UserService {
 				.position(userDTO.getPosition())
 				.birth(userDTO.getBirth())
 				.email(userDTO.getEmail())
+				.company(userDTO.getCompany())
+				.registerState(userDTO.getRegisterState())
+				.role(userDTO.getRole())
 				.build();
 				
 	}
@@ -107,15 +110,11 @@ public class UserService {
 	
 	@Transactional
 	public UserDTO updateUser(UserEditDTO userEdit) {
-		User user = repository.findById(userEdit.getUserNo()).get();
-		UserDTO userDto = user.toDTO(user.getCompany());
-		userDto.setUserName(userEdit.getUserName());
-		userDto.setPosition(userEdit.getPosition());
-		userDto.setBirth(userEdit.getBirth());
+		User existingUser = repository.findById(userEdit.getUserNo()).get();
 		
-		log.info("service check : ", user.getUserName());
+		User mergedUser = em.merge(existingUser);
 		
-		return userDto;
+		return mergedUser.toDTO(mergedUser.getCompany());
 	}
 
 	public void delete(Long userNo) {
