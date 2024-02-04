@@ -39,7 +39,6 @@
 :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table-thead>tr>th {
   text-align: center;
 }
-
 .editable-cell {
   position: relative;
 }
@@ -72,23 +71,13 @@ h6 {
   line-height: 1;
 }
 
-a {
-  text-decoration: none;
-  color: #000;
-}
-
 /* global */
 #root {
   min-width: 1280px;
   overflow-x: scroll;
 }
-
 h2 {
   font-size: 24px;
-}
-
-a:hover {
-  color: #1677ff;
 }
 
 input[type="date"]::placeholder {
@@ -125,26 +114,21 @@ input[type="date"]::placeholder {
 .bom-page .add-btn {
   margin-top: 16px;
 }
-
 .bom-page .ant-table-container {
   margin-top: 24px;
 }
-
 .bom-page .table-box {
   width: calc(50% - 10px);
 }
-
 .bom-page .bordered-box {
   width: calc(50% - 10px);
   height: auto;
   padding: 24px 24px;
   box-sizing: border-box;
 }
-
 #bomNewForm label.label-title {
   font-weight: 500;
 }
-
 /* OrderNew */
 .order-new-page .input-wrap {
   display: flex;
@@ -171,23 +155,23 @@ input[type="date"]::placeholder {
   margin-right: 20px;
 }
 
-.order-new-page .order-new-table {
+.order-new-page .order-new-table{
   margin-bottom: 16px;
 }
 
-.order-new-page .order-new-pdf-upload {
+.order-new-page .order-new-pdf-upload{
   margin: 16px 0 16px 0;
 }
 
-.order-new-page .order-new-btn {
+.order-new-page .order-new-btn{
   display: flex;
 }
 
-.order-new-page .order-new-btn .order-new-add-btn {
+.order-new-page .order-new-btn .order-new-add-btn{
   margin-right: auto;
 }
 
-.order-new-page .order-new-btn .order-new-submit-btn {
+.order-new-page .order-new-btn .order-new-submit-btn{
   margin-left: 16px;
 }
 
@@ -202,7 +186,7 @@ input[type="date"]::placeholder {
   margin: 16px 0 24px 0;
 }
 
-.order-list-page .order-list-wrap .order-new {
+.order-list-page .order-list-wrap .order-new{
   margin-right: auto;
 }
 
@@ -224,11 +208,10 @@ input[type="date"]::placeholder {
   margin-right: 20px;
 }
 
-.perfomance-chart-page h3 {
+.perfomance-chart-page h3{
   margin-top: 24px;
 }
-
-.perfomance-chart-page hr {
+.perfomance-chart-page hr{
   margin-bottom: 24px;
 }
 
@@ -240,7 +223,6 @@ input[type="date"]::placeholder {
   margin: 20px 0 40px 0;
   display: inline-block;
 }
-
 .signin-text {
   font-weight: 600;
   font-size: 40px;
@@ -311,8 +293,8 @@ div.flex-div {
 }
 
 div.modal-line {
-  display: flex;
-  flex-direction: column;
+  display: flex; 
+  flex-direction: column; 
   margin-top: 30px;
 }
 
@@ -361,3 +343,5 @@ span.email {
 :where(.css-dev-only-do-not-override-1qhpsh8).ant-menu-light.ant-menu-root.ant-menu-inline {
   border-inline-end: 0;
 }
+
+
