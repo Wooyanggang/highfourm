@@ -25,7 +25,6 @@ public class ProductionPlanDTO {
 				.productionUnit(productionUnit)
 				.productionPlanAmount(productionAmount)
 				.productionStartDate(productionStartDate)
-				.dueDate(dueDate)
 				.build();
 				
 	}

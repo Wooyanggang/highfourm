@@ -1,5 +1,7 @@
 package himedia.project.highfourm.entity;
 
+import java.time.LocalDate;
+
 import himedia.project.highfourm.dto.ProductionPlanDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -41,9 +43,6 @@ public class ProductionPlan {
 	@Column(name = "production_start_date")
 	private String productionStartDate;
 	
-	@Column(name = "due_date")
-	private String dueDate;
-	
 	public ProductionPlanDTO toDTO(Product product, Orders orders) {
 		return ProductionPlanDTO.builder()
 					.productionPlanId(productionPlanId)
@@ -51,7 +50,6 @@ public class ProductionPlan {
 					.orders(orders)
 					.productionUnit(productionUnit)
 					.productionStartDate(productionStartDate)
-					.dueDate(dueDate)
 					.build();
 	}
 }
