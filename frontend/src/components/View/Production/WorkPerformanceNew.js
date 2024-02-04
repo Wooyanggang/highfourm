@@ -7,7 +7,7 @@ import { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, StepBar 
 import PageTitle from '../../Common/PageTitle';
 import FormItem from 'antd/es/form/FormItem';
 
-function WorkPerfomanceNew() {
+function WorkPerformanceNew() {
   const navigate = useNavigate();
   const [count, setCount] = useState(0);
   const [dataSource, setDataSource] = useState([]);
@@ -18,7 +18,7 @@ function WorkPerfomanceNew() {
   
 
   useEffect(() => {
-    fetch('/work-perfomance/new')
+    fetch('/work-performance/new')
     .then(response => response.json())
     .then(result => {
         console.log(result);
@@ -34,10 +34,10 @@ function WorkPerfomanceNew() {
       });
   }, []);
 
-  const workPerfomanceNewformSubmit = () => {
+  const workPerformanceNewformSubmit = () => {
     
-    const WorkPerfomanceNewRequest = dataSource.map(item => ({
-      workPerfomanceId: null,
+    const WorkPerformanceNewRequest = dataSource.map(item => ({
+      workPerformanceId: null,
       productionPlanId: item.productionPlanId,  
       workDate: item.workDate,
       productionAmount: item.productionAmount,
@@ -51,18 +51,18 @@ function WorkPerfomanceNew() {
     }));
 
     // 데이터 전송 로직
-    axios.post('/work-perfomance/new', WorkPerfomanceNewRequest, {
+    axios.post('/work-performance/new', WorkPerformanceNewRequest, {
       headers: {
         'Content-Type': 'application/json'
       }
     })
     .then(response => {
       alert('성공적으로 등록되었습니다.');
-      navigate('/work-perfomance')
+      navigate('/work-performance')
     })
     .catch(error => {
       alert('등록에 실패하였습니다.');
-      console.log(WorkPerfomanceNewRequest);
+      console.log(WorkPerformanceNewRequest);
     });
   };
 
@@ -197,7 +197,7 @@ function WorkPerfomanceNew() {
   };
 
   return (
-    <div className='work-perfomance-new-page'>
+    <div className='work-performance-new-page'>
       <PageTitle value={'작업 실적 등록'}/>
       <div>
         <BasicTable 
@@ -212,10 +212,10 @@ function WorkPerfomanceNew() {
         </div>
         <div>
           <div className='cancel-btn'>
-            <BtnWhite value={'취소'} onClick={e =>navigate('/work-perfomance')}/>
+            <BtnWhite value={'취소'} onClick={e =>navigate('/work-performance')}/>
           </div>
           <div className='submit-btn'>
-                <BtnBlue value={'작업 실적 등록'} onClick={workPerfomanceNewformSubmit} />
+                <BtnBlue value={'작업 실적 등록'} onClick={workPerformanceNewformSubmit} />
               </div>
         </div>
       </div>
@@ -223,4 +223,4 @@ function WorkPerfomanceNew() {
   );
 }
 
-export default WorkPerfomanceNew
+export default WorkPerformanceNew

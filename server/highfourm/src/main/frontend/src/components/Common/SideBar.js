@@ -33,7 +33,7 @@ const SideBar = () => {
     // 현재 페이지가 sub1 메뉴 하위 메뉴인 경우 sub1 메뉴를 열도록 설정
     if (currentURL.startsWith('/materials/')) {
       setOpenKeys(['sub1']);
-    } else if (currentURL.startsWith('/work-perfomance')) {
+    } else if (currentURL.startsWith('/work-performance')) {
       setOpenKeys(['sub2']);
     }
 
@@ -58,13 +58,13 @@ const SideBar = () => {
       return '5';
     } else if (url === '/mrp') {
       return '6';
-    } else if (url === '/work-perfomance/new') {
+    } else if (url === '/work-performance/new') {
       return '7';
-    } else if (url === '/work-perfomance') {
+    } else if (url === '/work-performance') {
       return '8';
-    } else if (url === '/production-perfomance') {
+    } else if (url === '/production-performance') {
       return '9';
-    } else if (url === '/production-perfomance/chart' || url === '/production-perfomance/controll-chart') {
+    } else if (url === '/production-performance/chart' || url === '/production-performance/controll-chart') {
       return '10';
     } else if (url === '/users/' || url === '/users/new') {
       return '11';
@@ -85,13 +85,13 @@ const SideBar = () => {
     getItem(<a href="/product-management">생산 계획 수립</a>, '5', <FontAwesomeIcon icon={faIndustry} />),
     getItem(<a href="/mrp">자재 소요량 산출</a>, '6', <FontAwesomeIcon icon={faCalculator} />),
     getItem('작업 실적 관리', 'sub2', <FontAwesomeIcon icon={faChartLine} />, [
-      getItem(<a href="/work-perfomance/new">작업 실적 등록</a>, '7'),
-      getItem(<a href="/work-perfomance">작업 실적 조회</a>, '8'),
+      getItem(<a href="/work-performance/new">작업 실적 등록</a>, '7'),
+      getItem(<a href="/work-performance">작업 실적 조회</a>, '8'),
     ]),
   ];
   const inquiryMenu = [
-    getItem(<a href="/production-perfomance">생산 현황 조회</a>, '9', <FontAwesomeIcon icon={faChartSimple} />),
-    getItem(<a href="/production-perfomance/chart">생산 실적 조회</a>, '10', <FontAwesomeIcon icon={faChartLine} />),
+    getItem(<a href="/production-performance">생산 현황 조회</a>, '9', <FontAwesomeIcon icon={faChartSimple} />),
+    getItem(<a href="/production-performance/chart">생산 실적 조회</a>, '10', <FontAwesomeIcon icon={faChartLine} />),
   ];
 
   const bottomMenu = [

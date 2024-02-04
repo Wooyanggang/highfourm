@@ -4,11 +4,11 @@ import { Input, Popconfirm } from "antd";
 import { BtnBlack, BtnGray, InputBar } from '../../Common/Module';
 import PageTitle from '../../Common/PageTitle';
 
-function WorkPerfomance() {
+function WorkPerformance() {
   const [dataSource, setDataSource] = useState([]);
   
   useEffect(() => {
-    fetch('/work-perfomance')
+    fetch('/work-performance')
     .then(response => response.json())
     .then(result => {
         console.log(result);
@@ -78,7 +78,7 @@ function WorkPerfomance() {
   ];
 
   return (
-    <div className='work-perfomance-page'>
+    <div className='work-performance-page'>
         <PageTitle value={'작업 실적 조회'}/>
         <form action='' className='search-form'>
           <div className='search-input-wrap'>
@@ -115,4 +115,4 @@ function WorkPerfomance() {
   );
 }
 
-export default WorkPerfomance
+export default WorkPerformance

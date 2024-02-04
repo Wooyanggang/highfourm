@@ -84,29 +84,29 @@ input[type="date"]::placeholder {
   color: rgba(0, 0, 0, 0.25);
 }
 
-/* WorkPerfomance */
-.work-perfomance-page input[type="date"] {
+/* WorkPerformance */
+.work-performance-page input[type="date"] {
   width: 200px;
 }
 
-.work-perfomance-page .search-form .search-input-wrap {
+.work-performance-page .search-form .search-input-wrap {
   display: flex;
 }
 
-.work-perfomance-page .search-form .search-input-wrap:nth-child(n+2) {
+.work-performance-page .search-form .search-input-wrap:nth-child(n+2) {
   margin-top: 16px;
 }
 
-.work-perfomance-page .search-form label {
+.work-performance-page .search-form label {
   display: inline-block;
   width: 100px;
 }
 
-.work-perfomance-page .search-form .search-input {
+.work-performance-page .search-form .search-input {
   margin-right: 20px;
 }
 
-.work-perfomance-page .ant-table-container {
+.work-performance-page .ant-table-container {
   margin-top: 20px;
 }
 
@@ -191,27 +191,27 @@ input[type="date"]::placeholder {
 }
 
 /* production-performance-chart */
-.perfomance-chart-page .search-input-wrap {
+.performance-chart-page .search-input-wrap {
   display: flex;
 }
 
-.perfomance-chart-page .search-input-wrap:nth-child(n+2) {
+.performance-chart-page .search-input-wrap:nth-child(n+2) {
   margin-top: 16px;
 }
 
-.perfomance-chart-page label {
+.performance-chart-page label {
   display: inline-block;
   width: 100px;
 }
 
-.perfomance-chart-page .search-input {
+.performance-chart-page .search-input {
   margin-right: 20px;
 }
 
-.perfomance-chart-page h3{
+.performance-chart-page h3{
   margin-top: 24px;
 }
-.perfomance-chart-page hr{
+.performance-chart-page hr{
   margin-bottom: 24px;
 }
 
