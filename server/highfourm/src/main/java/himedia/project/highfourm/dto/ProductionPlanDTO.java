@@ -21,8 +21,6 @@ public class ProductionPlanDTO {
 	private String productId;
 	private String orderId;
 	private String productionUnit;
-	private Long productionAmount;
-	private String productionStartDate;
 	private Long productionPlanAmount;
 	private LocalDate productionStartDate;
 	private String productName;

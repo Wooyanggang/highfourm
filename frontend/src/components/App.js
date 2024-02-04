@@ -23,7 +23,7 @@ import MaterialOrderHistory from './View/Material/MaterialOrderHistory';
 import MaterialOrderHistoryNew from './View/Material/MaterialOrderHistoryNew';
 import MaterialOrderHistoryEdit from './View/Material/MaterialOrderHistoryEdit';
 import Join from './View/User/Join';
-import ProductManagement from './View/Production/ProductManagement';
+import ProductionPlan from './View/Production/ProductionPlan';
 import PerformanceChart from './View/Production/PerformanceChart';
 import PerformanceControllChart from './View/Production/PerformanceControllChart';
 import Test from './View/Test';
@@ -78,7 +78,8 @@ function App() {
                 <Route path='/mrp' element={<Mrp />} />
                 <Route path='/mrp/search' element={<Mrp />} />
                 <Route path='/mrp/:productionPlanId/*' element={<MrpDetail />} />
-                <Route path='/production-management' element={<ProductManagement />} />
+                {/* <Route path='/production-management' element={<ProductManagement />} /> */}
+                <Route path='/production-plan' element={<ProductionPlan />} />
                 <Route path='/bom' element={<Bom />} />
                 <Route path='/bom/detail/:productId' element={<BomDetail />} />
                 <Route path='/production-status' element={<Status />} />
