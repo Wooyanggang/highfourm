@@ -15,7 +15,6 @@ public class ProductionPlanDTO {
 	private String productionUnit;
 	private Long productionAmount;
 	private String productionStartDate;
-	private String dueDate;
 	
 	public ProductionPlan toEntity(Product product, Orders orders) {
 		return ProductionPlan.builder()
@@ -25,7 +24,6 @@ public class ProductionPlanDTO {
 				.productionUnit(productionUnit)
 				.productionPlanAmount(productionAmount)
 				.productionStartDate(productionStartDate)
-				.dueDate(dueDate)
 				.build();
 				
 	}
