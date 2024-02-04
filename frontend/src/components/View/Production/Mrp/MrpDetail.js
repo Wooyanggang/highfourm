@@ -66,7 +66,7 @@ const MrpDetail = () => {
       }
     }
     fetchData();
-  }, [currentURL, location.search]);
+  }, [currentURL, location.search, productionPlanId]);
 
   const SelectChangeHandler = (value) => {
     setSearchType(value);
@@ -80,6 +80,16 @@ const MrpDetail = () => {
     navigate(`/mrp/search?searchType=${encodeURIComponent(searchType)}&search=${encodeURIComponent(value)}`);
   }
 
+  function generateLink(productionPlanId, searchType, searchValue) {
+    if (searchType && searchValue) {
+      return `/mrp/search?searchType=${searchType}&search=${searchValue}`;
+    } else if (productionPlanId && searchType && searchValue) {
+      return `/mrp/${productionPlanId}/search?searchType=${searchType}&search=${searchValue}`;
+    } else {
+      return `/mrp/${productionPlanId}`;
+    }
+  }
+
   const planColumns = [
     {
       title: '납기일',
@@ -90,7 +100,7 @@ const MrpDetail = () => {
     {
       title: '생산계획 코드',
       dataIndex: 'production_plan_id',
-      render: (text) => <a href={`/mrp/${text}`}>{text}</a>
+      render: (text, record) => <a href={generateLink(text, record.searchType, record.searchValue)}>{text}</a>
       // production_plan
     },
     {

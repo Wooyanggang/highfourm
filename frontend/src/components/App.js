@@ -78,8 +78,7 @@ function App() {
                 <Route path='/users/edit/:userNo' element={<UserEdit />} /> */}
                 <Route path='/mrp' element={<Mrp />} />
                 <Route path='/mrp/search' element={<Mrp />} />
-                <Route path='/mrp/:productionPlanId' element={<MrpDetail />} />
-                <Route path='/mrp/:productionPlanId/search' element={<MrpDetail />} />
+                <Route path='/mrp/:productionPlanId/*' element={<MrpDetail />} />
                 <Route path='/production-management' element={<ProductManagement />} />
                 <Route path='/bom' element={<Bom />} />
                 <Route path='/bom/detail/:productId' element={<BomDetail />} />
