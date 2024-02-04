@@ -1,5 +1,6 @@
 package himedia.project.highfourm.entity;
 
+import himedia.project.highfourm.dto.WorkPerfomanceDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,19 +19,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "work_perfomance")
-public class WorkPerformance {
+public class WorkPerfomance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "work_performance_no")
-	private Long workPerformanceNo;
+	@Column(name = "work_perfomance_Id")
+	private Long workPerfomanceId;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "production_plan_id", referencedColumnName = "production_plan_id")
 	private ProductionPlan productionPlan;
 	
-	@Column(name = "working_date")
-	private String workingDate;
+	@Column(name = "work_date")
+	private String workDate;
 	
 	@Column(name = "production_amount")
 	private Long productionAmount;
@@ -54,4 +57,21 @@ public class WorkPerformance {
 	
 	@Column(name = "note")
 	private String note;
+	
+	public WorkPerfomanceDTO toWorkPerfomanceDTO() {
+		return WorkPerfomanceDTO
+				.builder()
+				.workPerfomanceId(workPerfomanceId)
+				.productionPlanId(productionPlan.getProductionPlanId())
+				.workDate(workDate)
+				.productionAmount(productionAmount)
+				.acceptanceAmount(acceptanceAmount)
+				.defectiveAmount(defectiveAmount)
+				.workingTime(workingTime)
+				.manager(manager)
+				.lotNo(lotNo)
+				.validDate(validDate)
+				.note(note)
+				.build();
+	}
 }
