@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,9 +41,6 @@ public class UserListController {
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setCacheControl(CacheControl.noStore());
 	    
-	    log.info("searchType : ", searchType);
-	    log.info("search : ", search);
-
 	    List<UserDTO> result = null;
 		
 			if(searchType.equals("사원명")) {
@@ -57,7 +53,7 @@ public class UserListController {
 			if (result == null) {
 				result = new ArrayList<UserDTO>();
 			}
-		
+			
 		return new ResponseEntity<>(result, headers, HttpStatus.OK);
 	}
 	

@@ -1,6 +1,5 @@
 package himedia.project.highfourm.service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,12 +41,11 @@ public class UserService {
 	public UserDTO findByUserNo(Long userNo) {
 		User user = repository.findById(userNo).get();
 		Company company = companyRepository.findById(1L).get();
-		log.info("user 정보 서비스 : ", user.getUserName());
 		return user.toDTO(company);
 	}
 	
 	public List<UserDTO> findByEmpNo(Long empNo) {
-		List<User> userlist = repository.findByEmpNo(empNo);
+		List<User> userlist = repository.findByAllEmpNo(empNo);
 		Company company = companyRepository.findById(1L).get();
 		
 		return userlist.stream()
@@ -56,7 +54,7 @@ public class UserService {
 	}
 	
 	public List<UserDTO> findByUserName(String name) {
-		List<User> userlist = repository.findByUserName(name);
+		List<User> userlist = repository.findByAllUserName(name);
 		Company company = companyRepository.findById(1L).get();
 		
 		return userlist.stream()
@@ -65,7 +63,7 @@ public class UserService {
 	}
 	
 	public List<UserDTO> findByEmail(String email) {
-		List<User> userlist = repository.findByEmail(email);
+		List<User> userlist = repository.findByAllEmail(email);
 		Company company = companyRepository.findById(1L).get();
 		
 		return userlist.stream()
@@ -95,6 +93,10 @@ public class UserService {
 	
 	public boolean isEmailUnique(String email) {
 		return repository.findByUserEmail(email) == null;
+	}
+	
+	public boolean isEmpNoUnique(Long empNo) {
+		return repository.findByEmpNo(empNo) == null;
 	}
 	
 	public UserDTO save(UserAddDTO user) {

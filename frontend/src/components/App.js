@@ -12,7 +12,6 @@ import OrderNew from './View/Order/OrderNew';
 import Bom from './View/Production/Bom';
 import Mrp from './View/Production/Mrp/Mrp';
 import MrpDetail from './View/Production/Mrp/MrpDetail';
-import MrpSearch from './View/Production/Mrp/MrpSearch';
 import ProductManagement from './View/Production/ProductManagement';
 import Status from './View/Production/Status';
 import WorkPerfomance from './View/Production/WorkPerfomance';
@@ -28,7 +27,6 @@ import Join from './View/User/Join';
 import PerfomanceChart from './View/Production/PerfomanceChart';
 import PerfomanceControllChart from './View/Production/PerfomanceControllChart';
 import Test from './View/Test';
-import '../App.css'
 import axios from 'axios';
 import BomDetail from './View/Production/BomDetail';
 const { Header, Content, Footer, Sider } = Layout;
@@ -75,12 +73,13 @@ function App() {
                 <Route path='/materials/order-history/edit/:orderHistoryId' element={<MaterialOrderHistoryEdit />} />
                 <Route path='/users/join' element={<Join />} />
                 <Route path='/users' element={<UserList />} />
+                <Route path='/users/search' element={<UserList />} />
                 {/* <Route path='/users/new' element={<UserNew />} />
                 <Route path='/users/edit/:userNo' element={<UserEdit />} /> */}
                 <Route path='/mrp' element={<Mrp />} />
                 <Route path='/mrp/search' element={<Mrp />} />
                 <Route path='/mrp/:productionPlanId' element={<MrpDetail />} />
-                <Route path='/mrp/search/:productionPlanId' element={<MrpSearch />} />
+                <Route path='/mrp/:productionPlanId/search' element={<MrpDetail />} />
                 <Route path='/production-management' element={<ProductManagement />} />
                 <Route path='/bom' element={<Bom />} />
                 <Route path='/bom/detail/:productId' element={<BomDetail />} />

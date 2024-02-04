@@ -60,9 +60,6 @@ public class MrpController {
 
 		List<MrpProductionPlanDTO> result = null;
 		
-		  log.info("searchType : ", searchType);
-		    log.info("search : ", search);
-
 		if (searchType.equals("생산계획 코드")) {
 			result = service.findByProductionPlanID(search);
 		} else if (searchType.equals("품번")) {
@@ -77,6 +74,36 @@ public class MrpController {
 		}
 		
 		responseMap.put("plan", result);
+		
+		return ResponseEntity.ok().cacheControl(CacheControl.noStore())
+				.body(responseMap);
+	}
+	
+	@GetMapping("/mrp/{productionPlanId}/search")
+	public ResponseEntity<Map<String, Object>> mrpSearch(@PathVariable(name = "productionPlanId") String productionPlanId,
+			@RequestParam(value = "searchType") String searchType,@RequestParam(value = "search") String search) {
+		
+		Map<String, Object> responseMap = new HashMap<>();
+
+		List<MrpProductionPlanDTO> result = null;
+		
+		if (searchType.equals("생산계획 코드")) {
+			result = service.findByProductionPlanID(search);
+		} else if (searchType.equals("품번")) {
+			result = service.findByProductId(search);
+		} else if (searchType.equals("품명")) {
+			result = service.findByProductName(search);
+		} else if (searchType.equals("납기일")) {
+			result = service.findByDueDate(search);
+		}
+		if (result.isEmpty()) {
+			result = new ArrayList<MrpProductionPlanDTO>();
+		}
+		
+		responseMap.put("plan", result);
+		
+		List<MrpRequiredMaterialDTO> requiredMaterialList = service.findByMaterials(productionPlanId);
+		responseMap.put("requiredMaterial", requiredMaterialList);
 
 		return ResponseEntity.ok().cacheControl(CacheControl.noStore())
 				.body(responseMap);

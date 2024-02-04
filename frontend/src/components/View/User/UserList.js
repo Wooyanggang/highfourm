@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
@@ -8,13 +8,30 @@ import PageTitle from '../../Common/PageTitle';
 
 const UserList = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [dataSource, setDataSource] = useState([]);
-  const [searchType, setSearchType] = useState('');
+  const [searchType, setSearchType] = useState('사원명');
+  const currentURL = window.location.pathname;
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get('/users');
+        let res;
+
+        if (currentURL === '/users/search') {
+          const searchParams = new URLSearchParams(location.search);
+          const searchTypeParam = searchParams.get('searchType');
+          const searchValueParam = searchParams.get('search');
+
+          res = await axios.get('/users/search', {
+            params: {
+              searchType: searchTypeParam,
+              search: searchValueParam,
+            },
+          });
+        } else {
+          res = await axios.get('/users');
+        }
 
         const userData = await res.data.map((rowData) => ({
           key: rowData.userNo,
@@ -26,11 +43,11 @@ const UserList = () => {
         }));
         setDataSource(userData);
       } catch (e) {
-        console.error(e.message);
+        console.error(e);
       }
     }
     fetchData();
-  }, []);
+  }, [currentURL, location.search]);
 
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
@@ -51,7 +68,7 @@ const UserList = () => {
       .then(
         alert(`${deleteUserInfo} 사원이 삭제되었습니다.`),
       )
-      .catch(e => console.log(e));
+      .catch(e => console.error(e));
   }
 
   const defaultColumns = [
@@ -92,14 +109,7 @@ const UserList = () => {
   };
 
   const onSearch = (value) => {
-    axios({
-      method: 'GET',
-      url: '/users/search',
-      params: {
-        searchType: searchType, search: value,
-      }
-    })
-      .catch(e => console.log(e));
+    navigate(`/users/search?searchType=${encodeURIComponent(searchType)}&search=${encodeURIComponent(value)}`);
   }
 
   const onClick = () => {

@@ -48,6 +48,10 @@ public class UserHtmlController {
 			return "userForm";
 		}
 		
+		if(!service.isEmpNoUnique(userAddDTO.getEmpNo())) {
+			bindingResult.rejectValue("empNo", "error.user", "이미 등록된 사번입니다.");
+			return "userForm";
+		}
 		service.save(userAddDTO);
 		
 		return "redirect:/users";
