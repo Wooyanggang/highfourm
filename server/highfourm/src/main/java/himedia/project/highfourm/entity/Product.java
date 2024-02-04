@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @Builder
 @Table(name = "product")
@@ -39,5 +38,13 @@ public class Product {
 				.writeDate(writeDate)
 				.updateDate(updateDate)
 				.build();
+	}
+	
+	@Builder
+	public Product(String productId, String productName, String writeDate, String updateDate) {
+		this.productId = productId;
+		this.productName = productName;
+		this.writeDate = writeDate;
+		this.updateDate = updateDate;
 	}
 }

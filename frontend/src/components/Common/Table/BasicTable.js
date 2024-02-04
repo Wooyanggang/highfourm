@@ -3,7 +3,7 @@ import { Table } from 'antd';
 import EditableRow from './EditableRow';
 import EditableCell from './EditableCell';
 
-const BasicTable = ({ dataSource, defaultColumns, setDataSource, pagination }) => {
+const BasicTable = ({ dataSource, defaultColumns, setDataSource, pagination, onRowClick }) => {
   const handleSave = (row) => {
     const newData = [...dataSource];
     const index = newData.findIndex((item) => row.key === item.key);
@@ -13,7 +13,7 @@ const BasicTable = ({ dataSource, defaultColumns, setDataSource, pagination }) =
       ...row,
     });
     setDataSource(newData);
-  };  
+  };
   const components = {
     body: {
       row: EditableRow,
@@ -36,6 +36,14 @@ const BasicTable = ({ dataSource, defaultColumns, setDataSource, pagination }) =
     };
   });
 
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: event => {
+        onRowClick && onRowClick(record, rowIndex, event);
+      },
+    };
+  };
+
   return (
     <div>
       <Table
@@ -46,6 +54,7 @@ const BasicTable = ({ dataSource, defaultColumns, setDataSource, pagination }) =
         columns={columns}
         size="middle"
         pagination={pagination}
+        onRow={onRow}
       />
     </div>
   );

@@ -7,10 +7,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import himedia.project.highfourm.entity.Material;
 import himedia.project.highfourm.entity.Process;
 
-@Builder @Getter
+@Builder 
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class BomRequestDTO {

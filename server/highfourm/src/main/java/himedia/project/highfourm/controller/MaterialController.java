@@ -3,6 +3,10 @@ package himedia.project.highfourm.controller;
 
 import java.util.List;
 
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,9 +36,13 @@ public class MaterialController {
 	 * 원자재 리스트 조회
 	 */
 	@GetMapping("/materials/stock")
-	public List<MaterialListResponseDTO> getMaterialList() {
-		List<MaterialListResponseDTO> MaterialList = materialService.MaterialList();
-		return MaterialList;
+	public ResponseEntity<List<MaterialListResponseDTO>>  getMaterialList() {
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setCacheControl(CacheControl.noStore());
+	    
+		List<MaterialListResponseDTO> materialList = materialService.MaterialList();
+		
+		return new ResponseEntity<>(materialList, headers, HttpStatus.OK);
 	}
 	
 	/**
@@ -51,9 +59,13 @@ public class MaterialController {
 	 */
 	
 	@GetMapping("/materials/order-history")
-	public List<MaterialOrderResponseDto> getdMaterialHistoryList() {
+	public ResponseEntity<List<MaterialOrderResponseDto>> getdMaterialHistoryList() {
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setCacheControl(CacheControl.noStore());
+	    
 		List<MaterialOrderResponseDto> mateiralOderList =materialService.getMaterialOrderList();
-		return mateiralOderList;
+		
+		return new ResponseEntity<>(mateiralOderList, headers, HttpStatus.OK);
 	}
 
 	/**
@@ -69,8 +81,11 @@ public class MaterialController {
 	 * 입고내역 등록 페이지 조회
 	 */
 	@GetMapping("/materials/order-history/edit/{orderHistoryId}")
-	public MaterialOrderEditFormDTO getdMaterialHistory(@PathVariable(name ="orderHistoryId") Long orderHistoryId) {
-		return materialService.getMaterialhistoryInfo(orderHistoryId);
+	public ResponseEntity<MaterialOrderEditFormDTO> getdMaterialHistory(@PathVariable(name ="orderHistoryId") Long orderHistoryId) {
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setCacheControl(CacheControl.noStore());
+	    MaterialOrderEditFormDTO editFormDTO = materialService.getMaterialhistoryInfo(orderHistoryId);
+		return new ResponseEntity<> (editFormDTO, headers, HttpStatus.OK);
 	}
 	
 	/**

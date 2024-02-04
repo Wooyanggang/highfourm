@@ -1,6 +1,7 @@
 package himedia.project.highfourm.dto;
 
 import himedia.project.highfourm.entity.Process;
+import himedia.project.highfourm.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,11 +21,11 @@ public class ProcessDTO {
 	private Long standardWorkTime;
 	private String outputUnit;
 	
-	public Process toEntity() {
+	public Process toEntity(Product product) {
 		return Process
 				.builder()
 				.processId(processId)
-				.processId(processId)
+				.product(product)
 				.sequence(sequence)
 				.processName(processName)
 				.timeUnit(timeUnit)

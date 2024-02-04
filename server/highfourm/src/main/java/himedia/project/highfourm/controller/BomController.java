@@ -76,7 +76,7 @@ public class BomController {
 	    responseMap.put("process", processDTOList);
 	    
 	    // bomRequiredMaterialDTO findByProductProductId
-	    List<BomRequiredMaterialDTO> bomRequiredMaterialList = requiredMaterialService.findByProductId(productId);
+	    List<BomRequiredMaterialDTO> bomRequiredMaterialList = requiredMaterialService.findBomRequiredMaterial(productId);
 	    responseMap.put("bomRequiredMaterial", bomRequiredMaterialList);
 	    
 	    return ResponseEntity.ok().cacheControl(CacheControl.noStore()).body(responseMap);
