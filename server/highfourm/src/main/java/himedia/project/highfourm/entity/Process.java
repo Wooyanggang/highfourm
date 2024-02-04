@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "process")
 public class Process {
 	@Id
-	@Column(name = "process_id", unique = true)
+	@Column(name = "process_id")
 	private String processId;
 	
 	@OneToOne(cascade = CascadeType.REFRESH)
