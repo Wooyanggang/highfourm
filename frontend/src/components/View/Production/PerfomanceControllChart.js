@@ -1,12 +1,11 @@
-import React, { useState, PureComponent, useEffect } from 'react';
+import React, { useState, PureComponent } from 'react';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { Progress, Popconfirm, message } from 'antd';
 import { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, StepBar } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList, Label, Area, ComposedChart, Bar, ReferenceLine } from 'recharts';
 import PageTitle from '../../Common/PageTitle';
-import axios from 'axios';
-import { useParams } from 'react-router';
+
 
 /* 관리도는 임시. 관련한 건 재작성할 예정 */
 
@@ -16,8 +15,7 @@ const handleMenuClick = (e) => {
 };
 
 const calculateControlLimits = (data, zValue) => {
-  //p형 관리도의 p값. 통계검정에서 사용하는 p값 아님.
-  const pValues = data.map(item => item.defectiveAmount / item.productionAmount);
+  const pValues = data.map(item => item.defective / item.productionAmount);
   const barP = pValues.reduce((acc, p) => acc + p, 0) / pValues.length;
   const standardDeviation = Math.sqrt(barP * (1 - barP) / data.length);
 
@@ -28,43 +26,117 @@ const calculateControlLimits = (data, zValue) => {
     controlLimits: { UCL: UCL < 0 ? 0 : UCL, LCL: LCL < 0 ? 0 : LCL },
     processedData: data.map(item => ({
       ...item,
-      pValue: (item.defectiveAmount / item.productionAmount) * 100,
+      pValue: (item.defective / item.productionAmount) * 100,
     })),
   };
 };
 
-const PerformanceControllChart = () => {
-  const { productionPlanId } = useParams();
-  const [performance, setPerformance] = useState(null);
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    if (productionPlanId) {
-      axios.get(`/production-performance/${productionPlanId}/chart`)
-        .then(res => {
-          setPerformance(res.data);
-
-          const transformedData = res.data.workPerformances.map(wp => ({
-            date: wp.date,
-            productionAmount: wp.productionAmount,
-            defectiveAmount: wp.defectiveAmount,
-            workingTime: wp.workingTime,
-          }));
-          setData(transformedData);
-        })
-        .catch(error => {
-          console.error('Error fetching performance data:', error);
-          setPerformance(null);
-          setData([]);
-        });
-    }
-  }, [productionPlanId]);
+const PerfomanceControllChart = () => {
+  const data = [
+    {
+      date: '23-12-01',
+      productionAmount: 1000,
+      defective: 8,
+      workTime: 26,
+    },
+    {
+      date: '23-12-02',
+      productionAmount: 2400,
+      defective: 13,
+      workTime: 26,
+    },
+    {
+      date: '23-12-03',
+      productionAmount: 2000,
+      defective: 9,
+      workTime: 26,
+    },
+    {
+      date: '23-12-04',
+      productionAmount: 2780,
+      defective: 14,
+      workTime: 26,
+    },
+    {
+      date: '23-12-05',
+      productionAmount: 1890,
+      defective: 15,
+      workTime: 26,
+    },
+    {
+      date: '23-12-06',
+      productionAmount: 2390,
+      defective: 7,
+      workTime: 26,
+    },
+    {
+      date: '23-12-07',
+      productionAmount: 3490,
+      defective: 20,
+      workTime: 26,
+    },
+    {
+      date: '23-12-08',
+      productionAmount: 1490,
+      defective: 7,
+      workTime: 26,
+    },
+    {
+      date: '23-12-09',
+      productionAmount: 2310,
+      defective: 7,
+      workTime: 26,
+    },
+    {
+      date: '23-12-10',
+      productionAmount: 1500,
+      defective: 6,
+      workTime: 26,
+    },
+    {
+      date: '23-12-11',
+      productionAmount: 3490,
+      defective: 14,
+      workTime: 26,
+    },
+    {
+      date: '23-12-12',
+      productionAmount: 2460,
+      defective: 7,
+      workTime: 26,
+    },
+    {
+      date: '23-12-13',
+      productionAmount: 1990,
+      defective: 17,
+      workTime: 26,
+    },
+    {
+      date: '23-12-14',
+      productionAmount: 1700,
+      defective: 5,
+      workTime: 26,
+    },
+    {
+      date: '23-12-15',
+      productionAmount: 1990,
+      defective: 9,
+      workTime: 26,
+    },
+    {
+      date: '23-12-16',
+      productionAmount: 1490,
+      defective: 15,
+      workTime: 26,
+    },
+  ];
 
   const defaultColumns = [
     {
       title: '생산 일자',
       dataIndex: 'date',
       width: '30%',
+      editable: true,
     },
     {
       title: '생산 수량',
@@ -72,12 +144,12 @@ const PerformanceControllChart = () => {
     },
     {
       title: '불량 수량',
-      dataIndex: 'defectiveAmount',
+      dataIndex: 'defective',
     },
     {
       title: '불량률',
       dataIndex: 'defectRate',
-      render: (_, record) => `${Math.round((record.defectiveAmount / record.productionAmount) * 100 * 100) / 100}%`,
+      render: (_, record) => `${Math.round((record.defective / record.productionAmount) * 100 * 100) / 100}%`,
     },
   ];
 
@@ -95,38 +167,38 @@ const PerformanceControllChart = () => {
       <PageTitle value={'생산 실적 상세 조회'} />
       <div style={{ width: '100%' }}>
         <div className='order-filter'>
-          <BtnFilter valueArr={['통계', '불량률 관리']} linkArr={[`/production-performance/${productionPlanId}/chart`, `/production-performance/${productionPlanId}/controll-chart`]} />
+          <BtnFilter valueArr={['통계', '불량률 관리']} linkArr={['/production-perfomance/chart', '/production-perfomance/controll-chart']} />
         </div>
         <div className='perfomance-chart-page' style={{ marginTop: '20px' }} >
           <form action='' className='searchForm'>
             <div className='search-input-wrap'>
               <div className='search-input'>
                 <label htmlFor="order-number">주문 번호</label>
-                <InputBar disabled={'disabled'} id={'orderId'} value={performance ? performance.orderId : ''} />
+                <InputBar disabled={'disabled'} id={'orderNumber'} value={'주문번호'} />
               </div>
               <div className='search-input'>
                 <label htmlFor="amount">주문 수량</label>
-                <InputBar disabled={'disabled'} id={'amount'} value={performance ? performance.productAmount : ''} />
+                <InputBar disabled={'disabled'} id={'amount'} value={'주문 수량'} />
               </div>
             </div>
             <div className='search-input-wrap'>
               <div className='search-input'>
                 <label htmlFor="orderDate">주문일</label>
-                <InputBar disabled={'disabled'} id={'orderDate'} value={performance ? performance.orderDate : ''} />
+                <InputBar disabled={'disabled'} inputId={'orderDate'} value={'주문일'} />
               </div>
               <div className='search-input'>
-                <label htmlFor="totalProductionAmount">생산량</label>
-                <InputBar disabled={'disabled'} id={'totalProductionAmount'} value={performance ? performance.totalProductionAmount : ''} />
+                <label htmlFor="productionAmount">생산 수량</label>
+                <InputBar disabled={'disabled'} inputId={'productionAmount'} value={'생산 수량'} />
               </div>
             </div>
             <div className='search-input-wrap'>
               <div className='search-input'>
                 <label htmlFor="dueDate">납기일</label>
-                <InputBar disabled={'disabled'} id={'dueDate'} value={performance ? performance.dueDate : ''} />
+                <InputBar disabled={'disabled'} inputId={'dueDate'} value={'납기일'} />
               </div>
               <div className='search-input'>
                 <label htmlFor="presentState">진행 상태</label>
-                <InputBar disabled={'disabled'} id={'presentState'} value={performance && performance.totalProductionAmount >= performance.productAmount ? '완료' : '진행 중'} />
+                <InputBar disabled={'disabled'} inputId={'presentState'} value={'진행 상태'} />
               </div>
             </div>
           </form>
@@ -146,7 +218,9 @@ const PerformanceControllChart = () => {
                   <ReferenceLine y={controlLimits.UCL} stroke="red" ifOverflow="extendDomain">
                     <Label value={`UCL=${controlLimits.UCL.toFixed(2)}%`} position="insideTopRight" offset={10} />
                   </ReferenceLine>
-                  <ReferenceLine y={averageDefectRate.toFixed(2)} stroke="blue" label={{ value: `barP`, position: 'left' }} />
+                  <ReferenceLine y={averageDefectRate} stroke="blue" ifOverflow="extendDomain">
+                    <Label value={`평균 불량률=${averageDefectRate.toFixed(2)}%`} position="insideBottomRight" offset={10} />
+                  </ReferenceLine>
                   <ReferenceLine y={controlLimits.LCL} stroke="green" ifOverflow="extendDomain">
                     <Label value={`LCL=${controlLimits.LCL.toFixed(2)}%`} position="insideBottomRight" offset={10} />
                   </ReferenceLine>
@@ -163,6 +237,6 @@ const PerformanceControllChart = () => {
   );
 };
 
-export default PerformanceControllChart;
+export default PerfomanceControllChart;
 
 

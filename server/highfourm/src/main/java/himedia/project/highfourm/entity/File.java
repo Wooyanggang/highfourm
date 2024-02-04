@@ -9,13 +9,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-@Getter @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@RequiredArgsConstructor
 @Entity
 @Table(name = "file")
 public class File {
@@ -45,20 +43,4 @@ public class File {
 	@OneToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "orders", referencedColumnName = "order_id")
 	private Orders orders;
-	
-	@Builder
-	public File(Long fileId, String orderId, String originalName, String changedName, String fileType, String fileSize,
-			String filePath, Orders orders) {
-		super();
-		this.fileId = fileId;
-		this.orderId = orderId;
-		this.originalName = originalName;
-		this.changedName = changedName;
-		this.fileType = fileType;
-		this.fileSize = fileSize;
-		this.filePath = filePath;
-		this.orders = orders;
-	}
-	
-	
 }

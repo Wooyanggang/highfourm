@@ -9,13 +9,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-@Getter @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@RequiredArgsConstructor
 @Entity
 @Table(name = "order_detail")
 public class OrderDetail {
@@ -37,15 +35,4 @@ public class OrderDetail {
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
 	private Product product;
-
-	@Builder
-	public OrderDetail(OrderDetailPk orderDetailPk, Long productAmount, Long unitPrice, Orders orders,
-			Product product) {
-		super();
-		this.orderDetailPk = orderDetailPk;
-		this.productAmount = productAmount;
-		this.unitPrice = unitPrice;
-		this.orders = orders;
-		this.product = product;
-	}
 }
