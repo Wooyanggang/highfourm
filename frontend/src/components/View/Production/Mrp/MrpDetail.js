@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { SearchInput, SearchSelectBox } from '../../../Common/Module';
 import BasicTable from '../../../Common/Table/BasicTable';
 import PageTitle from '../../../Common/PageTitle';
 import axios from 'axios';
 
 const MrpDetail = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentURL = window.location.pathname;
   const [searchType, setSearchType] = useState('생산계획 코드');
   const [dataPlan, setDataPlan] = useState([]);
   const [dataRequiredMaterial, setDataRequiredMaterial] = useState([]);
@@ -13,11 +16,29 @@ const MrpDetail = () => {
   const { productionPlanId } = useParams();
 
   useEffect(() => {
-    fetch(`/mrp/${productionPlanId}`)
-      .then((response) => response.json())
-      .then(result => {
-        if (result["plan"]) {
-          const newDataPlan = result["plan"].map((rowData) => ({
+    async function fetchData() {
+      try {
+        let res;
+
+        if (currentURL === '/mrp/search') {
+          const searchParams = new URLSearchParams(location.search);
+          const searchTypeParam = searchParams.get('searchType');
+          const searchValueParam = searchParams.get('search');
+
+          res = await axios.get('/mrp/search', {
+            params: {
+              searchType: searchTypeParam,
+              search: searchValueParam,
+            },
+          });
+        } else if (currentURL === `/mrp/${productionPlanId}/search`) {
+          res = await axios.get(`/mrp/${productionPlanId}/search`);
+        } else {
+          res = await axios.get(`/mrp/${productionPlanId}`);
+        }
+
+        if (res.data["plan"]) {
+          const newDataPlan = res.data["plan"].map((rowData) => ({
             key: rowData.productionPlanId,
             due_date: rowData.dueDate,
             production_plan_id: rowData.productionPlanId,
@@ -27,8 +48,8 @@ const MrpDetail = () => {
           }))
           setDataPlan(newDataPlan);
         }
-        if (result["requiredMaterial"]) {
-          const newDataRequriedMaterial = result["requiredMaterial"].map((rowData) => ({
+        if (res.data["requiredMaterial"]) {
+          const newDataRequriedMaterial = res.data["requiredMaterial"].map((rowData) => ({
             key: rowData.materialId,
             material_name: rowData.materialName,
             material_id: rowData.materialId,
@@ -40,9 +61,12 @@ const MrpDetail = () => {
           }))
           setDataRequiredMaterial(newDataRequriedMaterial);
         }
-      })
-      .catch(e => console.error(e));
-  }, []);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, [currentURL, location.search]);
 
   const SelectChangeHandler = (value) => {
     setSearchType(value);
@@ -52,19 +76,8 @@ const MrpDetail = () => {
     setSearchValue(value);
   }
 
-  const onSearch = async () => {
-    try {
-      const res = await axios({
-        method: 'GET',
-        url: '/mrp/search',
-        params: {
-          searchType: searchType, search: searchValue,
-        }
-      })
-      window.location.href = '/mrp/search'
-    } catch (e) {
-      console.error(e.message);
-    }
+  const onSearch = (value) => {
+    navigate(`/mrp/search?searchType=${encodeURIComponent(searchType)}&search=${encodeURIComponent(value)}`);
   }
 
   const planColumns = [
@@ -77,7 +90,7 @@ const MrpDetail = () => {
     {
       title: '생산계획 코드',
       dataIndex: 'production_plan_id',
-      render: (text) => <a href={`/mrp/${text}`}>{text}</a>,
+      render: (text) => <a href={`/mrp/${text}`}>{text}</a>
       // production_plan
     },
     {

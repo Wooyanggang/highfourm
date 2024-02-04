@@ -10,8 +10,17 @@ import himedia.project.highfourm.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	
-	List<User> findByEmpNo(Long empNo);
-	List<User> findByUserName(String name);
-	List<User> findByEmail(String email);
+	@Query(value = "select * from users where emp_no like %?%", nativeQuery = true)
+	List<User> findByAllEmpNo(Long empNo);
+
+	@Query(value = "select * from users where user_name like %?%", nativeQuery = true)
+	List<User> findByAllUserName(String name);
+
+	@Query(value = "select * from users where email like %?%", nativeQuery = true)
+	List<User> findByAllEmail(String email);
 	
+	User findByEmpNo(Long empNo);
+	
+	@Query(value = "select * from users where email like ?", nativeQuery = true)
+	User findByUserEmail(String email);
 }

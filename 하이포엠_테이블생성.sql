@@ -22,8 +22,8 @@ create table IF NOT EXISTS users (
 	birth date NOT NULL COMMENT '생년월일',
 	email varchar(50) unique NOT NULL COMMENT '이메일',
 	company_id int NOT NULL COMMENT '회사 코드',
-	register_state char(1) default 'N' COMMENT '가입 여부',
-    role char(10) default 'USER' COMMENT '권한',
+	register_state char(1) NOT NULL default 'N' COMMENT '가입 여부',
+    role char(10) NOT NULL default 'USER' COMMENT '권한',
 	primary key(user_no),
 	foreign key (company_id) references company(company_id)
     ON UPDATE CASCADE

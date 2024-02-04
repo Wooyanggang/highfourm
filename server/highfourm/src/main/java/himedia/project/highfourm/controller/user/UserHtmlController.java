@@ -43,8 +43,15 @@ public class UserHtmlController {
 			return "userForm";
 		}
 		
-		log.info("통신 성공 값 : " + userAddDTO.getPosition());
+		if(!service.isEmailUnique(userAddDTO.getEmail())) {
+			bindingResult.rejectValue("email", "error.user", "이미 사용중인 이메일입니다.");
+			return "userForm";
+		}
 		
+		if(!service.isEmpNoUnique(userAddDTO.getEmpNo())) {
+			bindingResult.rejectValue("empNo", "error.user", "이미 등록된 사번입니다.");
+			return "userForm";
+		}
 		service.save(userAddDTO);
 		
 		return "redirect:/users";
@@ -52,37 +59,21 @@ public class UserHtmlController {
 	
 	@GetMapping("/users/edit/{userNo}")
 	public String selectUser(@PathVariable("userNo") Long userNo, Model model) {
-		UserDTO user = service.findByUserNo(userNo);
+		UserEditDTO user = service.findByUserNoforEdit(userNo);
 		
-		UserEditDTO editDTO = UserEditDTO.builder()
-				.userNo(user.getUserNo())
-				.userName(user.getUserName())
-				.empNo(user.getEmpNo())
-				.position(user.getPosition())
-				.birth(user.getBirth())
-				.email(user.getEmail())
-				.build();
-		
-		model.addAttribute("userEditDTO", editDTO);
+		model.addAttribute("userEditDTO", user);
 		return "userEditForm";
 	}
 	
 	@PutMapping("/users/edit/{userNo}")
-	public String editUser(@ModelAttribute @Valid UserEditDTO userEditDto, BindingResult bindingResult) {
-
+	public String editUser(@PathVariable("userNo") Long userNo, @ModelAttribute @Valid UserEditDTO userEditDto, 
+			BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "userEditForm";
 		}
+		service.updateUser(userEditDto);
 
 		return "redirect:/users";
 	}
 	
-	@DeleteMapping("/users/delete/{deleteUserNo}")
-	public String deleteByUserNo(@PathVariable(value = "deleteUserNo") String deleteUserNo) {
-		Long userNo = Long.parseLong(deleteUserNo);
-		service.delete(userNo);
-		log.info("delete : " + deleteUserNo);
-		
-		return "redirect:/users";
-	}
 }
