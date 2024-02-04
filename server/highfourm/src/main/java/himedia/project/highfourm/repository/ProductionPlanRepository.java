@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import himedia.project.highfourm.dto.PerformanceDTO;
 import himedia.project.highfourm.dto.ProductionPlanDTO;
+import himedia.project.highfourm.dto.WorkPerformanceDTO;
 import himedia.project.highfourm.dto.WorkPerformanceResponseDTO;
 import himedia.project.highfourm.entity.ProductionPlan;
 
@@ -16,25 +17,40 @@ public interface ProductionPlanRepository extends JpaRepository<ProductionPlan, 
 	@Query("SELECT NEW himedia.project.highfourm.dto.WorkPerformanceResponseDTO(pp.productionPlanId, p.productId, p.productName) " +
             "FROM ProductionPlan pp " +
             "JOIN pp.product p")
-	    List<WorkPerformanceResponseDTO> findProductionPlanDetails();
-//	@Query("SELECT DISTINCT new himedia.project.highfourm.dto.ProductionPlanDTO" +
-//		       "(od.productAmount, o.orderId, o.orderDate, o.dueDate, p.productName, plan.productionPlanId, plan.productionStartDate, plan.productionPlanAmount) " +
-//		       "FROM ProductionPlan plan " +
-//		       "LEFT JOIN plan.orders o " +
-//		       "LEFT JOIN plan.product p " +
-//		       "LEFT JOIN o.orderDetails od "
-//		       + "WHERE od.orders = o and od.product = p")
-//	List<ProductionPlanDTO> findAllProductionPlan(Sort sort);
-//	
-//	@Query("SELECT new himedia.project.highfourm.dto.PerformanceDTO"
-//			+ "(plan.productionPlanId, plan.productionStartDate,plan.productionPlanAmount,o.orderId,o.vendor,o.manager,o.orderDate,o.dueDate,o.endingState,p.productId,p.productName,od.productAmount) "
-//			+ "FROM ProductionPlan plan "
-//			+ "LEFT JOIN plan.orders o "
-//			+ "LEFT JOIN plan.product p "
-//			+ "LEFT JOIN o.orderDetails od "
-//			+ "WHERE od.orders = o and od.product = p")
-//	List<PerformanceDTO> findAllPerformances(Sort sort);
-//	
-//	@Query(value = "SELECT IFNULL(SUM(acceptance_amount),0) FROM work_performance WHERE production_plan_id like ?1" , nativeQuery = true)
-//	Long sumProductionAmount(String productionPlanId);
+	List<WorkPerformanceResponseDTO> findProductionPlanDetails();
+	
+	@Query("SELECT DISTINCT new himedia.project.highfourm.dto.ProductionPlanDTO" +
+		       "(od.productAmount, o.orderId, o.orderDate, o.dueDate, p.productName, plan.productionPlanId, plan.productionStartDate, plan.productionPlanAmount) " +
+		       "FROM ProductionPlan plan " +
+		       "LEFT JOIN plan.orders o " +
+		       "LEFT JOIN plan.product p " +
+		       "LEFT JOIN o.orderDetails od "
+		       + "WHERE od.orders = o and od.product = p")
+	List<ProductionPlanDTO> findAllProductionPlan(Sort sort);
+	
+	@Query("SELECT new himedia.project.highfourm.dto.PerformanceDTO"
+			+ "(plan.productionPlanId, plan.productionStartDate,plan.productionPlanAmount,o.orderId,o.vendor,o.manager,o.orderDate,o.dueDate,o.endingState,p.productId,p.productName,od.productAmount) "
+			+ "FROM ProductionPlan plan "
+			+ "LEFT JOIN plan.orders o "
+			+ "LEFT JOIN plan.product p "
+			+ "LEFT JOIN o.orderDetails od "
+			+ "WHERE od.orders = o and od.product = p")
+	List<PerformanceDTO> findAllPerformances(Sort sort);
+	
+	@Query("SELECT new himedia.project.highfourm.dto.PerformanceDTO"
+			+ "(plan.productionPlanId, plan.productionStartDate,plan.productionPlanAmount,o.orderId,o.vendor,o.manager,o.orderDate,o.dueDate,o.endingState,p.productId,p.productName,od.productAmount) "
+			+ "FROM ProductionPlan plan "
+			+ "LEFT JOIN plan.orders o "
+			+ "LEFT JOIN plan.product p "
+			+ "LEFT JOIN o.orderDetails od "
+			+ "WHERE plan.productionPlanId = ?1 and od.orders = o and od.product = p")
+	PerformanceDTO findPerformances(String productionPlanId);
+	
+	@Query(value = "SELECT IFNULL(SUM(acceptance_amount),0) FROM work_performance WHERE production_plan_id like ?1" , nativeQuery = true)
+	Long sumProductionAmount(String productionPlanId);
+	
+	@Query("SELECT new himedia.project.highfourm.dto.WorkPerformanceDTO(wp.productionPlan.productionPlanId, wp.workDate, wp.productionAmount, wp.acceptanceAmount, wp.defectiveAmount, wp.workingTime) " +
+		       "FROM WorkPerformance wp " +
+		       "WHERE wp.productionPlan.productionPlanId LIKE ?1")
+	List<WorkPerformanceDTO> findProductionList(String productionPlanId);
 }

@@ -1,5 +1,7 @@
 package himedia.project.highfourm.entity;
 
+import java.time.LocalDate;
+
 import himedia.project.highfourm.dto.WorkPerformanceDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -32,7 +34,7 @@ public class WorkPerformance {
 	private ProductionPlan productionPlan;
 	
 	@Column(name = "work_date")
-	private String workDate;
+	private LocalDate workDate;
 	
 	@Column(name = "production_amount")
 	private Long productionAmount;
@@ -53,7 +55,7 @@ public class WorkPerformance {
 	private Long lotNo;
 	
 	@Column(name = "valid_date")
-	private String validDate;
+	private LocalDate validDate;
 	
 	@Column(name = "note")
 	private String note;

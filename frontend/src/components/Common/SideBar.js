@@ -16,8 +16,8 @@ const SideBar = () => {
     };
   }
 
-  const mode ='inline';
-  const theme= 'light';
+  const mode = 'inline';
+  const theme = 'light';
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [currentPage, setCurrentPage] = useState('');
   const [openKeys, setOpenKeys] = useState([]);
@@ -54,7 +54,7 @@ const SideBar = () => {
       return '3';
     } else if (url === '/orders') {
       return '4';
-    } else if (url === '/product-management') {
+    } else if (url === '/production-plan') {
       return '5';
     } else if (url === '/mrp') {
       return '6';
@@ -62,7 +62,7 @@ const SideBar = () => {
       return '7';
     } else if (url === '/work-performance') {
       return '8';
-    } else if (url === '/production-performance') {
+    } else if (url === '/production-status') {
       return '9';
     } else if (url === '/production-performance/chart' || url === '/production-performance/controll-chart') {
       return '10';
@@ -82,7 +82,7 @@ const SideBar = () => {
     getItem(<a href="/orders">주문관리</a>, '4', <FontAwesomeIcon icon={faFilePen} />),
   ];
   const productionMenu = [
-    getItem(<a href="/product-management">생산 계획 수립</a>, '5', <FontAwesomeIcon icon={faIndustry} />),
+    getItem(<a href="/production-plan">생산 계획 수립</a>, '5', <FontAwesomeIcon icon={faIndustry} />),
     getItem(<a href="/mrp">자재 소요량 산출</a>, '6', <FontAwesomeIcon icon={faCalculator} />),
     getItem('작업 실적 관리', 'sub2', <FontAwesomeIcon icon={faChartLine} />, [
       getItem(<a href="/work-performance/new">작업 실적 등록</a>, '7'),
@@ -91,7 +91,7 @@ const SideBar = () => {
   ];
   const inquiryMenu = [
     getItem(<a href="/production-status">생산 현황 조회</a>, '9', <FontAwesomeIcon icon={faChartSimple} />),
-    getItem(<a href="/production-performance/chart">생산 실적 조회</a>, '10', <FontAwesomeIcon icon={faChartLine} />),
+    getItem(<a href="/production-performance">생산 실적 조회</a>, '10', <FontAwesomeIcon icon={faChartLine} />),
   ];
 
   const bottomMenu = [
@@ -106,6 +106,7 @@ const SideBar = () => {
   const handleOpenChange = (keys) => {
     setOpenKeys(keys);
   };
+
 
   return (
     <div style={{ padding: '40px 20px 40px 20px', width: '300px', backgroundColor: '#fff', height: '100vh', borderRight: '1px solid #ccc', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', zIndex: '100', position: 'fixed' }}>
@@ -143,7 +144,7 @@ const SideBar = () => {
             openKeys={openKeys}
             onClick={handleClick}
             onOpenChange={handleOpenChange}
-            />
+          />
           <span style={{ width: '87px', height: '14px', paddingBottom: '20px', color: '#808080' }}>조회</span>
           <Menu
             style={{
