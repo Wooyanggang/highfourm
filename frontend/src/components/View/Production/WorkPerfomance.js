@@ -1,55 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BasicTable from '../../Common/Table/BasicTable';
 import { Input, Popconfirm } from "antd";
 import { BtnBlack, BtnGray, InputBar } from '../../Common/Module';
 import PageTitle from '../../Common/PageTitle';
 
 function WorkPerfomance() {
-  const [dataSource, setDataSource] = useState([
-    {
-      key: 0,
-      workDate: '2023-02-02',
-      productId: 'E001',
-      productName: '데스크탑',
-      standard: '',
-      process: '보드 케이스 합체',
-      productionQuantity: 5,
-      goodProductQuantity: 5,
-      defectiveProductQuantity: 0,
-      workHour: 14,
-      managerName: '홍길동',
-      LotNo: '',
-      availableDate: '',
-      productctionPlanId: '201801070001',
-      note: ''
-    },
-    {
-      key: 1,
-      workDate: '2023-02-02',
-      productId: 'E001',
-      productName: '데스크탑',
-      standard: '',
-      process: '보드 케이스 합체',
-      productionQuantity: 5,
-      goodProductQuantity: 5,
-      defectiveProductQuantity: 0,
-      workHour: 14,
-      managerName: '홍길동',
-      LotNo: '',
-      availableDate: '',
-      productctionPlanId: '201801070001',
-      note: ''
-    },
-  ]);
+  const [dataSource, setDataSource] = useState([]);
   
-  // console.log(dataSource);
-  
-  const handleDelete = (key) => {
-    const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
-  }
-  
+  useEffect(() => {
+    fetch('/work-perfomance')
+    .then(response => response.json())
+    .then(result => {
+        console.log(result);
+        if (result) {
+          const newData = result.map((item, index) => ({ key: index, ...item }));
+          setDataSource(newData);
+        } 
+      })
+      .catch(error => {
+        console.error('데이터를 가져오는 중 오류 발생:', error);
+      });
+  }, []);
+
   const defaultColumns = [
+    {
+      title: '생산 계획 코드',
+      dataIndex: 'productionPlanId',
+    },
     {
       title: '작업 일자',
       dataIndex: 'workDate',
@@ -62,65 +39,47 @@ function WorkPerfomance() {
       title: '생산품명',
       dataIndex: 'productName',
     },
-    {
-      title: '제품 규격',
-      dataIndex: 'standard',
-    },
-    {
-      title: '공정',
-      dataIndex: 'process',
-    },
+    // {
+    //   title: '공정',
+    //   dataIndex: 'process',
+    // },
     {
       title: '생산 수량',
-      dataIndex: 'productionQuantity',
+      dataIndex: 'productionAmount',
     },
     {
       title: '양품 수량',
-      dataIndex: 'goodProductQuantity',
+      dataIndex: 'acceptanceAmount',
     },
     {
       title: '불량 수량',
-      dataIndex: 'defectiveProductQuantity',
+      dataIndex: 'defectiveAmount',
     },
     {
       title: '작업 시간',
-      dataIndex: 'workHour',
+      dataIndex: 'workingTime',
     },
     {
       title: '담당자',
-      dataIndex: 'managerName',
+      dataIndex: 'manager',
     },
     {
       title: 'Lot No',
-      dataIndex: 'LotNo',
+      dataIndex: 'lotNo',
     },
     {
       title: '유효 일자',
-      dataIndex: 'availableDate',
-    },
-    {
-      title: '생산 계획 번호',
-      dataIndex: 'productctionPlanId',
+      dataIndex: 'validDate',
     },
     {
       title: '비고',
       dataIndex: 'note',
     },
-    {
-      title: '삭제',
-      dataIndex: 'operation',
-      render: (_, record) =>
-        dataSource.length >= 1 ? (
-          <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
-            <a>삭제</a>
-          </Popconfirm>
-        ) : null,
-    },
   ];
 
   return (
     <div className='work-perfomance-page'>
-        <PageTitle value={'생산 실적 상세 조회'}/>
+        <PageTitle value={'작업 실적 조회'}/>
         <form action='' className='search-form'>
           <div className='search-input-wrap'>
             <div className='search-input'>
@@ -145,7 +104,12 @@ function WorkPerfomance() {
           </div>
         </form>
         <div>
-          <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} />
+          <BasicTable 
+          dataSource={dataSource} 
+          defaultColumns={defaultColumns} 
+          setDataSource={setDataSource} 
+          pagination={false}
+          />
         </div>
     </div>
   );
