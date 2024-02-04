@@ -14,9 +14,9 @@ import Mrp from './View/Production/Mrp/Mrp';
 import MrpDetail from './View/Production/Mrp/MrpDetail';
 import ProductManagement from './View/Production/ProductManagement';
 import Status from './View/Production/Status';
-import WorkPerfomance from './View/Production/WorkPerfomance';
-import WorkPerfomanceNew from './View/Production/WorkPerfomanceNew';
-import Perfomance from './View/Production/Perfomance';
+import WorkPerformance from './View/Production/WorkPerformance';
+import WorkPerformanceNew from './View/Production/WorkPerformanceNew';
+import Performance from './View/Production/Performance';
 import UserEdit from './View/User/UserEdit';
 import UserList from './View/User/UserList';
 import UserNew from './View/User/UserNew';
@@ -24,8 +24,8 @@ import MaterialOrderHistory from './View/Material/MaterialOrderHistory';
 import MaterialOrderHistoryNew from './View/Material/MaterialOrderHistoryNew';
 import MaterialOrderHistoryEdit from './View/Material/MaterialOrderHistoryEdit';
 import Join from './View/User/Join';
-import PerfomanceChart from './View/Production/PerfomanceChart';
-import PerfomanceControllChart from './View/Production/PerfomanceControllChart';
+import PerformanceChart from './View/Production/PerformanceChart';
+import PerformanceControllChart from './View/Production/PerformanceControllChart';
 import Test from './View/Test';
 import axios from 'axios';
 import BomDetail from './View/Production/BomDetail';
@@ -84,11 +84,11 @@ function App() {
                 <Route path='/bom' element={<Bom />} />
                 <Route path='/bom/detail/:productId' element={<BomDetail />} />
                 <Route path='/production-status' element={<Status />} />
-                <Route path='/work-perfomance' element={<WorkPerfomance />} />
-                <Route path='/work-perfomance/new' element={<WorkPerfomanceNew />} />
-                <Route path='/production-perfomance' element={<Perfomance />} />
-                <Route path='/production-perfomance/chart' element={<PerfomanceChart />} />
-                <Route path='/production-perfomance/controll-chart' element={<PerfomanceControllChart />} />
+                <Route path='/work-performance' element={<WorkPerformance />} />
+                <Route path='/work-performance/new' element={<WorkPerformanceNew />} />
+                <Route path='/production-performance' element={<Performance />} />
+                <Route path='/production-performance/chart' element={<PerformanceChart />} />
+                <Route path='/production-performance/controll-chart' element={<PerformanceControllChart />} />
                 <Route path='/Test' element={<Test />} />
               </Routes>
             </Router>

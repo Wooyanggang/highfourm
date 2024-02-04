@@ -4,7 +4,7 @@ import { Input, Popconfirm } from "antd";
 import { BtnBlack, BtnGray, InputBar } from '../../Common/Module';
 import PageTitle from '../../Common/PageTitle';
 
-function WorkPerfomance() {
+function WorkPerformance() {
   const [dataSource, setDataSource] = useState([
     {
       key: 0,
@@ -119,7 +119,7 @@ function WorkPerfomance() {
   ];
 
   return (
-    <div className='work-perfomance-page'>
+    <div className='work-performance-page'>
         <PageTitle value={'생산 실적 상세 조회'}/>
         <form action='' className='search-form'>
           <div className='search-input-wrap'>
@@ -151,4 +151,4 @@ function WorkPerfomance() {
   );
 }
 
-export default WorkPerfomance
+export default WorkPerformance

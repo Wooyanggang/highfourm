@@ -31,7 +31,7 @@ const calculateControlLimits = (data, zValue) => {
   };
 };
 
-const PerfomanceControllChart = () => {
+const PerformanceControllChart = () => {
   const data = [
     {
       date: '23-12-01',
@@ -167,9 +167,9 @@ const PerfomanceControllChart = () => {
       <PageTitle value={'생산 실적 상세 조회'} />
       <div style={{ width: '100%' }}>
         <div className='order-filter'>
-          <BtnFilter valueArr={['통계', '불량률 관리']} linkArr={['/production-perfomance/chart', '/production-perfomance/controll-chart']} />
+          <BtnFilter valueArr={['통계', '불량률 관리']} linkArr={['/production-performance/chart', '/production-performance/controll-chart']} />
         </div>
-        <div className='perfomance-chart-page' style={{ marginTop: '20px' }} >
+        <div className='performance-chart-page' style={{ marginTop: '20px' }} >
           <form action='' className='searchForm'>
             <div className='search-input-wrap'>
               <div className='search-input'>
@@ -237,6 +237,6 @@ const PerfomanceControllChart = () => {
   );
 };
 
-export default PerfomanceControllChart;
+export default PerformanceControllChart;
 
 
