@@ -11,9 +11,9 @@ const MrpDetail = () => {
   const location = useLocation();
   const currentURL = window.location.pathname;
   const [searchType, setSearchType] = useState('생산계획 코드');
+  const [searchValue, setSearchValue] = useState([]);
   const [dataPlan, setDataPlan] = useState([]);
   const [dataRequiredMaterial, setDataRequiredMaterial] = useState([]);
-  const [searchValue, setSearchValue] = useState([]);
   const { productionPlanId } = useParams();
 
   useEffect(() => {
@@ -82,6 +82,7 @@ const MrpDetail = () => {
   }
 
   function generateLink(productionPlanId, searchType, searchValue) {
+    console.log(productionPlanId, searchType, searchValue);
     if (searchType && searchValue) {
       return `/mrp/search?searchType=${searchType}&search=${searchValue}`;
     } else if (productionPlanId && searchType && searchValue) {
@@ -101,7 +102,7 @@ const MrpDetail = () => {
     {
       title: '생산계획 코드',
       dataIndex: 'production_plan_id',
-      render: (text, record) => <a href={generateLink(text, record.searchType, record.searchValue)}>{text}</a>
+      render: (text) => <a href={generateLink(text, searchType, searchValue)}>{text}</a>
       // production_plan
     },
     {
