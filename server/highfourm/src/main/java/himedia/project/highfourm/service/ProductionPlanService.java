@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import himedia.project.highfourm.dto.WorkPerfomanceResponseDTO;
+import himedia.project.highfourm.dto.ProductionPlanDTO;
+import himedia.project.highfourm.dto.WorkPerformanceResponseDTO;
 //import himedia.project.highfourm.dto.MonthlyProductionPlanDTO;
 //import himedia.project.highfourm.dto.ProductionPlanDTO;
 //import himedia.project.highfourm.entity.MonthlyProductionPlan;
@@ -36,8 +37,16 @@ public class ProductionPlanService {
 //		return monthlyProductionPlanDTOs;
 //	}
 	
-	public List<WorkPerfomanceResponseDTO> findProductionPlanDetails() {
-		List<WorkPerfomanceResponseDTO> responseList = productionPlanRepository.findProductionPlanDetails();
+	public List<WorkPerformanceResponseDTO> findProductionPlanDetails() {
+		List<WorkPerformanceResponseDTO> responseList = productionPlanRepository.findProductionPlanDetails();
 		return responseList;
+	}
+	
+	public List<ProductionPlanDTO> findAll(){
+		List<ProductionPlanDTO> resultList = productionPlanRepository.findAll()
+				.stream().map(productionPlan -> 
+				productionPlan.toDTO(productionPlan.getProduct(), productionPlan.getOrders()))
+				.collect(Collectors.toList());
+		return resultList;
 	}
 }

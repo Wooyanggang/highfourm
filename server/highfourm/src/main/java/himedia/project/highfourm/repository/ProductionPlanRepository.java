@@ -8,15 +8,15 @@ import org.springframework.data.jpa.repository.Query;
 
 import himedia.project.highfourm.dto.PerformanceDTO;
 import himedia.project.highfourm.dto.ProductionPlanDTO;
-import himedia.project.highfourm.dto.WorkPerfomanceResponseDTO;
+import himedia.project.highfourm.dto.WorkPerformanceResponseDTO;
 import himedia.project.highfourm.entity.ProductionPlan;
 
 public interface ProductionPlanRepository extends JpaRepository<ProductionPlan, String> {
 	
-	@Query("SELECT NEW himedia.project.highfourm.dto.WorkPerfomanceResponseDTO(pp.productionPlanId, p.productId, p.productName) " +
+	@Query("SELECT NEW himedia.project.highfourm.dto.WorkPerformanceResponseDTO(pp.productionPlanId, p.productId, p.productName) " +
             "FROM ProductionPlan pp " +
             "JOIN pp.product p")
-	    List<WorkPerfomanceResponseDTO> findProductionPlanDetails();
+	    List<WorkPerformanceResponseDTO> findProductionPlanDetails();
 //	@Query("SELECT DISTINCT new himedia.project.highfourm.dto.ProductionPlanDTO" +
 //		       "(od.productAmount, o.orderId, o.orderDate, o.dueDate, p.productName, plan.productionPlanId, plan.productionStartDate, plan.productionPlanAmount) " +
 //		       "FROM ProductionPlan plan " +

@@ -3,7 +3,7 @@ import BasicTable from '../../Common/Table/BasicTable';
 import { Input, Popconfirm } from "antd";
 import PageTitle from '../../Common/PageTitle';
 
-function WorkPerfomanceNew() {
+function WorkPerformanceNew() {
   const [dataSource, setDataSource] = useState([
     {
       key: 0,
@@ -118,7 +118,7 @@ function WorkPerfomanceNew() {
   ];
 
   return (
-    <div className='work-perfomance-page'>
+    <div className='work-performance-page'>
       <PageTitle value={'생산 실적 상세 조회'}/>
         <div style={{width: '1600px'}}>
           <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} />
@@ -127,4 +127,4 @@ function WorkPerfomanceNew() {
   );
 }
 
-export default WorkPerfomanceNew
+export default WorkPerformanceNew

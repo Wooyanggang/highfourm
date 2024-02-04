@@ -1,7 +1,7 @@
 package himedia.project.highfourm.dto;
 
 import himedia.project.highfourm.entity.ProductionPlan;
-import himedia.project.highfourm.entity.WorkPerfomance;
+import himedia.project.highfourm.entity.WorkPerformance;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,8 +12,8 @@ import lombok.Setter;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class WorkPerfomanceDTO {
-	private Long workPerfomanceId;
+public class WorkPerformanceDTO {
+	private Long workPerformanceId;
 	private String productionPlanId;
 	private String workDate;
 	private Long productionAmount;
@@ -25,10 +25,10 @@ public class WorkPerfomanceDTO {
 	private String validDate;
 	private String note;
 	
-	public WorkPerfomance toEntity(ProductionPlan productionPlan) {
-		return WorkPerfomance
+	public WorkPerformance toEntity(ProductionPlan productionPlan) {
+		return WorkPerformance
 				.builder()
-				.workPerfomanceId(workPerfomanceId)
+				.workPerformanceId(workPerformanceId)
 				.productionPlan(productionPlan)
 				.workDate(workDate)
 				.productionAmount(productionAmount)

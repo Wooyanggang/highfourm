@@ -10,8 +10,8 @@ import lombok.Setter;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class WorkPerfomanceListDTO {
-	private Long workPerfomanceId;
+public class WorkPerformanceListDTO {
+	private Long workPerformanceId;
 	private String productionPlanId;
 	private String workDate;
 	private String productId;

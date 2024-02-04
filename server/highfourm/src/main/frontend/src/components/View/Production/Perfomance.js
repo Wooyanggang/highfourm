@@ -6,7 +6,7 @@ import { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, StepBar 
 import BasicTable from '../../Common/Table/BasicTable';
 import PageTitle from '../../Common/PageTitle';
 
-const Perfomance = () => {
+const Performance = () => {
   const defaultColumns = [
     {
       title: '주문 번호',
@@ -48,7 +48,7 @@ const Perfomance = () => {
     {
       title: '통계조회',
       dataIndex: 'viewChart',
-      render: (text) => <a href='/production-perfomance/chart'>{text}</a>,
+      render: (text) => <a href='/production-performance/chart'>{text}</a>,
     },
     {
       title: '비고',
@@ -383,7 +383,7 @@ const Perfomance = () => {
     setDataSource(newData);
   }
   return (
-    <div className='perfomance-page'>
+    <div className='performance-page'>
       <PageTitle value={'생산 실적 조회'}/>
       <div style={{ marginBottom: '24px' }}>
         <SearchInput></SearchInput>
@@ -395,4 +395,4 @@ const Perfomance = () => {
   );
 };
 
-export default Perfomance;
+export default Performance;

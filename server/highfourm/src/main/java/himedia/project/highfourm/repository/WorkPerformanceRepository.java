@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import himedia.project.highfourm.dto.WorkPerfomanceListDTO;
-import himedia.project.highfourm.entity.WorkPerfomance;
+import himedia.project.highfourm.dto.WorkPerformanceListDTO;
+import himedia.project.highfourm.entity.WorkPerformance;
 
-public interface WorkPerfomanceRepository extends JpaRepository<WorkPerfomance, Long>{
-	@Query("SELECT NEW himedia.project.highfourm.dto.WorkPerfomanceListDTO(wf.workPerfomanceId, " +
+public interface WorkPerformanceRepository extends JpaRepository<WorkPerformance, Long>{
+	@Query("SELECT NEW himedia.project.highfourm.dto.WorkPerformanceListDTO(wf.workPerformanceId, " +
 	        "pp.productionPlanId, wf.workDate, pp.product.productId, pp.product.productName, wf.productionAmount, " +
 	        "wf.acceptanceAmount, wf.defectiveAmount, wf.workingTime, wf.manager, wf.lotNo, wf.validDate, wf.note) " +
-	        "FROM WorkPerfomance wf " +
+	        "FROM WorkPerformance wf " +
 	        "JOIN wf.productionPlan pp")
-	List<WorkPerfomanceListDTO> findList();
+	List<WorkPerformanceListDTO> findList();
 }

@@ -1,6 +1,6 @@
 package himedia.project.highfourm.entity;
 
-import himedia.project.highfourm.dto.WorkPerfomanceDTO;
+import himedia.project.highfourm.dto.WorkPerformanceDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,12 +20,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "work_perfomance")
-public class WorkPerfomance {
+@Table(name = "work_performance")
+public class WorkPerformance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "work_perfomance_Id")
-	private Long workPerfomanceId;
+	@Column(name = "work_performance_Id")
+	private Long workPerformanceId;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "production_plan_id", referencedColumnName = "production_plan_id")
@@ -58,10 +58,10 @@ public class WorkPerfomance {
 	@Column(name = "note")
 	private String note;
 	
-	public WorkPerfomanceDTO toWorkPerfomanceDTO() {
-		return WorkPerfomanceDTO
+	public WorkPerformanceDTO toWorkPerformanceDTO() {
+		return WorkPerformanceDTO
 				.builder()
-				.workPerfomanceId(workPerfomanceId)
+				.workPerformanceId(workPerformanceId)
 				.productionPlanId(productionPlan.getProductionPlanId())
 				.workDate(workDate)
 				.productionAmount(productionAmount)

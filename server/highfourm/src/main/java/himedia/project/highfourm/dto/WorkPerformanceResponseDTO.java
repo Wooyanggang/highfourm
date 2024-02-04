@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class WorkPerfomanceResponseDTO {
+public class WorkPerformanceResponseDTO {
 	private String ProductionPlanId;
 	private String ProductId;
 	private String ProductName;
