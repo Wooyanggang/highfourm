@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UploadOutlined, AudioOutlined } from '@ant-design/icons';
 import { Input, Space, } from 'antd';
@@ -12,7 +12,7 @@ import PageTitle from '../../Common/PageTitle';
 
 const OrderList = () => {
   const navigate = useNavigate();
-  
+
   const [dataSource, setDataSource] = useState([]);
   const [count, setCount] = useState(dataSource.length);
   const [ordersData, setOrdersData] = useState({
@@ -27,23 +27,20 @@ const OrderList = () => {
   };
 
   const orderNewformSubmit = () => {
-    // OrdersDTO 객체 생성
     const ordersNewRequest = {
       ...ordersData,
       orderId: null,
       endingState: false
     };
 
-    // OrderDetailFormDTO 객체 리스트 생성
     const orderDetails = dataSource.map(item => ({
       orderId: null,
-      productId: null,  
+      productId: null,
       productAmount: item.amount,
       unitPrice: item.unitPrice,
       productName: item.productName
     }));
 
-    // 데이터 전송 로직
     axios.post('/orders/new', {
       orders: ordersNewRequest,
       orderDetails: orderDetails
@@ -52,13 +49,13 @@ const OrderList = () => {
         'Content-Type': 'application/json'
       }
     })
-    .then(response => {
-      alert('성공적으로 등록되었습니다.');
-      navigate('/orders')
-    })
-    .catch(error => {
-      alert('등록에 실패하였습니다.');
-    });
+      .then(response => {
+        alert('성공적으로 등록되었습니다.');
+        navigate('/orders')
+      })
+      .catch(error => {
+        alert('등록에 실패하였습니다.');
+      });
   };
 
   const handleDelete = (key) => {
@@ -145,15 +142,15 @@ const OrderList = () => {
               </div>
               <div className='input'>
                 <label htmlFor="manager">담당자</label>
-                <InputBar placeholderMsg={'manager'} name={'manager'} id={'manager'} onChange={handleInputChange}/>
+                <InputBar placeholderMsg={'manager'} name={'manager'} id={'manager'} onChange={handleInputChange} />
               </div>
               <div className='input'>
                 <label htmlFor="orderDate">주문일</label>
-                <InputBar placeholderMsg={'orderDate'} type={'date'} name={'orderDate'} inputId={'orderDate'} onChange={handleInputChange}/>
+                <InputBar placeholderMsg={'orderDate'} type={'date'} name={'orderDate'} inputId={'orderDate'} onChange={handleInputChange} />
               </div>
               <div className='input'>
                 <label htmlFor="dueDate">납기일</label>
-                <InputBar placeholderMsg={'dueDate'} type={'date'} name={'dueDate'} inputId={'dueDate'} onChange={handleInputChange}/>
+                <InputBar placeholderMsg={'dueDate'} type={'date'} name={'dueDate'} inputId={'dueDate'} onChange={handleInputChange} />
               </div>
             </div>
             <div className='order-new-table'>
@@ -164,7 +161,7 @@ const OrderList = () => {
                 <BtnBlack value={'제품 추가'} onClick={handleAdd} />
               </div>
               <div className='order-new-cancel-btn'>
-                <BtnWhite value={'취소'} onClick={e =>navigate('/orders')}/>
+                <BtnWhite value={'취소'} onClick={e => navigate('/orders')} />
               </div>
               <div className='order-new-submit-btn'>
                 <BtnBlue value={'주문 등록'} onClick={orderNewformSubmit} />

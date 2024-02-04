@@ -120,7 +120,7 @@ const OrderList = () => {
   return (
     <>
       <PageTitle value={'주문 관리'} />
-      <Dropdown menu={menuProps}>
+      {/* <Dropdown menu={menuProps}>
         <Button>
           <Space>
             카테고리
@@ -129,7 +129,7 @@ const OrderList = () => {
         </Button>
       </Dropdown>
       <SearchInput></SearchInput>
-      <onSearch></onSearch>
+      <onSearch></onSearch> */}
       <div className='order-list-page'>
         <div className='order-list-wrap'>
           <div className='order-new'>

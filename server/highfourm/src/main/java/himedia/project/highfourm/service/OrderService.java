@@ -3,7 +3,6 @@ package himedia.project.highfourm.service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -23,6 +22,7 @@ import himedia.project.highfourm.entity.OrderDetail;
 import himedia.project.highfourm.entity.Orders;
 import himedia.project.highfourm.entity.Product;
 import himedia.project.highfourm.entity.ProductionPlan;
+import himedia.project.highfourm.repository.MonthlyProductionPlanRepository;
 import himedia.project.highfourm.repository.OrderDetailRepository;
 import himedia.project.highfourm.repository.OrdersRepository;
 import himedia.project.highfourm.repository.ProductRepository;
@@ -39,6 +39,7 @@ public class OrderService {
 	private final OrderDetailRepository orderDetailRepository;
 	private final ProductRepository productRepository;
 	private final ProductionPlanRepository productionPlanRepository;
+	private final MonthlyProductionPlanRepository monthlyProductionPlanRepository;
 	
     public Map<String, Object> findAllOrders() {
         List<Orders> orders = ordersRepository.findAll(Sort.by(Sort.Direction.DESC, "orderId"));
@@ -108,38 +109,44 @@ public class OrderService {
 	   productionPlans.stream()
 	   		.forEach(e -> productionPlanRepository.save(e));
 	   
-//	   Map<String, Integer> monthAndDays = getMonthsAndDays(orders.getOrderDate(),orders.getDueDate());
-//	   int totalDays = monthAndDays.values().stream()
-//			   .mapToInt(Integer::intValue)
-//			   .sum();
+	   Map<String, Integer> monthAndDays = getMonthsAndDays(orders.getOrderDate(),orders.getDueDate());
+	   Long totalDays = monthAndDays.values().stream()
+			   .mapToLong(Integer::intValue)
+			   .sum();
+//	   for(ProductionPlan i : productionPlans) {
+//		   for(Map.Entry<String, Integer> j : monthAndDays.entrySet()) {
+//			   monthlyProductionPlanRepository.saveMonthlyProductPlan(j.getKey(), i.getProductionPlanId(), j.getValu);
+//		   }
+//	   }
+	   
    }
    
 
-//   public static Map<String, Integer> getMonthsAndDays(LocalDate orderDate, LocalDate dueDate) {
-//	    Map<String, Integer> monthsAndDays = new LinkedHashMap<>();
-//	    LocalDate current = orderDate.with(TemporalAdjusters.firstDayOfMonth());
-//
-//	    while (current.isBefore(dueDate) || current.equals(dueDate)) {
-//	        LocalDate lastDayOfMonth = current.with(TemporalAdjusters.lastDayOfMonth());
-//	        String month = current.format(DateTimeFormatter.ofPattern("yy-MM"));
-//	        int daysInMonth;
-//
-//	        if (current.getMonth() == orderDate.getMonth() && current.getYear() == orderDate.getYear()) {
-//	            if (lastDayOfMonth.isBefore(dueDate) || lastDayOfMonth.equals(dueDate)) {
-//	                daysInMonth = lastDayOfMonth.getDayOfMonth() - orderDate.getDayOfMonth() + 1;
-//	            } else {
-//	                daysInMonth = dueDate.getDayOfMonth() - orderDate.getDayOfMonth() + 1;
-//	            }
-//	        } else if (current.getMonth() == dueDate.getMonth() && current.getYear() == dueDate.getYear()) {
-//	            daysInMonth = dueDate.getDayOfMonth();
-//	        } else {
-//	            daysInMonth = lastDayOfMonth.getDayOfMonth();
-//	        }
-//
-//	        monthsAndDays.put(month, daysInMonth);
-//	        current = current.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
-//	    }
-//
-//	    return monthsAndDays;
-//	}
+   public static Map<String, Integer> getMonthsAndDays(LocalDate orderDate, LocalDate dueDate) {
+	    Map<String, Integer> monthsAndDays = new LinkedHashMap<>();
+	    LocalDate current = orderDate.with(TemporalAdjusters.firstDayOfMonth());
+
+	    while (current.isBefore(dueDate) || current.equals(dueDate)) {
+	        LocalDate lastDayOfMonth = current.with(TemporalAdjusters.lastDayOfMonth());
+	        String month = current.format(DateTimeFormatter.ofPattern("yy-MM"));
+	        int daysInMonth;
+
+	        if (current.getMonth() == orderDate.getMonth() && current.getYear() == orderDate.getYear()) {
+	            if (lastDayOfMonth.isBefore(dueDate) || lastDayOfMonth.equals(dueDate)) {
+	                daysInMonth = lastDayOfMonth.getDayOfMonth() - orderDate.getDayOfMonth() + 1;
+	            } else {
+	                daysInMonth = dueDate.getDayOfMonth() - orderDate.getDayOfMonth() + 1;
+	            }
+	        } else if (current.getMonth() == dueDate.getMonth() && current.getYear() == dueDate.getYear()) {
+	            daysInMonth = dueDate.getDayOfMonth();
+	        } else {
+	            daysInMonth = lastDayOfMonth.getDayOfMonth();
+	        }
+
+	        monthsAndDays.put(month, daysInMonth);
+	        current = current.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
+	    }
+
+	    return monthsAndDays;
+	}
 }

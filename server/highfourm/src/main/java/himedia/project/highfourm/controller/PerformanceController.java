@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import himedia.project.highfourm.dto.PerformanceDTO;
@@ -19,9 +20,16 @@ public class PerformanceController {
 	
 	private final PerformanceService performanceService; 
 	
-	@GetMapping("/performance")
+	@GetMapping("/production-performance")
 	public List<PerformanceDTO> performance(){
-		List<PerformanceDTO> performances = performanceService.findPerformance();
+		List<PerformanceDTO> performances = performanceService.findAllPerformance();
 		return performances;
+	}
+	
+	@GetMapping("/production-performance/{productionPlanId}/chart")
+	public PerformanceDTO performanceChart(@PathVariable("productionPlanId") String productionPlanId) {
+		PerformanceDTO performance = performanceService.findPerformance(productionPlanId);
+		System.out.println(performance.getOrderId());
+		return performance;
 	}
 }

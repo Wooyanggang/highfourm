@@ -28,9 +28,7 @@ public class PerformanceDTO {
 	private Boolean endingState;
 	private Long productAmount;
 	private Long totalProductionAmount;
-	private List<Long> productionAmount;
-	private List<Long> acceptanceAmount;
-	private List<Long> defectiveAmount;
+	private List<WorkPerformanceDTO> workPerformances;
 	
 	public PerformanceDTO(String productionPlanId,LocalDate productionStartDate,Long productionPlanAmount, String orderId
 			,String vendor, String manager,LocalDate orderDate, LocalDate dueDate, Boolean endingState
@@ -48,6 +46,5 @@ public class PerformanceDTO {
 		this.productName = productName;
 		this.productAmount = productAmount;
 	}
-	
 	
 }

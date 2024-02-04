@@ -24,4 +24,5 @@ public class MonthlyProductionPlanDTO {
 				.productionAmount(monthlyProductionPlan.getProductionAmount())
 				.build();
 	}
+	
 }

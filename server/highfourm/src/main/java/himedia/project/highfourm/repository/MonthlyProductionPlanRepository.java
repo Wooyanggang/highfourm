@@ -12,4 +12,7 @@ public interface MonthlyProductionPlanRepository extends JpaRepository<MonthlyPr
 	
 	@Query(value = "SELECT * FROM monthly_production_plan where production_plan_id like ?1 ORDER BY month ASC", nativeQuery = true)
 	List<MonthlyProductionPlan> findByProductionPlanId(String productionPlanId);
+	
+	@Query(value = "INSERT monthly_production_plan values(?1, ?2, ?3)", nativeQuery = true)
+	void saveMonthlyProductPlan(String month,String productionPlanId,Long productionAmount);
 }

@@ -77,8 +77,8 @@ function App() {
                 <Route path='/work-perfomance' element={<WorkPerfomance />} />
                 <Route path='/work-perfomance/new' element={<WorkPerfomanceNew />} />
                 <Route path='/production-performance' element={<Performance />} />
-                <Route path='/production-performance/chart' element={<PerformanceChart />} />
-                <Route path='/production-performance/controll-chart' element={<PerformanceControllChart />} />
+                <Route path='/production-performance/:productionPlanId/chart' element={<PerformanceChart />} />
+                <Route path='/production-performance/:productionPlanId/controll-chart' element={<PerformanceControllChart />} />
                 <Route path='/Test' element={<Test />} />
               </Routes>
             </Router>

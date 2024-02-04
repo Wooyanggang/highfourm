@@ -39,7 +39,6 @@ const ProductionPlan = () => {
           const newPlans = Object.entries(calculatedMonthsAndDays).map(([month, days]) => ({
             month: month,
             productionAmount: days,
-            editable: false
           }));
           setMonthlyProductionPlans(newPlans);
         }
@@ -134,7 +133,6 @@ const ProductionPlan = () => {
   }
 
   const getMonthlyProductionPlanColumns = () => {
-    // 기본 컬럼 구조 정의
     const columns = [
       {
         title: '월',
@@ -155,10 +153,9 @@ const ProductionPlan = () => {
         editable: true,
       }));
     } else {
-      // 서버로부터 데이터를 받지 못한 경우 (데이터가 없거나, 서버 요청을 하지 않았을 경우)
       return columns.map(col => ({
         ...col,
-        editable: false, // 사용자가 데이터를 입력할 수 있도록 editable을 true로 설정
+        editable: false,
       }));
     }
   };
@@ -206,13 +203,13 @@ const ProductionPlan = () => {
   return (
     <div>
       <PageTitle value={'생산 계획 수립'} />
-      <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
+      {/* <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
         <SearchSelectBox selectValue={['생산계획 코드', '품명', '주문일']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput id={'search'} name={'search'} onSearch={onSearch} />
       </div>
       <div style={{ marginBottom: '24px' }}>
         <BtnBlack value={'생산계획 등록'} onClick={handleAdd} />
-      </div>
+      </div> */}
       <div style={{ display: 'flex', gap: '24px 19px' }}>
         <div style={{ paddingRight: '20px' }}>
           <BasicTable

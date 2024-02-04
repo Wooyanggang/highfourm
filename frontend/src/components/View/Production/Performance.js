@@ -12,7 +12,7 @@ const Performance = () => {
   const [performance, setPerformance] = useState([]);
 
   useEffect(() => {
-    axios.get('/performance')
+    axios.get('/production-performance')
       .then(res => {
         const performanceData = res.data;
         if (performanceData) {
@@ -68,16 +68,16 @@ const Performance = () => {
     {
       title: '통계조회',
       dataIndex: 'productionPlanId',
-      render: (text) => <a href={`/production-performance/${text}`}>{text}</a>,
+      render: (productionPlanId) => <a href={`/production-performance/${productionPlanId}/chart`}>보기</a>,
     },
   ];
 
   return (
     <div className='perfomance-page'>
       <PageTitle value={'생산 실적 조회'} />
-      <div style={{ marginBottom: '24px' }}>
+      {/* <div style={{ marginBottom: '24px' }}>
         <SearchInput></SearchInput>
-      </div>
+      </div> */}
       <div>
         <BasicTable dataSource={performance} defaultColumns={defaultColumns} />
       </div>

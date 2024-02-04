@@ -1,5 +1,7 @@
 package himedia.project.highfourm.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,8 +30,8 @@ public class WorkPerformance {
 	@JoinColumn(name = "production_plan_id", referencedColumnName = "production_plan_id")
 	private ProductionPlan productionPlan;
 	
-	@Column(name = "working_date")
-	private String workingDate;
+	@Column(name = "date")
+	private LocalDate date;
 	
 	@Column(name = "production_amount")
 	private Long productionAmount;
