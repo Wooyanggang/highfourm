@@ -5,6 +5,7 @@ import BasicTable from '../../../Common/Table/BasicTable';
 import PageTitle from '../../../Common/PageTitle';
 import axios from 'axios';
 import * as xlsx from 'xlsx';
+import downloadXlsx from '../../../Common/DownloadXlsx';
 
 const Mrp = () => {
   const navigate = useNavigate();
@@ -128,19 +129,19 @@ const Mrp = () => {
     },
   ];
 
-  const downloadXlsx = () => {
-    const ws = xlsx.utils.json_to_sheet(dataPlan);
-    const wb = xlsx.utils.book_new();
+  // const downloadXlsx = () => {
+  //   const ws = xlsx.utils.json_to_sheet(dataPlan);
+  //   const wb = xlsx.utils.book_new();
 
-    ['납기일', '생산계획 코드', '품번', '품명', '계획 수량'].forEach((x, idx) => {
-      const cellAdd = xlsx.utils.encode_cell({ c: idx + 1, r: 0 });
-      ws[cellAdd].v = x;
-    });
-    ws['!cols'] = [];
-    ws['!cols'][0] = { hidden: true };
-    xlsx.utils.book_append_sheet(wb, ws, 'ProductionPlan1');
-    xlsx.writeFile(wb, 'ProductionPlan.xlsx');
-  }
+  //   ['납기일', '생산계획 코드', '품번', '품명', '계획 수량'].forEach((x, idx) => {
+  //     const cellAdd = xlsx.utils.encode_cell({ c: idx + 1, r: 0 });
+  //     ws[cellAdd].v = x;
+  //   });
+  //   ws['!cols'] = [];
+  //   ws['!cols'][0] = { hidden: true };
+  //   xlsx.utils.book_append_sheet(wb, ws, 'ProductionPlan1');
+  //   xlsx.writeFile(wb, 'ProductionPlan.xlsx');
+  // }
 
   return (
     <div>
@@ -152,7 +153,7 @@ const Mrp = () => {
           <SearchInput id={'search'} name={'search'} onSearch={onSearch} />
         </div>
         <div style={{ marginRight: '40px' }}>
-          <BtnBlue value={'엑셀 저장'} onClick={() => { downloadXlsx() }} />
+          <BtnBlue value={'엑셀 저장'} onClick={() => { downloadXlsx(dataPlan, ['납기일', '생산계획 코드', '품번', '품명', '계획 수량'], 'ProductionPlan1', 'ProductionPlan.xlsx') }} />
         </div>
       </div>
       <div style={{ display: 'flex', gap: '24px 19px' }}>
