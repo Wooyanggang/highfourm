@@ -8,10 +8,16 @@ import org.springframework.data.jpa.repository.Query;
 
 import himedia.project.highfourm.dto.PerformanceDTO;
 import himedia.project.highfourm.dto.ProductionPlanDTO;
+import himedia.project.highfourm.dto.ProductionStatusDTO;
 import himedia.project.highfourm.dto.WorkPerformanceResponseDTO;
 import himedia.project.highfourm.entity.ProductionPlan;
 
 public interface ProductionPlanRepository extends JpaRepository<ProductionPlan, String> {
+	@Query("SELECT NEW himedia.project.highfourm.dto.ProductionStatusDTO(pp.productionPlanId, p.productId, p.productName, pp.orders.orderId, pp.productionPlanAmount, pp.productionStartDate) " +
+            "FROM ProductionPlan pp " +
+            "JOIN pp.product p")
+	    List<ProductionStatusDTO> findStatus();
+	
 	
 	@Query("SELECT NEW himedia.project.highfourm.dto.WorkPerformanceResponseDTO(pp.productionPlanId, p.productId, p.productName) " +
             "FROM ProductionPlan pp " +

@@ -46,9 +46,10 @@ public class ProductionPlan {
 	public ProductionPlanDTO toDTO(Product product, Orders orders) {
 		return ProductionPlanDTO.builder()
 					.productionPlanId(productionPlanId)
-					.product(product)
-					.orders(orders)
+					.productId(product.getProductId())
+					.orderId(orders.getOrderId())
 					.productionUnit(productionUnit)
+					.productionPlanAmount(productionPlanAmount)
 					.productionStartDate(productionStartDate)
 					.build();
 	}
