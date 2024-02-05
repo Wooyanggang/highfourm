@@ -4,7 +4,7 @@ import { BtnBlue, SearchInput, SearchSelectBox } from '../../../Common/Module';
 import BasicTable from '../../../Common/Table/BasicTable';
 import PageTitle from '../../../Common/PageTitle';
 import axios from 'axios';
-import * as xlsx from 'xlsx';
+import downloadXlsx from '../../../Common/DownloadXlsx';
 
 const MrpDetail = () => {
   const navigate = useNavigate();
@@ -161,20 +161,6 @@ const MrpDetail = () => {
     },
   ];
 
-  const downloadXlsx = () => {
-    const ws = xlsx.utils.json_to_sheet(dataRequiredMaterial);
-    const wb = xlsx.utils.book_new();
-
-    ['자재명', '자재 코드', '투입량', '총 소요 수량', '현 재고', '안전 재고', '입고 예정량'].forEach((x, idx) => {
-      const cellAdd = xlsx.utils.encode_cell({ c: idx + 1, r: 0 });
-      ws[cellAdd].v = x;
-    });
-    ws['!cols'] = [];
-    ws['!cols'][0] = { hidden: true };
-    xlsx.utils.book_append_sheet(wb, ws, 'RequiredMaterial1');
-    xlsx.writeFile(wb, `${productionPlanId}_RequiredMaterial.xlsx`);
-  }
-
   return (
     <div>
       <PageTitle value={'자재 소요량 산출'} />
@@ -185,7 +171,7 @@ const MrpDetail = () => {
           <SearchInput id={'search'} name={'search'} onSearch={onSearch} />
         </div>
         <div style={{ marginRight: '40px' }}>
-          <BtnBlue value={'엑셀 저장'} onClick={() => { downloadXlsx() }} />
+          <BtnBlue value={'엑셀 저장'} onClick={() => { downloadXlsx(dataRequiredMaterial, ['자재명', '자재 코드', '투입량', '총 소요 수량', '현 재고', '안전 재고', '입고 예정량'], 'RequiredMaterial1', `${productionPlanId}_RequiredMaterial.xlsx`) }} />
         </div>
       </div>
       <div style={{ display: 'flex', gap: '24px 19px' }}>
