@@ -1,5 +1,7 @@
 package himedia.project.highfourm.dto.mrp;
 
+import java.time.LocalDate;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class MrpProductionPlanDTO {
 	
-	private String dueDate;
+	private LocalDate dueDate;
 	private String productionPlanId;
 	private String productId;
 	private String productName;

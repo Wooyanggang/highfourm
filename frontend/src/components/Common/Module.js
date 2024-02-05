@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Flex, Input, Space, Steps, Select, ConfigProvider } from 'antd';
 const { Search } = Input;
 
@@ -110,11 +110,20 @@ const BtnWhite = ({ value, onClick, type }) => {
 const BtnFilter = ({ valueArr, linkArr, type }) => {
   // <BtnFilter valueArr={['완료', '전체']} linkArr={['/complete', '/all']} />
   const [activeBtnIndex, setActiveBtnIndex] = useState(0);
+  const currentURL = window.location.pathname;
 
   const filterClickHandler = (e, index) => {
     // 클릭시 기능 구현 핸들러
     setActiveBtnIndex(index);
+    console.log("handler : ", index);
   }
+
+  useEffect(() => {
+    const indexKey = valueArr.findIndex((_, index) => currentURL === linkArr[index]);
+    if (indexKey !== -1) {
+      setActiveBtnIndex(indexKey);
+    }
+  }, [currentURL, valueArr]);
 
   return (
     <ConfigProvider
@@ -138,14 +147,14 @@ const BtnFilter = ({ valueArr, linkArr, type }) => {
   )
 };
 
-const InputBar = ({ type, id, name, value, placeholderMsg, onChange, disabled, requried, readOnly }) => {
+const InputBar = ({ type, id, name, value, placeholderMsg, onChange, disabled, required, readOnly }) => {
   // disabled={ true | false }
   if (placeholderMsg == null) {
     placeholderMsg = '';
   }
 
   return (
-    <Input type={type} id={id} name={name} value={value} placeholder={`${placeholderMsg}`} style={{ width: '200px' }} size='large' onChange={onChange} disabled={disabled} requried={requried} readOnly={readOnly} />
+    <Input type={type} id={id} name={name} value={value} placeholder={`${placeholderMsg}`} style={{ width: '200px' }} size='large' onChange={onChange} disabled={disabled} required={required} readOnly={readOnly} />
   )
 };
 

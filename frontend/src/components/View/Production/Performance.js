@@ -1,12 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input, Space } from 'antd';
+import axios from 'axios';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown, message, Tooltip, Popconfirm, Table, FLex } from 'antd';
 import { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, StepBar } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
 import PageTitle from '../../Common/PageTitle';
 
+
 const Performance = () => {
+  const [performance, setPerformance] = useState([]);
+
+  useEffect(() => {
+    axios.get('/production-performance')
+      .then(res => {
+        const performanceData = res.data;
+        if (performanceData) {
+          setPerformance(performanceData);
+        } else {
+          console.log('No performance data received:', res.data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching performance data:', error);
+      });
+  }, []);
+
   const defaultColumns = [
     {
       title: '주문 번호',
@@ -14,7 +33,7 @@ const Performance = () => {
     },
     {
       title: '거래처명',
-      dataIndex: 'vender',
+      dataIndex: 'vendor',
     },
     {
       title: '품명',
@@ -27,369 +46,40 @@ const Performance = () => {
     {
       title: '착수일',
       dataIndex: 'productionStartDate',
+      render: (processedData) => processedData ? processedData : '착수 전',
     },
     {
       title: '납기일',
-      dataIndex: 'due_date',
+      dataIndex: 'dueDate',
     },
     {
       title: '주문수량',
-      dataIndex: 'amount',
+      dataIndex: 'productAmount',
     },
     {
       title: '생산수량',
-      dataIndex: 'productionAmount',
+      dataIndex: 'totalProductionAmount',
     },
     {
       title: '진행 상태',
-      dataIndex: 'presentState',
-      render: (selectedRowKeys) => console.log(dataSource.find((selectedRowKeys) => selectedRowKeys[1] == dataSource.key)),
+      dataIndex: 'endingState',
+      render: (endingState) => endingState == true ? '완료' : '진행 중',
     },
     {
       title: '통계조회',
-      dataIndex: 'viewChart',
-      render: (text) => <a href='/production-performance/chart'>{text}</a>,
-    },
-    {
-      title: '비고',
-      dataIndex: 'note',
+      dataIndex: 'productionPlanId',
+      render: (productionPlanId) => <a href={`/production-performance/${productionPlanId}/chart`}>보기</a>,
     },
   ];
 
-  const [dataSource, setDataSource] = useState([
-    {
-      key: '1',
-      orderId: '24/01/11-1',
-      vender: '나주상사',
-      manager: '김삼식',
-      productName: '모니터암',
-      orderDate: '2023-05-06',
-      productionStartDate: '2023-06-01',
-      due_date: '2024-04-03',
-      amount: '10000',
-      productionAmount: '8325',
-      presentState: '진행 중',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '2',
-      orderId: '24/01/11-1',
-      vender: '나주상사',
-      manager: '이사식',
-      productName: '태블릿 케이스',
-      orderDate: '2023-05-06',
-      productionStartDate: '2023-06-01',
-      due_date: '2024-04-03',
-      amount: '30000',
-      productionAmount: '24300',
-      presentState: '진행 중',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '3',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2024-04-03',
-      amount: '50000',
-      productionAmount: '0',
-      presentState: '생산 보류',
-      viewChart: '',
-      note: '대금 미납',
-    },
-    {
-      key: '4',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50000',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '5',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50000',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '6',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50000',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '7',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50000',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '8',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50000',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '9',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50000',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '10',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50000',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '11',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50000',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '12',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50000',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '13',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50001',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '14',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50001',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '15',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50001',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '16',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50001',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '17',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50001',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '18',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-16',
-      productionStartDate: '2022-12-11',
-      due_date: '2023-04-03',
-      amount: '50001',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    
-      
-    },
-    {
-      key: '19',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50001',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '20',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50001',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-    {
-      key: '21',
-      orderId: '24/01/11-1',
-      vender: '상우정밀',
-      manager: '이동식',
-      productName: '의자 프레임',
-      orderDate: '2022-12-06',
-      productionStartDate: '-',
-      due_date: '2023-04-03',
-      amount: '50001',
-      productionAmount: '50000',
-      presentState: '완료',
-      viewChart: '보기',
-      note: '',
-    },
-  ]);
-  
-
-
-  const handleDelete = (key) => {
-    const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
-  }
   return (
-    <div className='performance-page'>
-      <PageTitle value={'생산 실적 조회'}/>
-      <div style={{ marginBottom: '24px' }}>
+    <div className='perfomance-page'>
+      <PageTitle value={'생산 실적 조회'} />
+      {/* <div style={{ marginBottom: '24px' }}>
         <SearchInput></SearchInput>
-      </div>
+      </div> */}
       <div>
-      <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource}/>
+        <BasicTable dataSource={performance} defaultColumns={defaultColumns} />
       </div>
     </div>
   );

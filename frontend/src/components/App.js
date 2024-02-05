@@ -12,7 +12,6 @@ import OrderNew from './View/Order/OrderNew';
 import Bom from './View/Production/Bom';
 import Mrp from './View/Production/Mrp/Mrp';
 import MrpDetail from './View/Production/Mrp/MrpDetail';
-import ProductManagement from './View/Production/ProductManagement';
 import Status from './View/Production/Status';
 import WorkPerformance from './View/Production/WorkPerformance';
 import WorkPerformanceNew from './View/Production/WorkPerformanceNew';
@@ -24,12 +23,12 @@ import MaterialOrderHistory from './View/Material/MaterialOrderHistory';
 import MaterialOrderHistoryNew from './View/Material/MaterialOrderHistoryNew';
 import MaterialOrderHistoryEdit from './View/Material/MaterialOrderHistoryEdit';
 import Join from './View/User/Join';
+import ProductionPlan from './View/Production/ProductionPlan';
 import PerformanceChart from './View/Production/PerformanceChart';
 import PerformanceControllChart from './View/Production/PerformanceControllChart';
 import Test from './View/Test';
-import axios from 'axios';
 import BomDetail from './View/Production/BomDetail';
-const { Header, Content, Footer, Sider } = Layout;
+const { Content } = Layout;
 
 function App() {
   const clientId = '362376129818-apm2mmh54l58gskanrm2hufa2emfdov2.apps.googleusercontent.com';
@@ -78,17 +77,17 @@ function App() {
                 <Route path='/users/edit/:userNo' element={<UserEdit />} /> */}
                 <Route path='/mrp' element={<Mrp />} />
                 <Route path='/mrp/search' element={<Mrp />} />
-                <Route path='/mrp/:productionPlanId' element={<MrpDetail />} />
-                <Route path='/mrp/:productionPlanId/search' element={<MrpDetail />} />
-                <Route path='/production-management' element={<ProductManagement />} />
+                <Route path='/mrp/:productionPlanId/*' element={<MrpDetail />} />
+                {/* <Route path='/production-management' element={<ProductManagement />} /> */}
+                <Route path='/production-plan' element={<ProductionPlan />} />
                 <Route path='/bom' element={<Bom />} />
                 <Route path='/bom/detail/:productId' element={<BomDetail />} />
                 <Route path='/production-status' element={<Status />} />
                 <Route path='/work-performance' element={<WorkPerformance />} />
                 <Route path='/work-performance/new' element={<WorkPerformanceNew />} />
                 <Route path='/production-performance' element={<Performance />} />
-                <Route path='/production-performance/chart' element={<PerformanceChart />} />
-                <Route path='/production-performance/controll-chart' element={<PerformanceControllChart />} />
+                <Route path='/production-performance/:productionPlanId/chart' element={<PerformanceChart />} />
+                <Route path='/production-performance/:productionPlanId/controll-chart' element={<PerformanceControllChart />} />
                 <Route path='/Test' element={<Test />} />
               </Routes>
             </Router>

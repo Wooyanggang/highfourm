@@ -1,5 +1,7 @@
 package himedia.project.highfourm.dto;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +15,7 @@ import lombok.Setter;
 public class WorkPerformanceListDTO {
 	private Long workPerformanceId;
 	private String productionPlanId;
-	private String workDate;
+	private LocalDate workDate;
 	private String productId;
 	private String productName;
 	private Long productionAmount;
@@ -22,6 +24,6 @@ public class WorkPerformanceListDTO {
 	private Long workingTime;
 	private String manager;
 	private Long lotNo;
-	private String validDate;
+	private LocalDate validDate;
 	private String note;
 }

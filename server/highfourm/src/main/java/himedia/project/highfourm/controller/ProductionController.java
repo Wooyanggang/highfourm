@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import himedia.project.highfourm.dto.ProductionPlanDTO;
+import himedia.project.highfourm.dto.ProductionPlanFormDTO;
 import himedia.project.highfourm.dto.WorkPerformanceDTO;
 import himedia.project.highfourm.service.ProductionPlanService;
 import himedia.project.highfourm.service.WorkPerformanceService;
@@ -27,7 +28,7 @@ public class ProductionController {
 		Map<String, Object> responseMap = new HashMap<>();
 		
 		// productionPlan findAll
-		List<ProductionPlanDTO> productionPlanList = productionPlanService.findAll();
+		List<ProductionPlanFormDTO> productionPlanList = productionPlanService.findAll();
 		responseMap.put("productionPlan", productionPlanList);
 		
 		// workPerfomance finAll

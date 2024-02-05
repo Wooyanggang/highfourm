@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { SearchInput, SearchSelectBox } from '../../../Common/Module';
+import { BtnBlue, SearchInput, SearchSelectBox } from '../../../Common/Module';
 import BasicTable from '../../../Common/Table/BasicTable';
 import PageTitle from '../../../Common/PageTitle';
 import axios from 'axios';
+import downloadXlsx from '../../../Common/DownloadXlsx';
 
 const MrpDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const currentURL = window.location.pathname;
   const [searchType, setSearchType] = useState('생산계획 코드');
+  const [searchValue, setSearchValue] = useState([]);
   const [dataPlan, setDataPlan] = useState([]);
   const [dataRequiredMaterial, setDataRequiredMaterial] = useState([]);
-  const [searchValue, setSearchValue] = useState([]);
   const { productionPlanId } = useParams();
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const MrpDetail = () => {
       }
     }
     fetchData();
-  }, [currentURL, location.search]);
+  }, [currentURL, location.search, productionPlanId]);
 
   const SelectChangeHandler = (value) => {
     setSearchType(value);
@@ -80,6 +81,17 @@ const MrpDetail = () => {
     navigate(`/mrp/search?searchType=${encodeURIComponent(searchType)}&search=${encodeURIComponent(value)}`);
   }
 
+  function generateLink(productionPlanId, searchType, searchValue) {
+    console.log(productionPlanId, searchType, searchValue);
+    if (searchType && searchValue) {
+      return `/mrp/search?searchType=${searchType}&search=${searchValue}`;
+    } else if (productionPlanId && searchType && searchValue) {
+      return `/mrp/${productionPlanId}/search?searchType=${searchType}&search=${searchValue}`;
+    } else {
+      return `/mrp/${productionPlanId}`;
+    }
+  }
+
   const planColumns = [
     {
       title: '납기일',
@@ -90,7 +102,7 @@ const MrpDetail = () => {
     {
       title: '생산계획 코드',
       dataIndex: 'production_plan_id',
-      render: (text) => <a href={`/mrp/${text}`}>{text}</a>
+      render: (text) => <a href={generateLink(text, searchType, searchValue)}>{text}</a>
       // production_plan
     },
     {
@@ -152,10 +164,15 @@ const MrpDetail = () => {
   return (
     <div>
       <PageTitle value={'자재 소요량 산출'} />
-      <div style={{ display: 'flex', gap: '10px 24px', marginBottom: '24px', alignItems: 'center' }}>
-        <h2 style={{ fontSize: '16px', margin: 0 }}>생산계획 조회 조건</h2>
-        <SearchSelectBox selectValue={['생산계획 코드', '품번', '품명', '납기일']} SelectChangeHandler={SelectChangeHandler} />
-        <SearchInput id={'search'} name={'search'} onSearch={onSearch} onChange={onSearchChange} />
+      <div style={{ display: 'flex', marginBottom: '24px', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', gap: '10px 24px', alignItems: 'center' }}>
+          <h2 style={{ fontSize: '16px', margin: 0 }}>생산계획 조회 조건</h2>
+          <SearchSelectBox selectValue={['생산계획 코드', '품번', '품명', '납기일']} SelectChangeHandler={SelectChangeHandler} />
+          <SearchInput id={'search'} name={'search'} onSearch={onSearch} />
+        </div>
+        <div style={{ marginRight: '40px' }}>
+          <BtnBlue value={'엑셀 저장'} onClick={() => { downloadXlsx(dataRequiredMaterial, ['자재명', '자재 코드', '투입량', '총 소요 수량', '현 재고', '안전 재고', '입고 예정량'], 'RequiredMaterial1', `${productionPlanId}_RequiredMaterial.xlsx`) }} />
+        </div>
       </div>
       <div style={{ display: 'flex', gap: '24px 19px' }}>
         <div className='bordered-box'>

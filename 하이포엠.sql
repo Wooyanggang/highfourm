@@ -6,6 +6,14 @@ use highfourm;
 
 show tables;
 
+create table IF NOT EXISTS email_token (
+	id varchar(50) COMMENT '이메일 토큰 ID',
+	user_no bigint unsigned COMMENT '사용자 번호',
+    expired tinyint(1) COMMENT '만료여부',
+    expiration_date timestamp COMMENT '만료기간'
+);
+
+
 create table IF NOT EXISTS company (
 	company_id int auto_increment NOT NULL COMMENT '회사 코드',
     company_name varchar(30) NOT NULL COMMENT '회사명',
@@ -33,8 +41,8 @@ create table IF NOT EXISTS users (
 	foreign key (company_id) references company(company_id)
     ON UPDATE CASCADE
 );
---   drop table users;
-insert into users values (null, '', '', '홍길동', 1000, '사원', '2024-01-01', 'hong333@gmail.com', 1, null, null);
+  drop table users;
+insert into users(user_name, emp_no, position, birth, email, company_id) values ('홍길동', 1000, '사원', '2024-01-01', 'hong333@gmail.com', 1);
 insert into users values (null, 'id', '', '김이박', 1001, '대리', '1990-12-31', 'kimleepark@naver.com', 2, 'N', 'USER');
 
 select * from users;
@@ -49,8 +57,8 @@ create table IF NOT EXISTS orders (
 	order_date date NOT NULL COMMENT '주문일',
     primary key(order_id)
 );
-insert into orders values('주문 코드', '', '', '1990-00-00', '', '1991-01-01');
-insert into orders values('주문 코드2', '', '', '1990-00-00', '', '1991-01-01');
+insert into orders values('주문 코드', '', '', '1990-02-20', '', '1991-01-01');
+insert into orders values('주문 코드2', '', '', '1990-12-20', '', '1991-01-01');
 
 SELECT *
   FROM INFORMATION_SCHEMA.COLUMNS
@@ -119,9 +127,9 @@ create table IF NOT EXISTS production_plan (
 insert into production_plan values('생산 계획 코드', '제품 코드', '주문 코드', '', 50, '1234-01-01', '1345-01-01');
 insert into production_plan values('생산 계획 코드2', '제품 코드2', '주문 코드2', '', 30, '1234-01-01', '1345-01-01');
 insert into production_plan values('plan1', 'product_id', '주문 코드', '', 25, '1990-00-00', '2023-05-10');
--- insert into production_plan values('생산 계획 코드4', '제품 코드', '주문 코드', '', 10, '1234-01-01', '1345-01-01');
--- insert into production_plan values('생산 계획 코드5', '제품 코드', '주문 코드2', '', 20, '1234-01-01', '1345-01-01');
--- insert into production_plan values('생산 계획 코드6', '제품 코드', '주문 코드2', '', 30, '1234-01-01', '1345-01-01');
+insert into production_plan values('생산 계획 코드4', '제품 코드', '주문 코드', '', 10, '1234-01-01', '1345-01-01');
+insert into production_plan values('생산 계획 코드5', '제품 코드', '주문 코드2', '', 20, '1234-01-01', '1345-01-01');
+insert into production_plan values('생산 계획 코드6', '제품 코드', '주문 코드2', '', 30, '1234-01-01', '1345-01-01');
 
 select * from production_plan;
 
@@ -254,9 +262,10 @@ create table IF NOT EXISTS material_history (
 select * from material_history;
 
 -- 자재 총 산출 production_plan 
-select due_date, production_plan_id, plan.product_id, p.product_name, production_plan_amount
+select plan.due_date, production_plan_id, plan.product_id, p.product_name, production_plan_amount
 from production_plan plan 
-left join product p on plan.product_id = p.product_id;
+left join product p on plan.product_id = p.product_id
+left join orders o on plan.order_id = o.order_id;
 
 -- 자재 총 산출 material 
 select plan.production_plan_id, plan.product_id, p.product_name, m.material_name, r.material_id, r.input_amount, sum(plan.production_plan_amount*r.input_amount) as total_material_amount,

@@ -207,27 +207,28 @@ input[type="date"]::placeholder {
 }
 
 /* production-performance-chart */
-.performance-chart-page .search-input-wrap {
+.perfomance-chart-page .search-input-wrap {
   display: flex;
 }
 
-.performance-chart-page .search-input-wrap:nth-child(n+2) {
+.perfomance-chart-page .search-input-wrap:nth-child(n+2) {
   margin-top: 16px;
 }
 
-.performance-chart-page label {
+.perfomance-chart-page label {
   display: inline-block;
   width: 100px;
 }
 
-.performance-chart-page .search-input {
+.perfomance-chart-page .search-input {
   margin-right: 20px;
 }
 
-.performance-chart-page h3{
+.perfomance-chart-page h3 {
   margin-top: 24px;
 }
-.performance-chart-page hr{
+
+.perfomance-chart-page hr {
   margin-bottom: 24px;
 }
 

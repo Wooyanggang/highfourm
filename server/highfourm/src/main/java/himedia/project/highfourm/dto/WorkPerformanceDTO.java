@@ -1,5 +1,7 @@
 package himedia.project.highfourm.dto;
 
+import java.time.LocalDate;
+
 import himedia.project.highfourm.entity.ProductionPlan;
 import himedia.project.highfourm.entity.WorkPerformance;
 import lombok.AllArgsConstructor;
@@ -15,14 +17,14 @@ import lombok.Setter;
 public class WorkPerformanceDTO {
 	private Long workPerformanceId;
 	private String productionPlanId;
-	private String workDate;
+	private LocalDate workDate;
 	private Long productionAmount;
 	private Long acceptanceAmount;
 	private Long defectiveAmount;
 	private Long workingTime;
 	private String manager;
 	private Long lotNo;
-	private String validDate;
+	private LocalDate validDate;
 	private String note;
 	
 	public WorkPerformance toEntity(ProductionPlan productionPlan) {
@@ -40,5 +42,15 @@ public class WorkPerformanceDTO {
 				.validDate(validDate)
 				.note(note)
 				.build();
+	}
+	
+	public WorkPerformanceDTO(String productionPlanId, LocalDate workDate, Long productionAmount, Long acceptanceAmount,
+			Long defectiveAmount, Long workingTime) {
+		this.productionPlanId = productionPlanId;
+		this.workDate = workDate;
+		this.productionAmount = productionAmount;
+		this.acceptanceAmount = acceptanceAmount;
+		this.defectiveAmount = defectiveAmount;
+		this.workingTime = workingTime;
 	}
 }

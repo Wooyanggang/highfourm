@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { SearchInput, SearchSelectBox } from '../../../Common/Module';
+import { BtnBlue, SearchInput, SearchSelectBox } from '../../../Common/Module';
 import BasicTable from '../../../Common/Table/BasicTable';
 import PageTitle from '../../../Common/PageTitle';
 import axios from 'axios';
+import * as xlsx from 'xlsx';
+import downloadXlsx from '../../../Common/DownloadXlsx';
 
 const Mrp = () => {
   const navigate = useNavigate();
@@ -69,7 +71,7 @@ const Mrp = () => {
       title: '생산계획 코드',
       dataIndex: 'production_plan_id',
       render: (text) => <a href={`/mrp/${text}`}>{text}</a>
-        // production_plan
+      // production_plan
     },
     {
       title: '품번',
@@ -127,13 +129,32 @@ const Mrp = () => {
     },
   ];
 
+  // const downloadXlsx = () => {
+  //   const ws = xlsx.utils.json_to_sheet(dataPlan);
+  //   const wb = xlsx.utils.book_new();
+
+  //   ['납기일', '생산계획 코드', '품번', '품명', '계획 수량'].forEach((x, idx) => {
+  //     const cellAdd = xlsx.utils.encode_cell({ c: idx + 1, r: 0 });
+  //     ws[cellAdd].v = x;
+  //   });
+  //   ws['!cols'] = [];
+  //   ws['!cols'][0] = { hidden: true };
+  //   xlsx.utils.book_append_sheet(wb, ws, 'ProductionPlan1');
+  //   xlsx.writeFile(wb, 'ProductionPlan.xlsx');
+  // }
+
   return (
     <div>
       <PageTitle value={'자재 소요량 산출'} />
-      <div style={{ display: 'flex', gap: '10px 24px', marginBottom: '24px', alignItems: 'center' }}>
-        <h2 style={{ fontSize: '16px', margin: 0 }}>생산계획 조회 조건</h2>
-        <SearchSelectBox selectValue={['생산계획 코드', '품번', '품명', '납기일']} SelectChangeHandler={SelectChangeHandler} />
-        <SearchInput id={'search'} name={'search'} onSearch={onSearch} />
+      <div style={{ display: 'flex', marginBottom: '24px', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', gap: '10px 24px', alignItems: 'center' }}>
+          <h2 style={{ fontSize: '16px', margin: 0 }}>생산계획 조회 조건</h2>
+          <SearchSelectBox selectValue={['생산계획 코드', '품번', '품명', '납기일']} SelectChangeHandler={SelectChangeHandler} />
+          <SearchInput id={'search'} name={'search'} onSearch={onSearch} />
+        </div>
+        <div style={{ marginRight: '40px' }}>
+          <BtnBlue value={'엑셀 저장'} onClick={() => { downloadXlsx(dataPlan, ['납기일', '생산계획 코드', '품번', '품명', '계획 수량'], 'ProductionPlan1', 'ProductionPlan.xlsx') }} />
+        </div>
       </div>
       <div style={{ display: 'flex', gap: '24px 19px' }}>
         <div className='bordered-box'>
@@ -155,7 +176,7 @@ const Mrp = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 

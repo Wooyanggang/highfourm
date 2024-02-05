@@ -1,29 +1,64 @@
-import React, { useState, PureComponent } from 'react';
+import React, { useState, PureComponent, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { Progress, Popconfirm, message } from 'antd';
+import axios from 'axios';
 import { BtnBlack, BtnBlue, BtnWhite, BtnFilter, InputBar, SearchInput, StepBar } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList, Area, ComposedChart, Bar } from 'recharts';
 import PageTitle from '../../Common/PageTitle';
 
-
-const handleMenuClick = (e) => {
-  message.info('Click on menu item.');
-  console.log('click', e);
-};
-
 const PerformanceChart = () => {
+  const { productionPlanId } = useParams();
+  const [performance, setPerformance] = useState(null);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    if (productionPlanId) {
+      axios.get(`/production-performance/${productionPlanId}/chart`)
+        .then(res => {
+          setPerformance(res.data);
+
+          const transformedData = res.data.workPerformances.map(wp => ({
+            date: wp.workDate,
+            productionAmount: wp.productionAmount,
+            defectiveAmount: wp.defectiveAmount,
+            workingTime: wp.workingTime,
+          }));
+          setData(transformedData);
+        })
+        .catch(error => {
+          console.error('Error fetching performance data:', error);
+          setPerformance(null);
+          setData([]);
+        });
+    }
+  }, [productionPlanId]);
+
+  const calculateDeadlinePercentage = () => {
+    if (!performance || !performance.orderDate || !performance.dueDate) return 0;
+    const orderDate = new Date(performance.orderDate);
+    const dueDate = new Date(performance.dueDate);
+    const currentDate = new Date();
+    const totalDays = (dueDate - orderDate) / (1000 * 3600 * 24);
+    const elapsedDays = (currentDate - orderDate) / (1000 * 3600 * 24);
+    return Math.min(Math.max((elapsedDays / totalDays) * 100, 0), 100);
+  };
+
+  const calculateProgressPercentage = () => {
+    if (!performance || !performance.totalProductionAmount || !performance.productAmount) return 0;
+    return Math.min(Math.ceil((performance.totalProductionAmount / performance.productAmount) * 100), 100);
+  };
 
   const defaultColumns = [
     {
       title: '생산 일자',
       dataIndex: 'date',
       width: '30%',
-      editable: true,
     },
     {
       title: '작업 시간',
-      dataIndex: 'workTime',
+      dataIndex: 'workingTime',
     },
     {
       title: '생산 수량',
@@ -31,118 +66,14 @@ const PerformanceChart = () => {
     },
     {
       title: '불량 수량',
-      dataIndex: 'defective',
+      dataIndex: 'defectiveAmount',
     },
     {
       title: '불량률',
       dataIndex: 'defectRate',
-      render: (_, record) => `${Math.round((record.defective / record.productionAmount) * 100 * 100) / 100}%`,
+      render: (_, record) => `${Math.round((record.defectiveAmount / record.productionAmount) * 100 * 100) / 100}%`,
     },
   ];
-
-  const data = [
-    {
-      date: '23-12-01',
-      productionAmount: 1000,
-      defective: 8,
-      workTime: 26,
-    },
-    {
-      date: '23-12-02',
-      productionAmount: 2400,
-      defective: 13,
-      workTime: 26,
-    },
-    {
-      date: '23-12-03',
-      productionAmount: 2000,
-      defective: 9,
-      workTime: 26,
-    },
-    {
-      date: '23-12-04',
-      productionAmount: 2780,
-      defective: 14,
-      workTime: 26,
-    },
-    {
-      date: '23-12-05',
-      productionAmount: 1890,
-      defective: 15,
-      workTime: 26,
-    },
-    {
-      date: '23-12-06',
-      productionAmount: 2390,
-      defective: 7,
-      workTime: 26,
-    },
-    {
-      date: '23-12-07',
-      productionAmount: 3490,
-      defective: 20,
-      workTime: 26,
-    },
-    {
-      date: '23-12-08',
-      productionAmount: 1490,
-      defective: 7,
-      workTime: 26,
-    },
-    {
-      date: '23-12-09',
-      productionAmount: 2310,
-      defective: 7,
-      workTime: 26,
-    },
-    {
-      date: '23-12-10',
-      productionAmount: 1500,
-      defective: 6,
-      workTime: 26,
-    },
-    {
-      date: '23-12-11',
-      productionAmount: 3490,
-      defective: 14,
-      workTime: 26,
-    },
-    {
-      date: '23-12-12',
-      productionAmount: 2460,
-      defective: 7,
-      workTime: 26,
-    },
-    {
-      date: '23-12-13',
-      productionAmount: 1990,
-      defective: 17,
-      workTime: 26,
-    },
-    {
-      date: '23-12-14',
-      productionAmount: 1700,
-      defective: 5,
-      workTime: 26,
-    },
-    {
-      date: '23-12-15',
-      productionAmount: 1990,
-      defective: 9,
-      workTime: 26,
-    },
-    {
-      date: '23-12-16',
-      productionAmount: 1490,
-      defective: 15,
-      workTime: 26,
-    },
-  ];
-
-  const product = [
-    {
-    },
-  ]
 
   class CustomizedLabelTop extends PureComponent {
     render() {
@@ -184,52 +115,52 @@ const PerformanceChart = () => {
 
   return (
     <>
-      <PageTitle value={'생산 실적 상세 조회'}/>
+      <PageTitle value={'생산 실적 상세 조회'} />
       <div style={{ width: '100%' }}>
         <div className='order-filter'>
-          <BtnFilter valueArr={['통계', '불량률 관리']} linkArr={['/production-performance/chart', '/production-performance/controll-chart']} />
+          <BtnFilter valueArr={['통계', '불량률 관리']} linkArr={[`/production-performance/${productionPlanId}/chart`, `/production-performance/${productionPlanId}/controll-chart`]} />
         </div>
-        <div className='performance-chart-page' style={{ marginTop: '20px' }}>
+        <div className='perfomance-chart-page' style={{ marginTop: '20px' }}>
           <form action='' className='searchForm'>
             <div className='search-input-wrap'>
               <div className='search-input'>
                 <label htmlFor="order-number">주문 번호</label>
-                <InputBar disabled={'disabled'} id={'orderNumber'} value={'주문번호'} />
+                <InputBar disabled={'disabled'} id={'orderId'} value={performance ? performance.orderId : ''} />
               </div>
               <div className='search-input'>
                 <label htmlFor="amount">주문 수량</label>
-                <InputBar disabled={'disabled'} id={'amount'} value={'주문 수량'} />
+                <InputBar disabled={'disabled'} id={'amount'} value={performance ? performance.productAmount : ''} />
               </div>
             </div>
             <div className='search-input-wrap'>
               <div className='search-input'>
                 <label htmlFor="orderDate">주문일</label>
-                <InputBar disabled={'disabled'} inputId={'orderDate'} value={'주문일'} />
+                <InputBar disabled={'disabled'} id={'orderDate'} value={performance ? performance.orderDate : ''} />
               </div>
               <div className='search-input'>
-                <label htmlFor="productionAmount">생산 수량</label>
-                <InputBar disabled={'disabled'} inputId={'productionAmount'} value={'생산 수량'} />
+                <label htmlFor="totalProductionAmount">생산량</label>
+                <InputBar disabled={'disabled'} id={'totalProductionAmount'} value={performance ? performance.totalProductionAmount : ''} />
               </div>
             </div>
             <div className='search-input-wrap'>
               <div className='search-input'>
                 <label htmlFor="dueDate">납기일</label>
-                <InputBar disabled={'disabled'} inputId={'dueDate'} value={'납기일'} />
+                <InputBar disabled={'disabled'} id={'dueDate'} value={performance ? performance.dueDate : ''} />
               </div>
               <div className='search-input'>
                 <label htmlFor="presentState">진행 상태</label>
-                <InputBar disabled={'disabled'} inputId={'presentState'} value={'진행 상태'} />
+                <InputBar disabled={'disabled'} id={'presentState'} value={performance && performance.totalProductionAmount >= performance.productAmount ? '완료' : '진행 중'} />
               </div>
             </div>
           </form>
           <div className='process' style={{ width: '80%', display: 'flex', flexDirection: 'column', marginTop: '16px' }}>
             <div>
               <span>납기</span>
-              <Progress percent={70} size="small" />
+              <Progress percent={calculateDeadlinePercentage()} size="small" />
             </div>
             <div>
               <span>생산 진척도</span>
-              <Progress percent={50} size="small" status="active" />
+              <Progress percent={calculateProgressPercentage()} size="small" />
             </div>
           </div>
           <h3>생산 현황<hr></hr></h3>
@@ -252,7 +183,7 @@ const PerformanceChart = () => {
                 <YAxis yAxisId="right" orientation="right" label={{ value: '불량', angle: -90, position: 'outsideRight' }} />
                 <Tooltip />
                 <Legend />
-                <Bar yAxisId="right" name="불량품" type="monotone" dataKey="defective" stroke="#82ca9d" barSize={20} fill="#413ea0" label={<CustomizedLabelBottom />} />
+                <Bar yAxisId="right" name="불량품" type="monotone" dataKey="defectiveAmount" stroke="#82ca9d" barSize={20} fill="#413ea0" label={<CustomizedLabelBottom />} />
                 <Line yAxisId="left" name="생산량" type="monotone" dataKey="productionAmount" stroke="#8884d8" activeDot={{ r: 8 }} label={<CustomizedLabelTop />} />
               </ComposedChart>
             </ResponsiveContainer>
