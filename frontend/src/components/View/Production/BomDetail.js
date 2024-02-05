@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BasicTable from '../../Common/Table/BasicTable';
-import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
+import { BtnBlack, BtnWhite, SearchInput, SearchSelectBox } from '../../Common/Module';
 import PageTitle from '../../Common/PageTitle';
 import { calc } from 'antd/es/theme/internal';
 import KeyTable from '../../Common/Table/KeyTable';
 import { useParams } from 'react-router-dom';
 
 function BomDetail() {
+  const navigate = useNavigate();
   const { productId } = useParams();
   const [dataProduct, setDataProduct] = useState([]);
   const [dataProcess, setDataProcess] = useState([]);
@@ -114,14 +116,17 @@ function BomDetail() {
   return (
     <div className='bom-page'>
       <PageTitle value={'제품별 공정/소요자재 관리'}/>
-      <h3 style={{marginBottom:'12px'}}>제품 검색</h3>
+      {/* <h3 style={{marginBottom:'12px'}}>제품 검색</h3>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 24px', alignItems: 'center' }}>
         <SearchSelectBox selectValue={['제품 코드', '제품명']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />
       </div>
       <div className='add-btn'>
         <BtnBlack value={"항목 추가"} type="primary" />
-      </div>
+      </div> */}
+      <div className='cancel-btn'>
+            <BtnWhite value={'뒤로 가기'} onClick={e =>navigate('/bom')}/>
+          </div>
       <div style={{ display: 'flex', gap: '24px 19px' }}>
         <div className='table-box'>
           <BasicTable

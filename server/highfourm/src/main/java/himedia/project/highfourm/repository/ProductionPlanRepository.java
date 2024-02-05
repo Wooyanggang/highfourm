@@ -20,6 +20,11 @@ public interface ProductionPlanRepository extends JpaRepository<ProductionPlan, 
             "JOIN pp.product p")
 	List<ProductionStatusDTO> findStatus();
 	
+	@Query("SELECT NEW himedia.project.highfourm.dto.ProductionStatusDTO(pp.productionPlanId, p.productId, p.productName, pp.orders.orderId, pp.productionPlanAmount, pp.productionStartDate) " +
+            "FROM ProductionPlan pp " +
+            "JOIN pp.product p")
+	    List<ProductionStatusDTO> findStatus();
+	
 	
 	@Query("SELECT NEW himedia.project.highfourm.dto.WorkPerformanceResponseDTO(pp.productionPlanId, p.productId, p.productName) " +
             "FROM ProductionPlan pp " +

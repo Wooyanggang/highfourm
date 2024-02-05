@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import himedia.project.highfourm.dto.ProductionPlanDTO;
+import himedia.project.highfourm.dto.ProductionStatusDTO;
 import himedia.project.highfourm.dto.ProductionPlanFormDTO;
 import himedia.project.highfourm.dto.WorkPerformanceDTO;
 import himedia.project.highfourm.service.ProductionPlanService;
@@ -27,9 +28,9 @@ public class ProductionController {
 	public ResponseEntity<Map<String, Object>> status() {
 		Map<String, Object> responseMap = new HashMap<>();
 		
-		// productionPlan findAll
-		List<ProductionPlanFormDTO> productionPlanList = productionPlanService.findAll();
-		responseMap.put("productionPlan", productionPlanList);
+		// productionPlan findStatus
+		List<ProductionStatusDTO> productionStatusList = productionPlanService.findStatus();
+		responseMap.put("productionPlan", productionStatusList);
 		
 		// workPerfomance finAll
 		List<WorkPerformanceDTO> workPerformanceList = workPerformanceService.findAll();

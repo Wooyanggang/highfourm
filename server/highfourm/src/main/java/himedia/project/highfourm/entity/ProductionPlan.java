@@ -60,9 +60,10 @@ public class ProductionPlan {
 	public ProductionPlanFormDTO toDTO(Product product, Orders orders) {
 		return ProductionPlanFormDTO.builder()
 					.productionPlanId(productionPlanId)
-					.product(product)
-					.orders(orders)
+					.productId(product.getProductId())
+					.orderId(orders.getOrderId())
 					.productionUnit(productionUnit)
+					.productionPlanAmount(productionPlanAmount)
 					.productionStartDate(productionStartDate)
 					.build();
 	}
