@@ -45,7 +45,7 @@ const PerformanceControllChart = () => {
           setPerformance(res.data);
 
           const transformedData = res.data.workPerformances.map(wp => ({
-            date: wp.date,
+            date: wp.workDate,
             productionAmount: wp.productionAmount,
             defectiveAmount: wp.defectiveAmount,
             workingTime: wp.workingTime,

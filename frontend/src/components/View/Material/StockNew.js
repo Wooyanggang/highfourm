@@ -108,7 +108,7 @@ const StockNew = ({  onSubmit, onSubmitSuccess }) => {
           <div className='modal-line'>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
               <label htmlFor='materialName' className='label-title'>자재명:</label>
-              <InputBar inputId={'materialName'} name={'materialName'} id={'materialName'} placeholderMsg={'자재명'} required />
+              <InputBar inputId={'materialName'} name={'materialName'} id={'materialName'} placeholderMsg={'자재명'} required={true} />
             </div>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
               <label htmlFor='safetyStock' className='label-title'>안전재고:</label>
