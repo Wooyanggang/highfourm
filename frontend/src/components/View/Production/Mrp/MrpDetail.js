@@ -5,6 +5,7 @@ import BasicTable from '../../../Common/Table/BasicTable';
 import PageTitle from '../../../Common/PageTitle';
 import axios from 'axios';
 import downloadXlsx from '../../../Common/DownloadXlsx';
+import KeyTable from '../../../Common/Table/KeyTable';
 
 const MrpDetail = () => {
   const navigate = useNavigate();
@@ -181,7 +182,7 @@ const MrpDetail = () => {
             <hr className='box-title-line' />
           </div>
           <div style={{ height: '706px', overflowY: 'auto' }}>
-            <BasicTable dataSource={dataPlan} defaultColumns={planColumns} setDataSource={setDataPlan} pagination={false} />
+            <KeyTable dataSource={dataPlan} defaultColumns={planColumns} setDataSource={setDataPlan} pagination={false} url='mrp' keyName='key' />
           </div>
         </div>
         <div className='bordered-box'>

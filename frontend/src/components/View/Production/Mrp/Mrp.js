@@ -6,6 +6,7 @@ import PageTitle from '../../../Common/PageTitle';
 import axios from 'axios';
 import * as xlsx from 'xlsx';
 import downloadXlsx from '../../../Common/DownloadXlsx';
+import KeyTable from '../../../Common/Table/KeyTable';
 
 const Mrp = () => {
   const navigate = useNavigate();
@@ -129,20 +130,6 @@ const Mrp = () => {
     },
   ];
 
-  // const downloadXlsx = () => {
-  //   const ws = xlsx.utils.json_to_sheet(dataPlan);
-  //   const wb = xlsx.utils.book_new();
-
-  //   ['납기일', '생산계획 코드', '품번', '품명', '계획 수량'].forEach((x, idx) => {
-  //     const cellAdd = xlsx.utils.encode_cell({ c: idx + 1, r: 0 });
-  //     ws[cellAdd].v = x;
-  //   });
-  //   ws['!cols'] = [];
-  //   ws['!cols'][0] = { hidden: true };
-  //   xlsx.utils.book_append_sheet(wb, ws, 'ProductionPlan1');
-  //   xlsx.writeFile(wb, 'ProductionPlan.xlsx');
-  // }
-
   return (
     <div>
       <PageTitle value={'자재 소요량 산출'} />
@@ -163,7 +150,7 @@ const Mrp = () => {
             <hr className='box-title-line' />
           </div>
           <div style={{ height: '706px', overflowY: 'auto' }}>
-            <BasicTable dataSource={dataPlan} defaultColumns={planColumns} setDataSource={setDataPlan} pagination={false} />
+            <KeyTable dataSource={dataPlan} defaultColumns={planColumns} setDataSource={setDataPlan} pagination={false} url='mrp' keyName='key' />
           </div>
         </div>
         <div className='bordered-box'>
