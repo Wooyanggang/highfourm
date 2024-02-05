@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UploadOutlined, AudioOutlined } from '@ant-design/icons';
-import { Input, Space, } from 'antd';
+import { Input, Space, Select, Form } from 'antd';
 import axios from 'axios';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown, message, Tooltip, Popconfirm, Table, FLex, Upload } from 'antd';
@@ -15,12 +15,30 @@ const OrderList = () => {
 
   const [dataSource, setDataSource] = useState([]);
   const [count, setCount] = useState(dataSource.length);
+  const [productOptions, setProductOptions] = useState([]);
   const [ordersData, setOrdersData] = useState({
     vendor: '',
     manager: '',
     orderDate: '',
     dueDate: ''
   });
+
+  useEffect(() => {
+    axios.get('/orders/new')
+      .then(response => {
+        // response.data가 직접 리스트를 포함하고 있는지, 아니면 객체의 속성으로 리스트를 포함하고 있는지 확인
+        const productList = response.data || [];
+        const options = productList.map(productName => ({
+          label: productName, // 여기서는 response.data가 직접 문자열 리스트라고 가정
+          value: productName,
+        }));
+        setProductOptions(options);
+        console.log(options);
+      })
+      .catch(error => {
+        console.error('제품명 데이터를 불러오는데 실패했습니다.', error);
+      });
+  }, []);
 
   const handleInputChange = (e) => {
     setOrdersData({ ...ordersData, [e.target.name]: e.target.value });
@@ -66,14 +84,25 @@ const OrderList = () => {
 
   const handleAdd = () => {
     const newData = {
-      key: count,
-      productName: `품명`,
+      key: count, // 'key' 필드를 추가하여 각 행을 식별
+      productName: '', // 초기 제품명 값 설정
       amount: 0,
       unitPrice: 0,
       price: 0,
     };
     setDataSource([...dataSource, newData]);
     setCount(count + 1);
+  };
+
+  const handleSelectChange = (value, key) => {
+    // 선택된 제품명으로 dataSource 업데이트
+    const newData = dataSource.map(item => {
+      if (item.key === key) {
+        return { ...item, productName: value };
+      }
+      return item;
+    });
+    setDataSource(newData);
   };
 
   const props = {
@@ -99,8 +128,21 @@ const OrderList = () => {
       title: '제품명',
       dataIndex: 'productName',
       width: '250px',
-      editable: true,
-
+      render: (text, record) => (
+        <Form.Item name={`productName_${record.key}`} style={{ margin: 0 }}>
+          <Select
+            showSearch
+            style={{ width: '100%' }}
+            placeholder="제품명 선택"
+            optionFilterProp="children"
+            options={productOptions}
+            filterOption={(input, option) =>
+              option.label.toLowerCase().includes(input.toLowerCase())
+            }
+            onChange={(value) => handleSelectChange(value, record.key)}
+          />
+         </Form.Item>
+      ),
     },
     {
       title: '수량',

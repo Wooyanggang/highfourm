@@ -1,5 +1,6 @@
 package himedia.project.highfourm.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import himedia.project.highfourm.dto.orders.OrdersAndDetailsDTO;
 import himedia.project.highfourm.service.OrderService;
+import himedia.project.highfourm.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,17 +21,23 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequiredArgsConstructor
 public class OrderController {
-	@Autowired
+	
 	private final OrderService orderService;
+	private final ProductService productService;
 	
 	@GetMapping("/orders")
 	public Map<String, Object> orderList() {
 		return orderService.findAllOrders();
-		
+	}
+	
+	@GetMapping("/orders/new")
+	public List<String> ordersNew(){
+		List<String> productNameList = productService.findAllProductName();
+		return productNameList;
 	}
 	
 	@PostMapping("/orders/new")
-	public void ordersNew(@RequestBody OrdersAndDetailsDTO ordersAndDetailsDTO) {
+	public void saveOrders(@RequestBody OrdersAndDetailsDTO ordersAndDetailsDTO) {
 		orderService.saveOrder(ordersAndDetailsDTO);
 	}
 }

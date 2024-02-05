@@ -102,7 +102,7 @@ const SideBar = () => {
       return '8';
     } else if (url === '/production-status') {
       return '9';
-    } else if (url === '/production-performance/chart' || url === '/production-performance/controll-chart') {
+    } else if (url === '/production-performance' || url === '/production-performance/chart' || url === '/production-performance/controll-chart') {
       return '10';
     } else if (url === '/users/') {
       return '11';
