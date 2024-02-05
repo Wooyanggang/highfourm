@@ -147,14 +147,14 @@ const BtnFilter = ({ valueArr, linkArr, type }) => {
   )
 };
 
-const InputBar = ({ type, id, name, value, placeholderMsg, onChange, disabled, requried, readOnly }) => {
+const InputBar = ({ type, id, name, value, placeholderMsg, onChange, disabled, required, readOnly }) => {
   // disabled={ true | false }
   if (placeholderMsg == null) {
     placeholderMsg = '';
   }
 
   return (
-    <Input type={type} id={id} name={name} value={value} placeholder={`${placeholderMsg}`} style={{ width: '200px' }} size='large' onChange={onChange} disabled={disabled} requried={requried} readOnly={readOnly} />
+    <Input type={type} id={id} name={name} value={value} placeholder={`${placeholderMsg}`} style={{ width: '200px' }} size='large' onChange={onChange} disabled={disabled} required={required} readOnly={readOnly} />
   )
 };
 
