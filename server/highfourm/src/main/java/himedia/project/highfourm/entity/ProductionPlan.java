@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import himedia.project.highfourm.dto.ProductionPlanDTO;
+import himedia.project.highfourm.dto.ProductionPlanFormDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -56,8 +57,8 @@ public class ProductionPlan {
 		this.orders = orders;
 	}
 	
-	public ProductionPlanDTO toDTO(Product product, Orders orders) {
-		return ProductionPlanDTO.builder()
+	public ProductionPlanFormDTO toDTO(Product product, Orders orders) {
+		return ProductionPlanFormDTO.builder()
 					.productionPlanId(productionPlanId)
 					.product(product)
 					.orders(orders)

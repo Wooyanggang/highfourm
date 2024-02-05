@@ -7,7 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import himedia.project.highfourm.dto.MonthlyProductionPlanDTO;
-import himedia.project.highfourm.dto.ProductionPlanDTO;
+import himedia.project.highfourm.dto.ProductionPlanFormDTO;
 import himedia.project.highfourm.dto.WorkPerformanceResponseDTO;
 import himedia.project.highfourm.entity.MonthlyProductionPlan;
 import himedia.project.highfourm.repository.MonthlyProductionPlanRepository;
@@ -22,8 +22,8 @@ public class ProductionPlanService {
 	private final MonthlyProductionPlanRepository monthlyProductionPlanRepository;
 	
 //	public Map<String, Object> findAllProductionPlans() {
-	public List<ProductionPlanDTO> findAllProductionPlans() {
-		List<ProductionPlanDTO> productionPlans = productionPlanRepository.findAllProductionPlan(Sort.by(Sort.Direction.DESC, "o.orderId"));
+	public List<ProductionPlanFormDTO> findAllProductionPlans() {
+		List<ProductionPlanFormDTO> productionPlans = productionPlanRepository.findAllProductionPlan(Sort.by(Sort.Direction.DESC, "o.orderId"));
 		return productionPlans;
 	}
 	
@@ -41,8 +41,8 @@ public class ProductionPlanService {
 		return responseList;
 	}
 	
-	public List<ProductionPlanDTO> findAll(){
-		List<ProductionPlanDTO> resultList = productionPlanRepository.findAll()
+	public List<ProductionPlanFormDTO> findAll(){
+		List<ProductionPlanFormDTO> resultList = productionPlanRepository.findAll()
 				.stream().map(productionPlan -> 
 				productionPlan.toDTO(productionPlan.getProduct(), productionPlan.getOrders()))
 				.collect(Collectors.toList());
