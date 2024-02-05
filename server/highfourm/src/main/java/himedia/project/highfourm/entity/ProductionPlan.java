@@ -17,7 +17,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter @Builder
+@Getter 
 @NoArgsConstructor
 @Entity
 @Table(name = "production_plan")
@@ -50,13 +50,20 @@ public class ProductionPlan {
 	private List<WorkPerformance> workPerformances;
 	
 	@Builder
-	public ProductionPlan(String productionPlanId, String productionUnit, Product product, Orders orders) {
+	public ProductionPlan(String productionPlanId, String productionUnit, Long productionPlanAmount,
+			LocalDate productionStartDate, Product product, Orders orders,
+			List<MonthlyProductionPlan> monthlyProductionPlan, List<WorkPerformance> workPerformances) {
+		super();
 		this.productionPlanId = productionPlanId;
 		this.productionUnit = productionUnit;
+		this.productionPlanAmount = productionPlanAmount;
+		this.productionStartDate = productionStartDate;
 		this.product = product;
 		this.orders = orders;
+		this.monthlyProductionPlan = monthlyProductionPlan;
+		this.workPerformances = workPerformances;
 	}
-	
+	@Builder
 	public ProductionPlanFormDTO toDTO(Product product, Orders orders) {
 		return ProductionPlanFormDTO.builder()
 					.productionPlanId(productionPlanId)
