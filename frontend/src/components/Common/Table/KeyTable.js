@@ -49,6 +49,7 @@ const KeyTable = ({ dataSource, defaultColumns, setDataSource, pagination, url, 
   return (
     <div>
       <Table
+        className="clickable-table"
         components={components}
         rowClassName={() => 'editable-row'}
         bordered

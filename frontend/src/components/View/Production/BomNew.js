@@ -4,12 +4,15 @@ import { Select } from 'antd';
 import { InputBar, BtnBlue, BtnWhite } from '../../Common/Module';
 
 const BomNew = ({  onSubmit, onSubmitSuccess }) => {
-  const [manageValue, setManageValue] = useState("");
+  const [timeOptions, setTimeOptions] = useState("");
+  const [count, setCount] = useState(0);
+  const [dataTable, setDataTable] = useState([]);
+  const [dataMaterial, setDataMaterial] = useState([]);
 
   const formRef = useRef(null);
 
-  const selectValue = (value) => {
-    setManageValue(value);
+  const selectTimeOptions = (value) => {
+    setTimeOptions(value);
   };
 
   const handleSubmit = (e) => {
@@ -122,12 +125,12 @@ const BomNew = ({  onSubmit, onSubmitSuccess }) => {
                   width: '200px',
                   height: '40px'
                 }}
-                onChange={selectValue}
+                onChange={selectTimeOptions}
                 options={timeUnitOptions}
                 allowClear={false}
                 required
               />
-              <InputBar type='hidden' name={'timeUnit'} value={manageValue} />
+              <InputBar type='hidden' name={'timeUnit'} value={timeOptions} />
             </div>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
               <label htmlFor='standardWorkTime' className='label-title'>표준 작업 시간:</label>

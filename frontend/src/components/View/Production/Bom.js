@@ -142,7 +142,7 @@ function Bom() {
       </div>
       <div style={{ display: 'flex', gap: '24px 19px' }}>
         <div className='table-box'>
-          <KeyTable
+          <KeyTable 
           dataSource={dataProduct} 
           defaultColumns={defaultColumnsProduct} 
           setDataSource={setDataProduct}

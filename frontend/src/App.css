@@ -141,8 +141,20 @@ input[type="date"]::placeholder {
   box-sizing: border-box;
 }
 
+.bom-page .clickable-table tbody {
+  cursor: pointer;
+}
+
 #bomNewForm label.label-title {
   font-weight: 500;
+}
+
+#bomNewForm input {
+  margin-right: 12px;
+}
+
+#bomNewForm h3 {
+  font-size: 18px;
 }
 
 /* OrderNew */
