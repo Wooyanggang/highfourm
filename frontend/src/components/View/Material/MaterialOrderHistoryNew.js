@@ -50,7 +50,7 @@ const MaterialOrderHistoryNew = () => {
   return (
     <div>
       <PageTitle value={'수급내역 등록'} />
-      <form id='materialOrderForm' method='post' action='/materials/order-history/new'>
+      <form id='materialOrderForm' method='post' action='/materials/order-history/new'onSubmit={onClickSubmit}>
         <div className='flex-line'>
           <div className='flex-div'>
             <label htmlFor='empNo' className='label-title'>발주일</label>
@@ -88,8 +88,8 @@ const MaterialOrderHistoryNew = () => {
           </div>
           </div>
         <div className='flex-btn'>
-          <BtnBlue type='submit' value={'등록하기'} onClick={onClickSubmit} />
-          <BtnWhite value={'취소'} onClick={goBackNavigate} />
+          <BtnBlue type='submit' value={'등록하기'} />
+          <BtnWhite value={'취소'} onClick={e => navigate('/materials/order-history')} />
         </div>
       </form>
     </div>
