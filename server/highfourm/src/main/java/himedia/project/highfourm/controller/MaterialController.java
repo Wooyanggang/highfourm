@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import himedia.project.highfourm.dto.material.MaterialListResponseDTO;
@@ -52,6 +53,30 @@ public class MaterialController {
 	public String addMaterial(@RequestBody MaterialRequestDTO material) {
 		materialService.saveMaterial(material);
 		return "redirect:http://localhost:3000/materials/stock";
+	}
+	
+	
+	/**
+	 * 원자재 리스트 검색
+	 */
+	@GetMapping("/materials/stock/search")
+	public ResponseEntity<List<MaterialListResponseDTO>> searchMaterialList(
+								@RequestParam(value="searchType") String searchType, @RequestParam(value="search") String search) {
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setCacheControl(CacheControl.noStore());
+	    
+	    System.out.println("search >>>>>>>" + search);
+	    
+		List<MaterialListResponseDTO> searchMaterialList = null;
+		
+		if(searchType.equals("자재코드")) {
+			searchMaterialList = materialService.findMaterialByMaterialId(search);
+		}else if(searchType.equals("자재명")){
+			searchMaterialList = materialService.findMaterialByMaterialName(search);
+		}else if(searchType.equals("재고관리 방식")){
+			searchMaterialList = materialService.findMaterialByManagement(search);
+		}	
+		return new ResponseEntity<>(searchMaterialList, headers, HttpStatus.OK);
 	}
 
 	/**

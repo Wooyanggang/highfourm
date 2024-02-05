@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import himedia.project.highfourm.dto.material.MaterialListResponseDTO;
@@ -44,6 +45,18 @@ public class MaterialService {
 	// 원자재 리스트 조회
 	public List<MaterialListResponseDTO> MaterialList() {
 		return stockRepository.findMaterialList();
+	}
+	//원자재 materilaId로 검색
+	public List<MaterialListResponseDTO>findMaterialByMaterialId(String materialId) {
+		return stockRepository.findMaterialByMaterialId(materialId);
+	}
+	//원자재 materilaId로 검색
+	public List<MaterialListResponseDTO> findMaterialByMaterialName(String materialName) {
+		return stockRepository.findMaterialByMaterialName(materialName);
+	}
+	//원자재 materilaId로 검색
+	public List<MaterialListResponseDTO> findMaterialByManagement(String managementName) {
+		return stockRepository.findMaterialByManagement(managementName);
 	}
 
 	// 수급내역 등록
