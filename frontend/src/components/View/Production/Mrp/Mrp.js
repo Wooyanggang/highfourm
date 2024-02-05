@@ -71,7 +71,6 @@ const Mrp = () => {
     {
       title: '생산계획 코드',
       dataIndex: 'production_plan_id',
-      render: (text) => <a href={`/mrp/${text}`}>{text}</a>
       // production_plan
     },
     {

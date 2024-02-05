@@ -59,7 +59,7 @@ const MrpDetail = () => {
             total_material_amount: (rowData.inputAmount * rowData.productionPlanAmount),
             total_stock: rowData.totalStock,
             safety_stock: rowData.safetyStock,
-            inbound_amount: rowData.inboundAmount,
+            order_amount: rowData.orderAmount,
           }))
           setDataRequiredMaterial(newDataRequriedMaterial);
         }
@@ -103,7 +103,6 @@ const MrpDetail = () => {
     {
       title: '생산계획 코드',
       dataIndex: 'production_plan_id',
-      render: (text) => <a href={generateLink(text, searchType, searchValue)}>{text}</a>
       // production_plan
     },
     {
@@ -157,7 +156,7 @@ const MrpDetail = () => {
     },
     {
       title: '입고 예정량',
-      dataIndex: 'inbound_amount',
+      dataIndex: 'order_amount',
       // production_plan(product_id) - required_material(material_id) - material_history(order_amount)
     },
   ];
