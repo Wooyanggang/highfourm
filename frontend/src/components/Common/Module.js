@@ -112,13 +112,6 @@ const BtnFilter = ({ valueArr, linkArr, type }) => {
   const [activeBtnIndex, setActiveBtnIndex] = useState(0);
   const currentURL = window.location.pathname;
 
-  const btnIndex = (url, index) => {
-    if (url == linkArr[index]) {
-      setActiveBtnIndex(index);
-      return index;
-    }
-  }
-
   const filterClickHandler = (e, index) => {
     // 클릭시 기능 구현 핸들러
     setActiveBtnIndex(index);
@@ -126,7 +119,7 @@ const BtnFilter = ({ valueArr, linkArr, type }) => {
   }
 
   useEffect(() => {
-    const indexKey = valueArr.findIndex((_, index) => btnIndex(currentURL, index));
+    const indexKey = valueArr.findIndex((_, index) => currentURL === linkArr[index]);
     if (indexKey !== -1) {
       setActiveBtnIndex(indexKey);
     }
