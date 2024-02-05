@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import himedia.project.highfourm.dto.ProductionPlanDTO;
+import himedia.project.highfourm.dto.ProductionPlanFormDTO;
 import himedia.project.highfourm.dto.orders.OrderDetailDTO;
 import himedia.project.highfourm.dto.orders.OrderDetailFormDTO;
 import himedia.project.highfourm.dto.orders.OrdersAndDetailsDTO;
@@ -102,7 +102,7 @@ public class OrderService {
    public void saveProductionPlan(Orders orders, List<OrderDetail> orderDetails) {
 	   List<ProductionPlan> productionPlans = orderDetails.stream()
 	    		.map(detail -> 
-	    			ProductionPlanDTO.toEntityForInsert(orders.getOrderId().replaceAll("-", "").concat("-").concat(detail.getOrderDetailPK().getProductId())
+	    			ProductionPlanFormDTO.toEntityForInsert(orders.getOrderId().replaceAll("-", "").concat("-").concat(detail.getOrderDetailPK().getProductId())
 	    					,"EA", detail.getOrders(), detail.getProduct()))
 	    		.collect(Collectors.toList());
 

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import himedia.project.highfourm.dto.MonthlyProductionPlanDTO;
-import himedia.project.highfourm.dto.ProductionPlanDTO;
+import himedia.project.highfourm.dto.ProductionPlanFormDTO;
 import himedia.project.highfourm.service.ProductionPlanService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class ProductionPlanController {
 	private final ProductionPlanService productionPlanService;
 	
 	@GetMapping("/production-plan")
-	public List<ProductionPlanDTO> productionPlan(){
+	public List<ProductionPlanFormDTO> productionPlan(){
 		
 		return productionPlanService.findAllProductionPlans();
 	}

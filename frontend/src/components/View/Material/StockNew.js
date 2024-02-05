@@ -77,11 +77,11 @@ const StockNew = ({  onSubmit, onSubmitSuccess }) => {
           <div className='modal-line' style={{ marginRight: '40px' }}>
             <div className='modal-div' >
               <label htmlFor='materialId' className='label-title'>자재코드:</label>
-              <InputBar inputId={'materialId'} name={'materialId'} id={'materialId'} placeholderMsg={'자재코드'} />
+              <InputBar inputId={'materialId'} name={'materialId'} id={'materialId'} placeholderMsg={'자재코드'} required={true}/>
             </div>
             <div className='modal-div' style={{ marginBottom: '15px', display: 'flex', alignItems: 'center' }}>
               <label htmlFor='unit' className='label-title'>단위:</label>
-              <InputBar inputId={'unit'} name={'unit'} id={'unit'} placeholderMsg={'단위'} />
+              <InputBar inputId={'unit'} name={'unit'} id={'unit'} placeholderMsg={'단위'} required={true}/>
             </div>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
               <label htmlFor='managementId' className='label-title'>재고관리 방식:</label>
@@ -101,14 +101,14 @@ const StockNew = ({  onSubmit, onSubmitSuccess }) => {
             </div>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
               <label htmlFor='maxStock' className='label-title'>최대재고:</label>
-              <InputBar inputId={'maxStock'} name={'maxStock'} id={'maxStock'} placeholderMsg={'최대재고'} required/>
+              <InputBar inputId={'maxStock'} name={'maxStock'} id={'maxStock'} placeholderMsg={'최대재고'} required={true}/>
             </div>
           </div>
 
           <div className='modal-line'>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
               <label htmlFor='materialName' className='label-title'>자재명:</label>
-              <InputBar inputId={'materialName'} name={'materialName'} id={'materialName'} placeholderMsg={'자재명'} required />
+              <InputBar inputId={'materialName'} name={'materialName'} id={'materialName'} placeholderMsg={'자재명'} required={true} />
             </div>
             <div className='modal-div' style={{ marginBottom: '15px' }}>
               <label htmlFor='safetyStock' className='label-title'>안전재고:</label>
