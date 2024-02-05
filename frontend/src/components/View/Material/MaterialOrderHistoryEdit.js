@@ -76,7 +76,7 @@ const MaterialOrderHistoryEdit = () => {
           </div>
           <div className='flex-div'>
             <label htmlFor='userName' className='label-title'>입고일</label>
-            <InputBar type={'date'} id={'recievingDate'} name={'recievingDate'} placeholderMsg={'입고일'} onChange={onChange} requried={true} />
+            <InputBar type={'date'} id={'recievingDate'} name={'recievingDate'} placeholderMsg={'입고일'} onChange={onChange} required={true} />
           </div>
         </div>
         <div className='flex-line'>
@@ -102,7 +102,7 @@ const MaterialOrderHistoryEdit = () => {
         <div className='flex-line'>
           <div className='flex-div'>
             <label htmlFor='position' className='label-title'>입고량</label>
-            <InputBar id={'inboundAmount'} name={'inboundAmount'} placeholderMsg={'입고량'} onChange={onChange} requried={true} />
+            <InputBar id={'inboundAmount'} name={'inboundAmount'} placeholderMsg={'입고량'} onChange={onChange} required={true} />
           </div>
           <div className='flex-div'>
             <label htmlFor='birth' className='label-title'>입고단가</label>
