@@ -43,6 +43,8 @@ public class UserAddDTO {
 	
 	private String role;
 	
+	private String emailToken;
+	
 	public User toEntity(Company company) {
 		return User.builder()
 				.userName(userName)

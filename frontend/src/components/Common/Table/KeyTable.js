@@ -17,7 +17,7 @@ const KeyTable = ({ dataSource, defaultColumns, setDataSource, pagination, url, 
       ...row,
     });
     setDataSource(newData);
-  };  
+  };
   const components = {
     body: {
       row: EditableRow,
@@ -40,7 +40,7 @@ const KeyTable = ({ dataSource, defaultColumns, setDataSource, pagination, url, 
     };
   });
 
-  const clickRow = (record,index) => {
+  const clickRow = (record, index) => {
     setRecordKey(record);
     console.log(recordKey);
     setActiveIndex(index); // activeIndex를 업데이트

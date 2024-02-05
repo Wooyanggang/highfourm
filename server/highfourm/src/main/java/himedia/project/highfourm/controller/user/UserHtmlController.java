@@ -1,5 +1,7 @@
 package himedia.project.highfourm.controller.user;
 
+import java.util.UUID;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,6 +54,9 @@ public class UserHtmlController {
 			bindingResult.rejectValue("empNo", "error.user", "이미 등록된 사번입니다.");
 			return "userForm";
 		}
+		
+		String token = UUID.randomUUID().toString();
+		userAddDTO.setEmailToken(token);
 		service.save(userAddDTO);
 		
 		return "redirect:/users";

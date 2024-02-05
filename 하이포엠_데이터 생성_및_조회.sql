@@ -19,8 +19,8 @@ select * from material_history;
 insert into company values(1, 'Samsung'); 
 insert into company values(2, 'LG'); 
 
-insert into users(user_name, emp_no, position, birth, email, company_id) values ('홍길동', 1000, '사원', '1999-01-01', 'hong333@gmail.com', 1);
-insert into users(user_name, emp_no, position, birth, email, company_id, register_state) values ('박보검', 1001, '대리', '1990-01-01', 'park1@gmail.com', 2, 'Y');
+insert into users(user_name, emp_no, position, birth, email, company_id, role) values ('홍길동', 1000, '사원', '1999-01-01', 'hong333@gmail.com', 1, 'USER');
+insert into users(user_name, emp_no, position, birth, email, company_id, register_state, role) values ('박보검', 1001, '대리', '1990-01-01', 'park1@gmail.com', 2, 'Y', 'USER');
 insert into users values (null, 'aaa@gmail.com', '{noop}1111', '하이포엠', 01, '총관리자', '1990-01-01', 'aaa@gmail.com', 2, 'Y', 'ADMIN');
 
 insert into stock_management values(null, '정량');

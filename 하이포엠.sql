@@ -42,8 +42,10 @@ create table IF NOT EXISTS users (
     ON UPDATE CASCADE
 );
   drop table users;
-insert into users(user_name, emp_no, position, birth, email, company_id) values ('홍길동', 1000, '사원', '2024-01-01', 'hong333@gmail.com', 1);
+insert into users(user_name, emp_no, position, birth, email, company_id, role) values ('홍길동', 1000, '사원', '2024-01-01', 'hong333@gmail.com', 1, 'USER');
 insert into users values (null, 'id', '', '김이박', 1001, '대리', '1990-12-31', 'kimleepark@naver.com', 2, 'N', 'USER');
+
+select * from users where role not like 'ADMIN';
 
 select * from users;
 
