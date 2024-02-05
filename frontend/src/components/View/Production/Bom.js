@@ -123,11 +123,11 @@ function Bom() {
   return (
     <div className='bom-page'>
       <PageTitle value={'제품별 공정/소요자재 관리'}/>
-      <h3 style={{marginBottom:'12px'}}>제품 검색</h3>
+      {/* <h3 style={{marginBottom:'12px'}}>제품 검색</h3>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 24px', alignItems: 'center' }}>
         <SearchSelectBox selectValue={['제품 코드', '제품명']} SelectChangeHandler={SelectChangeHandler} />
         <SearchInput onSearch={onSearch} />
-      </div>
+      </div> */}
       <div className='add-btn'>
         <BtnBlack value={"항목 추가"} onClick={showModal} />
         <Modal

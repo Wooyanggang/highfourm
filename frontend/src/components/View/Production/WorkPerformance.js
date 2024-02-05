@@ -80,7 +80,7 @@ function WorkPerformance() {
   return (
     <div className='work-performance-page'>
         <PageTitle value={'작업 실적 조회'}/>
-        <form action='' className='search-form'>
+        {/* <form action='' className='search-form'>
           <div className='search-input-wrap'>
             <div className='search-input'>
               <label htmlFor='workDate'>작업 일자</label>
@@ -102,7 +102,7 @@ function WorkPerformance() {
             </div>
             <BtnGray value={'검색'}> type={'button'}</BtnGray>
           </div>
-        </form>
+        </form> */}
         <div>
           <BasicTable 
           dataSource={dataSource} 

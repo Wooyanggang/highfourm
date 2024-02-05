@@ -206,17 +206,17 @@ function WorkPerformanceNew() {
         setDataSource={setDataSource} 
         pagination={false}/>
       </div>
-      <div>
+      <div style={{display:'flex', justifyContent:'space-between', width:'100%', marginTop:'20px'}}>
         <div className='add-btn'>
           <BtnBlack value={"작업 실적 추가"} onClick={handleAdd}></BtnBlack>
         </div>
-        <div>
-          <div className='cancel-btn'>
+        <div style={{display:'flex'}}>
+          <div className='cancel-btn' style={{marginRight:'12px'}}>
             <BtnWhite value={'취소'} onClick={e =>navigate('/work-performance')}/>
           </div>
           <div className='submit-btn'>
-                <BtnBlue value={'작업 실적 등록'} onClick={workPerformanceNewformSubmit} />
-              </div>
+            <BtnBlue value={'작업 실적 등록'} onClick={workPerformanceNewformSubmit} />
+          </div>
         </div>
       </div>
     </div>
