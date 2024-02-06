@@ -7,6 +7,9 @@ services:
       context: ./server/highfourm
       dockerfile: Dockerfile
     environment:
+      - spring.datasource.url=jdbc:mysql://database-container:3307/highfourm?useSSL=false&amp;serverTimezone=UTC
+      - spring.datasource.username=root
+      - spring.datasource.password=1111
       - TZ=Asia/Seoul
     ports:
       - "9999:8080"
@@ -21,7 +24,10 @@ services:
       - "3000:80"
   database:
     container_name: database-container
-    image: mysql:8.0
+    build:
+      context: ./server/highfourm
+      dockerfile: Dockerfile-db
+    hostname: docker-mysql
     ports:
       - "3307:3306"
     environment:
