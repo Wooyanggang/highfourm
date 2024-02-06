@@ -19,11 +19,15 @@ public class EmailService {
 	private final EmailTokenService emailTokenService;
 	
 	public void confirmEmail(String token) throws Exception {
-		EmailToken findEmailToken =
-		emailTokenService.findByUserNoAndExpirationDateAfterAndExpired(token);
+		EmailToken findEmailToken = emailTokenService.findByUserNoAndExpirationDateAfterAndExpired(token);
 		
 		Optional<User> findUser = repository.findById(findEmailToken.getUser().getUserNo());
 		findEmailToken.setTokenToUsed();
 		
+        if (findUser.isPresent()) {
+            User user = findUser.get();
+        } else {
+            throw new Exception("사용자를 찾을 수 없습니다.");
+        }
 	}
 }

@@ -8,13 +8,15 @@ show tables;
 
 create table IF NOT EXISTS email_token (
 	id varchar(50) unique COMMENT '이메일 토큰 ID',
-	user_no bigint unsigned COMMENT '사용자 번호',
-    expired tinyint(1) COMMENT '만료여부',
+	user_no bigint COMMENT '사용자 번호',
+    expired int COMMENT '만료여부',
     expiration_date timestamp COMMENT '만료기간',
     primary key(id),
     foreign key (user_no) references users(user_no)
     ON UPDATE CASCADE
+    ON DELETE CASCADE
 );
+drop table email_token;
 
 create table IF NOT EXISTS company (
 	company_id int auto_increment NOT NULL COMMENT '회사 코드',
