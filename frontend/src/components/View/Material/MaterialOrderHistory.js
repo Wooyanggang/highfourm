@@ -22,7 +22,7 @@ const MaterialOrderHistory = () => {
       try {
         let res;
 
-        if (currentURL === '/materials/oder-history/search') {
+        if (currentURL === '/materials/order-history/search') {
           const searchParams = new URLSearchParams(location.search);
           const searchTypeParam = searchParams.get('searchType');
           const searchValueParam = searchParams.get('search');

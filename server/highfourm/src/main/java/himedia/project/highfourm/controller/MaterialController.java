@@ -92,13 +92,15 @@ public class MaterialController {
 	}
 	
 	/**
-	 * 원자재 리스트 검색
+	 * 수급내역 검색
 	 */
 	@GetMapping("/materials/order-history/search")
 	public ResponseEntity<List<MaterialOrderResponseDto>> searchMaterialOrderHistory(
 								@RequestParam(value="searchType") String searchType, @RequestParam(value="search") String search) {
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setCacheControl(CacheControl.noStore());
+	    
+	    System.out.println("search >>>>>>" + search);
 	    
 		List<MaterialOrderResponseDto> searchMaterialHistory = null;
 		
@@ -109,7 +111,7 @@ public class MaterialController {
 		}else if(searchType.equals("발주일")){
 			searchMaterialHistory = materialService.findMaterialHistoryByOrderDate(search);
 		}else if(searchType.equals("입고일")){
-			searchMaterialHistory = materialService.findMaterialHistoryByOrderDate(search);
+			searchMaterialHistory = materialService.findMaterialHistoryByInboundDate(search);
 		}	
 			return new ResponseEntity<>(searchMaterialHistory, headers, HttpStatus.OK);
 		}

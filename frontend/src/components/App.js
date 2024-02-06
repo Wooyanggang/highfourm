@@ -54,6 +54,7 @@ function App() {
               <Route path='/orders/new' element={<OrderNew />} />
               <Route path='/materials/stock' element={<StockList />} />
               <Route path='/materials/order-history' element={<MaterialOrderHistory />} />
+              <Route path='/materials/order-history/search' element={<MaterialOrderHistory />} />
               <Route path='/materials/order-history/new' element={<MaterialOrderHistoryNew />} />
               <Route path='/materials/order-history/edit/:orderHistoryId' element={<MaterialOrderHistoryEdit />} />
               <Route path='/users' element={<UserList />} />
