@@ -4,7 +4,7 @@ services:
   back:
     container_name: backend-container
     build:
-      contex: /backend
+      context: /backend
       dockerfile: Dockerfile
     environment:
       - TZ=Asia/Seoul
@@ -15,16 +15,16 @@ services:
   fornt:
     container_name: frontend-container
     build:
-      contex: /frontend
+      context: /frontend
       dockerfile: Dockerfile
     restart: always
     ports:
-     - "3000:80"
+      - "3000:80"
   database:
     container_name: database-container
     image: mysql:8.0
-    port:
-     - "3307:3306"
+    ports:
+      - "3307:3306"
     environment:
       MYSQL_DATABASE: highfourm
       MYSQL_ROOT_HOST: "%"
