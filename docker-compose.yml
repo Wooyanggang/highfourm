@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  back:
+    container_name: backend-container
+    build:
+      contex: /backend
+      dockerfile: Dockerfile
+    environment:
+      - TZ=Asia/Seoul
+    ports:
+      - "9999:8080"
+    depends_on:
+      - database
+  fornt:
+    container_name: frontend-container
+    build:
+      contex: /frontend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+     - "3000:80"
+  database:
+    container_name: database-container
+    image: mysql:8.0
+    port:
+     - "3307:3306"
+    environment:
+      MYSQL_DATABASE: highfourm
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_PASSWORD: 1111

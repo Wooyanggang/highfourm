@@ -1,21 +1,3 @@
-use highfourm;
-select * from company;
-select * from users;
-select * from orders;
-select * from file;
-select * from product;
-select * from order_detail;
-select * from work_performance;
-select * from production_plan;
-select * from monthly_production_plan;
-select * from process;
-select * from required_material;
-select * from material;
-select * from stock_management;
-select * from material_stock;
-select * from material_history;
-
-##insert
 insert into company values(1, 'Samsung'); 
 insert into company values(2, 'LG'); 
 
@@ -26,7 +8,6 @@ insert into users values (null, 'bbb@gmail.com', '$2a$10$lWxWaykWnxXBLsohj.rcZeo
 insert into stock_management values(null, '정량');
 insert into stock_management values(null, '정기');
 insert into stock_management values(null, '수동');
-
 
 insert product(product_id,product_name,write_date,update_date)
 values('fb-01','황금 붕어빵','2021-2-9','2021-10-9');
@@ -88,7 +69,7 @@ values
 
 insert into material_history
 values
-(1000, 'mt-01', '2024-02-02', null, 'EA', '나진상사', null, null, 300, 5000, null),
+(1000, 'mt-01', '2024-02-02', null, 'EA', '나진상사', null, null, 300, 5000),
 (1001, 'mt-03', '2024-02-02', null, 'EA', '나진상사', null, null, 450, 6000, null),
 (1002, 'mt-05', '2024-02-03', null, 'EA', '나진상사', null, null, 400, 4300, null);
 
@@ -180,20 +161,3 @@ values
 (7,'202109291-fb-04','2023-5-30',144,140,4,23,'김삼식',1,'2025-01-01',''),
 (8,'202109291-fb-04','2022-6-30',215,210,5,30,'김삼식',1,'2025-01-01',''),
 (9,'202109291-fb-04','2022-7-30',217,210,7,30,'김삼식',1,'2025-01-01','');
-
-
-## select
-SELECT *
-  FROM INFORMATION_SCHEMA.COLUMNS
- WHERE TABLE_SCHEMA = 'highfourm'
-   AND TABLE_NAME   = 'user';
-
-SELECT *
-  FROM INFORMATION_SCHEMA.COLUMNS
- WHERE TABLE_SCHEMA = 'highfourm'
-   AND TABLE_NAME   = 'production_plan';
-
-select *
-from material ma
-left join material_stock ms on ma.material_id = ms.material_id
-left join stock_management sm on ms.management_id = sm.management_id;

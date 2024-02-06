@@ -1,10 +1,4 @@
-drop database IF EXISTS highfourm;
-
-create database IF NOT EXISTS highfourm character set = utf8mb4;
-
 use highfourm;
-
-show tables;
 
 create table IF NOT EXISTS company (
 	company_id int auto_increment NOT NULL COMMENT '회사 코드',
@@ -29,16 +23,6 @@ create table IF NOT EXISTS users (
     ON UPDATE CASCADE
 );
 
-create table IF NOT EXISTS email_token (
-	id varchar(50) unique COMMENT '이메일 토큰 ID',
-	user_no bigint NOT NULL COMMENT '사용자 번호',
-    expired int NOT NULL COMMENT '만료여부',
-    expiration_date timestamp NOT NULL COMMENT '만료기간',
-    primary key(id),
-    foreign key (user_no) references users(user_no)
-    ON UPDATE CASCADE
-);
-
 create table IF NOT EXISTS orders (
 	order_id varchar(50) unique NOT NULL COMMENT '주문 코드',
 	vendor varchar(50) NOT NULL COMMENT '거래처명',
@@ -48,7 +32,6 @@ create table IF NOT EXISTS orders (
 	order_date date NOT NULL COMMENT '주문일',
     primary key(order_id)
 );
-
 
 create table IF NOT EXISTS file (
 	file_id	bigint auto_increment NOT NULL COMMENT '파일 아이디',
@@ -63,7 +46,6 @@ create table IF NOT EXISTS file (
     ON UPDATE CASCADE
 );
 
-
 create table IF NOT EXISTS product (
 	product_id varchar(50) NOT NULL COMMENT '제품 코드', 
 	product_name varchar(50) NOT NULL COMMENT '제품명',
@@ -71,7 +53,6 @@ create table IF NOT EXISTS product (
 	update_date date COMMENT '수정일',
     primary key(product_id)
 );
-
 
 create table IF NOT EXISTS order_detail (
 	order_id varchar(50) NOT NULL COMMENT '주문 코드',
@@ -84,7 +65,6 @@ create table IF NOT EXISTS order_detail (
     foreign key(product_id) references product(product_id)
     ON UPDATE CASCADE
 );
-
 
 create table IF NOT EXISTS production_plan (
 	production_plan_id varchar(50) unique NOT NULL COMMENT '생산 계획 코드',
@@ -99,7 +79,6 @@ create table IF NOT EXISTS production_plan (
 	foreign key(product_id) references product(product_id)
     ON UPDATE CASCADE
 );
-
 
 create table IF NOT EXISTS work_performance (
 	work_performance_id bigint auto_increment NOT NULL COMMENT '작업 실적 코드',
@@ -118,7 +97,6 @@ create table IF NOT EXISTS work_performance (
     ON UPDATE CASCADE
 );
 
-
 create table IF NOT EXISTS monthly_production_plan (
 	month char(10) NOT NULL COMMENT '월',
 	production_plan_id varchar(50) NOT NULL COMMENT '생산 계획 코드',
@@ -127,7 +105,6 @@ create table IF NOT EXISTS monthly_production_plan (
     foreign key(production_plan_id) references production_plan(production_plan_id)
     ON UPDATE CASCADE
 );
-
 
 create table IF NOT EXISTS process (
 	process_id varchar(50) NOT NULL COMMENT '공정 코드', 
@@ -142,13 +119,11 @@ create table IF NOT EXISTS process (
     ON UPDATE CASCADE
 );
 
-
 create table IF NOT EXISTS stock_management (
 	management_id bigint auto_increment NOT NULL COMMENT '재고 관리 코드',
 	management_name varchar(10) NOT NULL COMMENT '재고 관리명',
     primary key(management_id)
 );
-
 
 create table IF NOT EXISTS material (
     material_id varchar(50) unique NOT NULL COMMENT '원자재 코드',
@@ -156,7 +131,6 @@ create table IF NOT EXISTS material (
 	unit varchar(20) NOT NULL COMMENT '단위',
 	primary key(material_id)
 );
-
 
 create table IF NOT EXISTS required_material (
 	product_id varchar(50) NOT NULL COMMENT '제품 코드', 
@@ -169,8 +143,6 @@ create table IF NOT EXISTS required_material (
     foreign key(material_id) references material(material_id)
     ON UPDATE CASCADE
 );
-
-
 
 create table IF NOT EXISTS material_stock (
 	material_id varchar(50) unique NOT NULL COMMENT '원자재 코드',
@@ -185,9 +157,6 @@ create table IF NOT EXISTS material_stock (
     foreign key(management_id) references stock_management(management_id)
     ON UPDATE CASCADE
 );
-
-#drop table material_history;
-
 
 create table IF NOT EXISTS material_history (
 	material_history_id bigint auto_increment NOT NULL COMMENT '수급 내역 코드',
@@ -207,10 +176,6 @@ create table IF NOT EXISTS material_history (
 );
 alter table material_history auto_increment=1000;
 
-
-
 create table IF NOT EXISTS notification (
 	notification VARCHAR(255) COMMENT '알림'
 );
-
-
