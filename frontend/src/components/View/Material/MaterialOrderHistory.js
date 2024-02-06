@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { BtnBlack, SearchInput, SearchSelectBox } from '../../Common/Module';
 import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
@@ -10,12 +11,32 @@ const MaterialOrderHistory = () => {
   const [dataSource, setDataSource] = useState([]);
   const [waitingData, setWaitingData] = useState([]);
   const [completedData, setCompletedData] = useState([]);
+  const [searchType, setSearchType] = useState('자재코드');
+  const currentURL = window.location.pathname;
+  const location = useLocation();
+  const navigate = useNavigate();
 
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get('/materials/order-history');
+        let res;
+
+        if (currentURL === '/materials/oder-history/search') {
+          const searchParams = new URLSearchParams(location.search);
+          const searchTypeParam = searchParams.get('searchType');
+          const searchValueParam = searchParams.get('search');
+
+          res = await axios.get('/materials/order-history/search', {
+            params: {
+              searchType: searchTypeParam,
+              search: searchValueParam,
+            },
+          });
+        } else {
+          res = await axios.get('/materials/order-history');
+        }
+
 
         const materialRequest = await res.data.map((rowData) => ({
           key: rowData.materialHistoryId,
@@ -43,7 +64,7 @@ const MaterialOrderHistory = () => {
       }
     }
     fetchData();
-  }, []);
+  }, [currentURL, location.search]);
 
   const filterData = (data) => {
     const waitingData = data.filter(item => !item.inboundAmount && !item.recievingDate);
@@ -58,7 +79,7 @@ const MaterialOrderHistory = () => {
     {
       title: '발주코드',
       dataIndex: 'materialHistoryId',
-      render: (text, record) => <a href = {`/materials/order-history/edit/${record.materialHistoryId}`}>{text}</a>,
+      render: (text, record) => <a href={`/materials/order-history/edit/${record.materialHistoryId}`}>{text}</a>,
     },
     {
       title: '발주일',
@@ -123,14 +144,11 @@ const MaterialOrderHistory = () => {
   ];
 
   const SelectChangeHandler = (value) => {
-    console.log(`selected ${value}`);
-    // select 값 선택시 기능 구현 핸들러
-    // 각 페이지에서 구현해주세요
+    setSearchType(value);
   };
 
-  const onSearch = (value, _e, info) => {
-    // search 값 기능 구현 함수
-    console.log(info?.source, value);
+  const onSearch = (value) => {
+    navigate(`/materials/order-history/search?searchType=${encodeURIComponent(searchType)}&search=${encodeURIComponent(value)}`);
   }
   const onClick = () => {
     window.location.href = '/materials/order-history/new'
@@ -138,10 +156,10 @@ const MaterialOrderHistory = () => {
 
   return (
     <div>
-      <PageTitle value={'원자재 관리 < 수급 내역 관리'}/>
+      <PageTitle value={'원자재 관리 < 수급 내역 관리'} />
       <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
         <SearchSelectBox selectValue={['자재코드', '자재명', '발주일', '입고일']} SelectChangeHandler={SelectChangeHandler} />
-        <SearchInput onSearch={onSearch} />
+        <SearchInput id={'search'} name={'search'} onSearch={onSearch} />
       </div>
       <div style={{ marginBottom: '24px' }}>
         <BtnBlack value={'수급내역 등록'} onClick={onClick} />

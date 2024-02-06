@@ -65,8 +65,6 @@ public class MaterialController {
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setCacheControl(CacheControl.noStore());
 	    
-	    System.out.println("search >>>>>>>" + search);
-	    
 		List<MaterialListResponseDTO> searchMaterialList = null;
 		
 		if(searchType.equals("자재코드")) {
@@ -92,7 +90,30 @@ public class MaterialController {
 		
 		return new ResponseEntity<>(mateiralOderList, headers, HttpStatus.OK);
 	}
-
+	
+	/**
+	 * 원자재 리스트 검색
+	 */
+	@GetMapping("/materials/order-history/search")
+	public ResponseEntity<List<MaterialOrderResponseDto>> searchMaterialOrderHistory(
+								@RequestParam(value="searchType") String searchType, @RequestParam(value="search") String search) {
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setCacheControl(CacheControl.noStore());
+	    
+		List<MaterialOrderResponseDto> searchMaterialHistory = null;
+		
+		if(searchType.equals("자재코드")) {
+			searchMaterialHistory = materialService.findMaterialHistoryByMaterialId(search);
+		}else if(searchType.equals("자재명")){
+			searchMaterialHistory = materialService.findMaterialHistoryByMaterialName(search);
+		}else if(searchType.equals("발주일")){
+			searchMaterialHistory = materialService.findMaterialHistoryByOrderDate(search);
+		}else if(searchType.equals("입고일")){
+			searchMaterialHistory = materialService.findMaterialHistoryByOrderDate(search);
+		}	
+			return new ResponseEntity<>(searchMaterialHistory, headers, HttpStatus.OK);
+		}
+		
 	/**
 	 * 수급내역 등록
 	 */

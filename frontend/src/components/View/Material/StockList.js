@@ -94,7 +94,6 @@ const StockList = () => {
   };
 
   const onSearch = (value) => {
-    
     navigate(`/materials/stock/search?searchType=${encodeURIComponent(searchType)}&search=${encodeURIComponent(value)}`);
   }
 
