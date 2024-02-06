@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class MaterialController {
 	
@@ -52,7 +52,7 @@ public class MaterialController {
 	@PostMapping("/materials/stock/new")
 	public String addMaterial(@RequestBody MaterialRequestDTO material) {
 		materialService.saveMaterial(material);
-		return "redirect:http://localhost:3000/materials/stock";
+		return "redirect:/materials/stock";
 	}
 	
 	

@@ -1,23 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
-import { SearchInput, SearchSelectBox } from '../../../Common/Module';
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { BtnBlue, SearchInput, SearchSelectBox } from '../../../Common/Module';
 import BasicTable from '../../../Common/Table/BasicTable';
 import PageTitle from '../../../Common/PageTitle';
 import axios from 'axios';
+import * as xlsx from 'xlsx';
+import downloadXlsx from '../../../Common/DownloadXlsx';
+import KeyTable from '../../../Common/Table/KeyTable';
 
 const Mrp = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentURL = window.location.pathname;
+  const { productionPlanId } = useParams();
+  const searchParams = new URLSearchParams(location.search);
+  const searchTypeParam = searchParams.get('searchType');
+  const searchValueParam = searchParams.get('search');
   const [searchType, setSearchType] = useState('생산계획 코드');
   const [dataPlan, setDataPlan] = useState([]);
   const [dataRequiredMaterial, setDataRequiredMaterial] = useState([]);
-  const [searchValue, setSearchValue] = useState([]);
-  const { productionPlanId } = useParams();
 
   useEffect(() => {
-    fetch('/mrp')
-      .then((response) => response.json())
-      .then(result => {
-        if (result["plan"]) {
-          const newData = result["plan"].map((rowData) => ({
+    async function fetchData() {
+      try {
+        let res;
+
+        if (currentURL === '/mrp/search') {
+          res = await axios.get('/mrp/search', {
+            params: {
+              searchType: searchTypeParam,
+              search: searchValueParam,
+            },
+          });
+        } else {
+          res = await axios.get('/mrp');
+        }
+        if (res.data["plan"]) {
+          const newData = res.data["plan"].map((rowData) => ({
             key: rowData.productionPlanId,
             due_date: rowData.dueDate,
             production_plan_id: rowData.productionPlanId,
@@ -26,35 +45,20 @@ const Mrp = () => {
             production_plan_amount: rowData.productionPlanAmount,
           }))
           setDataPlan(newData);
-        } else {
-          setDataPlan(result["plan"]);
         }
-      })
-      .catch(e => console.error(e));
-  }, []);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, [currentURL, location.search, productionPlanId]);
 
   const SelectChangeHandler = (value) => {
     setSearchType(value);
   };
 
-  const onSearchChange = (value) => {
-    setSearchValue(value);
-  }
-
-  const onSearch = async () => {
-    try {
-      const res = await axios({
-        method: 'GET',
-        url: '/mrp/search',
-        params: {
-          searchType: encodeURIComponent(searchType),
-          search: encodeURIComponent(searchValue),
-        }
-      })
-      navigator('/mrp/search');
-    } catch (e) {
-      console.error(e.message);
-    }
+  const onSearch = (value) => {
+    navigate(`/mrp/search?searchType=${encodeURIComponent(searchType)}&search=${encodeURIComponent(value)}`);
   }
 
   const planColumns = [
@@ -67,7 +71,6 @@ const Mrp = () => {
     {
       title: '생산계획 코드',
       dataIndex: 'production_plan_id',
-      render: (text) => <a href={`/mrp/${text}`}>{text}</a>,
       // production_plan
     },
     {
@@ -129,10 +132,15 @@ const Mrp = () => {
   return (
     <div>
       <PageTitle value={'자재 소요량 산출'} />
-      <div style={{ display: 'flex', gap: '10px 24px', marginBottom: '24px', alignItems: 'center' }}>
-        <h2 style={{ fontSize: '16px', margin: 0 }}>생산계획 조회 조건</h2>
-        <SearchSelectBox selectValue={['생산계획 코드', '품번', '품명', '납기일']} SelectChangeHandler={SelectChangeHandler} />
-        <SearchInput id={'search'} name={'search'} onSearch={onSearch} onChange={onSearchChange} />
+      <div style={{ display: 'flex', marginBottom: '24px', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', gap: '10px 24px', alignItems: 'center' }}>
+          <h2 style={{ fontSize: '16px', margin: 0 }}>생산계획 조회 조건</h2>
+          <SearchSelectBox selectValue={['생산계획 코드', '품번', '품명', '납기일']} SelectChangeHandler={SelectChangeHandler} />
+          <SearchInput id={'search'} name={'search'} onSearch={onSearch} />
+        </div>
+        <div style={{ marginRight: '40px' }}>
+          <BtnBlue value={'엑셀 저장'} onClick={() => { downloadXlsx(dataPlan, ['납기일', '생산계획 코드', '품번', '품명', '계획 수량'], 'ProductionPlan1', 'ProductionPlan.xlsx') }} />
+        </div>
       </div>
       <div style={{ display: 'flex', gap: '24px 19px' }}>
         <div className='bordered-box'>
@@ -141,7 +149,7 @@ const Mrp = () => {
             <hr className='box-title-line' />
           </div>
           <div style={{ height: '706px', overflowY: 'auto' }}>
-            <BasicTable dataSource={dataPlan} defaultColumns={planColumns} setDataSource={setDataPlan} pagination={false} />
+            <KeyTable dataSource={dataPlan} defaultColumns={planColumns} setDataSource={setDataPlan} pagination={false} url='mrp' keyName='key' />
           </div>
         </div>
         <div className='bordered-box'>
@@ -154,7 +162,7 @@ const Mrp = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 

@@ -49,21 +49,6 @@ public class ProductionPlan {
 	@OneToMany(mappedBy = "productionPlan")
 	private List<WorkPerformance> workPerformances;
 	
-	@Builder
-	public ProductionPlan(String productionPlanId, String productionUnit, Long productionPlanAmount,
-			LocalDate productionStartDate, Product product, Orders orders,
-			List<MonthlyProductionPlan> monthlyProductionPlan, List<WorkPerformance> workPerformances) {
-		super();
-		this.productionPlanId = productionPlanId;
-		this.productionUnit = productionUnit;
-		this.productionPlanAmount = productionPlanAmount;
-		this.productionStartDate = productionStartDate;
-		this.product = product;
-		this.orders = orders;
-		this.monthlyProductionPlan = monthlyProductionPlan;
-		this.workPerformances = workPerformances;
-	}
-	@Builder
 	public ProductionPlanFormDTO toDTO(Product product, Orders orders) {
 		return ProductionPlanFormDTO.builder()
 					.productionPlanId(productionPlanId)
@@ -72,5 +57,19 @@ public class ProductionPlan {
 					.productionUnit(productionUnit)
 					.productionStartDate(productionStartDate)
 					.build();
+	}
+
+	@Builder
+	public ProductionPlan(String productionPlanId, String productionUnit, Long productionPlanAmount,
+			LocalDate productionStartDate, Product product, Orders orders,
+			List<MonthlyProductionPlan> monthlyProductionPlan, List<WorkPerformance> workPerformances) {
+		this.productionPlanId = productionPlanId;
+		this.productionUnit = productionUnit;
+		this.productionPlanAmount = productionPlanAmount;
+		this.productionStartDate = productionStartDate;
+		this.product = product;
+		this.orders = orders;
+		this.monthlyProductionPlan = monthlyProductionPlan;
+		this.workPerformances = workPerformances;
 	}
 }

@@ -45,16 +45,6 @@ public class Orders {
 
 	@Builder
 	public Orders(String orderId, String vendor, String manager, LocalDate dueDate, Boolean endingState,
-			LocalDate orderDate) {
-		this.orderId = orderId;
-		this.vendor = vendor;
-		this.manager = manager;
-		this.dueDate = dueDate;
-		this.endingState = endingState;
-		this.orderDate = orderDate;
-	}
-
-	public Orders(String orderId, String vendor, String manager, LocalDate dueDate, Boolean endingState,
 			LocalDate orderDate, List<OrderDetail> orderDetails, List<ProductionPlan> productionPlans) {
 		this.orderId = orderId;
 		this.vendor = vendor;
@@ -65,4 +55,5 @@ public class Orders {
 		this.orderDetails = orderDetails;
 		this.productionPlans = productionPlans;
 	}
+
 }

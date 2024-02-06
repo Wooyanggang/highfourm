@@ -1,23 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
-import { SearchInput, SearchSelectBox } from '../../../Common/Module';
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { BtnBlue, SearchInput, SearchSelectBox } from '../../../Common/Module';
 import BasicTable from '../../../Common/Table/BasicTable';
 import PageTitle from '../../../Common/PageTitle';
 import axios from 'axios';
+import downloadXlsx from '../../../Common/DownloadXlsx';
+import KeyTable from '../../../Common/Table/KeyTable';
 
 const MrpDetail = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentURL = window.location.pathname;
   const [searchType, setSearchType] = useState('생산계획 코드');
+  const [searchValue, setSearchValue] = useState([]);
   const [dataPlan, setDataPlan] = useState([]);
   const [dataRequiredMaterial, setDataRequiredMaterial] = useState([]);
-  const [searchValue, setSearchValue] = useState([]);
   const { productionPlanId } = useParams();
 
   useEffect(() => {
-    fetch(`/mrp/${productionPlanId}`)
-      .then((response) => response.json())
-      .then(result => {
-        if (result["plan"]) {
-          const newDataPlan = result["plan"].map((rowData) => ({
+    async function fetchData() {
+      try {
+        let res;
+
+        if (currentURL === '/mrp/search') {
+          const searchParams = new URLSearchParams(location.search);
+          const searchTypeParam = searchParams.get('searchType');
+          const searchValueParam = searchParams.get('search');
+
+          res = await axios.get('/mrp/search', {
+            params: {
+              searchType: searchTypeParam,
+              search: searchValueParam,
+            },
+          });
+        } else if (currentURL === `/mrp/${productionPlanId}/search`) {
+          res = await axios.get(`/mrp/${productionPlanId}/search`);
+        } else {
+          res = await axios.get(`/mrp/${productionPlanId}`);
+        }
+
+        if (res.data["plan"]) {
+          const newDataPlan = res.data["plan"].map((rowData) => ({
             key: rowData.productionPlanId,
             due_date: rowData.dueDate,
             production_plan_id: rowData.productionPlanId,
@@ -27,8 +50,8 @@ const MrpDetail = () => {
           }))
           setDataPlan(newDataPlan);
         }
-        if (result["requiredMaterial"]) {
-          const newDataRequriedMaterial = result["requiredMaterial"].map((rowData) => ({
+        if (res.data["requiredMaterial"]) {
+          const newDataRequriedMaterial = res.data["requiredMaterial"].map((rowData) => ({
             key: rowData.materialId,
             material_name: rowData.materialName,
             material_id: rowData.materialId,
@@ -36,13 +59,16 @@ const MrpDetail = () => {
             total_material_amount: (rowData.inputAmount * rowData.productionPlanAmount),
             total_stock: rowData.totalStock,
             safety_stock: rowData.safetyStock,
-            inbound_amount: rowData.inboundAmount,
+            order_amount: rowData.orderAmount,
           }))
           setDataRequiredMaterial(newDataRequriedMaterial);
         }
-      })
-      .catch(e => console.error(e));
-  }, []);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, [currentURL, location.search, productionPlanId]);
 
   const SelectChangeHandler = (value) => {
     setSearchType(value);
@@ -52,18 +78,18 @@ const MrpDetail = () => {
     setSearchValue(value);
   }
 
-  const onSearch = async () => {
-    try {
-      const res = await axios({
-        method: 'GET',
-        url: '/mrp/search',
-        params: {
-          searchType: searchType, search: searchValue,
-        }
-      })
-      window.location.href = '/mrp/search'
-    } catch (e) {
-      console.error(e.message);
+  const onSearch = (value) => {
+    navigate(`/mrp/search?searchType=${encodeURIComponent(searchType)}&search=${encodeURIComponent(value)}`);
+  }
+
+  function generateLink(productionPlanId, searchType, searchValue) {
+    console.log(productionPlanId, searchType, searchValue);
+    if (searchType && searchValue) {
+      return `/mrp/search?searchType=${searchType}&search=${searchValue}`;
+    } else if (productionPlanId && searchType && searchValue) {
+      return `/mrp/${productionPlanId}/search?searchType=${searchType}&search=${searchValue}`;
+    } else {
+      return `/mrp/${productionPlanId}`;
     }
   }
 
@@ -77,7 +103,6 @@ const MrpDetail = () => {
     {
       title: '생산계획 코드',
       dataIndex: 'production_plan_id',
-      render: (text) => <a href={`/mrp/${text}`}>{text}</a>,
       // production_plan
     },
     {
@@ -131,7 +156,7 @@ const MrpDetail = () => {
     },
     {
       title: '입고 예정량',
-      dataIndex: 'inbound_amount',
+      dataIndex: 'order_amount',
       // production_plan(product_id) - required_material(material_id) - material_history(order_amount)
     },
   ];
@@ -139,10 +164,15 @@ const MrpDetail = () => {
   return (
     <div>
       <PageTitle value={'자재 소요량 산출'} />
-      <div style={{ display: 'flex', gap: '10px 24px', marginBottom: '24px', alignItems: 'center' }}>
-        <h2 style={{ fontSize: '16px', margin: 0 }}>생산계획 조회 조건</h2>
-        <SearchSelectBox selectValue={['생산계획 코드', '품번', '품명', '납기일']} SelectChangeHandler={SelectChangeHandler} />
-        <SearchInput id={'search'} name={'search'} onSearch={onSearch} onChange={onSearchChange} />
+      <div style={{ display: 'flex', marginBottom: '24px', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', gap: '10px 24px', alignItems: 'center' }}>
+          <h2 style={{ fontSize: '16px', margin: 0 }}>생산계획 조회 조건</h2>
+          <SearchSelectBox selectValue={['생산계획 코드', '품번', '품명', '납기일']} SelectChangeHandler={SelectChangeHandler} />
+          <SearchInput id={'search'} name={'search'} onSearch={onSearch} />
+        </div>
+        <div style={{ marginRight: '40px' }}>
+          <BtnBlue value={'엑셀 저장'} onClick={() => { downloadXlsx(dataRequiredMaterial, ['자재명', '자재 코드', '투입량', '총 소요 수량', '현 재고', '안전 재고', '입고 예정량'], 'RequiredMaterial1', `${productionPlanId}_RequiredMaterial.xlsx`) }} />
+        </div>
       </div>
       <div style={{ display: 'flex', gap: '24px 19px' }}>
         <div className='bordered-box'>
@@ -151,7 +181,7 @@ const MrpDetail = () => {
             <hr className='box-title-line' />
           </div>
           <div style={{ height: '706px', overflowY: 'auto' }}>
-            <BasicTable dataSource={dataPlan} defaultColumns={planColumns} setDataSource={setDataPlan} pagination={false} />
+            <KeyTable dataSource={dataPlan} defaultColumns={planColumns} setDataSource={setDataPlan} pagination={false} url='mrp' keyName='key' />
           </div>
         </div>
         <div className='bordered-box'>

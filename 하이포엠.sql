@@ -7,12 +7,14 @@ use highfourm;
 show tables;
 
 create table IF NOT EXISTS email_token (
-	id varchar(50) COMMENT '이메일 토큰 ID',
+	id varchar(50) unique COMMENT '이메일 토큰 ID',
 	user_no bigint unsigned COMMENT '사용자 번호',
     expired tinyint(1) COMMENT '만료여부',
-    expiration_date timestamp COMMENT '만료기간'
+    expiration_date timestamp COMMENT '만료기간',
+    primary key(id),
+    foreign key (user_no) references users(user_no)
+    ON UPDATE CASCADE
 );
-
 
 create table IF NOT EXISTS company (
 	company_id int auto_increment NOT NULL COMMENT '회사 코드',
@@ -42,8 +44,10 @@ create table IF NOT EXISTS users (
     ON UPDATE CASCADE
 );
   drop table users;
-insert into users(user_name, emp_no, position, birth, email, company_id) values ('홍길동', 1000, '사원', '2024-01-01', 'hong333@gmail.com', 1);
+insert into users(user_name, emp_no, position, birth, email, company_id, role) values ('홍길동', 1000, '사원', '2024-01-01', 'hong333@gmail.com', 1, 'USER');
 insert into users values (null, 'id', '', '김이박', 1001, '대리', '1990-12-31', 'kimleepark@naver.com', 2, 'N', 'USER');
+
+select * from users where role not like 'ADMIN';
 
 select * from users;
 

@@ -3,17 +3,19 @@ package himedia.project.highfourm.controller.user;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import himedia.project.highfourm.dto.user.UserAddDTO;
 import himedia.project.highfourm.dto.user.UserDTO;
 import himedia.project.highfourm.dto.user.UserEditDTO;
 import himedia.project.highfourm.service.UserService;
+import himedia.project.highfourm.service.email.EmailService;
+import himedia.project.highfourm.service.email.EmailTokenService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,8 @@ import lombok.extern.slf4j.Slf4j;
 public class UserHtmlController {
 
 	private final UserService service;
+	private final EmailTokenService emailTokenService;
+	private final EmailService emailService;
 	
 	@GetMapping("/users/new")
 	public String addForm(Model model) {
@@ -52,8 +56,10 @@ public class UserHtmlController {
 			bindingResult.rejectValue("empNo", "error.user", "이미 등록된 사번입니다.");
 			return "userForm";
 		}
-		service.save(userAddDTO);
 		
+		UserDTO savedUser = service.save(userAddDTO);
+//		String check = emailTokenService.createEmail(savedUser);
+//		log.info("token 저장 확인 : ", check);
 		return "redirect:/users";
 	}
 	
@@ -74,6 +80,13 @@ public class UserHtmlController {
 		service.updateUser(userEditDto);
 
 		return "redirect:/users";
+	}
+	
+	@GetMapping("/confirm-email")
+	public String viewConfirmEmail(@RequestParam(value = "token") String token, @RequestParam(value = "userNo") Long userNo) throws Exception {
+		emailService.confirmEmail(token);
+		log.info("userToken 성공 : ", token);
+		return "redirect:/users/join";
 	}
 	
 }

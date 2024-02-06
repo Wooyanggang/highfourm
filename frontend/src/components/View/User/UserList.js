@@ -5,6 +5,7 @@ import { Popconfirm } from "antd";
 import BasicTable from '../../Common/Table/BasicTable';
 import axios from 'axios';
 import PageTitle from '../../Common/PageTitle';
+import KeyTable from '../../Common/Table/KeyTable';
 
 const UserList = () => {
   const navigate = useNavigate();
@@ -76,12 +77,10 @@ const UserList = () => {
       title: '사원명',
       dataIndex: 'user_name',
       width: '20%',
-      render: (text, record) => <a href={`/users/edit/${record.user_no}`}>{text}</a>,
     },
     {
       title: '사번',
       dataIndex: 'emp_no',
-      render: (text, record) => <a href={`/users/edit/${record.user_no}`}>{text}</a>,
     },
     {
       title: '이메일',
@@ -127,7 +126,7 @@ const UserList = () => {
         <BtnBlack value={'사용자 등록'} onClick={onClick} />
       </div>
       <div style={{ width: '720px', height: '565px' }}>
-        <BasicTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} pagination={true} />
+        <KeyTable dataSource={dataSource} defaultColumns={defaultColumns} onDelete={handleDelete} setDataSource={setDataSource} pagination={true} url='user/edit' keyName='key' />
       </div>
     </div>
   )

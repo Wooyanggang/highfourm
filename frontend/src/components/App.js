@@ -48,15 +48,14 @@ function App() {
         <div>
           <Router>
             <Routes>
+              <Route path='/users/join' element={<Join />} />
+              <Route path='/notice' element={<Notice />} />
               <Route path='/orders' element={<OrderList />} />
               <Route path='/orders/new' element={<OrderNew />} />
               <Route path='/materials/stock' element={<StockList />} />
-              <Route path='/materials/stock/search' element={<StockList />} />
               <Route path='/materials/order-history' element={<MaterialOrderHistory />} />
-              <Route path='/materials/order-history/search' element={<MaterialOrderHistory />} />
               <Route path='/materials/order-history/new' element={<MaterialOrderHistoryNew />} />
               <Route path='/materials/order-history/edit/:orderHistoryId' element={<MaterialOrderHistoryEdit />} />
-              <Route path='/users/join' element={<Join />} />
               <Route path='/users' element={<UserList />} />
               <Route path='/users/search' element={<UserList />} />
               {/* <Route path='/users/new' element={<UserNew />} />
@@ -75,7 +74,6 @@ function App() {
               <Route path='/production-performance/:productionPlanId/chart' element={<PerformanceChart />} />
               <Route path='/production-performance/:productionPlanId/controll-chart' element={<PerformanceControllChart />} />
               <Route path='/Test' element={<Test />} />
-              <Route path='/notice' element={<Notice />} />
             </Routes>
           </Router>
         </div>
