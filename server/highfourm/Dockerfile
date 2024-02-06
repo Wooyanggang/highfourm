@@ -1,6 +1,6 @@
 FROM openjdk:17-jdk-slim
 
-WORKDIR /app/backend
+WORKDIR /app
 
 COPY build/libs/highfourm-0.0.1-SNAPSHOT.jar ./highfourm.jar
 
