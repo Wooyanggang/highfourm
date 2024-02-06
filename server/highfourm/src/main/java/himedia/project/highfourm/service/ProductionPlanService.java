@@ -44,8 +44,7 @@ public class ProductionPlanService {
 	
 	public List<ProductionPlanFormDTO> findAll(){
 		List<ProductionPlanFormDTO> resultList = productionPlanRepository.findAll()
-				.stream().map(productionPlan -> 
-				productionPlan.toDTO(productionPlan.getProduct(), productionPlan.getOrders()))
+				.stream().map(productionPlan -> productionPlan.toDTO())
 				.collect(Collectors.toList());
 		return resultList;
 	}
