@@ -1,5 +1,3 @@
-use highfourm;
-
 create table IF NOT EXISTS company (
 	company_id int auto_increment NOT NULL COMMENT '회사 코드',
     company_name varchar(30) NOT NULL COMMENT '회사명',

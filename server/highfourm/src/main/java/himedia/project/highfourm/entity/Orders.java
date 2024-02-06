@@ -55,6 +55,4 @@ public class Orders {
 		this.orderDetails = orderDetails;
 		this.productionPlans = productionPlans;
 	}
-
-
 }
