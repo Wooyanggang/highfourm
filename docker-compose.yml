@@ -4,7 +4,7 @@ services:
   back:
     container_name: backend-container
     build:
-      context: /backend
+      context: ./server/highfourm
       dockerfile: Dockerfile
     environment:
       - TZ=Asia/Seoul
@@ -15,9 +15,8 @@ services:
   fornt:
     container_name: frontend-container
     build:
-      context: /frontend
+      context: ./frontend
       dockerfile: Dockerfile
-    restart: always
     ports:
       - "3000:80"
   database:

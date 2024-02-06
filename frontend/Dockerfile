@@ -7,7 +7,7 @@ RUN yarn install
 COPY . .
 RUN npm run build
 
-FROM nginx:lastest
+FROM nginx
 RUN rm /etc/nginx/conf.d/default.conf
 RUN rm -rf /etc/nginx/conf.d/*
 COPY ./nginx.conf /etx/nginx/conf.d/
