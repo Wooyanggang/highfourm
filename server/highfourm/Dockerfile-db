@@ -1,0 +1,5 @@
+FROM mysql/mysql-server:8.0
+ENV MYSQL_ROOT_PASSWORD=1111
+ENV MYSQL_DATABASE=highfourm
+
+CMD ["mysqld"]
