@@ -16,7 +16,7 @@ services:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
       - --character-set-client-handshake=FALSE   
-  fornt:
+  front:
     container_name: frontend-container
     build:
       context: ./frontend
