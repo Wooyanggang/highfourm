@@ -18,11 +18,8 @@ function BomDetail() {
     fetch(`/bom/detail/${productId}`)
     .then(response => response.json())
     .then(result => {
-        console.log(result);
         const newDataProduct = result["product"].map((item, index) => ({ key: index, ...item }));
         setDataProduct(newDataProduct);
-        console.log(result["product"]);
-        // console.log(result["process"]);
         if (result["process"]) {
           const newDataProcess = result["process"].map((item, index) => ({ key: index, ...item }));
           setDataProcess(newDataProcess);
