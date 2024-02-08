@@ -1,5 +1,3 @@
-use highfourm;
-
 create table IF NOT EXISTS company (
 	company_id int auto_increment NOT NULL COMMENT '회사 코드',
     company_name varchar(30) NOT NULL COMMENT '회사명',
@@ -21,6 +19,17 @@ create table IF NOT EXISTS users (
     primary key(user_no),
     foreign key (company_id) references company(company_id)
     ON UPDATE CASCADE
+);
+
+create table IF NOT EXISTS email_token (
+	id varchar(50) unique COMMENT '이메일 토큰 ID',
+	user_no bigint COMMENT '사용자 번호',
+    expired int COMMENT '만료여부',
+    expiration_date timestamp COMMENT '만료기간',
+    primary key(id),
+    foreign key (user_no) references users(user_no)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
 );
 
 create table IF NOT EXISTS orders (

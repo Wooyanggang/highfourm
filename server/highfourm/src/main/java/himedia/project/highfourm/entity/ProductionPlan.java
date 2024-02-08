@@ -3,7 +3,6 @@ package himedia.project.highfourm.entity;
 import java.time.LocalDate;
 import java.util.List;
 
-import himedia.project.highfourm.dto.ProductionPlanDTO;
 import himedia.project.highfourm.dto.ProductionPlanFormDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,12 +14,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 // @Builder
 @Entity
-@NoArgsConstructor
+// @NoArgsConstructor
 @Table(name = "production_plan")
 public class ProductionPlan {
 	@Id

@@ -69,7 +69,7 @@ values
 
 insert into material_history
 values
-(1000, 'mt-01', '2024-02-02', null, 'EA', '나진상사', null, null, 300, 5000),
+(1000, 'mt-01', '2024-02-02', null, 'EA', '나진상사', null, null, 300, 5000, null),
 (1001, 'mt-03', '2024-02-02', null, 'EA', '나진상사', null, null, 450, 6000, null),
 (1002, 'mt-05', '2024-02-03', null, 'EA', '나진상사', null, null, 400, 4300, null);
 

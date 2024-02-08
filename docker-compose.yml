@@ -12,7 +12,11 @@ services:
       - "9999:8080"
     depends_on:
       - database
-  fornt:
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --character-set-client-handshake=FALSE   
+  front:
     container_name: frontend-container
     build:
       context: ./frontend
@@ -21,7 +25,10 @@ services:
       - "3000:80"
   database:
     container_name: database-container
-    image: mysql:8.0
+    build:
+      context: ./server/highfourm
+      dockerfile: Dockerfile-db
+    hostname: docker-mysql
     ports:
       - "3307:3306"
     environment:

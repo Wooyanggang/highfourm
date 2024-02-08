@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import himedia.project.highfourm.dto.user.UserAddDTO;
-import himedia.project.highfourm.dto.user.UserDTO;
 import himedia.project.highfourm.dto.user.UserEditDTO;
 import himedia.project.highfourm.service.UserService;
 import himedia.project.highfourm.service.email.EmailService;
@@ -31,8 +30,9 @@ public class UserHtmlController {
 	private final EmailService emailService;
 	
 	@GetMapping("/users/new")
-	public String addForm(Model model) {
+	public String addForm(HttpSession session, Model model) {
 		model.addAttribute("userAddDTO", new UserAddDTO());
+		log.info("session ? " + session.getAttribute("companyId"));
 	    return "userForm";
 	}
 	
@@ -40,8 +40,8 @@ public class UserHtmlController {
 	public String addNewUser(@ModelAttribute @Valid UserAddDTO userAddDTO, BindingResult bindingResult, 
 			HttpSession session, Model model) {
 //		Long adminCompanyId = (Long)session.getAttribute("companyId");
-//		service.save(userDTO, adminCompanyId);
-//		log.info("session ? " + session.getAttribute("companyId"));
+//		service.save(userAddDTO, adminCompanyId);
+		log.info("session ? " + session.getAttribute("companyId"));
 		
 		if(bindingResult.hasErrors()) {
 			return "userForm";
@@ -57,9 +57,7 @@ public class UserHtmlController {
 			return "userForm";
 		}
 		
-		UserDTO savedUser = service.save(userAddDTO);
-//		String check = emailTokenService.createEmail(savedUser);
-//		log.info("token 저장 확인 : ", check);
+		String check = emailTokenService.createEmail(userAddDTO);
 		return "redirect:/users";
 	}
 	
@@ -85,8 +83,7 @@ public class UserHtmlController {
 	@GetMapping("/confirm-email")
 	public String viewConfirmEmail(@RequestParam(value = "token") String token, @RequestParam(value = "userNo") Long userNo) throws Exception {
 		emailService.confirmEmail(token);
-		log.info("userToken 성공 : ", token);
-		return "redirect:/users/join";
+		return "redirect:/users/join/userNo="+userNo.toString();
 	}
 	
 }

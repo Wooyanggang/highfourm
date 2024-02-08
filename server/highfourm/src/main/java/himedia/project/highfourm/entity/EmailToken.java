@@ -1,6 +1,7 @@
 package himedia.project.highfourm.entity;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -23,36 +24,36 @@ import lombok.NoArgsConstructor;
 public class EmailToken {
 
 	private static final long EMAIL_TOKEN_EXPIRATION_TIME_VALUE = 7L;
-	
+
 	@Id
 	@GeneratedValue(generator = "uuid2")
-	@GenericGenerator(name = "uuid2")
-	@Column(name = "token_id", length = 36)
+	@GenericGenerator(name = "uuid2", strategy = "uuid2")
+	@Column(name = "id", length = 36)
 	private String id;
-	
-	@ManyToOne(cascade = CascadeType.REFRESH)
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "user_no", referencedColumnName = "user_no", nullable = false)
 	private User user;
 
-	@Column(name = "expiretion_date", nullable = false)
+	@Column(name = "expiration_date", nullable = false)
 	private LocalDateTime expirationDate;
-	
+
 	@Column(name = "expired", nullable = false)
 	private boolean expired;
-	
+
 	// 이메일 인증 토큰 생성
 	public static EmailToken createEmailToken(User user) {
 		EmailToken emailToken = new EmailToken();
 		emailToken.expirationDate = LocalDateTime.now().plusDays(EMAIL_TOKEN_EXPIRATION_TIME_VALUE);
 		emailToken.expired = false;
 		emailToken.user = user;
-		
+
 		return emailToken;
 	}
-	
+
 	// 토큰 사용으로 인한 만료
 	public void setTokenToUsed() {
 		this.expired = true;
 	}
-	
+
 }
