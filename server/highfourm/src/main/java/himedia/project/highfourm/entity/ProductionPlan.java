@@ -14,11 +14,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 // @Builder
 @Entity
-// @NoArgsConstructor
+@NoArgsConstructor
 @Table(name = "production_plan")
 public class ProductionPlan {
 	@Id
