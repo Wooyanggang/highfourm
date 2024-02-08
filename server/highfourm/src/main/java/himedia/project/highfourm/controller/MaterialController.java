@@ -104,6 +104,9 @@ public class MaterialController {
 	    
 		List<MaterialOrderResponseDto> searchMaterialHistory = null;
 		
+//		searchMaterialHistory = materialService.searchMaterialHistory(searchType,search);
+		
+		
 		if(searchType.equals("자재코드")) {
 			searchMaterialHistory = materialService.findMaterialHistoryByMaterialId(search);
 		}else if(searchType.equals("자재명")){

@@ -80,6 +80,26 @@ public class MaterialService {
 
 	    return materialOrderResponseDtos;
 	}
+//	// 수급내역검색
+//	public List<MaterialOrderResponseDto> searchMaterialHistory(String searchType, String search) {
+//		
+//		List<MaterialOrderListDTO> materialOrderListDTOs = null;
+//		
+//		if(searchType.equals("자재코드")) {
+//			materialOrderListDTOs = historyRepository.findMaterialHistoryByMaterialId(search);
+//		}else if(searchType.equals("자재명")){
+//			materialOrderListDTOs =  historyRepository.findMaterialHistoryByMaterialName(search);
+//		}else if(searchType.equals("발주일")){
+//			materialOrderListDTOs = historyRepository.findMaterialHistoryByOrderDate(search);
+//		}else if(searchType.equals("입고일")){
+//			materialOrderListDTOs =  historyRepository.findMaterialHistoryByInboundDate(search);
+//		}	
+//		
+//		List<MaterialOrderResponseDto> materialOrderResponseDtos = materialOrderListDTOs.stream()
+//				.map(orderListDto -> MaterialOrderResponseDto.toOrderDTO(orderListDto, materialOrderListDTOs))
+//				.collect(Collectors.toList());
+//		return materialOrderResponseDtos;
+//	}
 	// 수급내역 materilaId로 검색
 	public List<MaterialOrderResponseDto>findMaterialHistoryByMaterialId(String materialId) {
 		List<MaterialOrderListDTO> materialOrderListDTOs = historyRepository.findMaterialHistoryByMaterialId(materialId);
