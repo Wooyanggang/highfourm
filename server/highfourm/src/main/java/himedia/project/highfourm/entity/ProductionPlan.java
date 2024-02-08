@@ -18,8 +18,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Builder
+// @Builder
 @Entity
+@NoArgsConstructor
 @Table(name = "production_plan")
 public class ProductionPlan {
 	@Id
@@ -70,5 +71,19 @@ public class ProductionPlan {
 					.productionPlanAmount(productionPlanAmount)
 					.productionStartDate(productionStartDate)
 					.build();
+	}
+
+	@Builder
+	public ProductionPlan(String productionPlanId, String productionUnit, Long productionPlanAmount,
+			LocalDate productionStartDate, Product product, Orders orders,
+			List<MonthlyProductionPlan> monthlyProductionPlan, List<WorkPerformance> workPerformances) {
+		this.productionPlanId = productionPlanId;
+		this.productionUnit = productionUnit;
+		this.productionPlanAmount = productionPlanAmount;
+		this.productionStartDate = productionStartDate;
+		this.product = product;
+		this.orders = orders;
+		this.monthlyProductionPlan = monthlyProductionPlan;
+		this.workPerformances = workPerformances;
 	}
 }

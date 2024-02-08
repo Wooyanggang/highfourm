@@ -30,7 +30,7 @@ public class MrpRepository {
 
 	public List<MrpRequiredMaterialDTO> findByMaterials(String productionPlanId) {
 		String sql = "select plan.productionPlanId, plan.productionPlanAmount, m.materialName, m.materialId, r.inputAmount, "
-				+ "s.totalStock, s.safetyStock, h.inboundAmount " + "from ProductionPlan plan "
+				+ "s.totalStock, s.safetyStock, h.orderAmount " + "from ProductionPlan plan "
 				+ "left join plan.product p "
 				+ "left join RequiredMaterial r on r.requriedMaterialPK.product = p " 
 				+ "left join r.requriedMaterialPK.material m "

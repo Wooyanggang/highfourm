@@ -5,6 +5,7 @@ import BasicTable from '../../../Common/Table/BasicTable';
 import PageTitle from '../../../Common/PageTitle';
 import axios from 'axios';
 import downloadXlsx from '../../../Common/DownloadXlsx';
+import KeyTable from '../../../Common/Table/KeyTable';
 
 const MrpDetail = () => {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ const MrpDetail = () => {
             total_material_amount: (rowData.inputAmount * rowData.productionPlanAmount),
             total_stock: rowData.totalStock,
             safety_stock: rowData.safetyStock,
-            inbound_amount: rowData.inboundAmount,
+            order_amount: rowData.orderAmount,
           }))
           setDataRequiredMaterial(newDataRequriedMaterial);
         }
@@ -102,7 +103,6 @@ const MrpDetail = () => {
     {
       title: '생산계획 코드',
       dataIndex: 'production_plan_id',
-      render: (text) => <a href={generateLink(text, searchType, searchValue)}>{text}</a>
       // production_plan
     },
     {
@@ -156,7 +156,7 @@ const MrpDetail = () => {
     },
     {
       title: '입고 예정량',
-      dataIndex: 'inbound_amount',
+      dataIndex: 'order_amount',
       // production_plan(product_id) - required_material(material_id) - material_history(order_amount)
     },
   ];
@@ -181,7 +181,7 @@ const MrpDetail = () => {
             <hr className='box-title-line' />
           </div>
           <div style={{ height: '706px', overflowY: 'auto' }}>
-            <BasicTable dataSource={dataPlan} defaultColumns={planColumns} setDataSource={setDataPlan} pagination={false} />
+            <KeyTable dataSource={dataPlan} defaultColumns={planColumns} setDataSource={setDataPlan} pagination={false} url='mrp' keyName='key' />
           </div>
         </div>
         <div className='bordered-box'>

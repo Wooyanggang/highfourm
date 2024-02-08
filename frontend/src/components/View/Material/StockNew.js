@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
-import axios from 'axios';
 import { Select } from 'antd';
-import { InputBar, BtnBlue, BtnWhite } from '../../Common/Module';
+import axios from 'axios';
+import React, { useRef, useState } from 'react';
+import { BtnBlue, InputBar } from '../../Common/Module';
 
 const StockNew = ({  onSubmit, onSubmitSuccess }) => {
   const [manageValue, setManageValue] = useState("");

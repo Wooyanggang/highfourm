@@ -20,6 +20,6 @@ public class MrpRequiredMaterialDTO {
 	private Long inputAmount;
 	private Long totalStock;
 	private Long safetyStock;
-	private Long inboundAmount;
+	private Long orderAmount;
 	
 }

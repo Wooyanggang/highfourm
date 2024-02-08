@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import himedia.project.highfourm.dto.material.MaterialListResponseDTO;
@@ -26,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class MaterialController {
 	
@@ -51,7 +52,29 @@ public class MaterialController {
 	@PostMapping("/materials/stock/new")
 	public String addMaterial(@RequestBody MaterialRequestDTO material) {
 		materialService.saveMaterial(material);
-		return "redirect:http://localhost:3000/materials/stock";
+		return "redirect:/materials/stock";
+	}
+	
+	
+	/**
+	 * 원자재 리스트 검색
+	 */
+	@GetMapping("/materials/stock/search")
+	public ResponseEntity<List<MaterialListResponseDTO>> searchMaterialList(
+								@RequestParam(value="searchType") String searchType, @RequestParam(value="search") String search) {
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setCacheControl(CacheControl.noStore());
+	    
+		List<MaterialListResponseDTO> searchMaterialList = null;
+		
+		if(searchType.equals("자재코드")) {
+			searchMaterialList = materialService.findMaterialByMaterialId(search);
+		}else if(searchType.equals("자재명")){
+			searchMaterialList = materialService.findMaterialByMaterialName(search);
+		}else if(searchType.equals("재고관리 방식")){
+			searchMaterialList = materialService.findMaterialByManagement(search);
+		}	
+		return new ResponseEntity<>(searchMaterialList, headers, HttpStatus.OK);
 	}
 
 	/**
@@ -67,7 +90,35 @@ public class MaterialController {
 		
 		return new ResponseEntity<>(mateiralOderList, headers, HttpStatus.OK);
 	}
-
+	
+	/**
+	 * 수급내역 검색
+	 */
+	@GetMapping("/materials/order-history/search")
+	public ResponseEntity<List<MaterialOrderResponseDto>> searchMaterialOrderHistory(
+								@RequestParam(value="searchType") String searchType, @RequestParam(value="search") String search) {
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setCacheControl(CacheControl.noStore());
+	    
+	    System.out.println("search >>>>>>" + search);
+	    
+		List<MaterialOrderResponseDto> searchMaterialHistory = null;
+		
+//		searchMaterialHistory = materialService.searchMaterialHistory(searchType,search);
+		
+		
+		if(searchType.equals("자재코드")) {
+			searchMaterialHistory = materialService.findMaterialHistoryByMaterialId(search);
+		}else if(searchType.equals("자재명")){
+			searchMaterialHistory = materialService.findMaterialHistoryByMaterialName(search);
+		}else if(searchType.equals("발주일")){
+			searchMaterialHistory = materialService.findMaterialHistoryByOrderDate(search);
+		}else if(searchType.equals("입고일")){
+			searchMaterialHistory = materialService.findMaterialHistoryByInboundDate(search);
+		}	
+			return new ResponseEntity<>(searchMaterialHistory, headers, HttpStatus.OK);
+		}
+		
 	/**
 	 * 수급내역 등록
 	 */
