@@ -34,7 +34,7 @@ public class FileService {
 	}
 	
 	public Map<String, Object> extractTableFromPdf(String pdfPath) {
-		 String scriptPath = "/app/scripts/textConversion.py";
+		 String scriptPath = "/home/ec2-user/app/scripts/textConversion.py";
 	        ProcessBuilder processBuilder = new ProcessBuilder("python3", scriptPath, pdfPath);
 		
         try {
@@ -54,8 +54,7 @@ public class FileService {
                 
                 Map<String, Object> pdfData = objectMapper.readValue(jsonOutput, new TypeReference<Map<String, Object>>() {});
                 return pdfData;
-            } else {
-            }
+            } 
         } catch (IOException | InterruptedException e) {
         }
 

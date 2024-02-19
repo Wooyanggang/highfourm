@@ -59,7 +59,7 @@ public class FileController {
 			fileInfo.setFileSize(Long.toString(file.getSize()));
 			fileInfo.setFilePath(filePath);
 
-			String pdfPath = "c:/pdf/" + changedFileName;
+			String pdfPath = uploadDir + changedFileName;
 
 			Map<String, Object> orderInfo = fileService.extractTableFromPdf(pdfPath);
 			List<List<String>> orderData = (List<List<String>>) orderInfo.get("order");
