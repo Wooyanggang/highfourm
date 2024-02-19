@@ -6,7 +6,6 @@ import { Popconfirm, Input } from "antd";
 import BasicTable from '../../../Common/Table/BasicTable';
 import PageTitle from '../../../Common/PageTitle';
 import { useNavigate, useLocation } from 'react-router';
-import { initComponentToken } from 'antd/es/input/style';
 
 const ProductionPlan = () => {
   const navigate = useNavigate();
@@ -15,7 +14,6 @@ const ProductionPlan = () => {
   const [productionPlans, setProductionPlans] = useState([]);
   const [monthlyProductionPlans, setMonthlyProductionPlans] = useState([]);
   const [selectedProductionPlan, setSelectedProductionPlan] = useState(false);
-  const [isMonthlyProductionPlan, setIsMonthlyProductionPlan] = useState([]);
   const searchParams = new URLSearchParams(location.search);
   const [searchType, setSearchType] = useState('주문 번호');
   const searchTypeParam = searchParams.get('searchType');
@@ -73,56 +71,9 @@ const ProductionPlan = () => {
     });
     setProductionPlans(updatedPlans);
 
-    if (field === 'productionPlanAmount' && selectedProductionPlan && selectedProductionPlan.key === key) {
-      setSelectedProductionPlan(prev => ({ ...prev, [field]: value }));
-      const newAmount = parseInt(value, 10);
-      if (!isNaN(newAmount)) {
-        updateMonthlyPlansBasedOnAmount(newAmount);
-      }
+    if (selectedProductionPlan && selectedProductionPlan.key === key) {
+      setSelectedProductionPlan({ ...selectedProductionPlan, [field]: value });
     }
-  };
-
-  const updateMonthlyPlansBasedOnAmount = (amount) => {
-    if (!selectedProductionPlan) return;
-    const { monthsAndDays, totalDays } = getMonthsAndDays(new Date(selectedProductionPlan.orderDate), new Date(selectedProductionPlan.dueDate));
-    const newPlans = Object.entries(monthsAndDays).map(([month, days]) => ({
-      month: month,
-      productionAmount: Math.ceil((days / totalDays) * amount),
-      key: `${selectedProductionPlan.productionPlanId}-${month}`,
-      edit: true,
-    }));
-    setMonthlyProductionPlans(newPlans);
-  };
-
-  const onProductionPlanClick = (record) => {
-    axios.get(`/api/production-plan/${record.productionPlanId}`)
-      .then(res => {
-        const dataFromDB = res.data.map(plan => ({
-          ...plan,
-          key: `${record.productionPlanId}-${plan.month}`,
-          edit: false,
-        }));
-        if (record.edit) {
-          setMonthlyProductionPlans(dataFromDB);
-          setIsMonthlyProductionPlan([...isMonthlyProductionPlan, record.productionPlanId]);
-        } else {
-          const orderAmount = record.productAmount;
-          const { monthsAndDays, totalDays } = getMonthsAndDays(new Date(record.orderDate), new Date(record.dueDate));
-
-          const newPlans = Object.entries(monthsAndDays).map(([month, days]) => ({
-            month: month,
-            productionAmount: 0,
-            key: `${record.productionPlanId}-${month}`,
-            edit: true,
-          }));
-          setMonthlyProductionPlans(newPlans);
-          setIsMonthlyProductionPlan([...isMonthlyProductionPlan, record.productionPlanId]);
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching monthly production plans:', error);
-      });
-    setSelectedProductionPlan(record); // 선택된 생산 계획 상태 업데이트
   };
 
   const updateMonthlyProductionPlan = (key, value) => {
@@ -133,6 +84,36 @@ const ProductionPlan = () => {
       return plan;
     });
     setMonthlyProductionPlans(updatedPlans);
+  };
+
+  const onProductionPlanClick = (record) => {
+    axios.get(`/api/production-plan/${record.productionPlanId}`)
+      .then(res => {
+        const dataFromDB = res.data.map(plan => ({
+          ...plan,
+          key: `${record.productionPlanId}-${plan.month}`,
+          edit: false,
+        }));
+
+        if (record.edit) {
+          setMonthlyProductionPlans(dataFromDB);
+        } else {
+          const orderAmount = record.productAmount;
+          const { monthsAndDays, totalDays } = getMonthsAndDays(new Date(record.orderDate), new Date(record.dueDate));
+
+          const newPlans = Object.entries(monthsAndDays).map(([month, days]) => ({
+            month: month,
+            productionAmount: Math.ceil((days / totalDays) * orderAmount),
+            key: `${record.productionPlanId}-${month}`,
+            edit: true,
+          }));
+          setMonthlyProductionPlans(newPlans);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching monthly production plans:', error);
+      });
+    setSelectedProductionPlan(record); // 선택된 생산 계획 상태 업데이트
   };
 
   const getProductionPlanColumns = (productionPlans) => {
@@ -160,14 +141,13 @@ const ProductionPlan = () => {
         dataIndex: 'productionPlanAmount',
         render: (text, record) => {
           return record.edit ?
-            new Intl.NumberFormat('ko-KR').format(text) :
-            (<Input
+          new Intl.NumberFormat('ko-KR').format(text) : 
+          (<Input
               defaultValue={text}
               type="number"
               style={{ border: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
               onChange={e => updateProductionPlan(record.key, 'productionPlanAmount', e.target.value)}
             />)
-
         },
       },
       {
@@ -326,14 +306,12 @@ const ProductionPlan = () => {
               <h2 className='bordered-box-title'>월별 생산 계획</h2>
               <hr className='box-title-line' />
             </div>
-            <div className='.clickable-table tbody'>
-              <BasicTable
-                dataSource={monthlyProductionPlans}
-                defaultColumns={getMonthlyProductionPlanColumns()}
-                setDataSource={setMonthlyProductionPlans}
-                pagination={false}
-              />
-            </div>
+            <BasicTable
+              dataSource={monthlyProductionPlans}
+              defaultColumns={getMonthlyProductionPlanColumns()}
+              setDataSource={setMonthlyProductionPlans}
+              pagination={false}
+            />
             <div style={{ margin: '10px 0 0 0' }}>
               {!selectedProductionPlan.edit && <BtnBlue value={'저장'} onClick={onclick => handleSave()} />}
             </div>
