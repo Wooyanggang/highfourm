@@ -76,7 +76,7 @@ const SideBar = () => {
 
   const bottomMenu = [
     getItem(<a href="/users">사용자 관리</a>, '11', <FontAwesomeIcon icon={faUserGroup} />),
-    getItem(<a href="/" onClick={onClickSubmit}>로그아웃</a>, '12', <FontAwesomeIcon icon={faRightFromBracket} />),
+    getItem(<a href="#" onClick={onClickSubmit}>로그아웃</a>, '12', <FontAwesomeIcon icon={faRightFromBracket} />),
   ];
 
 
