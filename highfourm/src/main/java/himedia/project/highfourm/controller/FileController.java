@@ -72,7 +72,7 @@ public class FileController {
 			fileInfo.setFilePath(filePath);
 			log.info("파일 설정됨");
 			
-			String pdfPath = "/app/uploads" + changedFileName;
+			String pdfPath = "/app/uploads/" + changedFileName;
 			log.info("pdfPath -> {}" , pdfPath);
 
 			Map<String, Object> orderInfo = fileService.extractTableFromPdf(pdfPath);
