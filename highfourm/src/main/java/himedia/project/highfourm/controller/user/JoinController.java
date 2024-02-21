@@ -38,28 +38,28 @@ public class JoinController {
 	}
 	
 	//회원가입 폼
-//    @GetMapping("/users/join/{empNo}")
-//    public String signUp(@PathVariable("empNo") Long empNo, Model model) throws Exception {
-//    	UserJoinFormDTO userJoinFormDTO = joinService.findByEmpNO(empNo);
-//    	model.addAttribute("userJoinFormDTO", userJoinFormDTO);
-//    	return "join";
-//    }
     @GetMapping("/users/join/{empNo}")
-    public String signUp(@PathVariable("empNo") Long empNo, @RequestParam("token") String token, Model model) throws Exception {
-    	try {
-    		EmailToken emailToken = emailService.findByToken(token);
-    		if (token.equals(emailToken.getId())) {
-    			UserJoinFormDTO userJoinFormDTO = joinService.findByEmpNO(empNo);
-    			model.addAttribute("userJoinFormDTO", userJoinFormDTO);
-    			return "join";
-    		}else {
-    			return"tokenError";
-    		}
-    	} catch (Exception e) {
-    		return "tokenError";
-    	}
-
+    public String signUp(@PathVariable("empNo") Long empNo, Model model) throws Exception {
+    	UserJoinFormDTO userJoinFormDTO = joinService.findByEmpNO(empNo);
+    	model.addAttribute("userJoinFormDTO", userJoinFormDTO);
+    	return "join";
     }
+//    @GetMapping("/users/join/{empNo}/{token}")
+//    public String signUp(@PathVariable("empNo") Long empNo, @PathVariable("token") String token, Model model) throws Exception {
+//    	try {
+//    		EmailToken emailToken = emailService.findByToken(token);
+//    		if (token.equals(emailToken.getId())) {
+//    			UserJoinFormDTO userJoinFormDTO = joinService.findByEmpNO(empNo);
+//    			model.addAttribute("userJoinFormDTO", userJoinFormDTO);
+//    			return "join";
+//    		}else {
+//    			return"tokenError";
+//    		}
+//    	} catch (Exception e) {
+//    		return "tokenError";
+//    	}
+//
+//    }
 	
 	//회원가입 처리
 	@PostMapping("/users/join/{empNo}")
