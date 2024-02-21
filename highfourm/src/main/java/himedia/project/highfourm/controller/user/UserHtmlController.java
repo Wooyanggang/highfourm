@@ -104,7 +104,7 @@ public class UserHtmlController {
 	public String viewConfirmEmail(@RequestParam(value = "token") String token, @RequestParam(value = "empNo") Long empNo) {
 		try {
 			emailService.confirmEmail(token);
-			return "redirect:/users/join/"+empNo.toString()+"?token="+token;
+			return "redirect:/users/join/"+empNo.toString();
 		} catch (Exception e) {
 			return "tokenError";
 		}
