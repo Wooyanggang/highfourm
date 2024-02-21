@@ -13,7 +13,7 @@ const OrderList = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [orders, setOrders] = useState([]);
-  const uploadUrl = 'http://13.125.172.114:9999/api/orders/new/upload';
+  const uploadUrl = 'http://43.201.16.255:9999/api/orders/new/upload';
   const searchParams = new URLSearchParams(location.search);
   const searchTypeParam = searchParams.get('searchType');
   const searchValueParam = searchParams.get('search');
