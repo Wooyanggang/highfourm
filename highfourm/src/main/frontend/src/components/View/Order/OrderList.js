@@ -4,10 +4,8 @@ import axios from 'axios';
 import PageTitle from '../../Common/PageTitle';
 import { BtnBlack, BtnFilter, SearchInput, SearchSelectBox } from '../../Common/Module';
 import BasicTable from '../../Common/Table/BasicTable';
-import { Document, Page, pdfjs } from 'react-pdf'; //PDF파일용. 삭제 x
 import { UploadOutlined, AudioOutlined } from '@ant-design/icons';
 import { useNavigate, useLocation, useParams } from 'react-router';
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const onSearch = (value, _e, info) => console.log(info?.source, value);
 
@@ -15,7 +13,7 @@ const OrderList = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [orders, setOrders] = useState([]);
-  const uploadUrl = 'http://43.201.16.255:9999/api/orders/new/upload';
+  const uploadUrl = 'http://13.125.172.114:9999/api/orders/new/upload';
   const searchParams = new URLSearchParams(location.search);
   const searchTypeParam = searchParams.get('searchType');
   const searchValueParam = searchParams.get('search');
