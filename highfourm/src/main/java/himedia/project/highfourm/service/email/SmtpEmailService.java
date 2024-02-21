@@ -38,7 +38,7 @@ public class SmtpEmailService {
 				+ "<h1> 하이포엠 사용자 회원가입 인증 이메일 </h1>"
 				+ "<br>"
 				+ "<p style='font-size:16px;'>아래 링크를 클릭하면 하이포엠 회원가입 화면으로 이동됩니다.</p>"
-				+ "<a href='http://13.125.172.114:9999/confirm-email?token=" + emailToken.getId()
+				+ "<a href='http://43.201.16.255:9999/confirm-email?token=" + emailToken.getId()
 				+"&empNo=" + emailToken.getUser().getEmpNo().toString() + "' style='font-size:large;'>인증 링크</a>"
 				+"</div>";
 		
