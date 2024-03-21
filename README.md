@@ -11,7 +11,7 @@
 ## 🔗 배포 주소
 http://43.201.16.255:9999/
 <br>
-ID: admin@highfourm.com 
+ID: admin
 <br>
 PW : 1111
 
