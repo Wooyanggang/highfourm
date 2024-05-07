@@ -37,13 +37,11 @@ PW : 1111
 
 ## 🛠 개발 환경
 
-![개발환경]
-
 * ### Front <br> 
 HTML5, JavaScript, CSS3, React 18.2.0 
 
 * ### Back <br>
-Windows11, Spring Boot , Java 17, Tomcat 8.5, MySQL 8.0.22, Thymeleaf, Lombok 1.18.30, hibernate-validator 6.0.23.Final, validation-api 2.0.1. Final
+Spring Boot , Java 17, Tomcat 8.5, MySQL 8.0.22, Thymeleaf, Lombok 1.18.30, hibernate-validator 6.0.23.Final, validation-api 2.0.1. Final
 
 <br>
 
